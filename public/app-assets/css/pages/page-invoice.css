@@ -1,0 +1,54 @@
+/* Invoice */
+@media screen and (max-width: 767px) {
+  .hp-invoice-table-desc {
+    min-width: 300px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .hp-invoice-table-th {
+    min-width: 70px;
+  }
+}
+
+.hp-invoice-card p {
+  margin: 0;
+  color: #636e72;
+  line-height: 21px;
+}
+.hp-invoice-card .ant-table-thead > tr > th {
+  color: #2d3436;
+  font-weight: 500;
+  font-size: 12;
+  line-height: 18px;
+  text-align: left;
+  background: none !important;
+  border-bottom: none;
+  padding: 0px;
+}
+.hp-invoice-card .ant-table-tbody > tr > td {
+  border-bottom: none;
+  padding: 16px 0px 0px;
+}
+.hp-invoice-card .ant-table-tbody > tr.ant-table-row:hover > td {
+  background: #ffffff;
+}
+
+@media print {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  .hp-sidebar,
+header,
+footer,
+.hp-print-none,
+.hp-exchange-card {
+    display: none;
+  }
+
+  .hp-invoice-card {
+    border-width: 1px !important;
+  }
+}

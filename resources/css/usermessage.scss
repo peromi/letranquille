@@ -1,0 +1,64 @@
+.usermessage{
+    display: flex;
+    padding-left: 21px;
+    align-items: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f4f4f4;
+    transition: all .4 ease;
+    cursor: pointer;
+    &:hover{
+        background:#FFF1F4;
+        transition: all .4 ease;
+    }
+    .online_user{
+        position: relative;
+        margin-right: 12px;
+        img{
+            width: 45px;
+            height: 45px;
+            border-radius: 30px;
+
+        }
+    }
+    .user_last_message{
+        width: 100%;
+        .user_name_{
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+    .user_chat_control{
+        display: flex;
+        gap: 8px;
+        padding-right: 21px;
+        div{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            small{
+                font-weight: bold;
+                font-size: 13px;
+            }
+            span{
+                width: 27px;
+                height: 27px;
+                border-radius: 20px;
+                background: #f4f4f4;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                padding: 8px;
+            }
+        }
+        button{
+            border: 0;
+            background:transparent;
+            font-size: 21px;
+        }
+    }
+}
+
+
+

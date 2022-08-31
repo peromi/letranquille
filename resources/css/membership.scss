@@ -1,0 +1,220 @@
+.container {
+  margin-top: 125px;
+  border-top-left-radius: 21px;
+  border-top-right-radius: 21px;
+  overflow: hidden;
+  margin-left: 45px;
+  margin-right: 45px;
+  background-color: white;
+
+
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(to right, #c62251, #830b2d);
+    color: white;
+    padding: 18px;
+    margin-bottom: 45px;
+  }
+
+  .progressbar {
+    margin-top: 12px;
+    margin-inline: 15%;
+    padding: 12px;
+    position: relative;
+    display: flex;
+
+    height: 150px;
+    .inner-progress {
+      background: #f4f4f4;
+      height: 14px;
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 32px;
+      margin-inline: 54px;
+
+    }
+    .progresscontainer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      ul {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        li {
+          display: flex;
+          flex-direction: column;
+          padding: 12px;
+          align-items: center;
+          width: 180px;
+          text-align: center;
+          height: 200px;
+          h2 {
+            background: rgb(136, 133, 133);
+            padding: 12px;
+            border-radius: 28px;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            color: white;
+          }
+          p {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    margin-top: 25px;
+    justify-content: space-evenly;
+    width: 100%;
+    height: fit-content;
+    flex-wrap: wrap;
+
+
+    .home__subscription {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 700px;
+      .free {
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        border-radius: 65px;
+        padding: 8px 24px;
+        font-size: 18px;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 44px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+      }
+
+      .home__free__container {
+        --bottom: radial-gradient(
+          calc(10px + 50px) at 50% -10px,
+          #0000 98%,
+          #000
+        );
+        -webkit-mask: var(--bottom);
+        mask: var(--bottom);
+        margin-top: 40px;
+        padding: 22px;
+        border-radius: 21px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 21px;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid black;
+        /* margin-top: 56px; */
+        position: relative;
+        background-color: white;
+        .price{
+            display: flex;
+            justify-content: space-between;
+        }
+        h1{
+
+            line-height: 30px;
+            font-size: 28px;
+            margin-top: 45px;
+        }
+        .home__free__title{
+           display: flex;
+           justify-content: center;
+
+           align-items: center;
+           margin-bottom: 24px;
+
+
+           h1{
+            text-transform: uppercase;
+            font-size: 65px;
+           }
+
+
+
+        }
+        .divider{
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,0));
+            align-self: center;
+            margin-bottom: 23px;
+            margin-top: 12px;
+        }
+        p{
+            text-align: center;
+            font-weight: bold;
+        }
+        small{
+            text-align: center;
+        }
+        ul li{
+            list-style: circle;
+            margin-left: 44px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        button{
+            cursor: pointer;
+            background-color: #000;
+            color: white;
+            padding: 18px;
+            border-radius: 45px;
+            text-align: center;
+            margin-top: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap:34px;
+            border: 0;
+            transition: all 0.8s ease;
+            i{
+                font-size: 16px;
+                padding-top: 5px;
+
+            }
+            &:hover{
+                opacity: 0.4;
+                transition: all 0.8s ease;
+            }
+        }
+      }
+    }
+  }
+
+  table{
+
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 45px;
+    thead{
+        background-color: #f4f4f4;
+        tr{border-bottom: 1px solid black;}
+    }
+    th{
+        text-align: left;
+    }
+    td{
+        padding: 8px;
+    }
+
+    tr{
+        height: 48px;
+
+    }
+  }
+}

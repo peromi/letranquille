@@ -1,0 +1,126 @@
+.messaging_panel{
+    display: grid;
+    grid-template-columns: 35% 65%;
+    width: '100%';
+    .user_messaging{
+        width: '100%';
+
+        border-right: 1px solid #f4f4f4;
+
+        padding-bottom: 12px;
+        padding-top: 12px;
+        .user_profile_navigation{
+
+            border-bottom: 1px solid #f4f4f4;
+            display: grid;
+            width: '100%';
+
+            align-items: center;
+
+            grid-template-columns: 20% 80%;
+            padding-bottom: 12px;
+            padding-left: 21px;
+            padding-right: 21px;
+            .user_left{
+                display: flex;
+                align-items: center;
+                gap:4px;
+                img{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 40px;
+                }
+                button{
+                    border: 0;
+                    background:transparent;
+                    font-size: 21px;
+                }
+            }
+            .search_message_user{
+                background-color: #f4f4f4;
+                height: 100%;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                padding: 12px;
+                font-size: 16px;
+                input{
+                    width: 96%;
+                    border: 0;
+                    background-color: transparent;
+                    font-size: 18px;
+                    font-weight: bold;
+                    padding-left: 12px;
+                }
+                i{
+                    font-size: 23px;
+                    color: #2d2d2d;
+                    padding-right:8px;
+                }
+            }
+
+
+        }
+    }
+}
+
+
+.main_message_panel{
+    .main_message_navigation{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 21px;
+        padding-right: 21px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background:linear-gradient(to right, #C82453, #82082B);
+        color:white;
+        .main_avatar{
+            display: flex;
+            align-items: center;
+            gap: 21px;
+            img{
+                width:54px;
+                height: 54px;
+                border-radius: 34px;
+            }
+            .avatar_active{
+                p{
+                    font-weight: bold;
+                    font-size: 23px;
+                }
+            }
+        }
+        .main_option_menu{
+            display: flex;
+            align-items: center;
+            gap: 21px;
+
+            button{
+                border: 0;
+                background: transparent;
+                font-size: 23px;
+                cursor: pointer;
+                 color: white;
+                 img{
+                     fill: #f4f4f4;
+                 }
+
+            }
+            .hidden_search{
+                display: flex;
+                align-items: center;
+                background-color: transparent;
+                padding: 8px;
+                width: 100%;
+                border-radius: 12px;
+                input{
+                    border:0;
+                    padding: 8px;
+                    background-color: transparent;
+                    display: none;
+                }
+            }
+        }
+    }
+}

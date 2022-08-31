@@ -1,0 +1,47 @@
+@font-face {
+    font-family: "Dosis" ;
+    src: url("../fonts/Dosis-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Libel" ;
+    src: url("../fonts/libel.otf");
+}
+@font-face {
+    font-family: "FredokaOne" ;
+    src: url("../fonts/FredokaOne.ttf");
+}
+
+@font-face{
+    font-family: "Wavehaus";
+    src: url("../fonts/Wavehaus-128Bold.woff"); src: url("../fonts/Wavehaus-158ExtraBold.woff");
+    src: url("../fonts/Wavehaus-66Book.woff"); src: url("../fonts/Wavehaus-28Thin.woff");
+    src: url("../fonts/Wavehaus-95SemiBold.woff"); src: url("../fonts/Wavehaus-42Light.woff")
+}
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    outline: 0;
+    font-family: 'Dosis';
+}
+
+/* body::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+}
+body::-webkit-scrollbar-track{
+    background:gray ;
+}
+
+body::-webkit-scrollbar-thumb{
+    background-color: black;
+    border-radius: 12px;
+} */
+
+
+

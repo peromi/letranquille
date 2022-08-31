@@ -1,0 +1,81 @@
+// .button{
+//     display:'flex';
+//     font-weight:'bold';
+//     gap:6px;
+//      border:0;
+//     padding:12px;
+//     border-radius:6px;
+//     font-size:16px;
+//     align-items:'center';
+//     justify-content:'center';
+//      background:'#C62251';
+//       color:'white';
+//     transition: all .3 ease;
+//     cursor: pointer;
+//     &hover{
+//         opacity: 0.8;
+//     transition: all .3 ease;
+
+//     }
+// }
+
+.buttonHolder {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    gap: 12px;
+    margin-top: 21px;
+    .message {
+        display: flex;
+        gap: 12px;
+        color: white;
+        background-color: #c62251;
+        padding: 12px;
+        border-radius: 4px;
+    }
+
+    .trash {
+        width: 50px;
+        height: 50px;
+        border: 0;
+        background: "#f4f4f4";
+        font-size: 18px;
+        padding: 15px;
+        border-radius: 34px;
+        cursor: pointer;
+    }
+
+    .likedbtn {
+        display: flex;
+        border: 0;
+        gap: 5px;
+        background: transparent;
+        width: 100%;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        &hover {
+            color: #c62251;
+            background-color: grey;
+        }
+    }
+    .buttonProfile {
+        display: flex;
+        font-weight: bold;
+        gap: 6px;
+        border: 0;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 16px;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        color: "#C62251";
+        width: 100%;
+        cursor: pointer;
+        &hover {
+            color: #c62251;
+        }
+    }
+}

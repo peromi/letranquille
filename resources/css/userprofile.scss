@@ -1,0 +1,87 @@
+.personalities{
+
+    position: relative;
+    justify-content: center;
+    margin-bottom: 21px;
+    align-items: center;
+
+    .profile{
+        width: 280px;
+
+         align-items: center;
+        border-radius: 12px;
+        border: 1px solid #f4f4f4;
+        box-shadow: 0px 0px 4px #f4f4f4;
+
+        position: relative;
+
+        background: white;
+
+
+z-index: 30;
+hr{
+    background:#2d2d2d;
+}
+        &::before{
+            // content: '';
+            // width: 550px;
+            // height: 400px;
+            // position: absolute;
+            // background-color: white;
+            // border-radius: 12px;
+            // box-shadow: 0px 0px 23px rgba(0, 0, 0,0.3);
+            // left: -54px;
+            // top: 54px;
+            // bottom: 54px;
+            // z-index: 1;
+        }
+        .container{
+            position: relative;
+            width: "100%";
+            display: flex;
+            height: 280px;
+            margin: 14px;
+            flex-direction: column;
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 123;
+            .membership{
+                position: absolute;
+
+            }
+            // .profile_image{
+            //     width: '100%';
+            //     height: '100%';
+
+            // }
+            .profile_bottom_info{
+                position: absolute;
+                bottom: 0;
+                background:linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
+                color: white;
+                left: 0;
+                right: 0;
+
+                h2{
+
+                    padding-left: 15px;
+                    font-size: 18px;
+                }
+                .mile{
+                    display: flex;
+                    gap:12px;
+                    align-items: center;
+                    padding-left: 12px;
+                    margin-top: 5px;
+                    padding-bottom: 5px;
+                }
+                .matchrange{
+            background:  #C62251;
+            padding: 8px;
+            text-align: center;
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,90 @@
+.video_container{
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,0.3) ;
+    position: fixed;
+    z-index: 5000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap:12px;
+    .video_cams{
+        display: flex;
+        gap: 24px;
+        .caller{
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+        .receiver{
+            width: 100%;
+            height: 100%;
+            background-color: black;
+
+
+        }
+    }
+    .video_controllers{
+        gap: 43px;
+        display: flex;
+        margin-top: 34px;
+        align-items: center;
+        .end_call{
+            width: 80px;
+            height: 80px;
+            font-size: 34px;
+            padding: 12px;
+            border-radius: 45px;
+            background: red;
+            color: white;
+            cursor: pointer;
+            &:hover{
+                background-color: rgb(126, 3, 3);
+            }
+        }
+        .mute_call{
+            font-size: 18px;
+            background-color: grey;
+            width: 54px;
+            height: 54px;
+            padding: 12px;
+            border-radius: 19px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            &:hover{
+                background: white;
+                color: black;
+            }
+        }
+        .mute_cam{
+            font-size: 18px;
+            background-color: grey;
+            width: 54px;
+            height: 54px;
+            padding: 12px;
+            border-radius: 19px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            &:hover{
+                background: white;
+                color: black;
+            }
+        }
+        button{
+            background:transparent;
+            border: 0;
+
+        }
+    }
+}

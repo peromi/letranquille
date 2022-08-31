@@ -1,0 +1,159 @@
+.gift-container{
+    margin:90px;
+    margin:34px;
+    min-height:800px;
+    position: relative;
+}
+
+.search{
+    width:100%;
+
+    background-color: #f4f4f4;
+    margin-top: 21px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    position: relative;
+    i{
+        font-size: 21px;
+        font-weight: bold;
+        margin-left: 12px;
+        color: grey;
+    }
+    input{
+        flex:1;
+        height:100%;
+        border:0;
+        background-color: transparent;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+.search-results{
+    position:absolute;
+
+    left: 0;
+    right: 0;
+    width:100%;
+    top:  50px;
+
+    background-color: white;
+    box-shadow: 0px 0px 12px #f4f4f4;
+    z-index: 322;
+}
+.person{
+    width: 100%;
+    gap:6px;
+    cursor:'pointer';
+     display:'flex';
+     align-items:'center';
+      padding:4px;
+      transition: all .4 ease;
+      border-bottom: 1px solid #f4f4f4;
+}
+.person:hover{
+    background:#f4f4f4;
+    transition: all .4 ease;
+
+}
+
+.item-sub{
+    min-width:100vw ;
+    display:flex;
+    flex-wrap: wrap;
+    gap:23px;
+
+
+}
+.item-sub div{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:12px;
+    padding:24px;
+    border: 1px solid #f4f4f4;
+    border-radius: 24px;
+    margin-top: 18px;
+    hr{
+        width: 80px;
+        height: 6px;
+        border-radius: 23px;
+        background-color: #f4f4f4;
+        border: none;
+    }
+    span{
+        font-size: 21px;
+    }
+    ul{
+        flex:1;
+        gap:12px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 34px;
+
+    }
+    button{
+        border: none;
+        background-color: gray;
+        height: 48px;
+        width: 200px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        transition: all .6 ease;
+        margin-top: 34px;
+    }
+    button:hover{
+        transition: all .6 ease;
+        background-color: #990606;
+    }
+    h1{
+        color:#990606;
+        line-height: 28px;
+    }
+}
+
+
+.dialog{
+    position:fixed;
+    z-index: 901;
+    background:rgba(0,0,0,0.5);
+    top:0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dialog-content{
+    width: 60%;
+    height: 60%;
+    background-color: white;
+    overflow-y: scroll;
+    .dialog-nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        button{
+            border: none;
+            font-size: 20px;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all .6 ease;
+            &:hover{
+                color: #990606;
+                transition: all .6 ease;
+                cursor: pointer;
+                font-size: 28px;
+            }
+        }
+
+    }
+}
+
