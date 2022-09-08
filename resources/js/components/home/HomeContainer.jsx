@@ -4,8 +4,8 @@ import {Link, useNavigate} from 'react-router-dom'
 
 function HomeContainer({children}) {
   return (
-    <div>
-    <div className="flex justify-between  px-4 pb-2 pt-2 items-center bg-white">
+    <div className=' '>
+    <div className="flex justify-between px-4 md:pl-[160px] md:pr-[160px] pb-2 pt-2 items-center bg-white ">
         <div  className='w-[183px]'>
             <img src={data.longlogo} className="w-[120px]" />
 

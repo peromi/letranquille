@@ -55,25 +55,25 @@ function Membership(){
   }
 
   return (
-    <div className="w-10/12 mx-auto bg-white mt-[265px]">
-      <div className="titlebar">
+    <div className="w-full md:w-10/12 mx-auto bg-white mt-[265px]">
+      <div className="  mt-28 flex mb-4 bg-red-700 p-2 text-white items-center gap-x-2">
         <i className="fi fi-rr-crown"></i>
-        <h2>Premium Membership</h2>
+        <h2 className='font-bold md:text-4xl tracking-tighter'>Premium Membership</h2>
       </div>
-      {/* <div className="progressbar">
-        <div className="inner-progress">
-          <div
+
+
+          {/* <div
             style={{
               height: '100%',
               width: process * 33 + '%',
               background: '#830B2D',
             }}
-          ></div>
-        </div>
-        <div className="progresscontainer">
-          <ul>
-            <li>
-              <h2 style={{ background: process >= 0 ? '#830B2D' : '#2d2d2d' }}>
+          ></div> */}
+
+        <div className="">
+          <ul className='flex justify-around'>
+            <li className='flex flex-col items-center font-bold'>
+              <h2 className='font-bold w-[45px] h-[45px] text-white flex justify-center items-center  rounded-full' style={{ background: process >= 0 ? '#830B2D' : '#2d2d2d' }}>
                 1
               </h2>
               <p style={{ color: process >= 0 ? '#830B2D' : 'gray' }}>
@@ -83,24 +83,24 @@ function Membership(){
                 Membership Plan
               </p>
             </li>
-            <li>
-              <h2 style={{ background: process >= 1 ? '#830B2D' : '#2d2d2d' }}>
+            <li  className='flex flex-col items-center font-bold'>
+              <h2 className='w-[45px] h-[45px] text-white flex justify-center items-center  rounded-full' style={{ background: process >= 1 ? '#830B2D' : '#2d2d2d' }}>
                 2
               </h2>
               <p style={{ color: process >= 1 ? '#830B2D' : 'gray' }}>
                 Billing Information
               </p>
             </li>
-            <li>
-              <h2 style={{ background: process >= 2 ? '#830B2D' : '#2d2d2d' }}>
+            <li  className='flex flex-col items-center font-bold'>
+              <h2 className='w-[45px] h-[45px] text-white flex justify-center items-center  rounded-full' style={{ background: process >= 2 ? '#830B2D' : '#2d2d2d' }}>
                 3
               </h2>
               <p style={{ color: process >= 2 ? '#830B2D' : 'gray' }}>
                 Payment Method
               </p>
             </li>
-            <li>
-              <h2 style={{ background: process >= 3 ? '#830B2D' : '#2d2d2d' }}>
+            <li  className='flex flex-col items-center font-bold'>
+              <h2 className='w-[45px] h-[45px] text-white flex justify-center items-center  rounded-full' style={{ background: process >= 3 ? '#830B2D' : '#2d2d2d' }}>
                 4
               </h2>
               <p style={{ color: process >= 3 ? '#830B2D' : 'gray' }}>
@@ -109,7 +109,7 @@ function Membership(){
             </li>
           </ul>
         </div>
-      </div> */}
+
 
       {process == 0 && (
         <>
@@ -485,7 +485,7 @@ function Membership(){
     </div>
 
 
-          <table>
+          {/* <table>
             <thead>
               <tr>
                 <th>
@@ -546,7 +546,7 @@ function Membership(){
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
         </>
       )}
 

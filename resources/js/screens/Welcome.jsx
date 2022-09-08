@@ -24,7 +24,7 @@ function Welcome() {
     return (
         <div>
             <div className="relative">
-                <div className="flex justify-between bg-red-800 h-[48px] fixed items-center right-0 left-0 px-3" style={{ zIndex:9999999 }}>
+                <div className="flex justify-between bg-red-800 h-[48px] fixed items-center right-0 left-0 px-3 " style={{ zIndex:9999999 }}>
                     <div className='w-[120px]'>
                        <img src={data.longlogo} style={{ filter:'brightness(0) invert(1)' }} />
                     </div>

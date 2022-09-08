@@ -748,6 +748,21 @@ video {
 .mt-\[265px\] {
   margin-top: 265px;
 }
+.mt-96 {
+  margin-top: 24rem;
+}
+.mt-56 {
+  margin-top: 14rem;
+}
+.mt-36 {
+  margin-top: 9rem;
+}
+.mt-28 {
+  margin-top: 7rem;
+}
+.-mt-1 {
+  margin-top: -0.25rem;
+}
 .block {
   display: block;
 }
@@ -796,6 +811,12 @@ video {
 .h-\[4px\] {
   height: 4px;
 }
+.h-2 {
+  height: 0.5rem;
+}
+.h-\[24px\] {
+  height: 24px;
+}
 .w-\[300px\] {
   width: 300px;
 }
@@ -840,6 +861,12 @@ video {
 }
 .w-10\/12 {
   width: 83.333333%;
+}
+.w-screen {
+  width: 100vw;
+}
+.w-\[65px\] {
+  width: 65px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -999,6 +1026,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(254 240 138 / var(--tw-bg-opacity));
 }
+.bg-red-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
 .p-1 {
   padding: 0.25rem;
 }
@@ -1104,6 +1135,18 @@ video {
   padding-left: 64px;
   padding-right: 64px;
 }
+.px-\[20\%\] {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.px-\[10\%\] {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
 .pr-2 {
   padding-right: 0.5rem;
 }
@@ -1154,6 +1197,21 @@ video {
 }
 .pb-4 {
   padding-bottom: 1rem;
+}
+.pl-12 {
+  padding-left: 3rem;
+}
+.pl-\[120px\] {
+  padding-left: 120px;
+}
+.pr-\[120px\] {
+  padding-right: 120px;
+}
+.pl-\[160px\] {
+  padding-left: 160px;
+}
+.pr-\[160px\] {
+  padding-right: 160px;
 }
 .text-center {
   text-align: center;
@@ -1211,6 +1269,9 @@ video {
 }
 .capitalize {
   text-transform: capitalize;
+}
+.tracking-tighter {
+  letter-spacing: -0.05em;
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -1416,13 +1477,49 @@ video {
     padding-right: 150px;
   }
 
+  .md\:px-\[15\%\] {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .md\:px-\[20\%\] {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+
+  .md\:px-\[65px\] {
+    padding-left: 65px;
+    padding-right: 65px;
+  }
+
   .md\:pt-\[45px\] {
     padding-top: 45px;
+  }
+
+  .md\:pl-\[160px\] {
+    padding-left: 160px;
+  }
+
+  .md\:pr-\[160px\] {
+    padding-right: 160px;
+  }
+
+  .md\:pr-\[120px\] {
+    padding-right: 120px;
+  }
+
+  .md\:pl-\[120px\] {
+    padding-left: 120px;
   }
 
   .md\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 
   .md\:font-bold {
