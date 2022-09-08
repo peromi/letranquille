@@ -294,7 +294,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full   font-bold">
+            <button onClick={() => {
+                    setProcess(1)
+                    setType('silver')
+                    setAmount(90)
+                    setCredit(3000)
+                    setDuration(7)
+                  }} className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full   font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
@@ -315,7 +321,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full  font-bold">
+            <button  onClick={() => {
+                    setProcess(1)
+                    setType('silver')
+                    setAmount(100)
+                    setCredit(3000)
+                    setDuration(30)
+                  }} className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full  font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
@@ -336,7 +348,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full font-bold">
+            <button  onClick={() => {
+                    setProcess(1)
+                    setType('silver')
+                    setAmount(190)
+                    setCredit(3000)
+                    setDuration(365)
+                  }} className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
@@ -365,7 +383,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full  font-bold">
+            <button  onClick={() => {
+                    setProcess(1)
+                    setType('gold')
+                    setAmount(90)
+                    setCredit(3000)
+                    setDuration(7)
+                  }} className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full  font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
@@ -386,7 +410,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold">
+            <button onClick={() => {
+                    setProcess(1)
+                    setType('gold')
+                    setAmount(120)
+                    setCredit(3000)
+                    setDuration(180)
+                  }} className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
@@ -407,7 +437,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 w-full hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold">
+            <button onClick={() => {
+                    setProcess(1)
+                    setType('gold')
+                    setAmount(190)
+                    setCredit(3000)
+                    setDuration(365)
+                  }} className="mt-2 w-full hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[8px] mt-[10px] font-bold'></i>
             </button>
@@ -423,8 +459,8 @@ function Membership(){
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
-                <span>/yr</span>
+                <h1 className='text-3xl font-bold'>120</h1>
+                <span>1/wk</span>
             </div>
             <p>*VAT & local taxes may apply</p>
             <div className='w-[24px] h-[3px] bg-slate-300 rounded-full mb-3' />
@@ -434,7 +470,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 flex justify-center items-center text-center bg-purple-800 px-[34px] p-[6px] rounded-full text-white font-bold">
+            <button onClick={() => {
+                    setProcess(1)
+                    setType('platinum')
+                    setAmount(120)
+                    setCredit(3000)
+                    setDuration(7)
+                  }} className="mt-2 hover:bg-red-600 flex justify-center items-center text-center bg-purple-800 px-[34px] p-[6px] rounded-full text-white font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
@@ -444,8 +486,8 @@ function Membership(){
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
-                <span>/yr</span>
+                <h1 className='text-3xl font-bold'>150</h1>
+                <span>/6mo</span>
             </div>
             <p>*VAT & local taxes may apply</p>
             <div className='w-[24px] h-[3px] bg-slate-300 rounded-full mb-3' />
@@ -455,7 +497,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 flex justify-center items-center text-center bg-purple-800 px-[34px] p-[6px] rounded-full text-white font-bold">
+            <button onClick={() => {
+                    setProcess(1)
+                    setType('platinum')
+                    setAmount(150)
+                    setCredit(3000)
+                    setDuration(180)
+                  }}  className="mt-2 hover:bg-red-600 flex justify-center items-center text-center bg-purple-800 px-[34px] p-[6px] rounded-full text-white font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
@@ -465,7 +513,7 @@ function Membership(){
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
+                <h1 className='text-3xl font-bold'>300</h1>
                 <span>/yr</span>
             </div>
             <p>*VAT & local taxes may apply</p>
@@ -476,7 +524,13 @@ function Membership(){
                 <li>Profile Always on top</li>
                 <li>Better Match Making</li>
             </ul>
-            <button className="mt-2 hover:bg-red-600 flex justify-center items-center text-center bg-purple-800 px-[34px] p-[6px] rounded-full text-white font-bold">
+            <button onClick={() => {
+                    setProcess(1)
+                    setType('platinum')
+                    setAmount(300)
+                    setCredit(3000)
+                    setDuration(365)
+                  }}  className="mt-2 hover:bg-red-600 flex justify-center items-center text-center bg-purple-800 px-[34px] p-[6px] rounded-full text-white font-bold">
                 <p>Choose Plan</p>
                 <i className='fi fi-rr-arrow-right text-[24px] ml-[12px] mt-[10px] font-bold'></i>
             </button>
