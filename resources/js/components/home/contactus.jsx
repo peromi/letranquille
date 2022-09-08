@@ -1,5 +1,6 @@
 import React from 'react'
 import HomeContainer from './HomeContainer'
+import {Link} from 'react-router-dom'
 
 
 function ContactUs() {
@@ -19,7 +20,7 @@ function ContactUs() {
 </p>
 
 <h1 className='text-[34px] my-2 font-bold'>Email</h1>
-<p>If you'd like to send us an email, please <a href='mailto:contact@le-tranquille.com'>Click here</a></p>
+<p>If you'd like to send us an email, please <Link to='/contact-form'>Click here</Link></p>
 
 
 

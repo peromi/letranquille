@@ -34,6 +34,7 @@ import StoryScreen from "./home/storyscreen";
 import MembershipScreen from "./home/membershipscreen";
 import AboutScreen from "./home/aboutscreen";
 import ContactUs from "./home/contactus"
+import ContactForm from "./home/contactform"
 import CommunityGuide from "./home/communityguide"
 import CookiePolicy from "./home/cookiepolicy"
 import DatingSafety from "./home/datingsafety"
@@ -96,6 +97,7 @@ function App() {
                     <Route path="/gift-to-friend" element={<Gift />} />
                     <Route path="/manage-subscription" element={<ManageSubscription />} />
                     <Route path="/contact-us" element={<ContactUs />} />
+                    <Route path="/contact-form" element={<ContactForm />} />
                     <Route path="/dating-safety" element={<DatingSafety />} />
                     <Route path="/community-guideline" element={<CommunityGuide />} />
                     <Route path="/cookie-policy" element={<CookiePolicy />} />
