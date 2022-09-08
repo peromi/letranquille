@@ -103,7 +103,7 @@ setProfileloc()
 
   return (
     <div>
-    <div className="hidden md:flex drop-shadow-xl justify-between h-[65px] bg-white items-center fixed top-0 left-0 right-0 px-3">
+    <div className="hidden   md:flex drop-shadow-xl justify-between h-[65px] bg-white items-center fixed top-0 left-12 right-12 px-3 z-50">
      <div className="flex w-[300px]">
          <img src={data.longlogo} className="w-[120px]" />
          { subscription == null &&  <Link to="/manage-subscription" className='flex w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
