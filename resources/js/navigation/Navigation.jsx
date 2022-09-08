@@ -162,10 +162,10 @@ setProfileloc()
           </li>
         </ul>
 
-      <div className="flex justify-end items-center w-[300px]  gap-x-5 font-bold relative">
-        <div className="flex relative">
-          <img src={`/storage/avatar/${profile.first_cover}`} />
-          <div className="capitalize">
+      <div className=" flex justify-end items-center w-[300px]  gap-x-5 font-bold relative">
+        <div className="flex relative bg-zinc-100  pr-2 p-1 rounded-full">
+          <img src={`/storage/avatar/${profile.first_cover}`} className="w-[45px] h-[45px] rounded-full mr-4" />
+          <div className="capitalize mr-6 flex-1">
             <p>{profile.name}</p>
             <span className="text-[12px]">
               {profileloc[0]} <a href="#" className='text-red-600'>Change</a>
@@ -177,6 +177,7 @@ setProfileloc()
               }else{
                   setShowmenu(true)
               }
+              className="ml-8"
           }}>
             {showmenu ? <i class="fi fi-br-angle-small-up"></i>:<i class="fi fi-br-angle-small-down"></i>}
           </button>
