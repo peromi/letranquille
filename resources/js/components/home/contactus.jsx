@@ -19,7 +19,7 @@ function ContactUs() {
     Chat with us between 8am and 5pm Central Time. <strong>Monday</strong> through <strong>Friday</strong>
 </p>
 
-<h1 className='text-[34px] my-2 font-bold'>Email</h1>
+<h1 className='text-[34px] my-2 font-bold text-red-800'>Email</h1>
 <p>If you'd like to send us an email, please <Link to='/contact-form'>Click here</Link></p>
 
 
