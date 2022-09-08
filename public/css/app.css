@@ -868,6 +868,9 @@ video {
 .w-\[65px\] {
   width: 65px;
 }
+.w-\[50\%\] {
+  width: 50%;
+}
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1439,6 +1442,10 @@ video {
 
   .md\:w-10\/12 {
     width: 83.333333%;
+  }
+
+  .md\:w-\[50\%\] {
+    width: 50%;
   }
 
   .md\:grid-cols-2 {

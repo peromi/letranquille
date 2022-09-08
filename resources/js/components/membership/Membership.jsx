@@ -11,7 +11,7 @@ const DATABASE_KEY = 'user-m9j234u94'
 const DBNAV = 'nav'
 const USERDB = 'dao'
 function Membership(){
-  const [process, setProcess] = React.useState(0)
+  const [process, setProcess] = React.useState(2)
   const [type, setType] = React.useState('')
   const [amount, setAmount] = React.useState(0)
   const [credit, setCredit] = React.useState(0)
@@ -113,166 +113,7 @@ function Membership(){
 
       {process == 0 && (
         <>
-          {/* <div className="content">
-            <div class="home__subscription">
-              <h1
-                class="free"
-                style={{
-                  border: '1px solid rgb(137, 18, 190)',
-                  color: 'rgb(137, 18, 190)',
-                }}
-              >
-                Platinum
-              </h1>
 
-              <div
-                class="home__free__container"
-                style={{ border: '1px solid rgb(137, 18, 190)' }}
-              >
-                <div className="price">
-                  <h1>
-                    Annual
-                    <br />
-                    Subscription
-                  </h1>
-                  <i className="fi fi-rr-crown"></i>
-                </div>
-                <div class="home__free__title">
-                  <small>$</small>
-                  <h1>190</h1>
-                  <p>/yr</p>
-                </div>
-
-                <p style={{ color: 'rgb(137, 18, 190)' }}>3000 Credits</p>
-                <small>*VAT & local taxes may apply</small>
-                <div class="divider"></div>
-                <ul>
-                  <li>Unlimited Messaging</li>
-                  <li>Unlimited Calling</li>
-                  <li>Profile Always on top</li>
-                  <li>Better Match Making</li>
-                </ul>
-                <button
-                  onClick={() => {
-                    setProcess(1)
-                    setType('platinum')
-                    setAmount(190)
-                    setCredit(3000)
-                    setDuration(365)
-                  }}
-                  style={{
-                    background:
-                      'linear-gradient(to right, rgb(185, 34, 198), rgb(137, 18, 190))',
-                  }}
-                >
-                  <p>Choose Plan</p>
-                  <i className="fi fi-rr-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-            <div class="home__subscription">
-              <h1
-                class="free"
-                style={{
-                  border: '1px solid rgb(196, 133, 31)',
-                  color: 'rgb(196, 133, 31)',
-                }}
-              >
-                Gold
-              </h1>
-
-              <div
-                class="home__free__container"
-                style={{ border: '1px solid rgb(196, 133, 31)' }}
-              >
-                <div className="price">
-                  <h1>
-                    Half Year
-                    <br />
-                    Subscription
-                  </h1>
-                  <img src={data.goldcrown} />
-                </div>
-                <div class="home__free__title">
-                  <small>$</small>
-                  <h1>80</h1>
-                  <div>
-                    <p>/6mo</p>
-                  </div>
-                </div>
-
-                <p style={{ color: 'rgb(196, 133, 31)' }}>1000 Credits</p>
-                <small>*VAT & local taxes may apply</small>
-                <div class="divider"></div>
-                <ul>
-                  <li>Unlimited Messaging</li>
-                  <li>Unlimited Calling</li>
-                  <li>Profile Always on top</li>
-                  <li>Better Match Making</li>
-                </ul>
-                <button
-                  onClick={() => {
-                    setProcess(1)
-                    setType('gold')
-                    setAmount(80)
-                    setCredit(1000)
-                    setDuration(180)
-                  }}
-                  style={{
-                    background:
-                      'linear-gradient(to right, rgb(241, 178, 74), rgb(196, 133, 31))',
-                  }}
-                >
-                  <p>Choose Plan</p>
-                  <i className="fi fi-rr-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-            <div class="home__subscription">
-              <h1 class="free">Silver</h1>
-
-              <div class="home__free__container">
-                <div className="price">
-                  <h1>
-                    Monthly
-                    <br />
-                    Subscription
-                  </h1>
-                  <img src={data.silvercrown} />
-                </div>
-                <div class="home__free__title">
-                  <small>$</small>
-                  <h1>25</h1>
-                  <div>
-                    <p>/mo</p>
-                  </div>
-                </div>
-
-                <p style={{ color: 'gray' }}>100 Credits</p>
-                <small>*VAT & local taxes may apply</small>
-                <div class="divider"></div>
-                <ul>
-                  <li>Unlimited Messaging</li>
-                  <li>Unlimited Calling</li>
-                  <li>Profile Always on top</li>
-                  <li>Better Match Making</li>
-                </ul>
-                <button
-                  onClick={() => {
-                    setProcess(1)
-                    setType('silver')
-                    setAmount(25)
-                    setCredit(100)
-                    setDuration(30)
-                  }}
-                  style={{ background: 'rgb(227,227,227)', color: 'black' }}
-                >
-                  <p>Choose Plan</p>
-                  <i className="fi fi-rr-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-          </div> */}
 
 
 {/* Silver package */}
@@ -606,13 +447,13 @@ function Membership(){
 
       {process >= 1&& process < 3 && (
         <>
-          <div className="content">
-            <div style={{ display: 'flex', width: '100%', marginInline: 34, marginBottom:34 }}>
-              {process == 1 && <div style={{ width: '55%' }}>
+          <div className="px-4 py-4">
+            <div className='flex flex-col md:flex-row justify-between'>
+              {process == 1 && <div className='flex flex-col w-full md:w-[50%]'>
                 <TextField
                   id="outlined-basic"
                   label="Enter Your Name"
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12, }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -632,7 +473,7 @@ function Membership(){
                 <TextField
                   id="outlined-basic"
                   label="Email"
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12,  }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -654,7 +495,7 @@ function Membership(){
                   label="Enter Your Addess"
                   multiline
                   rows={3}
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12, }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -674,7 +515,7 @@ function Membership(){
                 <TextField
                   id="outlined-basic"
                   label="Country"
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12,  }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -695,7 +536,7 @@ function Membership(){
                 <TextField
                   id="outlined-basic"
                   label="State/Province/Region"
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12,   }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -716,7 +557,7 @@ function Membership(){
                 <TextField
                   id="outlined-basic"
                   label="City"
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12,  }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -736,7 +577,7 @@ function Membership(){
                 <TextField
                   id="outlined-basic"
                   label="Zip/Postal Code"
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12,   }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -754,7 +595,7 @@ function Membership(){
                   onChange={(e) => setZip(e.target.value)}
                 />
               </div>}
-              {process == 2 && <div style={{ width: '55%' }}>
+              {process == 2 && <div className='md:w-[50%]'>
 
               <RadioGroup   name="card" value={payoption} onChange={(e)=>{
                 setPayoption(e.target.value)
@@ -855,7 +696,7 @@ function Membership(){
                 disabled={payoption == "card payment" ? false:true}
                   id="outlined-basic"
                   label="Zip/Postal Code"
-                  style={{ marginTop: 12, width: '100%' }}
+                  style={{ marginTop: 12,  }}
                   variant="outlined"
                   inputProps={{
                     style: {
@@ -889,7 +730,7 @@ function Membership(){
                 }}
               ></div>
               <div style={{ flex: 1 }}>
-                <h2>You are subscribing for:</h2>
+                <h2 className='font-bold text-2xl'>You are subscribing for:</h2>
                 <div style={{ display: 'flex', gap: 21, marginTop: 21, justifyContent:'center', alignItems:'center' }}>
                   <img src={data.logo} width={60} />
                   <div style={{ flex:1 }}>
@@ -987,7 +828,7 @@ function Membership(){
                 currency:'USD',
 
                  }}>
-            <PayPalButtons style={{ layout: "horizontal" }}
+            <PayPalButtons style={{ layout: "vertical" }}
             createOrder={(data, actions) => {
                 return actions.order.create({
                     purchase_units: [
