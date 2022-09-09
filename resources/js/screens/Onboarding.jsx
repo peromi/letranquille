@@ -24,6 +24,7 @@ import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import ls from 'localstorage-slim'
 import { SocketContext } from "../context/SocketContext";
+import {FiSearch} from 'react-icons/fi'
 
 const DATABASE_KEY = "user-m9j234u94";
 const REG_STEPS = "stepper";
@@ -4626,26 +4627,27 @@ handleFriendship()
                     </div>
                 </div>
 
-                <div className="autoplace">
-                    <i class="fa-solid fa-magnifying-glass search"></i>
-                    <input
-                        ref={autoCompleteRef}
-                        onChange={(event) => setQuery(event.target.value)}
-                        placeholder="Enter a City"
-                        value={query}
-                        style={{
-                            width: "100%",
-                        }}
-                    />
-                    <button
-                        onClick={() => {
-                            getCurrentLocation();
-                        }}
-                    >
-                        <i class="fa-solid fa-location-crosshairs"></i> Detect
-                        Location
-                    </button>
-                </div>
+                <div className="flex items-center ring-1 ring-slate-900/5 p-2">
+                                <FiSearch className='text-2xl font-bold' />
+                                <input
+                                className='flex-1'
+                                    ref={autoCompleteRef}
+                                    onChange={(event) =>
+                                        setQuery(event.target.value)
+                                    }
+                                    placeholder="Enter a City"
+                                    value={query}
+
+                                />
+                                <button
+                                    onClick={() => {
+                                        getCurrentLocation();
+                                    }}
+                                >
+                                    <i class="fa-solid fa-location-crosshairs"></i>{" "}
+                                    Detect Location
+                                </button>
+                            </div>
                 <p
                     style={{
                         marginTop: 24,
