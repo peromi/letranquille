@@ -145,18 +145,19 @@ function Matches() {
   return (
      <MainContainer select="matches">
 
-         <div style={{  marginTop:124, marginInline:'auto', width:'min(100% - 2rem, 90%)', background:'white',   }}>
+         <div className='md:w-10/12 mx-auto' style={{  marginTop:124,  background:'white',   }}>
     {/* TAB */}
-        <div className='tab_match'>
-            <ul>
-                <li className={ tab== 0?'active-tab':''} onClick={()=>setTab(0)}>
+    <div className='border-b-[1px]' style={{  marginTop:124,  background:'white',   }}>
+
+            <ul className='flex md:justify-start md:gap-x-12 md:pl-8 justify-around items-center h-[65px]'>
+                <li className={ tab== 0?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(0)}>
                     <p>My Matches <small>({profiles.length})</small></p>
                 </li>
-                <li className={tab==1?'active-tab':''} onClick={()=>setTab(1)}>
+                <li className={tab==1?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(1)}>
                 <img src={data.goldcrown} />
                     <p>Mutual Matches <small>({mutual.length})</small></p>
                 </li>
-                <li className={tab==2?'active-tab':''} onClick={()=>setTab(2)}>
+                <li className={tab==2?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(2)}>
                 <img src={data.goldcrown} />
                     <p>Reverse Matches <small>({reverse.length})</small></p>
                 </li>

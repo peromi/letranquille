@@ -24,7 +24,7 @@ function Activities() {
          <div className="md:w-10/12 mx-auto" style={{  marginTop:124,  background:'white', marginBottom:34, paddingBottom:24   }}>
     {/* TAB */}
         <div className='border-b-[1px] divide-red-800'>
-            <ul className="flex justify-around items-center h-[65px]">
+            <ul className="flex md:justify-start md:gap-x-12 md:pl-8 justify-around items-center h-[65px]">
                 <li className={tab==0?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(0)}>
                     {tab == 0 ?<i className="fi fi-sr-heart"></i>:<i className="fi fi-rr-heart"></i>}
                     <p className="md:text-xl text-sm">Liked Me</p>

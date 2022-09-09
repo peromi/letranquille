@@ -38,7 +38,7 @@ React.useEffect(()=>{
   return (
    <MainContainer select="explore">
 
-        <div style={{padding:35, marginTop:124, marginLeft:34, marginRight:34, background:'white',   }}>
+        <div className='md:w-10/12 mx-auto' style={{padding:35, marginTop:124,   background:'white',   }}>
             <div style={{ display:'flex', gap:12, marginBottom:23  }}>
                 <img src={data.group} />
                 <h2 style={{ color:'#C62251' }} className="font-bold">Explore ({explores.length})</h2>
