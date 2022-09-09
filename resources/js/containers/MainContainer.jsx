@@ -10,7 +10,10 @@ import Dashboard from '../dashboard/Dashboard';
 import Matches from '../screens/Matches'
 import { SocketContext } from '../context/SocketContext';
 
+
+
 import 'animate.css'
+import { Link } from 'react-router-dom';
 
 
 const DATABASE_KEY = "user-m9j234u94";
@@ -66,6 +69,34 @@ function MainContainer(props) {
          <ToastContainer   />
 
 
+         <div className='pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white mt-5'>
+        <p>Copy 2022. All rights reserved</p>
+
+        <div className='flex justify-center items-center gap-x-[34px]'>
+
+        <ul className='hidden md:flex md:gap-[12px] md:font-bold'>
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/story">Story</Link>
+            <Link to="/membership">Membership</Link>
+        </ul>
+        <ul className='flex gap-x-[12px] pr-6'>
+            <li>
+                <i className="fi fi-brands-instagram"></i>
+            </li>
+            <li>
+                <i className="fi fi-brands-facebook"></i>
+            </li>
+            <li>
+                <i className="fi fi-brands-twitter"></i>
+            </li>
+        </ul>
+        </div>
+     </div>
+
+     <div className="bg-white flex justify-center items-center p-5">
+     <div id="google_translate_element" className="p-2 ring-1 ring-slate-900/5 px-12 flex flex-col"></div>
+     </div>
     </div>
   )
 }

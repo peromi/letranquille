@@ -303,8 +303,8 @@ function Welcome() {
         </div>
      </div>
 
-     <div className="bg-white w-full p-4">
-     <div id="google_translate_element" className="ring-1 ring-slate-900/5 px-12 flex flex-row items-center justify-center"></div>
+     <div className="bg-white flex justify-center items-center p-5">
+     <div id="google_translate_element" className="p-2 ring-1 ring-slate-900/5 px-12 flex flex-col"></div>
      </div>
         </div>
     );

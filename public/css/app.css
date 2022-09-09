@@ -582,6 +582,12 @@ video {
 .right-12 {
   right: 3rem;
 }
+.right-4 {
+  right: 1rem;
+}
+.bottom-6 {
+  bottom: 1.5rem;
+}
 .z-30 {
   z-index: 30;
 }
@@ -842,6 +848,9 @@ video {
 }
 .h-\[54px\] {
   height: 54px;
+}
+.h-6 {
+  height: 1.5rem;
 }
 .w-\[300px\] {
   width: 300px;
