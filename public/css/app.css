@@ -554,6 +554,10 @@ video {
 .relative {
   position: relative;
 }
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
 .top-0 {
   top: 0px;
 }
@@ -836,6 +840,9 @@ video {
   height: -moz-max-content;
   height: max-content;
 }
+.h-\[54px\] {
+  height: 54px;
+}
 .w-\[300px\] {
   width: 300px;
 }
@@ -895,6 +902,9 @@ video {
 }
 .w-\[90px\] {
   width: 90px;
+}
+.w-60 {
+  width: 15rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1120,6 +1130,9 @@ video {
 }
 .p-24 {
   padding: 6rem;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .px-3 {
   padding-left: 0.75rem;

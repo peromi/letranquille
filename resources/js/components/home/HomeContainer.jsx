@@ -4,7 +4,7 @@ import {Link, useNavigate} from 'react-router-dom'
 
 function HomeContainer({children}) {
   return (
-    <div className=' '>
+    <div className='h-[100%]'>
     <div className="flex justify-between px-4 md:pl-[160px] md:pr-[160px] pb-2 pt-2 items-center bg-white ">
         <div  className='w-[183px]'>
             <img src={data.longlogo} className="w-[120px]" />
@@ -42,6 +42,7 @@ function HomeContainer({children}) {
         <p>Copyright &copy; 2022. All rights reserved</p>
 
         <div className='flex justify-center items-center gap-x-[34px]'>
+
         <ul className='hidden md:flex md:gap-[12px] md:font-bold'>
             <Link to="/community-guideline">Community Guideline</Link>
             <Link to="/dating-safety">Dating Safety</Link>
@@ -63,6 +64,7 @@ function HomeContainer({children}) {
         </ul>
         </div>
      </div>
+
     </div>
   )
 }

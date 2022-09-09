@@ -102,8 +102,8 @@ setProfileloc()
   }
 
   return (
-    <div>
-    <div className="hidden   md:flex drop-shadow-xl justify-between h-[65px] bg-white items-center fixed top-0 left-0 right-0 px-[10%] z-50">
+    <div className="h-full w-full">
+    <div className="hidden   md:flex drop-shadow-xl justify-between h-[65px] bg-white items-center sticky top-0 left-0 right-0 px-[10%] z-50">
      <div className="flex w-[300px]">
          <img src={data.longlogo} className="w-[120px]" />
          { subscription == null &&  <Link to="/manage-subscription" className='flex w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
@@ -194,8 +194,9 @@ setProfileloc()
             <Link className='flex gap-x-[12px] hover:text-red-600' to="/gift-to-friend"><i class="fi fi-rr-gift"></i> Gift To Friend</Link>
             <Link className='flex gap-x-[12px] hover:text-red-600' to="/settings"><i class="fi fi-rr-settings"></i> Settings</Link>
             <Link className='flex gap-x-[12px] hover:text-red-600' to="/help-and-support"><i class="fi  fi-rr-interrogation"></i> Help and Support</Link>
-            <Link className='flex gap-x-[12px] hover:text-red-600' to="#"><i class="fi fi-rr-text"></i> Language</Link>
+
             <Link className='flex gap-x-[12px] hover:text-red-600' to="#" onClick={handleLogout}><i class="fi  fi-rr-sign-out"></i> Sign Out</Link>
+
           </div>)}
           {/* end submenu */}
         </div>

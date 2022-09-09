@@ -282,6 +282,7 @@ function Welcome() {
         <p>Copy 2022. All rights reserved</p>
 
         <div className='flex justify-center items-center gap-x-[34px]'>
+
         <ul className='hidden md:flex md:gap-[12px] md:font-bold'>
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
@@ -300,6 +301,10 @@ function Welcome() {
             </li>
         </ul>
         </div>
+     </div>
+
+     <div className="bg-white w-full p-4">
+     <div id="google_translate_element" className="ring-1 ring-slate-900/5 px-12 flex flex-row items-center justify-center"></div>
      </div>
         </div>
     );
