@@ -1,13 +1,8 @@
 import React from 'react'
 import Navigation from '../navigation/Navigation';
-import { toast, ToastContainer } from 'react-toastify';
-import { UserContextProvider } from '../context/Usercontext';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { ToastContainer } from 'react-toastify';
 
 
-import Dashboard from '../dashboard/Dashboard';
-import Matches from '../screens/Matches'
 import { SocketContext } from '../context/SocketContext';
 
 
@@ -16,8 +11,6 @@ import 'animate.css'
 import { Link } from 'react-router-dom';
 
 
-const DATABASE_KEY = "user-m9j234u94";
-const USERDB = "dao";
 
 function MainContainer(props) {
     const {open, setOpen, handleClose} = React.useContext(SocketContext)
