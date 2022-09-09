@@ -152,7 +152,7 @@ const handleReligion = () => {
             });
     };
   return (
-    <div className="animate__animated animate__fadeIn" style={{position: 'fixed',zIndex:901,left:0, right:0, top:0, bottom:0,padding:45, display:'flex',justifyContent:'center', alignItems:'center', background:'rgba(0,0,0,0.4)' }}>
+    <div className="animate__animated animate__fadeIn md:p-[45px]" style={{position: 'fixed',zIndex:901,left:0, right:0, top:0, bottom:0, display:'flex',justifyContent:'center', alignItems:'center', background:'rgba(0,0,0,0.4)' }}>
                     <div className="animate__animated animate__slideInUp" style={{ background:'white', width:'100%', height:'100%', }}>
 
 
@@ -161,22 +161,22 @@ const handleReligion = () => {
                             <i onClick={handleclose} className='fi fi-rr-cross' style={{ cursor: 'pointer', padding:12, borderRadius:24, background:'#f4f4f4' }}></i>
                         </div>
         {/* Content */}
-                        <div style={{ display:'flex', width: '100%',}}>
-                            <div style={{ width:'20%', display:'flex', flexDirection:'column' }}>
+                        <div className='flex md:flex-row flex-col'>
+                            <div className='md:w-[20%] px-4  md:gap-y-5 md:px-0 w-[100%] flex md:flex-col flex-row justify-between md:justify-center md:items-center'>
                                 <button onClick={()=>{
                                     setTab('location')
-                                }} className={tab == "location"?'choiceBtnActive':'choiceBtn'}>Location</button>
+                                }} className={tab == "location"?'md:px-24 md:p-3 md:rounded-full md:items-center md:hover:text-white md:bg-red-800 md:text-white text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 md:rounded-full md:hover:bg-zinc-400 md:px-24 p-3 flex font-bold gap-x-3 h-max'}>Location</button>
                                 <button  onClick={()=>{
                                     setTab('seeking')
-                                }} className={tab == "seeking"?'choiceBtnActive':'choiceBtn'}>Seeking a</button>
+                                }} className={tab == "seeking"?'md:px-24 md:p-2 md:rounded-full md:items-center md:hover:text-white md:bg-red-800 md:text-white text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 md:rounded-full md:hover:bg-zinc-400 md:px-24 p-3 flex font-bold gap-x-3 h-max'}>Seeking</button>
                                 <button  onClick={()=>{
                                     setTab('age')
-                                }} className={tab == "age"?'choiceBtnActive':'choiceBtn'}>Age</button>
+                                }} className={tab == "age"?'md:px-24 md:p-3 md:rounded-full md:items-center md:hover:text-white md:bg-red-800 md:text-white text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 md:rounded-full md:hover:bg-zinc-400 md:px-24 p-3 flex font-bold gap-x-3 h-max'}>Age</button>
                                 <button  onClick={()=>{
                                     setTab('religion')
-                                }} className={tab == "religion"?'choiceBtnActive':'choiceBtn'}>Religion</button>
+                                }} className={tab == "religion"?'md:px-24 md:p-3 md:rounded-full md:items-center md:hover:text-white md:bg-red-800 md:text-white text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 md:rounded-full md:hover:bg-zinc-400 md:px-24 p-3 flex font-bold gap-x-3 h-max'}>Religion</button>
                             </div>
-                            <div style={{ width:'80%' }}>
+                            <div className='w-[100%] md:w-[80%]'>
                                 {/* content */}
 
 
