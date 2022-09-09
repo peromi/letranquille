@@ -133,7 +133,7 @@ function Welcome() {
                         <Link to="/register" className="font-bold bg-black text-center text-white px-[124px] pb-2 pt-2 hover:bg-red-600 mt-3 md:w-1/2 rounded-md">Join Now</Link>
                     </div>
 
-                    <div className="relative flex justify-center items-center p-4">
+                    <div className="relative flex p-6 md:p-0 justify-center items-center ">
                         <div className="mx-auto">
                             <img src={level1} alt="" />
                         </div>
@@ -183,8 +183,8 @@ function Welcome() {
                     </p>
                 </div>
 
-<div className="relative h-[368px]">
-<ul className="flex flex-wrap space-y-3 space-x-3  items-end justify-end absolute right-[-54px] bottom-0">
+<div className="relative md:h-[368px]   mt-4 md:mt-0">
+<ul className="flex flex-wrap space-y-3 space-x-3  items-end justify-end md:absolute right-[-54px] bottom-0">
     {['Gaming','Cooking', 'Fitness', 'Tv shows and Movies', 'Painting & Drawing', 'Hiking', 'Vegan', 'Dancing', 'Climbing', 'K-Pop', 'Road Trips', 'Volunteering',
 'Shopping', 'Food', 'Music', 'Photography', 'Comedy', 'Athlete', 'Sushi', 'Yoga', 'Hollywood', 'Marvel Movies', 'Netflix & Chill'].map((item, index)=>  <li key={index} className="ring-1 ring-red-600 rounded-full px-2 text-center pt-2 pb-2">{item}</li>)}
 
