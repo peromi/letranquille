@@ -3,9 +3,10 @@ import {data} from '../../constants'
 import {Link, useNavigate} from 'react-router-dom'
 
 function HomeContainer({children}) {
+    const [showmenu,setShowmenu] = React.useState(false)
   return (
     <div className='h-[100%]'>
-    <div className="flex justify-between px-4 md:pl-[160px] md:pr-[160px] pb-2 pt-2 items-center bg-white ">
+    <div className="fixed top-0 left-0 right-0 flex justify-between px-4 md:pl-[160px] md:pr-[160px] pb-2 pt-2 items-center bg-white ">
         <div  className='w-[183px]'>
             <img src={data.longlogo} className="w-[120px]" />
 
@@ -33,10 +34,29 @@ function HomeContainer({children}) {
                         <Link to="/register" className='hover:text-red-600'>Sign Up</Link>
                         <Link to="/login" className='hover:text-red-600'>Login</Link>
                     </div>
-                    <div className='md:hidden hover:text-red-600 mr-2'>
-                        <i className="fi fi-rr-menu-burger text-[34px] font-bold"></i>
-                    </div>
+                    <button onClick={()=>{
+                        setShowmenu(!showmenu)
+                    }} className="md:hidden hover:text-yellow-600 text-red-800">
+                    {showmenu == true?<i className="fi fi-rr-cross text-2xl text-red-800"></i>:<i className="fi fi-rr-menu-burger text-2xl text-red-800"></i>}
+                    </button>
+
      </div>
+     {showmenu && <div className="flex flex-col fixed md:hidden left-0 right-0 top-[50px] bg-white h-[100%] z-50">
+                    <div className="mt-[80px] flex flex-col justify-start items-center flex-1 ">
+                    <ul className=" flex flex-col items-center gap-y-3   text-2xl font-bold">
+                        <Link to="/">Home</Link>
+                        <Link to="/about">About</Link>
+                        <Link to="/story">Story</Link>
+                        <Link to="/membership">Membership</Link>
+                        <Link to="/contact-us">Contact Us</Link>
+                    </ul>
+                    <div className="w-[34px] h-[3px]  bg-black rounded-full my-6" />
+                    <ul className="flex flex-col items-center gap-y-3   text-2xl font-bold">
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Sign Up</Link>
+                    </ul>
+                    </div>
+                </div>}
         {children}
         <div className='pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white'>
         <p>Copyright &copy; 2022. All rights reserved</p>

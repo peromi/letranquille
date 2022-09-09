@@ -66,7 +66,7 @@ function Login() {
     }
     return (
 
-         <AuthContainer>
+         <AuthContainer >
              <Link to="/" style={{ fontSize:23, fontWeight: "bold" }}><i className="fi  fi-rr-angle-small-left
 "></i> Home</Link>
              <h1 className="text-3xl text-center font-bold">Welcome</h1>

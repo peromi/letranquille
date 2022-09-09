@@ -13,6 +13,7 @@ const REG_STEPS = "stepper";
 
 function Welcome() {
     const navigate = useNavigate();
+    const [showmenu,setShowmenu] = React.useState(false)
     let year = new Date().getFullYear();
     React.useEffect(()=>{
         const step = JSON.parse(localStorage.getItem(REG_STEPS));
@@ -51,10 +52,29 @@ function Welcome() {
                         <Link to="/register">Sign Up</Link>
                         <Link to="/login">Login</Link>
                     </div>
-                    <button className="md:hidden hover:text-yellow-600 text-white">
-                    <i className="fi fi-rr-menu-burger text-2xl text-white"></i>
+                    <button onClick={()=>{
+                        setShowmenu(!showmenu)
+                    }} className="md:hidden hover:text-yellow-600 text-white">
+                    {showmenu == true?<i className="fi fi-rr-cross text-2xl text-white"></i>:<i className="fi fi-rr-menu-burger text-2xl text-white"></i>}
                     </button>
                 </div>
+                {/* Mobile navigation */}
+                {showmenu && <div className="flex flex-col fixed md:hidden left-0 right-0 top-0 bg-red-800 h-[100%] z-50">
+                    <div className="mt-[80px] flex flex-col justify-start items-center flex-1 ">
+                    <ul className=" flex flex-col items-center gap-y-3 text-white text-2xl font-bold">
+                        <Link to="/">Home</Link>
+                        <Link to="/about">About</Link>
+                        <Link to="/story">Story</Link>
+                        <Link to="/membership">Membership</Link>
+                        <Link to="/contact-us">Contact Us</Link>
+                    </ul>
+                    <div className="w-[34px] h-[3px] bg-white rounded-full my-6" />
+                    <ul className="flex flex-col items-center gap-y-3 text-white text-2xl font-bold">
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Sign Up</Link>
+                    </ul>
+                    </div>
+                </div>}
                 <div class="pt-[80px] md:pt-[45px] bg-red-800 px-3 pb-3">
                     <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
                         <div class="text-white flex justify-around flex-col ">
@@ -279,7 +299,7 @@ function Welcome() {
 
 
             <div className='pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white'>
-        <p>Copy 2022. All rights reserved</p>
+        <p>&copy;2022. All rights reserved</p>
 
         <div className='flex justify-center items-center gap-x-[34px]'>
 
