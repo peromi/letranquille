@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ls from 'localstorage-slim'
+import {FiSearch} from 'react-icons/fi'
 
 
 
@@ -157,8 +158,8 @@ const handleReligion = () => {
 
 
                         <div style={{ display:'flex', justifyContent:'space-between', padding:18  }}>
-                            <h2>Filter</h2>
-                            <i onClick={handleclose} className='fi fi-rr-cross' style={{ cursor: 'pointer', padding:12, borderRadius:24, background:'#f4f4f4' }}></i>
+                            <h2 className='font-bold text-2xl text-red-800'>Filter</h2>
+                            <i onClick={handleclose} className='fi fi-rr-cross w-[45px] h-[45px] flex items-center justify-center bg-[#f4f4f4] hover:bg-red-800 hover:text-white' style={{ cursor: 'pointer',   borderRadius:24,  }}></i>
                         </div>
         {/* Content */}
                         <div className='flex md:flex-row flex-col'>
@@ -188,18 +189,17 @@ const handleReligion = () => {
                             onChange={handleChange}
                         >
 
-                            <div className="autoplace">
-                                <i class="fa-solid fa-magnifying-glass search"></i>
+                            <div className="flex items-center ring-1 ring-slate-900/5 p-2">
+                                <FiSearch className='text-2xl font-bold' />
                                 <input
+                                className='flex-1'
                                     ref={autoCompleteRef}
                                     onChange={(event) =>
                                         setQuery(event.target.value)
                                     }
                                     placeholder="Enter a City"
                                     value={query}
-                                    style={{
-                                        width: "100%",
-                                    }}
+
                                 />
                                 <button
                                     onClick={() => {
@@ -211,6 +211,7 @@ const handleReligion = () => {
                                 </button>
                             </div>
                             <FormControlLabel
+                            className='mt-2'
                                 value="distance based search"
                                 control={<Radio />}
                                 label="Distance Based Search"
@@ -428,6 +429,23 @@ const handleReligion = () => {
                             </li>
                         </ul>
 
+                        <Button
+                                variant="contained"
+                                style={{
+                                    marginTop: 12,
+                                    height: 48,
+                                    fontFamily: "Dosis",
+                                    fontWeight: "bold",
+                                }}
+                                color="primary"
+                                onClick={() => {
+                                    // setSteps("sex");
+                                    // setStepNumber(4);
+                                    // handleLocation();
+                                }}
+                            >
+                                Save
+                            </Button>
                         </div>}
 
                         {/* Age */}
@@ -841,8 +859,9 @@ setFil
                 <Button
                 disabled={religion.length>0?false:true}
                     variant="contained"
+                    className='w-[90px]'
                     style={{
-                        marginTop: 21,
+                        marginTop: 11,
                         height: 48,
                         fontFamily: "Dosis",
                         fontWeight: "bold",
