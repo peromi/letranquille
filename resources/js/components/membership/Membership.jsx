@@ -11,7 +11,7 @@ const DATABASE_KEY = 'user-m9j234u94'
 const DBNAV = 'nav'
 const USERDB = 'dao'
 function Membership(){
-  const [process, setProcess] = React.useState(2)
+  const [process, setProcess] = React.useState(0)
   const [type, setType] = React.useState('')
   const [amount, setAmount] = React.useState(0)
   const [credit, setCredit] = React.useState(0)
