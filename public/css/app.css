@@ -857,6 +857,12 @@ video {
 .w-\[90px\] {
   width: 90px;
 }
+.w-\[126px\] {
+  width: 126px;
+}
+.w-\[350px\] {
+  width: 350px;
+}
 .flex-1 {
   flex: 1 1 0%;
 }

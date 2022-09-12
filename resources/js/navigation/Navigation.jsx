@@ -104,11 +104,11 @@ setProfileloc()
   return (
     <div className="h-full w-full">
     <div className="hidden   md:flex drop-shadow-xl justify-between h-[65px] bg-white items-center sticky top-0 left-0 right-0 px-[10%] z-50">
-     <div className="flex w-[300px]">
+     <div className="flex w-[350px]">
          <img src={data.longlogo} className="w-[120px]" />
          { subscription == null &&  <Link to="/manage-subscription" className='flex w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
           <img src={data.crown} className="w-[20px]" />
-          <p>Upgrade to Premium</p>
+          <p className='text-sm'>Upgrade to Paid Membership</p>
         </Link>}
       </div>
 
@@ -162,7 +162,7 @@ setProfileloc()
           </li>
         </ul>
 
-      <div className=" flex justify-end items-center w-[300px]  gap-x-5 font-bold relative">
+      <div className=" flex justify-end items-center w-[350px]  gap-x-5 font-bold relative">
         <div className="flex relative bg-zinc-100  pr-2 p-1 rounded-full">
           <img src={`/storage/avatar/${profile.first_cover}`} className="w-[45px] h-[45px] rounded-full mr-4" />
           <div className="capitalize mr-6 flex-1">
@@ -185,7 +185,7 @@ setProfileloc()
           {showmenu && (<div className="absolute z-30 top-[57px] w-[250px] animate__animated animate__slideInDown flex flex-col gap-y-3 bg-white drop-shadow-2xl p-4 right-0">
            { subscription == null &&  <Link className=' mb-1 flex bg-red-600 p-2 rounded-full justify-center items-center text-white' to="/manage-subscription">
                 <img src={data.crown} className="w-[24px] mr-1" />
-                Upgrade to Premium
+               <p className='text-sm'>Upgrade to Paid Membership</p>
                 </Link>
             }
             <Link className='flex gap-x-[12px] hover:text-red-600' to="/profile"> <i class="fi fi-rr-user"></i> View My Profile</Link>
