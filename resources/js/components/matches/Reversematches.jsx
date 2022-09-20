@@ -28,12 +28,12 @@ function Reversematches({profiles, user, reload}) {
                     <h2 className="font-bold">Reverse Matches</h2>
                 </div>
                 <div>
-                <button onClick={()=>{
+                {/* <button onClick={()=>{
             setFilter(!filter)
         }} style={{background:'transparent', border:0, cursor:'pointer', display:'flex', justifyContent:'center', gap:21, alignItems:'center', fontSize:20, color:'#C62251', fontWeight:'bold' }}>
             <i class="fi fi-rr-settings-sliders" ></i>
             <p>Filter</p>
-            </button>
+            </button> */}
                 </div>
             </div>
             <p style={{ fontSize: 18, marginTop: 12, fontWeight: "bold" }}>
@@ -48,9 +48,9 @@ function Reversematches({profiles, user, reload}) {
 
     {/* Overlay Filter */}
 
-                {filter && <Filteroverlay handleclose={()=>{
+                {/* {filter && <Filteroverlay handleclose={()=>{
                     setFilter(!filter);
-                }} />}
+                }} />} */}
 
    </div>
     );

@@ -55,10 +55,10 @@ function Membership(){
   }
 
   return (
-    <div className="w-full md:w-10/12 mx-auto bg-white mt-[265px]">
-      <div className="  mt-28 flex mb-4 bg-red-700 p-2 text-white items-center gap-x-2">
-        <i className="fi fi-rr-crown"></i>
-        <h2 className='font-bold md:text-4xl tracking-tighter'>Premium Membership</h2>
+    <div className="w-full mx-auto bg-white">
+      <div className=" flex mb-4 bg-red-700 p-2 text-white items-center gap-x-2">
+
+        <h2 className='font-bold md:text-3xl tracking-tighter'>Membership Plan</h2>
       </div>
 
 

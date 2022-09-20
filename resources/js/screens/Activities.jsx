@@ -21,28 +21,28 @@ function Activities() {
   return (
      <MainContainer select="activity">
 
-         <div className="md:w-10/12 mx-auto" style={{  marginTop:124,  background:'white', marginBottom:34, paddingBottom:24   }}>
+         <div className="w-full mx-auto h-screen bg-white" >
     {/* TAB */}
-        <div className='border-b-[1px] divide-red-800'>
-            <ul className="flex md:justify-start md:gap-x-12 md:pl-8 justify-around items-center h-[65px]">
+        <div className='bg-zinc-100 '>
+            <ul className="flex md:justify-center md:gap-x-12 md:pl-8 justify-around items-center h-[45px]">
                 <li className={tab==0?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(0)}>
-                    {tab == 0 ?<i className="fi fi-sr-heart"></i>:<i className="fi fi-rr-heart"></i>}
-                    <p className="md:text-xl text-sm">Liked Me</p>
+                    {/* {tab == 0 ?<i className="fi fi-sr-heart"></i>:<i className="fi fi-rr-heart"></i>} */}
+                    <p className="md:text-lg text-sm">Liked Me</p>
                 </li>
                 <li className={tab==1?'text-red-800 font-bold flex gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(1)}>
                 {/* <img src={data.goldcrown} /> */}
-                {tab == 1 ?<i className="fi fi-sr-star"></i>:<i className="fi fi-rr-star"></i>}
-                    <p className="md:text-xl text-sm">Favorite</p>
+                {/* {tab == 1 ?<i className="fi fi-sr-star"></i>:<i className="fi fi-rr-star"></i>} */}
+                    <p className="md:text-lg text-sm">Favorite</p>
                 </li>
                 <li className={tab==2?'text-red-800 font-bold flex gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(2)}>
                 {/* <img src={data.goldcrown} /> */}
-                {tab == 2?<i className="fi fi-sr-eye"></i>:<i className="fi fi-rr-eye"></i>}
-                    <p className="md:text-xl text-sm">Profile View</p>
+                {/* {tab == 2?<i className="fi fi-sr-eye"></i>:<i className="fi fi-rr-eye"></i>} */}
+                    <p className="md:text-lg text-sm">Profile View</p>
                 </li>
                 <li className={tab==3?'text-red-800 font-bold flex gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(3)}>
                 {/* <img src={data.goldcrown} /> */}
-                {tab == 3?<i className="fi fi-sr-ban"></i>:<i className="fi fi-rr-ban"></i>}
-                    <p className="md:text-xl text-sm">Blocked List</p>
+                {/* {tab == 3?<i className="fi fi-sr-ban"></i>:<i className="fi fi-rr-ban"></i>} */}
+                    <p className="md:text-lg text-sm">Blocked List</p>
                 </li>
             </ul>
         </div>

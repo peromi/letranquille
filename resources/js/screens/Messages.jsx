@@ -123,7 +123,7 @@ console.log("cleared message")
   return (
     <MainContainer select="message">
 
-    <div style={{ marginTop:124, marginLeft:34, marginRight:34, background:'white', position:'relative'   }}>
+    <div className='bg-white'>
          <div className='messaging_panel'>
              {/* User Panel */}
              <div className='user_messaging'>

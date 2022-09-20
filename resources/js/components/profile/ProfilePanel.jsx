@@ -386,6 +386,7 @@ const handleHobby = () => {
     };
 
     React.useEffect(() => {
+        loadScript()
         loadProfile();
         loadUserProfile();
     }, [params]);
@@ -393,7 +394,7 @@ const handleHobby = () => {
     return (
         <MainContainer>
             <div
-                className="banner"
+                className="relative w-full h-[380px] flex items-end "
                 style={{
                     background:
                         profile.cover != null
@@ -403,10 +404,10 @@ const handleHobby = () => {
                     backgroundSize: "cover",
                 }}
             >
-                <div className="shadow"></div>
-                <div className="profileContent">
+
+                <div style={{background:'linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8))'}} className="overflow-hidden rounded-md relative flex md:flex-row flex-col  w-full px-20 pb-6 items-end">
                     <div
-                        className="avatar"
+                        className="md:w-[300px] w-[50%] drop-shadow-lg"
                         onMouseEnter={() => {
                             if (params.id === undefined) {
                                 setHover(true);
@@ -419,38 +420,34 @@ const handleHobby = () => {
                         }}
                         style={{}}
                     >
-                        <img
+                        <img className="rounded-lg md:w-[100%] md:h-[100%] w-[100%] "
                             src={`/storage/avatar/${profile.first_cover}`}
-                            style={{ width: "100%", height: "100%" }}
+
                         />
                         {hover && (
-                            <div className="avatar_opt animate animate-fade-in">
-                                <i className="fi fi-rr-camera"></i>
-                                <p>Change Cover Picture</p>
+                            <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col bg-slate-900/50 justify-center items-center animate animate-fade-in">
+                                <i className="fi fi-rr-camera text-4xl text-white"></i>
+                                <p className="font-bold text-white">Change Cover Picture</p>
                             </div>
                         )}
                     </div>
-                    <div className="profileDetail">
-                        <div className="detail">
-                            <div className="profileName">
-                                <h1 style={{ textTransform: "capitalize" }}>
+                    <div className="w-full mb-2" >
+                        <div className="flex md:flex-row flex-col md:justify-between">
+                            <div className="px-6">
+                                <h1 className="capitalize text-2xl font-bold text-white drop-shadow-lg">
                                     {profile.name}
                                 </h1>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        gap: 12,
-                                        fontSize: 21,
-                                    }}
+                                <div className="flex gap-3 text-md font-bold"
+
                                 >
-                                    <p>{profile.address}</p>{" "}
+                                    <p className="capitalize text-zinc-100">{profile.address}</p>{" "}
                                     {params.id === undefined && (
-                                        <a href="#">Change</a>
+                                        <button className="text-red-400">Change</button>
                                     )}
                                 </div>
                             </div>
                             {params.id === undefined && (
-                                <button
+                                <button className="flex flex-row gap-x-2 justify-center items-center px-12 rounded-full font-bold hover:bg-white bg-yellow-300"
                                     onClick={() => {
                                         setSetting("cover image");
                                     }}
@@ -460,7 +457,15 @@ const handleHobby = () => {
                                 </button>
                             )}
                         </div>
-                        {params.id !== undefined && <div className="progress" >
+
+                    </div>
+                </div>
+            </div>
+            <div className="  bg-white"
+
+            >
+                <div className="w-full" >
+                {params.id !== undefined && <div className="progress" >
                             <div style={{ display:'flex', justifyContent:'space-between', width:'100%', alignItems:'center' }}>
                                 <div>
                                 <Button variant="contained" color="primary" style={{ paddingLeft:35, paddingRight:35, borderRadius:45, paddingTop:10, paddingBottom:10, marginRight:13  }}><i className="fi fi-rr-heart" style={{ marginRight:12 }}></i> Send Like</Button>
@@ -521,20 +526,16 @@ const handleHobby = () => {
                             </div>
 
                          </div>}
-                        {params.id == undefined && <div className="progress">
-                            <div>
-                                <h1>60%</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                }}
+                        {params.id == undefined && <div className="flex gap-x-3 items-center bg-red-500 w-full p-3">
+
+                                <h1 className="text-6xl font-bold text-white">60%</h1>
+
+                            <div className="flex flex-col text-white"
+
                             >
-                                <p
+                                <p className="-mb-1"
                                     style={{
                                         fontWeight: "bold",
-                                        marginBottom: 12,
                                     }}
                                 >
                                     Profile Completeness
@@ -543,35 +544,14 @@ const handleHobby = () => {
                                 <small>to get your perfect matches</small>
                             </div>
                         </div>}
-                    </div>
                 </div>
-            </div>
-            <div
-                style={{
-                    marginTop: 0,
-                    marginLeft: 34,
-                    marginRight: 34,
-                    background: "white",
-                    marginBottom: 34,
-                    paddingBottom: 45,
-                }}
-            >
-                <div style={{ background: "#FFF1F5", height: 95 }}></div>
                 {/* Info */}
-                <div className="info_panel">
-                    <div className="info_left">
+                <div className="mt-6 flex flex-col md:flex-row w-full px-12 md:gap-x-12">
+                    <div className="w-full  ">
                         {/* Bio */}
-                        <div
-                            style={{
-                                display: "flex",
-                                borderTopWidth: 1,
-                                borderTopColor: "#cecece",
-                                width: "100%",
-                                paddingTop: 18,
-                                paddingBottom: 18,
-                            }}
+                        <div className="flex justify-between"
                         >
-                            <div style={{ width: "100%" }}>
+                            <div  >
                                 <h3>Bio</h3>
                                 <p style={styles.pink}>{profile.bio}</p>
                             </div>
@@ -601,8 +581,7 @@ const handleHobby = () => {
                         <div
                             style={{
                                 display: "flex",
-                                borderTopWidth: 1,
-                                borderTopColor: "#cecece",
+
                                 width: "100%",
                                 paddingTop: 18,
                                 paddingBottom: 18,
@@ -638,8 +617,8 @@ const handleHobby = () => {
                         <div
                             style={{
                                 display: "flex",
-                                borderTopWidth: 1,
-                                borderTopColor: "#cecece",
+
+
                                 width: "100%",
                                 paddingTop: 18,
                                 paddingBottom: 18,
@@ -677,8 +656,6 @@ const handleHobby = () => {
                         <div
                             style={{
                                 display: "flex",
-                                borderTopWidth: 1,
-                                borderTopColor: "#cecece",
                                 width: "100%",
                                 paddingTop: 18,
                                 paddingBottom: 18,
@@ -714,8 +691,6 @@ const handleHobby = () => {
                         <div
                             style={{
                                 display: "flex",
-                                borderTopWidth: 1,
-                                borderTopColor: "#cecece",
                                 width: "100%",
                                 paddingTop: 18,
                                 paddingBottom: 18,
@@ -759,8 +734,6 @@ const handleHobby = () => {
                         <div
                             style={{
                                 display: "flex",
-                                borderTopWidth: 1,
-                                borderTopColor: "#cecece",
                                 width: "100%",
                                 paddingTop: 18,
                                 paddingBottom: 18,
@@ -796,8 +769,6 @@ const handleHobby = () => {
                         <div
                             style={{
                                 display: "flex",
-                                borderTopWidth: 1,
-                                borderTopColor: "#cecece",
                                 width: "100%",
                                 paddingTop: 18,
                                 paddingBottom: 18,
@@ -832,23 +803,25 @@ const handleHobby = () => {
                                 </button>
                             )}
                         </div>
-                        <h3 style={{ marginTop: 34, marginBottom: 34 }}>
+                        <h3 className="font-bold text-2xl">
                             Photos Gallery
                         </h3>
-                        <div className="photos">
+                        <div className="flex flex-wrap w-full gap-4">
                             {gallery.map((photo) => (
                                 <div
                                     key={photo.id}
-                                    className="photo_item"
+                                    className="md:w-[30%] w-[45%] h-[180px] p-3"
                                     style={{
                                         background:
                                             "url(/storage/gallery/" +
                                             photo.cover +
                                             ")",
+
+                                            backgroundSize:'cover'
                                     }}
                                 >
                                     <i
-                                        className="fi fi-rr-trash"
+                                        className="fi fi-rr-trash ml-4 mt-4"
                                         onClick={() => {
                                             let token = ls.get(DATABASE_KEY, {
                                                 decrypt: true,
@@ -892,7 +865,7 @@ const handleHobby = () => {
                             ))}
 
                             <div
-                                className="photo_item_add"
+                                className="md:w-[30%] w-[45%] h-[180px] ring-1 ring-slate-900/5 flex flex-col justify-center items-center font-bold"
                                 style={{ breakInside: "avoid" }}
                                 onClick={() => {
                                     setSetting("gallery");
@@ -906,32 +879,31 @@ const handleHobby = () => {
                             </div>
                         </div>
                     </div>
-                    {/* Divider */}
-                    <div className="divider"></div>
-                    <div className="info_right">
-                        <h3>Preferences</h3>
-                        <div className="pref_items">
+
+                    <div className="w-full">
+                        <h3 className="text-2xl font-bold mb-2 mt-6">Preferences</h3>
+                        <div className="flex flex-wrap gap-6">
                             {drink.type === "drinker" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.drink} />
                                     <p>{drink.type}</p>
                                 </div>
                             )}
                             {drink.type === "occasional drinker" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.wine} />
                                     <p>{drink.type}</p>
                                 </div>
                             )}
 
                             {drink.type === "non drinker" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.nodrink} />
                                     <p>{drink.type}</p>
                                 </div>
                             )}
                             {drink.type === "doesn't matter" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <p>Drinking Habit</p>
                                     <p>{drink.type}</p>
                                 </div>
@@ -939,27 +911,27 @@ const handleHobby = () => {
 
                             {/* Food */}
                             {food.type === "vegetarian" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.foodie} />
                                     <p>{food.type}</p>
                                 </div>
                             )}
                             {food.type === "vegan" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.flower} />
                                     <p>{food.type}</p>
                                 </div>
                             )}
 
                             {food.type === "non vegetarian" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.chicken} />
                                     <p>{food.type}</p>
                                 </div>
                             )}
 
                             {food.type === "doesn't matter" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <p>Food Habit</p>
                                     <p>{food.type}</p>
                                 </div>
@@ -967,33 +939,33 @@ const handleHobby = () => {
 
                             {/* Body Type */}
                             {bodytype.type === "muscular" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.muscular} />
                                     <p>{bodytype.type}</p>
                                 </div>
                             )}
                             {bodytype.type === "curvy" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.curvy} />
                                     <p>{bodytype.type}</p>
                                 </div>
                             )}
 
                             {bodytype.type === "slim" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.slim} />
                                     <p>{bodytype.type}</p>
                                 </div>
                             )}
                             {bodytype.type === "average" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.average} />
                                     <p>{bodytype.type}</p>
                                 </div>
                             )}
 
                             {bodytype.type === "doesn't matter" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <p>Body Type</p>
                                     <p>{bodytype.type}</p>
                                 </div>
@@ -1001,26 +973,26 @@ const handleHobby = () => {
 
                             {/* relationship */}
                             {relationship.type === "long term" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.ring} />
                                     <p>{relationship.type}</p>
                                 </div>
                             )}
                             {relationship.type === "short term" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.flower} />
                                     <p>{relationship.type}</p>
                                 </div>
                             )}
 
                             {relationship.type === "hookups" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.friend} />
                                     <p>{relationship.type}</p>
                                 </div>
                             )}
                             {relationship.type === "new friends" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.average} />
                                     <p>{relationship.type}</p>
                                 </div>
@@ -1028,26 +1000,26 @@ const handleHobby = () => {
 
                             {/* smoking */}
                             {smoke.type === "smoker" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.smoke} />
                                     <p>{smoke.type}</p>
                                 </div>
                             )}
                             {smoke.type === "non smoker" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.nosmoke} />
                                     <p>{smoke.type}</p>
                                 </div>
                             )}
 
                             {smoke.type === "occasional smoker" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.smoke} />
                                     <p>{smoke.type}</p>
                                 </div>
                             )}
                             {smoke.type === "doesn't matter" && (
-                                <div className="pref_item">
+                                <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <p>Smoking Habit</p>
                                     <p>{smoke.type}</p>
                                 </div>

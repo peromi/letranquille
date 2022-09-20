@@ -6,6 +6,7 @@ import level1 from "../assets/images/level1.png";
 import level2 from "../assets/images/level2.png";
 import level3 from "../assets/images/level3.png";
 import logo from "../assets/images/logo.png";
+import chat from "../assets/images/chat.png";
 
 
 
@@ -168,9 +169,9 @@ function Welcome() {
                         </div>
                     </div>
                 </div>
-                <div class="mt-[220px] mb-[65px] md:grid md:grid-cols-2 px-4 flex flex-col-reverse">
+                <div class="mt-[220px] mb-[65px] md:grid md:grid-cols-2 px-4 flex flex-col items-center">
                     <div>
-                        <h1>Image</h1>
+                        <img src={chat} className="md:w-[400px]" />
                     </div>
                     <div className="flex flex-col">
                         <h1 className="text-4xl font-bold text-right">

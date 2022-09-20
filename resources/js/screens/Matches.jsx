@@ -145,11 +145,11 @@ function Matches() {
   return (
      <MainContainer select="matches">
 
-         <div className='md:w-10/12 mx-auto' style={{  marginTop:124,  background:'white',   }}>
+         <div className='mw-full mx-auto h-screen bg-white'  >
     {/* TAB */}
-    <div className='border-b-[1px]' style={{  marginTop:124,  background:'white',   }}>
+    <div className='bg-zinc-100'  >
 
-            <ul className='flex md:justify-start md:gap-x-12 md:pl-8 justify-around items-center h-[65px]'>
+            <ul className='flex md:justify-center md:gap-x-12 md:pl-8 justify-around items-center h-[45px]'>
                 <li className={ tab== 0?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(0)}>
                     <p>My Matches <small>({profiles.length})</small></p>
                 </li>

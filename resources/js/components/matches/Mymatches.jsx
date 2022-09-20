@@ -20,12 +20,12 @@ function Mymatches({profiles, user, reload}) {
         <h2 className="font-bold">Matches</h2>
         </div>
         <div>
-        <button onClick={() =>{
+        {/* <button onClick={() =>{
             setFilter(!filter)
         }} style={{background:'transparent', border:0, cursor:'pointer', display:'flex', justifyContent:'center', gap:21, alignItems:'center', fontSize:20, color:'#C62251', fontWeight:'bold' }}>
             <i class="fi fi-rr-settings-sliders" ></i>
             <p>Filter</p>
-            </button>
+            </button> */}
         </div>
     </div>
     <p style={{ fontSize:18, marginTop:12, fontWeight:'bold' }}>These are the People who have similar personalities</p>
@@ -39,9 +39,9 @@ function Mymatches({profiles, user, reload}) {
 
     {/* Overlay Filter */}
 
-                {filter && <Filteroverlay handleclose={()=>{
+                {/* {filter && <Filteroverlay handleclose={()=>{
                     setFilter(!filter);
-                }} />}
+                }} />} */}
 
    </div>
   )

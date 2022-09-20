@@ -19,6 +19,9 @@ const Navigation = ({ select }) => {
   const [showmenu, setShowmenu] = React.useState(false)
   const [profileloc, setProfileloc] = React.useState('')
 
+  const [navmenu, setNavmenu] = React.useState(false)
+  const [profilemenu, setProfilemenu] = React.useState(false)
+
 
   const loadProfile = React.useCallback(() => {
     let db = ls.get(USERDB, { decrypt: true })
@@ -103,12 +106,12 @@ setProfileloc()
 
   return (
     <div className="h-full w-full">
-    <div className="hidden   md:flex drop-shadow-xl justify-between h-[65px] bg-white items-center sticky top-0 left-0 right-0 px-[10%] z-50">
+    <div className="hidden drop-shadow-4xl z-40  md:flex justify-between h-[65px] bg-white items-center px-[5%]">
      <div className="flex w-[350px]">
          <img src={data.longlogo} className="w-[120px]" />
-         { subscription == null &&  <Link to="/manage-subscription" className='flex w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
+         { subscription == null &&  <Link to="/manage-subscription" className='flex gap-x-2 w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
           <img src={data.crown} className="w-[20px]" />
-          <p className='text-sm'>Upgrade to Paid Membership</p>
+          <p className='text-sm'>Upgrade Membership</p>
         </Link>}
       </div>
 
@@ -207,12 +210,43 @@ setProfileloc()
       </div>
     </div>
     {/* mobile */}
-    <div className='md:hidden z-30 flex drop-shadow-xl justify-between h-[65px] bg-white items-center fixed top-0 left-0 right-0 px-3'>
-    <i class="fi fi-rr-menu-burger text-2xl"></i>
+    <div className='md:hidden z-30 flex drop-shadow-xl justify-between h-[45px] bg-white items-centerpx-3'>
+
+        <button className='ml-4' onClick={()=>{
+           setNavmenu(!navmenu)
+        }}>
+        <i class={navmenu == true ?"fi fi-rr-cross text-2xl":"fi fi-rr-menu-burger text-2xl"}></i>
+        </button>
        <img src={data.longlogo} className="w-[120px]" />
-       <i class="fi fi-rr-bell text-2xl"></i>
+       {/* <i class="fi fi-rr-bell text-2xl"></i> */}
+       <img src={`/storage/avatar/${profile.first_cover}`} className="w-[40px] h-[40px] rounded-full mr-4" onClick={()=>{
+        setProfilemenu(!profilemenu)
+       }} />
     </div>
+
+    {navmenu && <div className='fixed right-0 left-0 top-[45px] bottom-0 bg-white z-50'>
+    <ul className=" flex flex-col items-center gap-y-3   text-xl font-bold pt-6">
+                        <Link to="/explore">Explore</Link>
+                        <Link to="/matches">Matches</Link>
+                        <Link to="/messages">Messages</Link>
+                        <Link to="/activities">Activities</Link>
+                        <Link to="/notification">Notification</Link>
+                    </ul>
+    </div>}
+    {profilemenu && <div className='fixed right-0 left-0 top-[45px] bottom-0 bg-white z-50'>
+    <ul className=" flex flex-col items-center gap-y-3   text-xl font-bold pt-6">
+    <Link className='flex gap-x-[12px] hover:text-red-600' to="/profile"> View My Profile</Link>
+            <Link className='flex gap-x-[12px] hover:text-red-600' to="/preference-settings">Update Match Preferences</Link>
+            <Link className='flex gap-x-[12px] hover:text-red-600' to="/manage-subscription"> Manage Subscription</Link>
+            <Link className='flex gap-x-[12px] hover:text-red-600' to="/gift-to-friend">Gift To Friend</Link>
+            <Link className='flex gap-x-[12px] hover:text-red-600' to="/settings"> Settings</Link>
+            <Link className='flex gap-x-[12px] hover:text-red-600' to="/help-and-support"> Help and Support</Link>
+
+            <Link className='flex gap-x-[12px] hover:text-red-600' to="#" onClick={handleLogout}>  Sign Out</Link>
+                    </ul>
+    </div>}
     </div>
+
 
   )
 }
