@@ -22,7 +22,12 @@
 </head>
 <body>
 
-    <div id="root"></div>
+    <div id="root">
+        <div class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
+            <img src="{{asset('/images/logo.png')}}" />
+            <h1 class="text-2xl">Welcome to Le-Tranquille.</h1>
+        </div>
+    </div>
 
 
     <script src="{{ asset('js/app.js') }}"></script>
