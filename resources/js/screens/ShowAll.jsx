@@ -12,6 +12,9 @@ import cities from '../assets/json/cities.json'
 import { country } from '../assets/json/country';
 import { state_names } from '../assets/json/states';
 
+// import cities from '../assets/json/cities.json'
+// import { country } from '../assets/json/country';
+// import { state_names } from '../assets/json/states';
 const DB = "user-m9j234u94"
 const USERDB = "dao"
 function ShowAll() {
