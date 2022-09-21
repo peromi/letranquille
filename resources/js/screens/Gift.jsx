@@ -85,9 +85,9 @@ function Gift() {
     }, []);
     return (
         <MainContainer>
-            <div className="container">
+            <div className="">
                 <div className="gift-container">
-                    <h1>Gift To Friend</h1>
+                    <h1 className="font-bold text-2xl">Gift To Friend</h1>
                     <div className="search">
                         <i className="fi fi-rr-search"></i>
                         <input

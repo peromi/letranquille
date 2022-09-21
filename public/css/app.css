@@ -641,9 +641,6 @@ video {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
-.ml-3 {
-  margin-left: 0.75rem;
-}
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -718,6 +715,9 @@ video {
 }
 .mt-8 {
   margin-top: 2rem;
+}
+.ml-3 {
+  margin-left: 0.75rem;
 }
 .mt-24 {
   margin-top: 6rem;
@@ -867,6 +867,9 @@ video {
 }
 .w-10\/12 {
   width: 83.333333%;
+}
+.w-screen {
+  width: 100vw;
 }
 .w-\[100\%\] {
   width: 100%;
@@ -1461,6 +1464,14 @@ video {
 
   .md\:absolute {
     position: absolute;
+  }
+
+  .md\:float-left {
+    float: left;
+  }
+
+  .md\:ml-3 {
+    margin-left: 0.75rem;
   }
 
   .md\:mt-0 {

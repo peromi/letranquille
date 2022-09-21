@@ -13,6 +13,7 @@ const SocketContext = createContext()
 // const socket = io("https://le-tranquille.herokuapp.com/")
 const socket = io("http://localhost:9000")
 const DB = "user-m9j234u94"
+const subscribe = "subscriptionDb"
 
 
 const ContextProvider = ({children}) =>{

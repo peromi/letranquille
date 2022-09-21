@@ -10,6 +10,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 const DATABASE_KEY = 'user-m9j234u94'
 const DBNAV = 'nav'
 const USERDB = 'dao'
+const subscribe = "subscriptionDb"
 function Membership(){
   const [process, setProcess] = React.useState(0)
   const [type, setType] = React.useState('')
@@ -48,6 +49,7 @@ function Membership(){
       }).then((response)=>{
           console.log(response.data)
         //   setnote(response.data.notice)
+        ls.set(subscribe, response.data.subscription, {encrypt:true})
         toast.success(response.data.message);
       }).catch((error)=>{
           console.log(error)

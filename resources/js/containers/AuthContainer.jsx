@@ -12,9 +12,9 @@ function AuthContainer(props) {
     <UserContextProvider>
         <div className='bg-primary bg-image' style={{ position:'relative', overflow:'hidden', width:'100%',  }}>
         {/* <img src={back} style={{ position:'fixed', zIndex:'1', top:0, bottom:0, right:0, left:0 }} /> */}
-      <div className=" d-flex justify-content-left align-items-center vw-100 vh-100" style={{ zIndex:23 }}>
-                <div className="float-left ml-3" style={{ zoom:'90%' }}>
-                    <div className="bg-white radius-24 login-form login-inner-form">
+      <div className="flex justify-center  items-center vw-100 vh-100" style={{ zIndex:23 }}>
+                <div className="p-4" style={{ zoom:'90%' }}>
+                    <div className="bg-white p-3 px-6 drop-shadow-4xl rounded-xl">
                         {props.children}
                     </div>
                 </div>

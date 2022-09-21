@@ -10,6 +10,7 @@ import { SocketContext } from '../context/SocketContext'
 const DATABASE_KEY = 'user-m9j234u94'
 const DBNAV = 'nav'
 const USERDB = 'dao'
+const subscribe = "subscriptionDb"
 const Navigation = ({ select }) => {
 
     const {addUser, subscription} = React.useContext(SocketContext)
@@ -18,9 +19,17 @@ const Navigation = ({ select }) => {
   const [profile, setProfile] = React.useState({})
   const [showmenu, setShowmenu] = React.useState(false)
   const [profileloc, setProfileloc] = React.useState('')
+  const [upgraded, setUpgraded] = React.useState(null)
 
   const [navmenu, setNavmenu] = React.useState(false)
   const [profilemenu, setProfilemenu] = React.useState(false)
+
+  const loadSubscriptions = ()=>{
+    let db = ls.get(subscribe, { decrypt: true});
+    if(db !== null){
+        setUpgraded(db)
+    }
+  }
 
 
   const loadProfile = React.useCallback(() => {
@@ -71,7 +80,12 @@ setProfileloc()
 
   React.useEffect(()=>{
     let id = setInterval(loadData,10000)
+    let db = ls.get(USERDB, {decrypt:true})
+    if(db == null){
 
+       window.location.href = "/"
+    }
+    loadSubscriptions()
     return ()=>{
         clearInterval(id)
     }
@@ -108,8 +122,8 @@ setProfileloc()
     <div className="h-full w-full">
     <div className="hidden drop-shadow-4xl z-40  md:flex justify-between h-[65px] bg-white items-center px-[5%]">
      <div className="flex w-[350px]">
-         <img src={data.longlogo} className="w-[120px]" />
-         { subscription == null &&  <Link to="/manage-subscription" className='flex gap-x-2 w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
+         <Link to="/show-all"><img src={data.longlogo} className="w-[120px]" /></Link>
+         {upgraded === null && <Link to="/manage-subscription" className='flex gap-x-2 w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
           <img src={data.crown} className="w-[20px]" />
           <p className='text-sm'>Upgrade Membership</p>
         </Link>}
@@ -186,7 +200,7 @@ setProfileloc()
           </button>
           {/* submenu */}
           {showmenu && (<div className="absolute z-30 top-[57px] w-[250px] animate__animated animate__slideInDown flex flex-col gap-y-3 bg-white drop-shadow-2xl p-4 right-0">
-           { subscription == null &&  <Link className=' mb-1 flex bg-red-600 p-2 rounded-full justify-center items-center text-white' to="/manage-subscription">
+           { upgraded === null &&  <Link className=' mb-1 flex bg-red-600 p-2 rounded-full justify-center items-center text-white' to="/manage-subscription">
                 <img src={data.crown} className="w-[24px] mr-1" />
                <p className='text-sm'>Upgrade to Paid Membership</p>
                 </Link>

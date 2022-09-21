@@ -29,8 +29,8 @@ function Notification() {
     },[])
   return (
     <MainContainer>
-         <div style={{padding:35, marginTop:124, marginLeft:34, marginRight:34, background:'white',   }}>
-            <div style={{ display:'flex', gap:12, marginBottom:23, justifyContent:'flex-start', alignItems:'center' }}>
+         <div className=" bg-white h-screen">
+            <div className='bg-zinc-100 px-12' style={{ display:'flex', gap:12,  justifyContent:'flex-start', alignItems:'center' }}>
                 <i className='fi fi-rr-bell-ring' style={{ fontSize:34, color:'#C62251' }}></i>
                 <h2 style={{ color:'#C62251' }}>Notification</h2>
 

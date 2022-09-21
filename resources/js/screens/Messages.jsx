@@ -126,7 +126,7 @@ console.log("cleared message")
     <div className='bg-white'>
          <div className='messaging_panel'>
              {/* User Panel */}
-             <div className='user_messaging'>
+             {/* <div className='user_messaging'>
                 <div className='user_profile_navigation'>
                     <div className='user_left'>
                         <img src={`/storage/avatar/${userdata.first_cover}`} alt={`${userdata.name}`} />
@@ -143,7 +143,7 @@ console.log("cleared message")
                 <div className='user_message_online'>
                  {messages.map((m,index)=> <UserMessage message={m} key={index} /> )}
                 </div>
-             </div>
+             </div> */}
              {/* Message Display */}
              <div className='main_message_panel'>
                 {receiverProfile != null ? (
@@ -156,7 +156,7 @@ console.log("cleared message")
                         <div className="avatar_active">
                             <p style={{ textTransform:'capitalize' }}>{receiverProfile.name}</p>
                             <small>
-                                Last online : 10.00am
+                                {/* Last online : 10.00am */}
                             </small>
                         </div>
                     </div>
@@ -167,13 +167,13 @@ console.log("cleared message")
                                     sendpeer({to:receiverProfile.id, peer:id})
                                 }}> <i className='fi fi-rr-search'></i></button>
                             </div>
-                            <button onClick={()=>{
+                            {/* <button onClick={()=>{
                                 if(videocall == true){
                                     setVideocall(false)
                                 }else{
                                     setVideocall(true)
                                 }
-                            }}>...</button>
+                            }}>...</button> */}
                             <button onClick={()=>{
                                 answerpeer()
                             }}><i className='fi fi-sr-menu-dots-vertical'></i></button>

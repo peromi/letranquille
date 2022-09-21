@@ -16,6 +16,7 @@ import { SocketContext } from '../context/SocketContext';
 
 const USERDB = 'dao'
 const DB = "user-m9j234u94"
+const subscribe = "subscriptionDb"
 function Matches() {
     const { setSubscription} = React.useContext(SocketContext)
     const navigate = useNavigate()
@@ -42,6 +43,7 @@ function Matches() {
             setProfiles(response.data.matches)
             setUserlikes(response.data.user.likes)
             setSubscription(response.data.subscription)
+            ls.set(subscribe, response.data.subscription, {encrypt: true})
         }).catch((error)=>{
 
             console.log(error)

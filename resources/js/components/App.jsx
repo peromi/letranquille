@@ -41,6 +41,7 @@ import DatingSafety from "./home/datingsafety"
 import PrivacyPolicy from "./home/privacy"
 import RefundPolicy from "./home/refund"
 import TermsOfUse from "./home/terms"
+import ShowAll from "../screens/ShowAll";
 
 
 
@@ -93,6 +94,7 @@ function App() {
                     <Route path="/notification/:id" element={<Notification />} />
                     <Route path="/preference-settings" element={<PreferenceSettings />} />
                     <Route path="/settings" element={<Settings />} />
+                    <Route path="/show-all" element={<ShowAll />} />
                     {/* <Route path="/credit-coins" element={<CreditCoins />} /> */}
                     <Route path="/gift-to-friend" element={<Gift />} />
                     <Route path="/manage-subscription" element={<ManageSubscription />} />
