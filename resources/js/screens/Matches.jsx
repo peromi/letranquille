@@ -22,6 +22,7 @@ function Matches() {
     const navigate = useNavigate()
 
     const [tab, setTab] = React.useState(0)
+    const [user, setUser] = React.useState(null)
 
     const [profiles, setProfiles] = React.useState([])
     const [mutual, setMutual] = React.useState([])
@@ -135,6 +136,9 @@ function Matches() {
         if(db == null){
             console.log(db.user)
             navigate('/', {replace:true})
+        }else{
+            console.log(db.user)
+            setUser(db.user)
         }
         loadData();
         loadMutualData();
@@ -164,11 +168,14 @@ function Matches() {
         </div>
  {/* Tab Conntainers */}
         <div className='tab_container' style={{ marginLeft:34, marginTop:45, marginRight:34 }}>
-           {tab == 0 &&  <Mymatches profiles={profiles} user={userlikes} reload={reload} />}
-           {tab == 1 && <Mutualmatches profiles={mutual} user={userlikes} reload={reload} action={()=>{
+           {tab == 0 &&  <Mymatches profiles={profiles} user={userlikes} reload={reload}
+            />}
+           {tab == 1 && <Mutualmatches profiles={mutual} user={userlikes} reload={reload} currentuser={user} action={()=>{
             setTab(0)
            }} />}
-           {tab == 2 && <Reversematches profiles={reverse} user={userlikes} reload={reload} />}
+           {tab == 2 && <Reversematches profiles={reverse} user={userlikes} reload={reload} currentuser={user} action={()=>{
+            setTab(0)
+           }} />}
 
         </div>
 

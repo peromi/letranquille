@@ -6,7 +6,7 @@ import Filteroverlay from "./Filteroverlay";
 import { SocketContext } from "../../context/SocketContext";
 import { useNavigate, Link } from "react-router-dom";
 
-function Mutualmatches({ profiles, user, reload, action }) {
+function Mutualmatches({ profiles, user, reload,currentuser, action }) {
     const navigate = useNavigate();
     const { subscription } = React.useContext(SocketContext);
 
@@ -77,23 +77,23 @@ function Mutualmatches({ profiles, user, reload, action }) {
                     ))}
 
             {subscription === null && (
-                <div className="fixed left-0 right-0 top-0 bottom-0 backdrop-blur-sm flex justify-center items-center">
-                    <div className="w-[30%]  flex flex-col justify-center bg-red-600 drop-shadow-xl items-center">
-                        <div className="w-full flex justify-end bg-yellow-300 px-4">
+                <div className="fixed left-0 right-0 top-0 bottom-0 bg-slate-900/75 backdrop-blur-sm flex justify-center items-center">
+                    <div className="w-[40%]  flex flex-col justify-center border-1 divide-red-600 bg-white drop-shadow-xl items-center">
+                        <div className="w-full flex justify-end   pr-1">
                             <button
                                 onClick={action}
-                                className="rotate-45 font-bold text-2xl   text-white float-right"
+                                className="rotate-45 font-bold text-2xl   text-red-600 float-right"
                             >
                                 +
                             </button>
                         </div>
-                        <div className="w-full h-full">
-                            <h1 className="text-2xl font-bold text-center">
+                        <div className="w-full h-full px-3 flex flex-col items-center">
+                            <h1 className="text-2xl font-bold text-center mb-6">
                                 Upgrade Your Account
                             </h1>
                             <p className="text-lg">
-                                {user.firstname} {user.lastname} you don't have
-                                access to Mutual Matches
+                                <span className="capitalize font-bold">{currentuser.user.name}</span> you don't have
+                                access to <span className="font-bold">Mutual Matches</span>
                             </p>
 
                             <p>
@@ -101,10 +101,12 @@ function Mutualmatches({ profiles, user, reload, action }) {
                                 Matching" for serious daters!
                             </p>
 
-                            <h1 className="font-bold text-lg">
+                            <h1 className="font-bold text-lg mt-8">
                                 Mutual Matches
                             </h1>
                             <p>You both match each other's criteria</p>
+
+                            <button className="px-12 p-2 bg-red-800 text-white mt-4 mb-3">Upgrade to Platinum</button>
                         </div>
                     </div>
                 </div>

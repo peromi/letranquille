@@ -62,11 +62,11 @@ React.useEffect(()=>{
 },[])
   return (
    <MainContainer select="explore">
-<div className='flex md:flex-row flex-col w-full bg-red-400 justify-around p-2 items-center gap-4'>
+<div className='flex md:flex-row flex-col w-full bg-yellow-400 justify-around p-2 items-center gap-4'>
 
     <div className='flex-1 w-full'>
         <p>Seeking a</p>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent w-full'>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent w-full'>
             <option>male</option>
             <option>any</option>
             <option>male</option>
@@ -76,18 +76,18 @@ React.useEffect(()=>{
     <div className='flex-1 w-full'>
         <p>Age</p>
         <div className='flex md:flex-row flex-col gap-4'>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent md:w-1/2 w-full'>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent md:w-1/2 w-full'>
 
             {age.map((a, index)=><option key={index}>{a}</option>)}
         </select>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent md:w-1/2 w-full'>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent md:w-1/2 w-full'>
             {age.map((a, index)=><option key={index}>{a}</option>)}
         </select>
         </div>
     </div>
     <div className='flex-1 w-full'>
         <p>Country</p>
-       <select className='ring-1 p-2 ring-slate-200 bg-transparent w-full' onChange={(e)=>{
+       <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent w-full' onChange={(e)=>{
         let result = state_names.filter((s)=>s.country_name.toLowerCase().includes(e.target.value.toLowerCase()))
         setStatesearch(result)
         console.log(result.length)
@@ -99,30 +99,31 @@ React.useEffect(()=>{
     </div>
     <div className='flex-1 w-full'>
         <p>State/Province</p>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent w-full' onChange={(e)=>{
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent w-full' onChange={(e)=>{
             let result = cities.filter((c)=>c.state_name.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(result.length)
             setCitysearch(result)
         }}>
 
+<option>Any</option>
             {statesearch.map((s, index)=><option key={index}>{s.name}</option>)}
         </select>
     </div>
     <div className='flex-1 w-full'>
         <p>City</p>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent w-full'>
-
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent w-full'>
+        <option>Any</option>
             {citysearch.map((c,index)=><option key={index}>{c.name}</option>)}
         </select>
     </div>
     <div className='flex-1 w-full'>
         <p>Within</p>
-        <input className='ring-1 p-2 ring-slate-200 bg-transparent w-full' type="text" placeholder='kms' />
+        <input className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent w-full' type="text" placeholder='kms' />
     </div>
 
     <div className='flex-1 w-full'>
 
-        <button className='bg-yellow-400 justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white'>Send</button>
+        <button className='bg-black text-white justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white hover:text-black'>Send</button>
     </div>
 </div>
         <div className='md:w-full mx-auto  h-screen'  >
