@@ -2,7 +2,12 @@ import React from "react";
 import { data } from "../../constants";
 import UserProfile from "../profile/UserProfile";
 import Filteroverlay from './Filteroverlay'
+import { SocketContext } from '../../context/SocketContext';
+
+
+
 function Reversematches({profiles, user, reload}) {
+    const {subscription} = React.useContext(SocketContext)
     const [filter, setFilter] = React.useState(false)
 
     return (

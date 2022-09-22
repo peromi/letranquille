@@ -13,7 +13,7 @@ const USERDB = 'dao'
 const subscribe = "subscriptionDb"
 const Navigation = ({ select }) => {
 
-    const {addUser, subscription} = React.useContext(SocketContext)
+    const {addUser, subscription, setSubscription} = React.useContext(SocketContext)
 
     const navigate = useNavigate()
   const [profile, setProfile] = React.useState({})
@@ -28,6 +28,7 @@ const Navigation = ({ select }) => {
     let db = ls.get(subscribe, { decrypt: true});
     if(db !== null){
         setUpgraded(db)
+        setSubscription(db)
     }
   }
 
@@ -81,10 +82,10 @@ setProfileloc()
   React.useEffect(()=>{
     let id = setInterval(loadData,10000)
     let db = ls.get(USERDB, {decrypt:true})
-    if(db == null){
+    // if(db == null){
 
-       window.location.href = "/"
-    }
+    //    window.location.href = "/"
+    // }
     loadSubscriptions()
     return ()=>{
         clearInterval(id)

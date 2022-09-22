@@ -132,12 +132,9 @@ function Matches() {
     }
     React.useEffect(()=>{
         let db = ls.get(USERDB, {decrypt:true})
-        if(db != null){
+        if(db == null){
             console.log(db.user)
-
-
-
-
+            navigate('/', {replace:true})
         }
         loadData();
         loadMutualData();
@@ -168,7 +165,9 @@ function Matches() {
  {/* Tab Conntainers */}
         <div className='tab_container' style={{ marginLeft:34, marginTop:45, marginRight:34 }}>
            {tab == 0 &&  <Mymatches profiles={profiles} user={userlikes} reload={reload} />}
-           {tab == 1 && <Mutualmatches profiles={mutual} user={userlikes} reload={reload} />}
+           {tab == 1 && <Mutualmatches profiles={mutual} user={userlikes} reload={reload} action={()=>{
+            setTab(0)
+           }} />}
            {tab == 2 && <Reversematches profiles={reverse} user={userlikes} reload={reload} />}
 
         </div>

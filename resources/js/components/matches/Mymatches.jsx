@@ -2,7 +2,7 @@ import React from 'react'
 import { data } from '../../constants'
 import UserProfile from '../profile/UserProfile'
 import Filteroverlay from './Filteroverlay'
-
+import { SocketContext } from '../../context/SocketContext';
 
 
 
