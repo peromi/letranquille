@@ -29,7 +29,32 @@ function Membership(){
   const [city, setCity] = React.useState('')
   const [zip, setZip] = React.useState('')
   const [coupon, setCoupon] = React.useState('')
+  const [discount, setDiscount] = React.useState(null)
 
+
+  const handleCoupon = () =>{
+    let token = ls.get(DATABASE_KEY, {decrypt:true})
+    axios.post('/api/get-coupon',{
+        coupon
+    },{
+
+            headers: {
+                Accept:'application/json',
+                Authorization: 'Bearer ' + token
+            }
+
+    }).then((res)=>{
+        if(res.status === 200){
+            if(res.data.coupon !== undefined){
+                setDiscount(res.data.coupon)
+            }else{
+                if(res.data.message){
+                    alert(res.data.message)
+                }
+            }
+        }
+    })
+  }
 
   const _handleSignupMembership = ()=>{
     let token = ls.get(DATABASE_KEY, {decrypt:true})
@@ -778,6 +803,7 @@ function Membership(){
                     variant="contained"
                     color="primary"
                     style={{ height: '100%' }}
+                    onClick={handleCoupon}
                   >
                     Apply
                   </Button>
