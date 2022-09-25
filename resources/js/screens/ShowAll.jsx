@@ -9,8 +9,8 @@ import UserProfile from '../components/profile/UserProfile';
 import { forEach } from 'lodash';
 
 import cities from '../assets/json/cities.json'
-import { country } from '../assets/json/country';
-import { state_names } from '../assets/json/states';
+import  country  from '../assets/json/country.json';
+import  states  from '../assets/json/states.json';
 
 // import cities from '../assets/json/cities.json'
 // import { country } from '../assets/json/country';
@@ -23,6 +23,9 @@ function ShowAll() {
 
     const [statesearch, setStatesearch] = React.useState([])
     const [citysearch, setCitysearch] = React.useState([])
+
+    const [countrycode, setCountrycode] = React.useState({})
+    const [statecode, setStatecode] = React.useState({})
 
 
 
@@ -88,25 +91,26 @@ React.useEffect(()=>{
     <div className='flex-1 w-full'>
         <p>Country</p>
        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent w-full' onChange={(e)=>{
-        let result = state_names.filter((s)=>s.country_name.toLowerCase().includes(e.target.value.toLowerCase()))
+        let result = states.filter((s)=>s.country_code  == e.target.value)
         setStatesearch(result)
         console.log(result.length)
+        setCountrycode(e.target.value)
        }}>
 
                 <option>Any</option>
-            {country.map((c,index)=><option key={index}>{c.name}</option>)}
+            {country.map((c,index)=><option key={index} value={c.code}>{c.name}</option>)}
         </select>
     </div>
     <div className='flex-1 w-full'>
         <p>State/Province</p>
         <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-transparent w-full' onChange={(e)=>{
-            let result = cities.filter((c)=>c.state_name.toLowerCase().includes(e.target.value.toLowerCase()))
+            let result = cities.filter((c)=>c.state_code == e.target.value && c.country_code == countrycode)
             console.log(result.length)
             setCitysearch(result)
         }}>
 
 <option>Any</option>
-            {statesearch.map((s, index)=><option key={index}>{s.name}</option>)}
+            {statesearch.map((s, index)=><option key={index} value={s.state_code} >{s.name}</option>)}
         </select>
     </div>
     <div className='flex-1 w-full'>

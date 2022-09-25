@@ -14,7 +14,7 @@ const SocketContext = createContext()
 const socket = io("http://localhost:9000")
 const DB = "user-m9j234u94"
 const subscribe = "subscriptionDb"
-
+const USERDB = 'dao'
 
 const ContextProvider = ({children}) =>{
     const [recipient, setRecipient] = useState('')
@@ -67,9 +67,10 @@ const ContextProvider = ({children}) =>{
 
         if(me !== null){
             let db = ls.get(DB, {decrypt:true})
+            let db2 = ls.get(USERDB, {decrypt:true})
 
             setUserdata(db)
-            console.log(db)
+            console.log(db2)
 
 
 

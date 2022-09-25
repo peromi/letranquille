@@ -71,9 +71,39 @@ function Mutualmatches({ profiles, user, reload,currentuser, action }) {
             {(subscription !== null && subscription.plan_type !== "gold") ||
                 (subscription !== null &&
                     subscription.plan_type !== "platinum" && (
-                        <div className="fixed left-0 right-0 top-0 bottom-0 backdrop-blur-xl flex justify-center items-center">
-                            <div className="w-[30%] p-3">items</div>
+                        <div className="fixed left-0 right-0 top-0 bottom-0 bg-slate-900/75 backdrop-blur-sm flex justify-center items-center">
+                    <div className="w-[40%]  flex flex-col justify-center border-1 divide-red-600 bg-white drop-shadow-xl items-center">
+                        <div className="w-full flex justify-end   pr-1">
+                            <button
+                                onClick={action}
+                                className="rotate-45 font-bold text-2xl   text-red-600 float-right"
+                            >
+                                +
+                            </button>
                         </div>
+                        <div className="w-full h-full px-3 flex flex-col items-center">
+                            <h1 className="text-2xl font-bold text-center mb-6">
+                                Upgrade Your Account
+                            </h1>
+                            <p className="text-lg">
+                                <span className="capitalize font-bold">{currentuser.user.name}</span> you don't have
+                                access to <span className="font-bold">Mutual Matches</span>
+                            </p>
+
+                            <p>
+                                Simply upgrade to boost your chances with "Cupid
+                                Matching" for serious daters!
+                            </p>
+
+                            <h1 className="font-bold text-lg mt-8">
+                                Mutual Matches
+                            </h1>
+                            <p>You both match each other's criteria</p>
+
+                            <button className="px-12 p-2 bg-red-800 text-white mt-4 mb-3">Upgrade to Platinum</button>
+                        </div>
+                    </div>
+                </div>
                     ))}
 
             {subscription === null && (

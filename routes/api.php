@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\AvatarController;
@@ -691,6 +692,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // $listusers = LastMessage::join('profiles', 'profiles.user_id','=', 'last_messages.receiver_id')->where('user_id', auth()->user()->id)->latest()->get();
     });
+
+    // Coupon
+    Route::post('/get-coupon', [ActionController::class, 'getCoupon']);
+    Route::post('/add-coupon', [ActionController::class, 'addCoupon']);
 });
 
 

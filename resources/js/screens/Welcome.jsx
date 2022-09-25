@@ -7,17 +7,29 @@ import level2 from "../assets/images/level2.png";
 import level3 from "../assets/images/level3.png";
 import logo from "../assets/images/logo.png";
 import chat from "../assets/images/chat.png";
-
+import ls from 'localstorage-slim'
 
 
 const REG_STEPS = "stepper";
-
+const USERDB = 'dao'
 function Welcome() {
     const navigate = useNavigate();
     const [showmenu,setShowmenu] = React.useState(false)
     let year = new Date().getFullYear();
+
+    const loadExistUser = () =>{
+        let db = ls.get(USERDB,{decrypt:true})
+
+        if(db !== null){
+
+            navigate('/matches')
+        }
+    }
+
     React.useEffect(()=>{
+        loadExistUser()
         const step = JSON.parse(localStorage.getItem(REG_STEPS));
+
 
         if(step !== null){
             navigate('/onboarding', {replace:true})
