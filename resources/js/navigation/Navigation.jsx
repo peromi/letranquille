@@ -5,6 +5,7 @@ import ls from 'localstorage-slim'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { SocketContext } from '../context/SocketContext'
+import "../../css/navigation.css"
 
 
 const DATABASE_KEY = 'user-m9j234u94'
@@ -164,28 +165,33 @@ setProfileloc()
               <p>Messages</p>{' '}
             </Link>
           </li>
-          <li>
-            <Link
-              to="/activities"
-              className={select == 'activity'?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}
+          <li id="activity" className='relative'>
+          <div
+
+              className={select=='message'?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}
             >
-              {/* <img src={data.message} /> */}
-              {select == 'activity' ? (
-                <i class="fi fi-sr-following" style={styles.icon}></i>
+              {select == 'message' ? (
+                <i class="fi fi-sr-comments" style={styles.icon}></i>
               ) : (
-                <i class="fi fi-rr-following" style={styles.icon}></i>
+                <i class="fi fi-rr-comments" style={styles.icon}></i>
               )}
               <p>Activities</p>{' '}
-            </Link>
+            </div>
+                <ul className='absolute flex flex-col gap-3 top-6 z-6 bg-white drop-shadow-xl p-3 w-[150px] left-0 right-0 text-center '>
+                    <Link to="/likes" className='hover:text-red-700'>Likes</Link>
+                    <Link to="/favorite" className='hover:text-red-700'>Favorite</Link>
+                    <Link to="/profile-view" className='hover:text-red-700'>Profile Viewed</Link>
+                    <Link to="/blocked" className='hover:text-red-700'>Blocked</Link>
+                </ul>
           </li>
         </ul>
 
       <div className=" flex justify-end items-center w-[350px]  gap-x-5 font-bold relative">
         <div className="flex relative bg-zinc-100  pr-2 p-1 rounded-full">
-          <img src={`/storage/avatar/${profile.first_cover}`} className="w-[45px] h-[45px] rounded-full mr-4" />
+          <img src={`/storage/avatar/${profile.first_cover}`} className="w-[35px] h-[35px] rounded-full mr-4" />
           <div className="capitalize mr-6 flex-1">
-            <p>{profile.name}</p>
-            <span className="text-[12px]">
+            <p className="-mb-2">{profile.name}</p>
+            <span className="text-[12px] -mt-2">
               {profileloc[0]} <a href="#" className='text-red-600'>Change</a>
             </span>
           </div>

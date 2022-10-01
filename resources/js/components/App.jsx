@@ -42,6 +42,10 @@ import PrivacyPolicy from "./home/privacy"
 import RefundPolicy from "./home/refund"
 import TermsOfUse from "./home/terms"
 import ShowAll from "../screens/ShowAll";
+import Likes from "./activities/Likes";
+import BlockedList from "./activities/BlockedList";
+import Favorite from "./activities/Favorite";
+import ProfileView from "./activities/ProfileView";
 
 
 
@@ -84,7 +88,10 @@ function App() {
                     <Route path="/preference" element={<Preferences />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/matches" element={<Matches />} />
-                    <Route path="/activities" element={<Activities />} />
+                    <Route path="/likes" element={<Likes />} />
+                    <Route path="/blocked" element={<BlockedList />} />
+                    <Route path="/favorite" element={<Favorite />} />
+                    <Route path="/profile-view" element={<ProfileView />} />
                     <Route path="/explore" element={<Explore />} />
                     <Route path="/messages" element={<Messages />} />
                     <Route path="/messages/:id" element={<Messages />} />

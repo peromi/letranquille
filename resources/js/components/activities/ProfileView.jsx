@@ -1,14 +1,133 @@
 import React from 'react'
 import ActivityProfile from './ActivityProfile'
-
+import ls from 'localstorage-slim'
+import { Link } from "react-router-dom";
+import axios from "axios";
+import MainContainer from "../../containers/MainContainer";
+import woman from "../../assets/images/awoman.jpg";
+import lady from "../../assets/images/lady.jpg";
+const DB = "user-m9j234u94"
 function ProfileView() {
+    const [favorite, setFavorite] = React.useState([])
+    const [tab, setTab] = React.useState(0)
+
+    const loadData = () =>{
+        const token = ls.get(DB, {decrypt:true})
+        axios.get('/api/favorite',{
+            headers:{
+                'Accept':'application/json',
+                'Authorization':'Bearer '+token
+            }
+        }).then((response)=>{
+            console.log(response.data)
+            setFavorite(response.data.favorite)
+        })
+    }
+
+    React.useEffect(()=>{
+        loadData()
+    },[])
   return (
-      <>
+    <MainContainer>
+            <div className="bg-red-800 w-full px-12  flex gap-x-6">
+                <button className={tab===0 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(0)}>Viewed My Profile</button>
+                <button className={tab===1 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(1)}>Profiles I Viewe</button>
 
-    <div style={{marginTop:12,  display:'flex', justifyContent:'center', gap:15, alignItems:'center', flexWrap:'wrap'  }}>
+            </div>
+            <div className="h-screen w-full">
+               {tab === 0 && <div>
 
-</div>
-</>
+                {favorite.length > 0 ? (
+                    <div
+                        style={{
+                            columnCount: 4,
+                            justifyContent: "center",
+                            gap: 15,
+                            alignItems: "center",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        {favorite.map((data) => (
+                            <ActivityProfile key={data.id} profile={data} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col justify-center w-full items-center">
+                        <h1 className="font-bold text-2xl mt-2">
+                        You have no mutual favorite yet
+                        </h1>
+                        <p className="md:w-[50%]">
+                        Don't worry, we have so many members, there are bound to be many people interested in you. The best way to increase your chance of receiving interest is to initiate communication.can't send
+                            a message yet, "Like" them instead!
+                        </p>
+                        <img
+                            src={woman}
+                            width="200"
+                            className="rounded-full my-6"
+                        />
+
+                        <i class="fi fi-sr-star text-red-600 text-2xl"></i>
+                        <p>
+                        Simply click a member's star to favorite them
+                        </p>
+
+
+                    </div>
+                )}
+                </div>}
+
+{/* Tab my likes */}
+{tab === 1 && <div>
+
+{favorite.length > 0 ? (
+    <div
+        style={{
+            columnCount: 4,
+            justifyContent: "center",
+            gap: 15,
+            alignItems: "center",
+            flexWrap: "wrap",
+        }}
+    >
+        {favorite.map((data) => (
+            <ActivityProfile key={data.id} profile={data} />
+        ))}
+    </div>
+) : (
+    <div className="flex flex-col justify-center w-full items-center">
+        <h1 className="font-bold text-2xl mt-2">
+        You haven't added any favorites yet
+        </h1>
+        <p className="md:w-[30%]">
+        Your Favorites list is a great way to keep track of members you are particularly interested in.
+        </p>
+        <img
+            src={woman}
+            width="200"
+            className="rounded-full my-6"
+        />
+
+        <i class="fi fi-sr-star text-red-600 text-2xl"></i>
+        <p>
+        To add a member to your favorites list, click on the <strong>'Add Favorites'</strong> icon on their profile.
+        </p>
+
+        <p>
+        Browse your matches and start creating your Favorites list today.
+        </p>
+
+        <Link
+            to="/matches"
+            className="bg-red-600 text-white p-3 px-12 mt-4 hover:bg-red-800"
+        >
+            View Matches Now
+        </Link>
+    </div>
+)}
+</div>}
+
+            </div>
+        </MainContainer>
   )
 }
 
