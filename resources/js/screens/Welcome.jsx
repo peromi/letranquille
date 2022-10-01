@@ -21,19 +21,21 @@ function Welcome() {
         let db = ls.get(USERDB,{decrypt:true})
 
         if(db !== null){
-
+            localStorage.removeItem(REG_STEPS)
             navigate('/matches')
+        }else{
+            const step = JSON.parse(localStorage.getItem(REG_STEPS));
+
+
+            if(step !== null){
+                navigate('/onboarding', {replace:true})
+            }
         }
     }
 
     React.useEffect(()=>{
         loadExistUser()
-        const step = JSON.parse(localStorage.getItem(REG_STEPS));
-
-
-        if(step !== null){
-            navigate('/onboarding', {replace:true})
-        }
+        
     },[])
     return (
         <div>

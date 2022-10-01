@@ -30,13 +30,13 @@ function Notification() {
   return (
     <MainContainer>
          <div className=" bg-white h-screen">
-            <div className='bg-zinc-100 px-12' style={{ display:'flex', gap:12,  justifyContent:'flex-start', alignItems:'center' }}>
-                <i className='fi fi-rr-bell-ring' style={{ fontSize:34, color:'#C62251' }}></i>
-                <h2 style={{ color:'#C62251' }}>Notification</h2>
+            <div className='bg-red-600 px-12 text-white flex flex-row gap-3 p-3'  >
+                <i className='fi fi-rr-bell-ring text-2xl font-bold'  ></i>
+                <h2 className="text-white">Notification</h2>
 
             </div>
             {/* <Match /> */}
-            {data.map((item)=><div key={item.id} style={{ display:'flex', alignItems: 'center', width:'100%', background:item.read_at == null ? 'rgba(234, 2, 56,0.4)':'grey', padding:8, cursor:'pointer', marginBottom:4 }}>
+            {data.length > 0 ? data.map((item)=><div key={item.id} style={{ display:'flex', alignItems: 'center', width:'100%', background:item.read_at == null ? 'rgba(234, 2, 56,0.4)':'grey', padding:8, cursor:'pointer', marginBottom:4 }}>
                 <i className='fi fi-rr-envelope' style={{ fontSize:24, padding:12 }}></i>
                 <div style={{ width: '85%',}}>
                     <h2>{item.data.name}</h2>
@@ -52,6 +52,9 @@ function Notification() {
             </Moment></small>)
 </div>
 
+            </div>):(<div className="w-full mt-12 flex flex-col justify-center items-center">
+                <i className='fi fi-rr-bell-ring text-2xl font-bold'  ></i>
+                <h1>No Notification Yet</h1>
             </div>)}
         </div>
     </MainContainer>

@@ -3,7 +3,12 @@ import { data } from "../../constants";
 import UserProfile from "../profile/UserProfile";
 import Filteroverlay from './Filteroverlay'
 import { SocketContext } from '../../context/SocketContext';
-
+import { Link } from "react-router-dom";
+import awoman from "../../assets/images/awoman.jpg";
+import man from "../../assets/images/man.webp";
+import woman from "../../assets/images/woman.webp";
+import lady from "../../assets/images/lady.jpg";
+import aman from "../../assets/images/aman.png";
 
 
 function Reversematches({profiles, user, reload, currentuser, action}) {
@@ -119,7 +124,30 @@ function Reversematches({profiles, user, reload, currentuser, action}) {
                             </h1>
                             <p>You match their criteria</p>
 
-                            <button className="px-12 p-2 bg-red-800 text-white mt-4 mb-3">Upgrade to Platinum</button>
+                            <div className="flex flex-row gap-3 mt-4 justify-center items-center">
+                            <div className="flex flex-col justify-center items-center font-bold">
+                                <img src={awoman} width="90"  className="rounded-full" />
+                                <p>Them</p>
+                                </div>
+                            <div className="flex flex-col justify-center items-center">
+                                    <i className="fi-sr-arrow-left text-2xl"></i>
+                                    <i className="fi-sr-arrow-right text-2xl"></i>
+                                </div>
+                                <div  className="flex flex-col justify-center items-center font-bold">
+                                <img src={aman} width="90" className="rounded-full" />
+                                <p>You</p>
+                                </div>
+                                <div className="flex flex-col justify-center items-center">
+                                    <i className="fi-sr-arrow-right text-2xl"></i>
+                                    <i className="fi-sr-arrow-left text-2xl"></i>
+                                </div>
+                                <div className="flex flex-col justify-center items-center font-bold">
+                                <img src={awoman} width="90"  className="rounded-full" />
+                                <p>Them</p>
+                                </div>
+                            </div>
+
+                            <Link to="/manage-subscription" className="px-12 p-2 bg-red-800 text-white mt-4 mb-3">Upgrade to Platinum</Link>
                         </div>
                     </div>
                 </div>

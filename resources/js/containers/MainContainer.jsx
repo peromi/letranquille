@@ -62,7 +62,7 @@ function MainContainer(props) {
          <ToastContainer   />
 
 
-         <div className='pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white mt-5'>
+         <div className='pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white'>
         <p>Copy 2022. All rights reserved</p>
 
         <div className='flex justify-center items-center gap-x-[34px]'>

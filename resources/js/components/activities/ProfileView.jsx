@@ -6,6 +6,7 @@ import axios from "axios";
 import MainContainer from "../../containers/MainContainer";
 import woman from "../../assets/images/awoman.jpg";
 import lady from "../../assets/images/lady.jpg";
+
 const DB = "user-m9j234u94"
 function ProfileView() {
     const [favorite, setFavorite] = React.useState([])
@@ -31,7 +32,7 @@ function ProfileView() {
     <MainContainer>
             <div className="bg-red-800 w-full px-12  flex gap-x-6">
                 <button className={tab===0 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(0)}>Viewed My Profile</button>
-                <button className={tab===1 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(1)}>Profiles I Viewe</button>
+                <button className={tab===1 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(1)}>Profiles I Viewed</button>
 
             </div>
             <div className="h-screen w-full">
@@ -54,11 +55,11 @@ function ProfileView() {
                 ) : (
                     <div className="flex flex-col justify-center w-full items-center">
                         <h1 className="font-bold text-2xl mt-2">
-                        You have no mutual favorite yet
+                        No one has viewed your profile yet
                         </h1>
                         <p className="md:w-[50%]">
                         Don't worry, we have so many members, there are bound to be many people interested in you. The best way to increase your chance of receiving interest is to initiate communication.can't send
-                            a message yet, "Like" them instead!
+                            a message yet, "view" their profile instead!
                         </p>
                         <img
                             src={woman}

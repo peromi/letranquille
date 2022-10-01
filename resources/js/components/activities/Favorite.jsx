@@ -68,7 +68,7 @@ function Favorite() {
                             className="rounded-full my-6"
                         />
 
-                        <i class="fi fi-sr-star text-red-600 text-2xl"></i>
+                        <i class="fi fi-sr-apps-add text-red-600 text-2xl"></i>
                         <p>
                         Simply click a member's star to favorite them
                         </p>
@@ -109,7 +109,7 @@ function Favorite() {
             className="rounded-full my-6"
         />
 
-        <i class="fi fi-sr-star text-red-600 text-2xl"></i>
+        <i class="fi fi-sr-apps-add text-red-600 text-2xl"></i>
         <p>
         To add a member to your favorites list, click on the <strong>'Add Favorites'</strong> icon on their profile.
         </p>

@@ -11,10 +11,10 @@ import { forEach } from 'lodash';
 import cities from '../assets/json/cities.json'
 import  country  from '../assets/json/country.json';
 import  states  from '../assets/json/states.json';
+import woman from "../assets/images/awoman.jpg";
+import lady from "../assets/images/lady.jpg";
 
-// import cities from '../assets/json/cities.json'
-// import { country } from '../assets/json/country';
-// import { state_names } from '../assets/json/states';
+ 
 const DB = "user-m9j234u94"
 const USERDB = "dao"
 function ShowAll() {
@@ -138,10 +138,43 @@ React.useEffect(()=>{
             </div> */}
             {/* <Match /> */}
 
-            <div className='grid grid-cols-5 gap-4'>
-        {explores.map((data)=> <UserProfile key={data.id} profile={data} liked={userlikes} reload={reload} />)}
+            {explores.length > 0 ? <div className="grid grid-cols-5 gap-4 pt-2">
 
-    </div>
+{explores.map((profile, index) => (
+    <UserProfile
+        profile={profile}
+        liked={user}
+        key={index}
+        reload={reload}
+    />)
+    )}
+</div>:<div className="flex flex-col justify-center w-full items-center">
+        <h1 className="font-bold text-2xl mt-2">
+            You do not have any match
+        </h1>
+        <p className="md:w-[30%]">
+            Are you browsing through profiles on the site and
+            see someone you're interested in? If you can't send
+            a message yet, "Like" them instead!
+        </p>
+        <img
+            src={woman}
+            width="200"
+            className="rounded-full my-6"
+        />
+
+        <i class="fi fi-sr-heart text-red-600 text-2xl"></i>
+        <p>
+            Click on the <strong>Heart</strong> to like someone
+        </p>
+
+        <p>
+            Make the first move! Like someone who fits your
+            match criteria. It's FREE!
+        </p>
+
+
+    </div>}
         </div>
    </MainContainer>
   )

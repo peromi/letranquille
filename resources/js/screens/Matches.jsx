@@ -147,27 +147,15 @@ function Matches() {
 
   return (
      <MainContainer select="matches">
+<div className="bg-red-600 w-full px-12  flex gap-x-6">
+                <button className={tab===0 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(0)}>My Matches <small>({profiles.length})</small></button>
+                <button className={tab===1 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(1)}>Mutual Matches <small>({mutual.length})</small></button>
+                <button className={tab===2 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(2)}>Reverse Matches <small>({reverse.length})</small></button>
+            </div>
+<div className='w-full h-screen bg-white'  >
 
-         <div className='mw-full mx-auto h-screen bg-white'  >
-    {/* TAB */}
-    <div className='bg-zinc-100'  >
 
-            <ul className='flex md:justify-center md:gap-x-12 md:pl-8 justify-around items-center h-[45px]'>
-                <li className={ tab== 0?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(0)}>
-                    <p>My Matches <small>({profiles.length})</small></p>
-                </li>
-                <li className={tab==1?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(1)}>
-                <img src={data.goldcrown} />
-                    <p>Mutual Matches <small>({mutual.length})</small></p>
-                </li>
-                <li className={tab==2?'text-red-800 font-bold flex items-center gap-x-3 hover:text-red-900 cursor-pointer':'cursor-pointer hover:text-red-900 flex font-bold gap-x-3 h-max'} onClick={()=>setTab(2)}>
-                <img src={data.goldcrown} />
-                    <p>Reverse Matches <small>({reverse.length})</small></p>
-                </li>
-            </ul>
-        </div>
- {/* Tab Conntainers */}
-        <div className='tab_container' style={{ marginLeft:34, marginTop:45, marginRight:34 }}>
+        <div className='tab_container' style={{ marginLeft:34, paddingTop:45, marginRight:34 }}>
            {tab == 0 &&  <Mymatches profiles={profiles} user={userlikes} reload={reload}
             />}
            {tab == 1 && <Mutualmatches profiles={mutual} user={userlikes} reload={reload} currentuser={user} action={()=>{
@@ -178,6 +166,7 @@ function Matches() {
            }} />}
 
         </div>
+
 
         </div>
      </MainContainer>
