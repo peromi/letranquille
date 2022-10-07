@@ -59,8 +59,7 @@ function Favorite() {
                         You have no mutual favorite yet
                         </h1>
                         <p className="md:w-[50%]">
-                        Don't worry, we have so many members, there are bound to be many people interested in you. The best way to increase your chance of receiving interest is to initiate communication.can't send
-                            a message yet, "Like" them instead!
+                        Your Favorites list is a great way to keep track of members you are particularly interested in.
                         </p>
                         <img
                             src={woman}

@@ -19,6 +19,8 @@ import ls from 'localstorage-slim'
 const DATABASE_KEY = "user-m9j234u94";
 const REG_STEPS = "stepper";
 const PREFERENCE = "preference";
+const USERPASS = "userpass";
+const MAINDB = "dao";
 function Preferences() {
     const navigate = useNavigate()
     const [steps, setSteps] = React.useState("age");
@@ -1667,6 +1669,7 @@ handleBodytype()
                     style={{ marginTop: 30 }}
                 />
                 <Button
+                className="w-full block"
                 disabled={religion.length>0?false:true}
                     variant="contained"
                     style={{
@@ -1693,8 +1696,8 @@ handleBodytype()
     // Preference Completed
     const PreferenceCompleted = ()=>{
         return (
-            <>
-             <h1 style={{   width:'80%', fontSize:21, alignSelf:'center',color:'#C62251'  }}>Congratulations! All the Preferences has been updated</h1>
+            <div className="flex flex-col items-center">
+             <h1 className="font-bold" style={{   width:'80%', fontSize:21, alignSelf:'center',color:'#C62251'  }}>Congratulations! All the Preferences has been updated</h1>
 
                 <img src={data.done} style={{ width:280, alignSelf:'center' }} />
                 <p style={{marginTop:34, marginBottom:45, fontSize:15,  flexWrap:'wrap', width:300, textAlign:'center', alignSelf:'center' }}>Click Continue to start Discovering your Matches now</p>
@@ -1715,11 +1718,50 @@ handleBodytype()
 
                         localStorage.removeItem(PREFERENCE)
                         ls.remove(DATABASE_KEY)
-                        navigate('/login', {replace:true});
+                        loginUserAutomatically()
+                        // navigate('/login', {replace:true});
                     }}
                     >Continue</Button>
-            </>
+            </div>
         )
+    }
+
+    const loginUserAutomatically = async ()=>{
+       var user = ls.get(USERPASS, {decrypt:true})
+
+       if(user !== null){
+
+        let id = toast.loading("Please wait...")
+        await axios.post('/api/login',{
+            email:user.email,
+            password:user.password
+        }).then((response)=>{
+            console.log("response")
+                console.log(response.data)
+                ls.remove('items');
+                toast.update(id, {render: "Logged in", type: "success", isLoading: false, autoClose:true});
+
+
+                ls.set(MAINDB, {user:response.data},{encrypt:true})
+                ls.set(DATABASE_KEY, response.data.token,{encrypt:true});
+
+
+                // addUser(response.data.user.id, response.user.name)
+                navigate('/matches',{replace:true})
+
+        }).catch(e=>{
+            toast.update(id, {render: "Something went wrong", type: "error", isLoading: false, autoClose:true });
+
+            console.log(e.response)
+            toast.error(e.response.data.message)
+            navigate('/login',{replace:true})
+
+        })
+       }else{
+
+        navigate('/login',{replace:true})
+       }
+
     }
   return (
    <AuthContainer>
@@ -1727,7 +1769,7 @@ handleBodytype()
                 <div
                     style={{
                         backgroundColor: "#C62251",
-                        width: `${stepNumber*10}%`,
+                        width: `${stepNumber/7 * 100}%`,
                         height: 12,
                     }}
                 ></div>
@@ -1740,7 +1782,7 @@ handleBodytype()
 
                     {stepNumber < 8 && (
                         <>
-                            <h1>Preferences ({stepNumber}/7)</h1>
+                            <h1 className="font-bold text-2xl">Preferences ({stepNumber}/7)</h1>
                             <p style={{ marginTop:34 }}>After you have finished, we will show you the most compatible matches<br />based on your Preferences</p>
                         </>
                     )}

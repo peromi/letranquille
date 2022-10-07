@@ -163,7 +163,7 @@ function Onboarding() {
             <>
                 <div className="personality__choice" style={{ marginTop: 21 }}>
                     <div>
-                        <p>I am a..</p>
+                        <p className="font-bold text-lg">I am a..</p>
                         <ul>
                             <li
                                 onClick={() => {
@@ -188,7 +188,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             iam == "man" ? "#C62251" : "grey",
@@ -220,7 +220,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             iam == "woman" ? "#C62251" : "grey",
@@ -252,7 +252,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             iam == "other" ? "#C62251" : "grey",
@@ -262,7 +262,7 @@ function Onboarding() {
                                 </p>
                             </li>
                         </ul>
-                        <p>I am looking for..</p>
+                        <p className="font-bold text-lg">I am looking for..</p>
                         <ul>
                             <li
                                 onClick={() => {
@@ -289,7 +289,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             lookingfor == "man"
@@ -325,7 +325,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             lookingfor == "woman"
@@ -361,7 +361,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             lookingfor == "anyone"
@@ -376,7 +376,7 @@ function Onboarding() {
                     </div>
                     <div className="personal__divider"></div>
                     <div style={{  }}>
-                        <p>My Body type is..</p>
+                        <p className="font-bold text-lg">My Body type is..</p>
                         <ul>
                             <li
                                 onClick={() => {
@@ -403,7 +403,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             bodyType == "slim"
@@ -439,7 +439,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             bodyType == "average"
@@ -475,7 +475,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             bodyType == "curvy"
@@ -512,7 +512,7 @@ function Onboarding() {
                                         }
                                     />
                                 </div>
-                                <p
+                                <p className="font-bold text-lg"
                                     style={{
                                         color:
                                             bodyType == "muscular"
@@ -539,12 +539,13 @@ function Onboarding() {
                                     }
                                 }}
                             />
-                            <p>Don't show my body type on profile</p>
+                            <p className="font-bold text-lg">Don't show my body type on profile</p>
                         </div>
                     </div>
                 </div>
 
                 <TextField
+                className="font-bold text-lg"
                     id="outlined-basic"
                     label="Enter Your Name"
                     style={{ marginTop: 12, width:'100%' }}
@@ -566,7 +567,7 @@ function Onboarding() {
                 />
 
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
+                    <KeyboardDatePicker className="w-full"
                         inputVariant="outlined"
                         margin="normal"
                         id="date-picker-dialog"
@@ -632,7 +633,7 @@ function Onboarding() {
                                 <p>7.5</p>
                             </Grid>
                         </Grid>
-                        <p style={{ display:'flex', alignItems: 'center', justifyContent: 'center', color: 'red', fontWeight: 'bold' }}>{height/10}</p>
+                        <p className="font-bold text-lg" style={{ display:'flex', alignItems: 'center', justifyContent: 'center', color: 'red', fontWeight: 'bold' }}>{height/10}</p>
                     </div>
                     <div className="right">
                         <Grid
@@ -654,7 +655,7 @@ function Onboarding() {
                                 />
                             </Grid>
                             <Grid item>
-                                <p className="ml-2">
+                                <p className="font-bold text-lg ml-2">
                                     Don't show my height on profile
                                 </p>
                             </Grid>
@@ -715,7 +716,7 @@ function Onboarding() {
                     container
                     spacing={0}
                     direction="column"
-                    style={{ width: "48%" }}
+                    style={{ width: "100%" }}
                 >
                     <Grid item>
                         <Paper
@@ -723,6 +724,7 @@ function Onboarding() {
                                 setDrinker("drinker");
                             }}
                             variant="outlined"
+                            className="flex-1"
                             style={{
                                 height:65,
                                 paddingTop:12,
@@ -844,6 +846,7 @@ function Onboarding() {
                 <Button
                 disabled={drinker.length>0?false:true}
                     variant="contained"
+                    className="w-full"
                     style={{
                         marginTop: 132,
                         height: 48,
@@ -896,7 +899,7 @@ function Onboarding() {
                     container
                     spacing={0}
                     direction="column"
-                    style={{ width: "48%" }}
+                    style={{ width: "100%" }}
                 >
                     <Grid item>
                         <Paper
@@ -904,6 +907,7 @@ function Onboarding() {
                                 setSmoker("smoker");
                             }}
                             variant="outlined"
+                            className="w-full cursor-pointer"
                             style={{
                                 height:65,
                                 paddingTop:12,
@@ -943,6 +947,7 @@ function Onboarding() {
                             onClick={() => {
                                 setSmoker("non smoker");
                             }}
+                            className="w-full cursor-pointer"
                             variant="outlined"
                             style={{
                                 height:65,
@@ -983,6 +988,7 @@ function Onboarding() {
                             onClick={() => {
                                 setSmoker("occasional smoker");
                             }}
+                            className="w-full cursor-pointer"
                             variant="outlined"
                             style={{
                                 height:65,
@@ -1025,6 +1031,7 @@ function Onboarding() {
                 <Button
                 disabled={smoker.length>0?false:true}
                     variant="contained"
+                    className="w-full"
                     style={{
                         marginTop: 132,
                         height: 48,
@@ -1078,13 +1085,14 @@ function Onboarding() {
                      container
                      spacing={0}
                      direction="column"
-                     style={{ width: "48%" }}
+                     style={{ width: "100%" }}
                  >
                      <Grid item>
                          <Paper
                              onClick={() => {
                                  setFood("vegetarian");
                              }}
+                             className="w-full cursor-pointer"
                              variant="outlined"
                              style={{
                                  height:65,
@@ -1125,6 +1133,7 @@ function Onboarding() {
                              onClick={() => {
                                  setFood("vegan");
                              }}
+                             className="w-full cursor-pointer"
                              variant="outlined"
                              style={{
                                  height:65,
@@ -1166,6 +1175,7 @@ function Onboarding() {
                                  setFood("non vegetarian");
                              }}
                              variant="outlined"
+                             className="w-full cursor-pointer"
                              style={{
                                  height:65,
                                  paddingTop:12,
@@ -1207,6 +1217,7 @@ function Onboarding() {
                  <Button
                  disabled={food.length>0?false:true}
                      variant="contained"
+                     className="w-full cursor-pointer"
                      style={{
                          marginTop: 132,
                          height: 48,
@@ -1259,7 +1270,7 @@ handleFood()
                      container
                      spacing={0}
                      direction="column"
-                     style={{ width: "48%" }}
+                     style={{ width: "100%" }}
                  >
                      <Grid item>
                          <Paper
@@ -1267,6 +1278,7 @@ handleFood()
                                  setFriendship("long term");
                              }}
                              variant="outlined"
+                             className="w-full cursor-pointer"
                              style={{
                                  height:65,
                                  paddingTop:12,
@@ -1306,6 +1318,7 @@ handleFood()
                              onClick={() => {
                                  setFriendship("short term");
                              }}
+                             className="w-full cursor-pointer"
                              variant="outlined"
                              style={{
                                  height:65,
@@ -1346,6 +1359,7 @@ handleFood()
                              onClick={() => {
                                  setFriendship("hookups");
                              }}
+                             className="w-full cursor-pointer"
                              variant="outlined"
                              style={{
                                  height:65,
@@ -1386,6 +1400,7 @@ handleFood()
                              onClick={() => {
                                  setFriendship("new friends");
                              }}
+                             className="w-full cursor-pointer"
                              variant="outlined"
                              style={{
                                  height:65,
@@ -1428,6 +1443,7 @@ handleFood()
                  <Button
                  disabled={friendship.length>0?false:true}
                      variant="contained"
+                     className="w-full cursor-pointer"
                      style={{
                          marginTop: 132,
                          height: 48,
@@ -1505,7 +1521,8 @@ handleFriendship()
                     container
                     spacing={0}
                     direction="column"
-                    style={{ width: "48%" }}
+                    style={{ width: "100%" }}
+                    className="flex flex-wrap flex-row"
                 >
                     <Grid item>
                         <Paper
@@ -1513,6 +1530,7 @@ handleFriendship()
                                 setReligion("christianity");
                             }}
                             variant="outlined"
+                            className="flex-1 cursor-pointer"
                             style={{
                                 padding: 8,
                                 marginBottom: 12,
@@ -1810,6 +1828,7 @@ handleFriendship()
                 </Grid>
                 <Button
                     variant="contained"
+                    className="w-full cursor-pointer"
                     style={{
                         marginTop: 21,
                         height: 48,
@@ -1872,6 +1891,7 @@ handleFriendship()
         return (
             <>
                 <TextField
+                className="w-full"
                     label="Job Title"
                     inputProps={{
                         style: {
@@ -1894,6 +1914,7 @@ handleFriendship()
                 <Button
                     disabled={job.length > 0 ? false : true}
                     variant="contained"
+                    className="w-full cursor-pointer"
                     style={{
                         marginTop: 121,
                         height: 48,
@@ -2291,6 +2312,7 @@ handleFriendship()
 
                 <FormControlLabel
                     value="end"
+                    className="w-full block"
                     control={
                         <Checkbox
                             value={showSex}
@@ -2309,6 +2331,7 @@ handleFriendship()
                 <Button
                     disabled={sex.length > 0 ? false : true}
                     variant="contained"
+                    className="w-full cursor-pointer"
                     style={{
                         marginTop: 21,
                         height: 48,
@@ -2401,7 +2424,7 @@ handleFriendship()
 
     const Hobbies = () => {
         return (
-            <>
+            <div className="w-[450px]">
                 <p style={{ color: "#C62251", marginTop: 21 }}>
                     My Hobbies and Interest are
                 </p>
@@ -2416,6 +2439,8 @@ handleFriendship()
                         direction="row"
                         spacing={2}
                         style={{ width: "100%" }}
+
+
                     >
                         <Grid item xs>
                             <Grid
@@ -4073,6 +4098,7 @@ handleFriendship()
                 <Button
                     disabled={hobbies.length > 0 ? false : true}
                     variant="contained"
+                    className="w-full"
                     style={{
                         marginTop: 21,
                         height: 48,
@@ -4086,7 +4112,7 @@ handleFriendship()
                 >
                     Continue
                 </Button>
-            </>
+            </div>
         );
     };
 
@@ -4271,7 +4297,7 @@ handleFriendship()
                     Upload Pictures for Gallery
                 </p>
 
-                <Grid spacing={2} direction="row" container>
+                <Grid spacing={2}   container className="flex flex-wrap">
                     <Grid item>
                         <img
                             src={
@@ -4449,6 +4475,7 @@ handleFriendship()
                     <small> (25 Characters)</small>
                 </p>
                 <TextField
+                 className="w-full block"
                     id="standard-multiline-static"
                     label="Enter Short Bio atleast 25 characters"
                     multiline
@@ -4473,6 +4500,7 @@ handleFriendship()
                     }}
                 />
                 <Button
+                className="w-full block"
                     disabled={
                         avatar == null &&
                         avatar2 == null &&
@@ -4707,6 +4735,7 @@ handleFriendship()
 
                 <Button
                     variant="contained"
+                    className="w-full"
                     style={{
                         marginTop: 12,
                         height: 48,
@@ -4730,8 +4759,8 @@ handleFriendship()
     const valueProgress = 0.66;
     const ProfileCreationFinished = ()=>{
         return (
-            <>
-             <h1 style={{ textAlign:'center', width:'100%', fontSize:21, alignSelf:'center',color:'#C62251'  }}>Congratulations! Profile Creation Finished</h1>
+            <div className="flex flex-col items-center">
+             <h1 className="font-bold text-2xl" style={{ textAlign:'center', width:'100%', fontSize:21, alignSelf:'center',color:'#C62251'  }}>Congratulations! Profile Creation Finished</h1>
 
                 <img src={data.done} style={{ width:280, alignSelf:'center' }} />
                 <p style={{ fontSize:15,  flexWrap:'wrap', width:300, textAlign:'center', alignSelf:'center' }}>You can Always Update or Change Profile Details in Profile Settings</p>
@@ -4744,11 +4773,11 @@ handleFriendship()
                 </div>
 
 
-                <p style={{  fontSize:15, marginTop:24, width:370, alignSelf:'center', textAlign:'center' }}>Update your Preferences to discover the most compatible Matches for you or click on continue to start discovering now</p>
+                <p className="font-bold mb-4" style={{  fontSize:15, marginTop:24, width:370, alignSelf:'center', textAlign:'center' }}>Update your Preferences to discover the most compatible</p>
 
-                <Grid container spacing={1} direction="row" style={{   marginTop: 34, }}>
-                    <Grid item xs>
+
                         <Button variant="contained"
+                        className="w-full mt-[34px]"
                     style={{
 
                         height: 48,
@@ -4763,21 +4792,10 @@ handleFriendship()
                         localStorage.removeItem(REG_STEPS)
                         navigate('/preference', {replace:true});
                     }}
-                    >Preferences</Button>
-                    </Grid>
-                    <Grid item xs>
-                        <Button variant="outlined"
-                    style={{
+                    >Setup Your Preferences</Button>
 
-                        height: 48,
-                        fontFamily: "Dosis",
-                        fontWeight: "bold",
-                        width:'100%'
-                    }}
-                    color="primary">Continue</Button>
-                    </Grid>
-                </Grid>
-            </>
+
+            </div>
         )
     }
 
@@ -4787,7 +4805,7 @@ handleFriendship()
                 <div
                     style={{
                         backgroundColor: "#C62251",
-                        width: `${stepNumber*10}%`,
+                        width: `${stepNumber/12*100}%`,
                         height: 12,
                     }}
                 ></div>
@@ -4796,7 +4814,7 @@ handleFriendship()
                 <div>
                     {stepNumber == 10 && (
                         <>
-                            <h1>Profile Pictures & Bio {stepNumber}/11 </h1>
+                            <h1 className="font-bold text-2xl">Profile Pictures & Bio {stepNumber}/11 </h1>
                             <p>
                                 Please Picture so People will know who you are
                             </p>
@@ -4805,7 +4823,7 @@ handleFriendship()
 
                     {stepNumber == 11 && (
                         <>
-                            <h1>Your Location {stepNumber}/11 </h1>
+                            <h1 className="font-bold text-2xl">Your Location {stepNumber}/11 </h1>
                             <p>
                                 Allow Location access to get your Location
                                 automatically
@@ -4816,15 +4834,15 @@ handleFriendship()
 
                     {stepNumber < 10 && (
                         <>
-                            <h1>Personal Information {stepNumber}/11</h1>
+                            <h1 className="font-bold text-2xl">Personal Information {stepNumber}/11</h1>
                             <p>Please enter the following informations</p>
                         </>
                     )}
                 </div>
 
-                {stepNumber != 12 &&(<a href="" style={{ color: "#C62251", fontWeight: "bold" }}>
+                {/* {stepNumber != 12 &&(<a href="" style={{ color: "#C62251", fontWeight: "bold" }}>
                     Skip
-                </a>)}
+                </a>)} */}
             </div>
             {/* Personal Details */}
             {steps == "personal" && PersonalDetails()}

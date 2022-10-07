@@ -14,7 +14,7 @@ import  states  from '../assets/json/states.json';
 import woman from "../assets/images/awoman.jpg";
 import lady from "../assets/images/lady.jpg";
 
- 
+
 const DB = "user-m9j234u94"
 const USERDB = "dao"
 function ShowAll() {
@@ -26,7 +26,7 @@ function ShowAll() {
 
     const [countrycode, setCountrycode] = React.useState({})
     const [statecode, setStatecode] = React.useState({})
-
+    const [user, setUser] = React.useState(null)
 
 
 
@@ -61,6 +61,14 @@ React.useEffect(()=>{
     for(var i = 18; i < 100; i++) {
         age.push(i)
        }
+    //    let db = ls.get(USERDB, {decrypt:true})
+    //    if(db == null){
+    //        console.log(db.user)
+    //        navigate('/', {replace:true})
+    //    }else{
+    //        console.log(db.user)
+    //        setUser(db.user)
+    //    }
     loadData()
 },[])
   return (
@@ -127,7 +135,7 @@ React.useEffect(()=>{
 
     <div className='flex-1 w-full'>
 
-        <button className='bg-black text-white justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white hover:text-black'>Send</button>
+        <button className='bg-black text-white justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white hover:text-black'>Search</button>
     </div>
 </div>
         <div className='md:w-full mx-auto  h-screen'  >
@@ -143,7 +151,7 @@ React.useEffect(()=>{
 {explores.map((profile, index) => (
     <UserProfile
         profile={profile}
-        liked={user}
+        liked={userlikes}
         key={index}
         reload={reload}
     />)

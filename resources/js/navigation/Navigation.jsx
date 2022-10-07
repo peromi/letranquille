@@ -143,6 +143,16 @@ setProfileloc()
             </Link>
           </li>
           <li>
+            <Link to="/search" className={select=="explore"?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}>
+              {select == 'search' ? (
+                <i class="fi fi-sr-search" style={styles.icon}></i>
+              ) : (
+                <i class="fi fi-rr-search" style={styles.icon}></i>
+              )}
+              <p>Search</p>
+            </Link>
+          </li>
+          <li>
             <Link to="/matches" className={select=="matches"?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}>
               {select == 'matches' ? (
                 <i class="fi fi-sr-hand-holding-heart text-red-600" style={styles.icon}></i>
@@ -168,9 +178,9 @@ setProfileloc()
           <li id="activity" className='relative'>
           <div
 
-              className={select=='message'?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}
+              className={select=='activity'?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}
             >
-              {select == 'message' ? (
+              {select == 'activity' ? (
                 <i class="fi fi-sr-comments" style={styles.icon}></i>
               ) : (
                 <i class="fi fi-rr-comments" style={styles.icon}></i>

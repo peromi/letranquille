@@ -16,7 +16,7 @@ const USERDB = "dao"
 function Explore() {
     const [explores, setExplores] = React.useState([])
     const [userlikes, setUserlikes] = React.useState([])
-
+    const [user, setUser] = React.useState(null)
 
 
 
@@ -49,6 +49,8 @@ React.useEffect(()=>{
     for(var i = 18; i < 100; i++) {
         age.push(i)
        }
+
+
     loadData()
 },[])
   return (
@@ -92,11 +94,11 @@ React.useEffect(()=>{
     </div>
     <div className='flex-1 w-full'>
 
-        <button className='bg-yellow-400 justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white'>Send</button>
+        <button className='bg-yellow-400 justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white'>Search</button>
     </div>
 </div>
         <div className='md:w-full mx-auto  h-screen'  >
-             
+
             {/* <Match /> */}
 
             {explores.length > 0 ? <div className="grid grid-cols-5 gap-4 pt-2">
@@ -104,7 +106,7 @@ React.useEffect(()=>{
                 {explores.map((profile, index) => (
                     <UserProfile
                         profile={profile}
-                        liked={user}
+                        liked={userlikes}
                         key={index}
                         reload={reload}
                     />)

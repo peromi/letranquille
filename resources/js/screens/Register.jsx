@@ -9,6 +9,9 @@ import ls from 'localstorage-slim'
 
 const DATABASE_KEY = "user-m9j234u94";
 const REG_STEPS = "stepper";
+
+const USERPASS = "userpass";
+
 function Register() {
     const navigate = useNavigate()
     const [email, setEmail] = React.useState('')
@@ -38,6 +41,7 @@ function Register() {
                     //     console.log(message)
                     //     toast.success(`${response.data.message}`)
                     // }
+                    ls.set(USERPASS, {'email':email, 'password':password}, {encrypt:true})
                     ls.set(DATABASE_KEY, response.data.token, {encrypt:true});
                     ls.set(REG_STEPS, {'step':1, 'title':'personal'}, {encrypt:true});
                     navigate('/onboarding', {replace:true})
@@ -58,10 +62,10 @@ function Register() {
             <Link to="/" style={{ fontSize:23, fontWeight: "bold" }}><i className="fi  fi-rr-angle-small-left
 "></i> Home</Link>
             <h1 className="text-3xl text-center font-bold">Welcome</h1>
-                        <h1 class="text-3xl text-center font-bold">
+                        <h1 class="text-2xl text-center font-bold">
                             to start a new Journey!
                         </h1>
-                        <h1 class="text-3xl text-center font-bold text-red-500">
+                        <h1 class="text-2xl text-center font-bold text-red-500">
                             Sign Up
                         </h1>
 

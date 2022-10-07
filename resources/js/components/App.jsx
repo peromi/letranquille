@@ -23,6 +23,7 @@ import app from "../containers/FirebaseConfig";
 import ProfilePanel from "./profile/ProfilePanel";
 import Notification from "../screens/Notification";
 import PreferenceSettings from "../screens/PreferenceSettings";
+import Search from "../screens/Search";
 import 'animate.css'
 
 import ls from 'localstorage-slim'
@@ -113,6 +114,7 @@ function App() {
                     <Route path="/refund-policy" element={<RefundPolicy />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms-of-use" element={<TermsOfUse />} />
+                    <Route path="/search" element={<Search />} />
 
                 </Routes>
 

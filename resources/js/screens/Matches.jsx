@@ -47,18 +47,18 @@ function Matches() {
             ls.set(subscribe, response.data.subscription, {encrypt: true})
         }).catch((error)=>{
 
-            console.log(error)
-            alert(error.response.data.message)
+            // console.log(error)
+            // alert(error.response.data.message)
 
-            // if(error.response.status == 401){
-                // ls.remove(USERDB)
-                // ls.remove(DB)
+            if(error.response.status == 401){
+                ls.remove(USERDB)
+                ls.remove(DB)
 
-                // navigate('/login', {replace:true})
+                navigate('/login', {replace:true})
 
-                // alert(error.response.data.message)
+                alert(error.response.data.message)
 
-            // }
+            }
 
         })
     }
@@ -79,18 +79,18 @@ function Matches() {
 
         }).catch((error)=>{
 
-            console.log(error)
-            alert(error.response.data.message)
+            // console.log(error)
+            // alert(error.response.data.message)
 
-            // if(error.response.status == 401){
-                // ls.remove(USERDB)
-                // ls.remove(DB)
+            if(error.response.status == 401){
+                ls.remove(USERDB)
+                ls.remove(DB)
 
-                // navigate('/login', {replace:true})
+                navigate('/login', {replace:true})
 
-                // alert(error.response.data.message)
+                alert(error.response.data.message)
 
-            // }
+            }
 
         })
     }
@@ -112,17 +112,17 @@ function Matches() {
         }).catch((error)=>{
 
             console.log(error)
-            alert(error.response.data.message)
+            alert(error.response.status)
 
-            // if(error.response.status == 401){
-                // ls.remove(USERDB)
-                // ls.remove(DB)
+            if(error.response.status == 401){
+                ls.remove(USERDB)
+                ls.remove(DB)
 
-                // navigate('/login', {replace:true})
+                navigate('/login', {replace:true})
 
-                // alert(error.response.data.message)
+                alert(error.response.data.message)
 
-            // }
+            }
 
         })
     }

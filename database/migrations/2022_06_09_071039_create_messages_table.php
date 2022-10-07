@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('message');
             $table->string("data")->nullable();
             $table->string("status");
+            $table->string("by");
             $table->timestamps();
         });
     }
