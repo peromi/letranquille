@@ -181,9 +181,9 @@ setProfileloc()
               className={select=='activity'?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}
             >
               {select == 'activity' ? (
-                <i class="fi fi-sr-comments" style={styles.icon}></i>
+                <i class="fi fi-rr-user-add" style={styles.icon}></i>
               ) : (
-                <i class="fi fi-rr-comments" style={styles.icon}></i>
+                <i class="fi fi-rr-user-add" style={styles.icon}></i>
               )}
               <p>Activities</p>{' '}
             </div>

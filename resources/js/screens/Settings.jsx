@@ -81,6 +81,10 @@ const [tab, setTab] = React.useState(0)
                         <div className="flex flex-row gap-x-3 font-bold">
                         <input type="radio" id="d2" name="d" disabled />
                         <label for="d2">Hide my profile to users</label>
+                        <button className="flex flex-row bg-green-400 px-12 rounded-md p-1 gap-x-3 ">
+                            <p>Upgrade now to hide your profile from other users</p>
+                            <i class="fi fi-sr-lock"></i>
+                        </button>
                         </div>
                     </div>
 
