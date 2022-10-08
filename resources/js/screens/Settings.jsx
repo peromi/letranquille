@@ -49,14 +49,43 @@ const [tab, setTab] = React.useState(0)
 <input type="password" placeholder="Confirm New Password" className="flex-1 bg-transparent" />
 
 </div>
+<button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold mt-5">Upgrade Now</button>
 </div>}
         {tab===2 && <div className=" pt-4">
             <div className="flex flex-col md:flex-row justify-between ">
                 <div>
-                    <h1 className="font-bold text-2xl">Notification</h1>
-                    <p>Update your email and realtime notifications</p>
+                    <h1 className="font-bold text-2xl">Profile Settings</h1>
+                    <p>Update your profile display options and localization.</p>
+
+                    <div>
+
+                        <h1 className="font-bold text-red-600 text-2xl mt-2">Online Status</h1>
+
+                        <div className="flex flex-row gap-x-3 font-bold">
+                        <input type="radio" id="online1" name="online" checked />
+                        <label for="online1">Show me as online</label>
+                        </div>
+                        <div className="flex flex-row gap-x-3 font-bold">
+                        <input type="radio" id="online2" name="online" />
+                        <label for="online2">Show me as busy</label>
+                        </div>
+                    </div>
+                    <div>
+
+                        <h1 className="font-bold text-red-600 text-2xl mt-3">Display Profile</h1>
+
+                        <div className="flex flex-row gap-x-3 font-bold">
+                        <input type="radio" id="d" name="d" checked />
+                        <label for="d">Display my profile to users</label>
+                        </div>
+                        <div className="flex flex-row gap-x-3 font-bold">
+                        <input type="radio" id="d2" name="d" disabled />
+                        <label for="d2">Hide my profile to users</label>
+                        </div>
+                    </div>
+
+                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold mt-4">Save</button>
                 </div>
-                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold">Change Email Address</button>
             </div>
 
         </div>}
