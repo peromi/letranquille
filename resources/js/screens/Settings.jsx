@@ -15,7 +15,65 @@ const [tab, setTab] = React.useState(0)
 </div>
 <div className="h-screen w-full px-20 pb-4">
 {tab===0 && <div className=" pt-4">
+
+            <h1 className="font-bold text-2xl">Email Address</h1>
+            <p>Please update your email if it has changed so you do not miss any communications or match alert</p>
+
+<h1 className="font-bold text-red-600">Change Email Address</h1>
+<div className="flex flex-row ring-1 ring-slate-900/5 p-2 md:w-[50%] bg-white mt-6">
+<input type="email" placeholder="Email Address" className="flex-1 bg-transparent" />
+<button className='bg-red-600 text-white hover:bg-red-800 px-6 p-2'>Save</button>
+</div>
+        </div>}
+
+        {tab===1 && <div className=" pt-4">
+
+<h1 className="font-bold text-2xl">Password</h1>
+<p>To help keep your account secure we recommend that you routinely change your password.</p>
+<p className='font-bold'>Important: For extra security ensure that your new password is NOT the same as your email password</p>
+
+<h1 className="font-bold text-red-600 text-2xl">Enter your current password</h1>
+<p className="mt-6">Current password</p>
+<div className="flex flex-row ring-1 ring-slate-900/5 p-2 md:w-[50%] bg-white ">
+<input type="password" placeholder="Current password" className="flex-1 bg-transparent" />
+
+</div>
+<button className="mt-2">Forgot password?</button>
+<p className="mt-3">New password</p>
+<div className="flex flex-row ring-1 ring-slate-900/5 p-2 md:w-[50%] bg-white ">
+<input type="password" placeholder="New password" className="flex-1 bg-transparent" />
+
+</div>
+<p className="mt-1">Confirm New password</p>
+<div className="flex flex-row ring-1 ring-slate-900/5 p-2 md:w-[50%] bg-white  ">
+<input type="password" placeholder="Confirm New Password" className="flex-1 bg-transparent" />
+
+</div>
+</div>}
+        {tab===2 && <div className=" pt-4">
             <div className="flex flex-col md:flex-row justify-between ">
+                <div>
+                    <h1 className="font-bold text-2xl">Notification</h1>
+                    <p>Update your email and realtime notifications</p>
+                </div>
+                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold">Change Email Address</button>
+            </div>
+
+        </div>}
+    {tab===3 && <div className=" pt-4">
+            <div className="flex flex-col md:flex-row justify-between ">
+                <div>
+                    <h1 className="font-bold text-2xl">Billing - Auto Renew</h1>
+                    <p>You are currently a FREE Standard member. Click <strong>"Upgrade Now"</strong> below to learn more about the benefits of becoming a paid member.</p>
+
+                    <p>Note: Auto renewal is only switched on after you have made a successful payment to upgrade membership.</p>
+                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold mt-5">Upgrade Now</button>
+                </div>
+            </div>
+
+        </div>}
+        {tab===4 && <div className=" pt-4">
+        <div className="flex flex-col md:flex-row justify-between ">
                 <div>
                     <h1 className="font-bold text-2xl">Notification</h1>
                     <p>Update your email and realtime notifications</p>
@@ -84,47 +142,6 @@ const [tab, setTab] = React.useState(0)
 
                      </ul>
                 </div>
-            </div>
-
-        </div>}
-
-        {tab===1 && <div className=" pt-4">
-            <div className="flex flex-col md:flex-row justify-between ">
-                <div>
-                    <h1 className="font-bold text-2xl">Notification</h1>
-                    <p>Update your email and realtime notifications</p>
-                </div>
-                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold">Change Email Address</button>
-            </div>
-
-        </div>}
-        {tab===2 && <div className=" pt-4">
-            <div className="flex flex-col md:flex-row justify-between ">
-                <div>
-                    <h1 className="font-bold text-2xl">Notification</h1>
-                    <p>Update your email and realtime notifications</p>
-                </div>
-                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold">Change Email Address</button>
-            </div>
-
-        </div>}
-    {tab===3 && <div className=" pt-4">
-            <div className="flex flex-col md:flex-row justify-between ">
-                <div>
-                    <h1 className="font-bold text-2xl">Notification</h1>
-                    <p>Update your email and realtime notifications</p>
-                </div>
-                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold">Change Email Address</button>
-            </div>
-
-        </div>}
-        {tab===4 && <div className=" pt-4">
-            <div className="flex flex-col md:flex-row justify-between ">
-                <div>
-                    <h1 className="font-bold text-2xl">Notification</h1>
-                    <p>Update your email and realtime notifications</p>
-                </div>
-                <button className="p-2 px-12 rounded-full bg-red-800 text-white font-bold">Change Email Address</button>
             </div>
 
         </div>}
