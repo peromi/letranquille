@@ -41,12 +41,11 @@ class LocationController extends Controller
 
         $location = new Location();
         $location->user_id = auth()->user()->id;
-        $location->address = $request->input('address');
-        $location->latitude = $request->input('latitude');
-        $location->longitude = $request->input('longitude');
-        $location->distance_min = $request->input('min');
-        $location->distance_max = $request->input('max');
-        $location->allow_any_distance = $request->input('allow_any_distance');
+        $location->country = $request->input('country');
+        $location->state = $request->input('state');
+        $location->city = $request->input('city');
+        $location->currency = $request->input('currency');
+        $location->currency_symbol = $request->input('currency_symbol');
 
         if($location->save()){
             return response(['message'=>'Profile creation finished.'],201);

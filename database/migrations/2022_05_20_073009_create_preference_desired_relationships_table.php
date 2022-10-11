@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('preference_desired_relationships', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('type');
+            $table->string('relationship_type');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

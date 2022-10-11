@@ -37,7 +37,7 @@ class PreferenceBodytypeController extends Controller
     {
         $bodytype = new PreferenceBodytype();
         $bodytype->user_id = auth()->user()->id;
-        $bodytype->type = $request->type;
+        $bodytype->body_type = $request->type;
 
 
         if($bodytype->save()){

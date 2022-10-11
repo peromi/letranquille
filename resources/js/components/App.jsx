@@ -47,6 +47,7 @@ import Likes from "./activities/Likes";
 import BlockedList from "./activities/BlockedList";
 import Favorite from "./activities/Favorite";
 import ProfileView from "./activities/ProfileView";
+import MessageSingle from "../screens/MessageSingle";
 
 
 
@@ -95,7 +96,7 @@ function App() {
                     <Route path="/profile-view" element={<ProfileView />} />
                     <Route path="/explore" element={<Explore />} />
                     <Route path="/messages" element={<Messages />} />
-                    <Route path="/messages/:id" element={<Messages />} />
+                    <Route path="/messages-single/:id" element={<MessageSingle />} />
                     <Route path="/profile" element={<ProfilePanel />} />
                     <Route path="/profile/:id" element={<ProfilePanel />} />
                     <Route path="/notification" element={<Notification />} />

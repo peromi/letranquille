@@ -37,7 +37,7 @@ class PreferenceDesiredRelationshipController extends Controller
     {
         $desiredRelationship = new PreferenceDesiredRelationship();
         $desiredRelationship->user_id = auth()->user()->id;
-        $desiredRelationship->type = $request->type;
+        $desiredRelationship->relationship_type = $request->type;
 
 
         if($desiredRelationship->save()){

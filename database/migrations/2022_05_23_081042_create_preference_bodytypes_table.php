@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('preference_bodytypes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('type');
+            $table->string('body_type');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

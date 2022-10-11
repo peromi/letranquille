@@ -22,5 +22,11 @@ class DatabaseSeeder extends Seeder
         $user->password = Hash::make('22222222');
         $user->role = "admin";
         $user->save();
+
+
+        $names = [];
+        for($n = 1; $n <= 22410; $n++){
+
+        }
     }
 }

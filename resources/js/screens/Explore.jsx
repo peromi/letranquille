@@ -13,16 +13,25 @@ import lady from "../assets/images/lady.jpg";
 
 const DB = "user-m9j234u94"
 const USERDB = "dao"
+
 function Explore() {
     const [explores, setExplores] = React.useState([])
     const [userlikes, setUserlikes] = React.useState([])
     const [user, setUser] = React.useState(null)
+    const [active, setActive] = React.useState({})
+
+    // Search data
+    const [iam, setIam] = React.useState('')
+    const [seeking, setSeeking] = React.useState('')
+    const [from, setFrom] = React.useState('')
+    const [ageMin, setAgeMin] = React.useState(0)
+    const [ageMax, setAgeMax] = React.useState(0)
 
 
 
       const age = []
 
-       for(var i = 18; i < 100; i++) {
+      for(var i = 18; i < 100; i++) {
         age.push(i)
        }
 
@@ -39,7 +48,11 @@ function Explore() {
         }).then((response)=>{
             console.log(response.data)
             setExplores(response.data.explores)
-            setUserlikes(response.data.user.likes)
+            console.log(response.data.user)
+            setActive(response.data.user)
+            setUser(response.data.user)
+
+
         })
     }
 const  reload = () => {
@@ -52,43 +65,51 @@ React.useEffect(()=>{
 
 
     loadData()
+    setIam(active.iam)
+    setSeeking(active.seeking)
+    setFrom(active.country)
+    setAgeMin(active.age_min)
+    setAgeMax(active.age_max)
+
 },[])
   return (
    <MainContainer select="explore">
+
 <div className='flex md:flex-row flex-col w-full bg-red-600 text-white justify-around p-2 items-center gap-4'>
     <div className='flex-1 w-full'>
-        <p>I'm a</p>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent w-full'>
-            <option>male</option>
-            <option>female</option>
+        <p>I'm a  </p>
+        <select className='ring-1 p-2 ring-slate-200 bg-white text-black w-full' value={iam} onChange={(e)=>setIam(e.target.value)}>
+        <option selected={active.iam === "man"?'true':'false'}>man</option>
+
+            <option selected={active.iam === "woman"?'true':'false'}>woman</option>
         </select>
     </div>
     <div className='flex-1 w-full'>
         <p>Seeking a</p>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent w-full'>
-            <option>male</option>
-            <option>any</option>
-            <option>male</option>
-            <option>female</option>
+        <select className='ring-1 p-2   bg-white text-black w-full' value={seeking} onChange={(e)=>setSeeking(e.target.value)}>
+            <option selected={active.lookingfor === "any"?'true':'false'}>any</option>
+        <option selected={active.lookingfor === "man"?'true':'false'}>man</option>
+
+            <option selected={active.lookingfor === "woman"?'true':'false'}>woman</option>
         </select>
     </div>
     <div className='flex-1 w-full'>
         <p>From</p>
-       <select className='ring-1 p-2 ring-slate-200 bg-transparent w-full'>
+       <select className='ring-1 p-2   bg-white text-black w-full' value={from} onChange={(e)=>setFrom(e.target.value)}>
 
                 <option>Any</option>
-            {country.map((c,index)=><option key={index}>{c.name}</option>)}
+            {country.map((c,index)=><option key={index} selected={active.country === c.code?'true':'false'}   value={c.code}>{c.name}</option>)}
         </select>
     </div>
     <div className='flex-1 w-full'>
         <p>Age</p>
         <div className='flex md:flex-row flex-col gap-4'>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent md:w-1/2 w-full'>
+        <select className='ring-1 p-2  bg-white md:w-1/2 w-full text-black' value={ageMin} onChange={(e)=>setAgeMin(e.target.value)}>
 
-            {age.map((a, index)=><option key={index}>{a}</option>)}
+            {age.map((a, index)=><option key={index} selected={active.age_min === a?'true':'false'}  >{a}</option>)}
         </select>
-        <select className='ring-1 p-2 ring-slate-200 bg-transparent md:w-1/2 w-full'>
-            {age.map((a, index)=><option key={index}>{a}</option>)}
+        <select className='ring-1 p-2  bg-white text-black md:w-1/2 w-full'  value={ageMax} onChange={(e)=>setAgeMax(e.target.value)}>
+            {age.map((a, index)=><option key={index} selected={active.age_max === a?'true':'false'}  >{a}</option>)}
         </select>
         </div>
     </div>
@@ -97,7 +118,7 @@ React.useEffect(()=>{
         <button className='bg-yellow-400 justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white'>Search</button>
     </div>
 </div>
-        <div className='md:w-full mx-auto  h-screen'  >
+        <div className='md:w-full mx-auto  h-screen p-12'  >
 
             {/* <Match /> */}
 

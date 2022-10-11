@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('preference_ages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('min');
-            $table->integer('max');
+            $table->integer('age_min');
+            $table->integer('age_max');
             $table->boolean('any_age')->default(false);
             $table->timestamps();
 

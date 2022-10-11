@@ -41,7 +41,7 @@ class ReligionController extends Controller
 
         $religion = new Religion();
         $religion->user_id = auth()->user()->id;
-        $religion->name = $request->name;
+        $religion->religion_name = $request->name;
 
         if($religion->save()){
             return response(['message' => "Religion added"], 201);

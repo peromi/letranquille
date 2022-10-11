@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('address');
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
-            $table->double('distance_min');
-            $table->double('distance_max');
-            $table->string('allow_any_distance');
+            $table->string('country');
+            $table->string('state');
+            $table->string('city');
+            $table->string('currency');
+            $table->string('currency_symbol');
+            $table->string('show_profile')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

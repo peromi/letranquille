@@ -37,8 +37,8 @@ class PreferenceAgeController extends Controller
     {
         $age = new PreferenceAge();
         $age->user_id = auth()->user()->id;
-        $age->min = $request->min;
-        $age->max = $request->max;
+        $age->age_min = $request->min;
+        $age->age_max = $request->max;
 
         if($age->save()){
             return response(['message'=>"Age preference set."],201);

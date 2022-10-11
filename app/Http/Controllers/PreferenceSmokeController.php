@@ -37,7 +37,7 @@ class PreferenceSmokeController extends Controller
     {
         $smoke = new PreferenceSmoke();
         $smoke->user_id = auth()->user()->id;
-        $smoke->type = $request->type;
+        $smoke->smoke_type = $request->type;
 
 
         if($smoke->save()){

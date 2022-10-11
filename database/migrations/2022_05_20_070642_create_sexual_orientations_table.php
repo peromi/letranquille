@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('sexual_orientations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('type');
+            $table->string('sex_type');
             $table->string('show');
             $table->timestamps();
 

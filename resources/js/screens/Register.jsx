@@ -62,10 +62,10 @@ function Register() {
             <Link to="/" style={{ fontSize:23, fontWeight: "bold" }}><i className="fi  fi-rr-angle-small-left
 "></i> Home</Link>
             <h1 className="text-3xl text-center font-bold">Welcome</h1>
-                        <h1 class="text-2xl text-center font-bold">
+                        <h1 class="text-xl text-center font-bold">
                             to start a new Journey!
                         </h1>
-                        <h1 class="text-2xl text-center font-bold text-red-500">
+                        <h1 class="text-xl text-center font-bold text-red-500">
                             Sign Up
                         </h1>
 
@@ -144,28 +144,25 @@ function Register() {
 
                     onChange={(e)=>setConfirm(e.target.value)}
                 />
-                <div class="divider">
-                    <p>Or Sign Up with</p>
-                </div>
-                <div class="social">
-                <Link to="#">
-                        <i class="fi fi-brands-google"></i>
-                    </Link>
-                    <Link to="#">
-                        <i class="fi fi-brands-instagram"></i>
-                    </Link>
-                    <Link to="#">
-                        <i class="fi fi-brands-facebook"></i>
-                    </Link>
-                </div>
-
-                <Button variant="contained" style={{ marginTop:21, height:48, width:'100%',   fontWeight:'bold' }} color="primary" onClick={()=>{
+                 <Button variant="contained" className="" style={{ marginTop:21, height:48, width:'100%',   fontWeight:'bold' }} color="primary" onClick={()=>{
                     handleRegister();
                 }}>Sign Up</Button>
-               <div class="flex justify-center items-center font-bold mt-2 gap-x-2">
+               <div class="flex justify-center items-center font-bold mt-2 mb-5 gap-x-2">
                                 <p>Already have an Account?</p>
                                 <Link to="/login" className="text-2xl text-red-500">Login</Link>
                             </div>
+                <div class="divider">
+                    <p>Or</p>
+                </div>
+                <div class="social">
+                    <Link to="#" className="hover:bg-blue-900 flex flex-row font-bold rounded-md bg-blue-800 justify-center text-white items-center gap-x-2 w-full">
+                        <i class="fi fi-brands-facebook text-white pt-2"></i>
+                        <p className="text-white text-lg">SignUp with Facebook</p>
+                    </Link>
+
+                </div>
+
+
             </form>
         </AuthContainer>
     );

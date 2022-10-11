@@ -1728,7 +1728,7 @@ handleBodytype()
 
     const loginUserAutomatically = async ()=>{
        var user = ls.get(USERPASS, {decrypt:true})
-
+       ls.remove('items');
        if(user !== null){
 
         let id = toast.loading("Please wait...")
@@ -1738,7 +1738,7 @@ handleBodytype()
         }).then((response)=>{
             console.log("response")
                 console.log(response.data)
-                ls.remove('items');
+
                 toast.update(id, {render: "Logged in", type: "success", isLoading: false, autoClose:true});
 
 

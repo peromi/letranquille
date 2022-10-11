@@ -41,7 +41,7 @@ class SexualOrientationController extends Controller
 
         $sexualOrientation = new SexualOrientation();
         $sexualOrientation->user_id = auth()->user()->id;
-        $sexualOrientation->type = $request->input('type');
+        $sexualOrientation->sex_type = $request->input('type');
         $sexualOrientation->show = $request->input('show');
 
         if($sexualOrientation->save()){

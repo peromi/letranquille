@@ -40,9 +40,9 @@ const Navigation = ({ select }) => {
     if (db !== null) {
         console.log("DATA",db.user.user)
          addUser(db.user.user)
-         console.log(db.user.user.address.split(','))
+         console.log(db.user.user.country)
 
-         setProfileloc(db.user.user.address.split(','))
+         setProfileloc(db.user.user.city+','+db.user.user.country)
       setProfile(db.user.user)
 
 
@@ -143,7 +143,7 @@ setProfileloc()
             </Link>
           </li>
           <li>
-            <Link to="/search" className={select=="explore"?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}>
+            <Link to="/search" className={select=="search"?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}>
               {select == 'search' ? (
                 <i class="fi fi-sr-search" style={styles.icon}></i>
               ) : (
@@ -202,7 +202,7 @@ setProfileloc()
           <div className="capitalize mr-6 flex-1">
             <p className="-mb-2">{profile.name}</p>
             <span className="text-[12px] -mt-2">
-              {profileloc[0]} <a href="#" className='text-red-600'>Change</a>
+              {profileloc} <a href="#" className='text-red-600'>Change</a>
             </span>
           </div>
           <button onClick={()=>{

@@ -21,17 +21,7 @@ const USERDB = "dao";
 function Messages() {
     const navigate = useNavigate();
     const {
-        sendpeer,
-        answerpeer,
-        id,
-        me,
-        myVideo,
-        userVideo,
-        call,
-        callAccepted,
-        callEnded,
-        stream,
-        incoming,
+       subscription,
     } = React.useContext(SocketContext);
     const [tab, setTab] = React.useState(0);
     const [user, setUser] = React.useState(null);
@@ -66,6 +56,7 @@ function Messages() {
 
     return (
         <MainContainer select="message">
+            <p>{subscription}</p>
             <div className="bg-red-600 w-full px-12  flex gap-x-6">
                 <button
                     className={

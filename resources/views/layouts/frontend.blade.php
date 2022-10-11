@@ -23,11 +23,11 @@
 <body>
 
     <div id="root">
-        <div style="background-color: #E5EFF1" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
+        {{-- <div style="background-color: #E5EFF1" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
             <img src="{{asset('/images/logo.png')}}" />
             <h1 class="text-2xl">Welcome to Le-Tranquille.</h1>
             <img src="{{asset('/images/giphy.gif')}}" width="120px" />
-        </div>
+        </div> --}}
     </div>
 
 

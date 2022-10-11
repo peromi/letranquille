@@ -98,7 +98,7 @@ function PreferenceSettings() {
             <i className='fi fi-rr-utensils' style={{ fontSize:24, fontWeight:'bold' }}></i>
             <div style={{ width:'100%', marginLeft:12 }}>
                 <h3>Food Preference</h3>
-                <p style={styles.pink}>{preferenceFood.type}</p>
+                <p style={styles.pink}>{preferenceFood.food_type}</p>
             </div>
             <button style={{ border:0, background:'transparent', display:'flex', gap:8, cursor:'pointer' }} onClick={()=>{
                 setSetting('food')
@@ -112,7 +112,7 @@ function PreferenceSettings() {
             <i className='fi fi-rr-beer' style={{ fontSize:24, fontWeight:'bold' }}></i>
             <div style={{ width:'100%', marginLeft:12 }}>
                 <h3>Drinking Habit</h3>
-                <p style={styles.pink}>{preferenceDrink.type}</p>
+                <p style={styles.pink}>{preferenceDrink.drink_type}</p>
             </div>
             <button style={{ border:0, background:'transparent', display:'flex', gap:8, cursor:'pointer' }} onClick={()=>{
                 setSetting('drink')
@@ -126,7 +126,7 @@ function PreferenceSettings() {
             <i className='fi fi-sr-heart' style={{ fontSize:24, fontWeight:'bold' }}></i>
             <div style={{ width:'100%', marginLeft:12 }}>
                 <h3>Type of Relationship</h3>
-                <p style={styles.pink}>{preferenceRelationship.type}</p>
+                <p style={styles.pink}>{preferenceRelationship.relationship_type}</p>
             </div>
             <button style={{ border:0, background:'transparent', display:'flex', gap:8, cursor:'pointer' }} onClick={()=>{
                 setSetting('relationship')
@@ -141,7 +141,7 @@ function PreferenceSettings() {
             <i className='fi fi-rr-user' style={{ fontSize:24, fontWeight:'bold' }}></i>
             <div style={{ width:'100%', marginLeft:12 }}>
                 <h3>Body Type</h3>
-                <p style={styles.pink}>{preferenceBodytype.type}</p>
+                <p style={styles.pink}>{preferenceBodytype.body_type}</p>
             </div>
             <button style={{ border:0, background:'transparent', display:'flex', gap:8, cursor:'pointer' }} onClick={()=>{
                 setSetting('bodytype')
@@ -156,7 +156,7 @@ function PreferenceSettings() {
 
             <div style={{ width:'100%', marginLeft:12 }}>
                 <h3>Smoking Habit</h3>
-                <p style={styles.pink}>{preferenceSmoke.type}</p>
+                <p style={styles.pink}>{preferenceSmoke.smoke_type}</p>
             </div>
             <button style={{ border:0, background:'transparent', display:'flex', gap:8, cursor:'pointer' }} onClick={()=>{
                 setSetting('smoke')
@@ -171,7 +171,7 @@ function PreferenceSettings() {
 
             <div style={{ width:'100%', marginLeft:12 }}>
                 <h3>Age</h3>
-                <p style={styles.pink}>{preferenceAge.min} - {preferenceAge.max} years</p>
+                <p style={styles.pink}>{preferenceAge.age_min} - {preferenceAge.age_max} years</p>
             </div>
             <button style={{ border:0, background:'transparent', display:'flex', gap:8, cursor:'pointer' }} onClick={()=>{
                 setSetting('age')
@@ -200,7 +200,7 @@ function PreferenceSettings() {
 
             <div style={{ width:'100%', marginLeft:12 }}>
                 <h3>Religion</h3>
-                <p style={styles.pink}>{preferenceReligion.type}</p>
+                <p style={styles.pink}>{preferenceReligion.religion_type}</p>
             </div>
             <button style={{ border:0, background:'transparent', display:'flex', gap:8, cursor:'pointer' }} onClick={()=>{
                 setSetting('religion')

@@ -25,6 +25,10 @@ import 'react-circular-progressbar/dist/styles.css';
 import ls from 'localstorage-slim'
 import { SocketContext } from "../context/SocketContext";
 import {FiSearch} from 'react-icons/fi'
+import cities from '../assets/json/cities.json'
+import  country  from '../assets/json/country.json';
+import  states  from '../assets/json/states.json';
+import  country_currency  from '../assets/json/country-currancy.json';
 
 const DATABASE_KEY = "user-m9j234u94";
 const REG_STEPS = "stepper";
@@ -48,26 +52,6 @@ function Onboarding() {
     const [location, setLocation] = React.useState({});
 
     // Get current location
-    const getCurrentLocation = () => {
-        axios
-            .get("http://ip-api.com/json")
-            .then((response) => {
-                console.log(response.data);
-                const { city, country, countryCode, lat, lon } = response.data;
-                setQuery(`${city}, ${countryCode} ${country}`);
-                setLocation({ lat: lat, lon: lon });
-            })
-            .catch((error) => {
-                if(isGeolocationAvailable){
-                    if(isGeolocationEnabled){
-                        if(coords){
-                            setLocation({ lat: coords.latitude, lon: coords.longitude })
-                        }
-                    }
-                }
-                // console.log(error.response.data);
-            });
-    };
 
     React.useEffect(() => {
 
@@ -81,12 +65,12 @@ function Onboarding() {
             setStepNumber(getdata.step);
         }
 
-        loadScript(
-            `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`,
-            () => handleScriptLoad(setQuery, autoCompleteRef)
-        );
+        const db = ls.get(DATABASE_KEY, {decrypt:true})
+        if(db === null){
+            navigate('/register')
+        }
 
-        getCurrentLocation();
+
     }, []);
 
     // Personal Information
@@ -95,7 +79,7 @@ function Onboarding() {
     const [bodyType, setBodyType] = React.useState("");
     const [bodyTypeShow, setBodyTypeShow] = React.useState(false);
     const [name, setName] = React.useState("");
-    const [height, setHeight] = React.useState(30);
+    const [height, setHeight] = React.useState(0);
 
     const [heightShow, setHeightShow] = React.useState(false);
 
@@ -105,9 +89,7 @@ function Onboarding() {
         console.log(date);
         setSelectedDate(date);
     };
-    const handleChange = (event, newValue) => {
-        setHeight(newValue);
-    };
+
 
     const handlePersonalInfo = () => {
         const token = ls.get(DATABASE_KEY, {decrypt:true});
@@ -131,7 +113,7 @@ function Onboarding() {
                         bodytype: bodyType,
                         body_show: bodyTypeShow,
                         height: height,
-                        height_show: heightShow,
+                        height_show:heightShow
                     },
                     {
                         headers: {
@@ -600,51 +582,20 @@ function Onboarding() {
                         }}
                     />
                 </MuiPickersUtilsProvider>
+                    <select onChange={(e)=>setHeight(e.target.value)} value={height} className="p-3 mb-3 ring-1 ring-slate-900/5 w-full">
+                        <option value={3}>3ft</option>
+                        <option value={4}>4ft</option>
+                        <option value={4.5}>4.5ft</option>
+                        <option value={5}>5ft</option>
+                        <option value={5.5}>5.5ft</option>
+                        <option value={6}>6ft</option>
+                        <option value={6.5}>6.5ft</option>
+                        <option value={7}>7ft</option>
+                        <option value={7.5}>7.5ft</option>
+                    </select>
 
-                <div className="personality__range">
-                    <div className="left">
-                        <p>Height</p>
-                        {/* <div className="range__line">
-                            <p>3</p>
-                          <input type="range" name="" id="" />
-
-                          <p>7.5</p>
-                        </div> */}
-
-                        <Grid
-                            container
-                            spacing={2}
-                            alignItems="center"
-                            style={{}}
-                        >
-                            <Grid item>
-                                <p>3</p>
-                            </Grid>
-                            <Grid item xs>
-                                <Slider
-                                max={75}
-                                min={30}
-                                    value={height}
-                                    onChange={handleChange}
-                                    aria-labelledby="continuous-slider"
-                                />
-                            </Grid>
-                            <Grid item>
-                                <p>7.5</p>
-                            </Grid>
-                        </Grid>
-                        <p className="font-bold text-lg" style={{ display:'flex', alignItems: 'center', justifyContent: 'center', color: 'red', fontWeight: 'bold' }}>{height/10}</p>
-                    </div>
-                    <div className="right">
-                        <Grid
-                            container
-                            spacing={1}
-                            alignItems="center"
-                            justifyContent="flex-end"
-                            style={{ paddingBottom: 5 }}
-                        >
-                            <Grid item>
-                                <input
+                    <div className="flex flex-row items-center">
+                    <input
                                     type="checkbox"
                                     name=""
                                     id=""
@@ -653,18 +604,18 @@ function Onboarding() {
                                         setHeightShow(e.target.checked)
                                     }
                                 />
-                            </Grid>
-                            <Grid item>
-                                <p className="font-bold text-lg ml-2">
+
+<p className="font-bold text-lg ml-2">
                                     Don't show my height on profile
                                 </p>
-                            </Grid>
-                        </Grid>
                     </div>
-                </div>
+
+
+
 
                 <Button
                     variant="contained"
+                    className="w-full"
                     style={{
                         marginTop: 21,
                         height: 48,
@@ -4165,8 +4116,7 @@ handleFriendship()
 
 
         formData.append("bio", bio);
-        axios
-            .post("/api/avatar", formData, {
+        axios.post("/api/avatar", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Accept: "application/json",
@@ -4538,38 +4488,7 @@ handleFriendship()
 
     let autoComplete;
 
-    const loadScript = (url, callback) => {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
 
-        if (script.readyState) {
-            script.onreadystatechange = function () {
-                if (
-                    script.readyState === "loaded" ||
-                    script.readyState === "complete"
-                ) {
-                    script.onreadystatechange = null;
-                    callback();
-                }
-            };
-        } else {
-            script.onload = () => callback();
-        }
-
-        script.src = url;
-        document.getElementsByTagName("head")[0].appendChild(script);
-    };
-
-    function handleScriptLoad(updateQuery, autoCompleteRef) {
-        autoComplete = new window.google.maps.places.Autocomplete(
-            autoCompleteRef.current,
-            { types: ["(cities)"], componentRestrictions: { country: [] } }
-        );
-        autoComplete.setFields(["address_components", "formatted_address"]);
-        autoComplete.addListener("place_changed", () =>
-            handlePlaceSelect(updateQuery)
-        );
-    }
 
     async function handlePlaceSelect(updateQuery) {
         const addressObject = autoComplete.getPlace();
@@ -4578,8 +4497,17 @@ handleFriendship()
         console.log(addressObject);
     }
 
-    const [query, setQuery] = React.useState("");
-    const autoCompleteRef = React.useRef(null);
+
+
+
+    const [statesearch, setStatesearch] = React.useState([])
+    const [citysearch, setCitysearch] = React.useState([])
+
+    const [countrycode, setCountrycode] = React.useState('')
+    const [statecode, setStatecode] = React.useState('')
+    const [citycode, setCitycode] = React.useState('')
+    const [currency, setCurrency] = React.useState('')
+    const [currencySymbol, setCurrencySymbol] = React.useState('')
 
     const handleLocation = () => {
         const token = ls.get(DATABASE_KEY, {decrypt:true});
@@ -4592,12 +4520,11 @@ handleFriendship()
             .post(
                 "/api/location",
                 {
-                    address: query,
-                    latitude: location.lat,
-                    longitude: location.lon,
-                    min: value[0],
-                    max: value[1],
-                    allow_any_distance: allowProfile,
+                    country: countrycode,
+                    state: statecode,
+                    city: citycode,
+                    currency:currency,
+                    currency_symbol:currencySymbol
                 },
                 {
                     headers: {
@@ -4655,84 +4582,45 @@ handleFriendship()
                     </div>
                 </div>
 
-                <div className="flex items-center ring-1 ring-slate-900/5 p-2">
-                                <FiSearch className='text-2xl font-bold' />
-                                <input
-                                className='flex-1'
-                                    ref={autoCompleteRef}
-                                    onChange={(event) =>
-                                        setQuery(event.target.value)
-                                    }
-                                    placeholder="Enter a City"
-                                    value={query}
+{/* country */}
 
-                                />
-                                <button
-                                    onClick={() => {
-                                        getCurrentLocation();
-                                    }}
-                                >
-                                    <i class="fa-solid fa-location-crosshairs"></i>{" "}
-                                    Detect Location
-                                </button>
-                            </div>
-                <p
-                    style={{
-                        marginTop: 24,
-                        color: "#C62251",
-                        marginBottom: 26,
-                    }}
-                >
-                    Maximum search Distance for Profiles
-                </p>
 
-                <Grid container spacing={2} direction="row">
-                    <Grid item>1km</Grid>
-                    <Grid item xs>
-                        <Slider
-                            max={300}
-                            min={1}
-                            value={value}
-                            onChange={(event, newValue) => {
-                                setValue(newValue);
-                            }}
-                            valueLabelDisplay="auto"
-                            aria-labelledby="range-slider"
-                            getAriaValueText={valuetext}
-                        />
-                    </Grid>
-                    <Grid item>300km</Grid>
-                </Grid>
+<select className='ring-1 p-3 mb-2 ring-slate-900/5 outline-0 bg-transparent w-full' onChange={(e)=>{
+        let result = states.filter((s)=>s.country_code  == e.target.value)
+        setStatesearch(result)
+        console.log(result.length)
+        setCountrycode(e.target.value)
+        let countryDetails = country_currency.filter((c)=>c.isoCode == e.target.value);
+        console.log(countryDetails[0].currency['symbol_native'])
+        console.log(countryDetails[0].currency['code'])
 
-                <p
-                    style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                        textAlign: "center",
-                        width: "100%",
-                    }}
-                >
-                    {value[0]}km - {value[1]}km
-                </p>
 
-                <FormControlLabel
-                    value="end"
-                    control={
-                        <Checkbox
-                            value={allowProfile}
-                            onChange={(e) => setAllowProfile(e.target.checked)}
-                            color="primary"
-                        />
-                    }
-                    label={
-                        <p style={{ fontSize: 14, fontFamily: "Dosis" }}>
-                            Allow Profiles from any Distance
-                        </p>
-                    }
-                    labelPlacement="end"
-                    style={{ marginTop: 80 }}
-                />
+        setCurrency(countryDetails[0].currency['code'])
+        setCurrencySymbol(countryDetails[0].currency['symbol_native'])
+       }}>
 
+                <option>Select country</option>
+            {country.map((c,index)=><option key={index} value={c.code}>{c.name}</option>)}
+        </select>
+
+{/* state */}
+        <select className='ring-1 p-3 mb-2 ring-slate-900/5 outline-0 bg-transparent w-full' onChange={(e)=>{
+            let result = cities.filter((c)=>c.state_code == e.target.value && c.country_code == countrycode)
+            console.log(result.length)
+            setCitysearch(result)
+            setStatecode(e.target.value)
+        }}>
+
+<option>Select state</option>
+            {statesearch.map((s, index)=><option key={index} value={s.state_code} >{s.name}</option>)}
+        </select>
+{/* city */}
+<select className='ring-1 p-3 mb-4 ring-slate-900/5 outline-0 bg-transparent w-full'
+value={citycode} onChange={(e) =>setCitycode(e.target.value)}
+>
+        <option>Select city</option>
+            {citysearch.map((c,index)=><option key={index}>{c.name}</option>)}
+        </select>
                 <Button
                     variant="contained"
                     className="w-full"

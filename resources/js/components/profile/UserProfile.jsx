@@ -79,7 +79,7 @@ function UserProfile({ profile, liked, reload }) {
         >
             <div className="flex flex-col p-2">
                 <div className="bg-yellow-200 relative overflow-hidden rounded-xl">
-                    <img className="" src={data.profile} />
+                    <img className="" src={`/storage/avatar/${profile.first_cover}`} />
 
                     <div className="absolute bottom-0 right-0 left-0 " style={{ background:'linear-gradient(to bottom,rgba(0,0,0,0), rgba(0,0,0,1)' }}>
 
@@ -95,20 +95,20 @@ function UserProfile({ profile, liked, reload }) {
                         <div className="text-white flex items-center font-bold gap-x-3 ">
                             <i class="fi fi-sr-marker ml-2"></i>
                             <h4 className="text-sm">
-                                {profile.address.split(",")[0]},{" "}
-                                {profile.address.split(",")[1].split(" ")[1]}
+                                {profile.city},{" "}
+                                {profile.country}
                             </h4>
                             <p className="text-sm">5 miles away</p>
                         </div>
-                        <p className="bg-red-600 text-sm p-1 font-bold text-white text-center w-full">85% Match</p>
+                        {/* <p className="bg-red-600 text-sm p-1 font-bold text-white text-center w-full">85% Match</p> */}
                     </div>
                 </div>
                 <div
     className="flex justify-between items-center"
                 >
                     <p className="font-bold text-[15px] capitalize">
-                        Seeking: {profile.lookingfor} {profile.min} -{" "}
-                        {profile.max}
+                        Seeking: {profile.lookingfor} {profile.age_min} -{" "}
+                        {profile.age_max}
                     </p>
                     <i
                         class="fa-solid fa-circle"
@@ -169,7 +169,7 @@ function UserProfile({ profile, liked, reload }) {
                                 ></i>
                             </button>
                         )}
-                        <Link to={`/messages/${profile.id}`}>
+                        <Link to={`/messages-single/${profile.id}`}>
                             <i
                                 class="fi fi-rr-paper-plane"
                                 style={styles.icon}

@@ -16,7 +16,7 @@ const Search = () => {
         age_list.push(i);
     }
     return (
-        <MainContainer>
+        <MainContainer select="search">
             <div className="bg-red-800 w-full px-12  flex gap-x-6">
                 <button className="p-3 text-white font-bold border-b-4 border-white">
                     Advanced Search

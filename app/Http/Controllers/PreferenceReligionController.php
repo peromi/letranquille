@@ -37,7 +37,7 @@ class PreferenceReligionController extends Controller
     {
         $religion = new PreferenceReligion();
         $religion->user_id = auth()->user()->id;
-        $religion->type = $request->type;
+        $religion->religion_type = $request->type;
 
 
         if($religion->save()){

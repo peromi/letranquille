@@ -37,7 +37,7 @@ class PreferenceDrinkController extends Controller
     {
         $drink = new PreferenceDrink();
         $drink->user_id = auth()->user()->id;
-        $drink->type = $request->type;
+        $drink->drink_type = $request->type;
 
 
         if($drink->save()){

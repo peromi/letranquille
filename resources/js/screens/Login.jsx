@@ -70,10 +70,10 @@ function Login() {
              <Link to="/" style={{ fontSize:23, fontWeight: "bold" }}><i className="fi  fi-rr-angle-small-left
 "></i> Home</Link>
              <h1 className="text-3xl text-center font-bold">Welcome</h1>
-                        <h1 class="text-3xl text-center font-bold">
+                        <h1 class="text-xl text-center font-bold">
                             to start a new Journey!
                         </h1>
-                        <h1 class="text-3xl text-center font-bold text-red-500">
+                        <h1 class="text-xl text-center font-bold text-red-500">
                             Login
                         </h1>
 
@@ -105,25 +105,8 @@ function Login() {
 
 
 
-                            <a class="float-right text-primary forgot" href="#">
-                                Forgot your password?
-                            </a>
-
-                            <div class="divider">
-                                <p>Or Login with</p>
-                            </div>
-                            <div class="social">
-                            <Link to="#">
-                        <i class="fi fi-brands-google"></i>
-                    </Link>
-                    <Link to="#">
-                        <i class="fi fi-brands-instagram"></i>
-                    </Link>
-                    <Link to="#">
-                        <i class="fi fi-brands-facebook"></i>
-                    </Link>
-                            </div>
-                            <div class="remember-me">
+<div className="flex flex-row justify-between items-center mb-2">
+<div class="remember-me">
                             <FormControlLabel
                     value="end"
                     control={
@@ -136,7 +119,7 @@ function Login() {
                         />
                     }
                     label={
-                        <p style={{ fontSize: 14, fontFamily: "Dosis" }}>
+                        <p className="font-bold text-xl" style={{ fontSize: 14, fontFamily: "Dosis" }}>
                            Remembe Me
                         </p>
                     }
@@ -145,14 +128,33 @@ function Login() {
                 />
 
                             </div>
-
-                            <Button variant="contained" className="w-full h-[48px] font-bold" color="primary" onClick={()=>{
+                            <Link class="float-right text-primary font-bold text-xl" to="#">
+                                Forgot your password?
+                            </Link>
+</div>
+<Button variant="contained" className="w-full h-[48px] font-bold mb-4" color="primary" onClick={()=>{
                                handleLogin()
                             }}>Login</Button>
-                            <div class="flex justify-center items-center font-bold mt-2 gap-x-2">
+ <div class="flex justify-center items-center font-bold mt-2 gap-x-2">
                                 <p>Don't have an Account?</p>
                                 <Link to="/register" className="text-2xl text-red-500">Sign Up</Link>
                             </div>
+                            <div class="divider mt-3">
+                    <p>Or</p>
+                </div>
+                <div class="social">
+                    <Link to="#" className="hover:bg-blue-900 flex flex-row font-bold rounded-md bg-blue-800 justify-center text-white items-center gap-x-2 w-full">
+                        <i class="fi fi-brands-facebook text-white pt-2"></i>
+                        <p className="text-white text-lg">SignIn with Facebook</p>
+                    </Link>
+
+                </div>
+
+
+
+
+
+
                         </div>
          </AuthContainer>
     );

@@ -37,7 +37,7 @@ class PreferenceFoodController extends Controller
     {
         $food = new PreferenceFood();
         $food->user_id = auth()->user()->id;
-        $food->type = $request->type;
+        $food->food_type = $request->type;
 
 
         if($food->save()){
