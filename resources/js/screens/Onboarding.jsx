@@ -4508,6 +4508,7 @@ handleFriendship()
     const [citycode, setCitycode] = React.useState('')
     const [currency, setCurrency] = React.useState('')
     const [currencySymbol, setCurrencySymbol] = React.useState('')
+    const [flag, setFlag] = React.useState('🇺🇸')
 
     const handleLocation = () => {
         const token = ls.get(DATABASE_KEY, {decrypt:true});
@@ -4595,6 +4596,7 @@ handleFriendship()
         console.log(countryDetails[0].currency['code'])
 
 
+        setFlag(countryDetails[0].flag['emoji'])
         setCurrency(countryDetails[0].currency['code'])
         setCurrencySymbol(countryDetails[0].currency['symbol_native'])
        }}>

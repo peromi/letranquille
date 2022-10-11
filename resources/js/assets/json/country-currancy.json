@@ -3520,7 +3520,7 @@
         "currency": {
             "symbol": "YR",
             "name": "Yemeni Rial",
-            "symbol_native": "ر.ي.‏",
+            "symbol_native": "ر.ي.",
             "decimal_digits": 0,
             "rounding": 0,
             "code": "YER",
@@ -3538,7 +3538,7 @@
         "currency": {
             "symbol": "DA",
             "name": "Algerian Dinar",
-            "symbol_native": "د.ج.‏",
+            "symbol_native": "د.ج.",
             "decimal_digits": 2,
             "rounding": 0,
             "code": "DZD",

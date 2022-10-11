@@ -85,13 +85,13 @@ function PreferenceSettings() {
     },[])
   return (
     <MainContainer>
-    <div style={{padding:35, background:'white',   }}>
-       <div style={{ display:'flex', gap:12, marginBottom:23, justifyContent:'flex-start', alignItems:'center' }}>
-           <i className='fi fi-rr-apps-add' style={{ fontSize:34, color:'#C62251' }}></i>
-           <h2 className='text-2xl font-bold' style={{ color:'#C62251' }}>Preference Settings</h2>
+        <div className="bg-red-800 w-full px-12  flex gap-x-6">
+                <button className="p-3 text-white font-bold border-b-4 border-white">
+                    Preference Settings
+                </button>
+            </div>
+    <div style={{background:'white',   }}>
 
-
-       </div>
        {/* <Match /> */}
 
        <div style={{ display:'flex', borderTopWidth:1, borderTopColor:'#cecece', width:'100%', paddingTop:18, paddingBottom:18 }}>
