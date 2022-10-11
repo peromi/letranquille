@@ -20,12 +20,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // Artisan::call('migrate:fresh');
+    // Artisan::call('storage:link');
+    // Artisan::call('view:clear');
+    // Artisan::call('config:clear');
+    // Artisan::call('route:clear');
+    return view('welcome');
+});
+
+Route::get('/reset', function () {
     Artisan::call('migrate:fresh');
     Artisan::call('storage:link');
     Artisan::call('view:clear');
     Artisan::call('config:clear');
     Artisan::call('route:clear');
-    return view('welcome');
+    return "reset";
 });
 
 Auth::routes();
