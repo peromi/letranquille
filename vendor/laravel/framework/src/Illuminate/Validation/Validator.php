@@ -210,6 +210,7 @@ class Validator implements ValidatorContract
         'Present',
         'Required',
         'RequiredIf',
+        'RequiredIfAccepted',
         'RequiredUnless',
         'RequiredWith',
         'RequiredWithAll',
@@ -240,6 +241,7 @@ class Validator implements ValidatorContract
         'AcceptedIf',
         'DeclinedIf',
         'RequiredIf',
+        'RequiredIfAccepted',
         'RequiredUnless',
         'RequiredWith',
         'RequiredWithAll',
@@ -873,11 +875,7 @@ class Validator implements ValidatorContract
 
         $attributeWithPlaceholders = $attribute;
 
-        $attribute = str_replace(
-            [$this->dotPlaceholder, '__asterisk__'],
-            ['.', '*'],
-            $attribute
-        );
+        $attribute = $this->replacePlaceholderInString($attribute);
 
         if (in_array($rule, $this->excludeRules)) {
             return $this->excludeAttribute($attribute);

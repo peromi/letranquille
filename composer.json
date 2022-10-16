@@ -14,7 +14,9 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "league/omnipay": "^3.2",
+        "maatwebsite/excel": "^3.1",
         "omnipay/paypal": "^3.0",
+        "psr/simple-cache": "^2.0",
         "pusher/pusher-php-server": "^7.0"
     },
     "require-dev": {

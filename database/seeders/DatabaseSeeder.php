@@ -24,9 +24,5 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
 
-        $names = [];
-        for($n = 1; $n <= 22410; $n++){
-
-        }
     }
 }

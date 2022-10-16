@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Imports\UsersImport;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ActionController extends Controller
 {
@@ -33,5 +35,10 @@ class ActionController extends Controller
         }
 
 
+    }
+    public function fileImport(Request $request)
+    {
+        Excel::import(new UsersImport, $request->file('file')->store('temp'));
+        return back();
     }
 }

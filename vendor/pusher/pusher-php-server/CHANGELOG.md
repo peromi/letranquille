@@ -1,5 +1,22 @@
 # Changelog
 
+## 7.2.0
+
+* [CHANGED] explicit support for 8.1
+* [CHANGED] Ignore pull_request_template.md on vendor
+* [ADDED] has_mixed_channels method to allow triggering a single event on multiple channels
+* [FIXED] path option can be used for proxied servers under subdirectory.
+* [CHANGED] base_path's leading slash is trimmed on every call to Guzzle.
+
+## 7.1.0-beta
+
+* [ADDED] `authenticateUser`, `authorizeChannel` and `authorizePresenceChannel`
+* [ADDED] `sendToUser` and `sendToUserAsync`
+* [ADDED] `terminateUserConnections` and `terminateUserConnectionsAsync`
+* [FIXED] `get_object_vars()` error on `/src/Pusher.php`
+* [DEPRECATED] `socketAuth` and `presenceAuth` in favour of `authorizeChannel` and `authorizePresenceChannel`
+* [DEPRECATED] Internal functions `make_request` and `make_batch_request` that were exposed as public
+
 ## 7.0.2
 
 * [CHANGED] Add psr/log v2.0 and v3.0 compatibility

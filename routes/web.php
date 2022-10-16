@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\MessageNotification;
+use App\Http\Controllers\ActionController;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -77,6 +78,12 @@ Route::prefix('admin')->group(function () {
 
 
 });
+
+Route::get('/user-upload', function(){
+    return view('dataupload');
+});
+
+Route::post('/user-import', [ActionController::class, 'fileImport']);
 
 Route::get('handle-payment', 'PayPalPaymentController@handlePayment')->name('make.payment');
 Route::get('cancel-payment', 'PayPalPaymentController@paymentCancel')->name('cancel.payment');
