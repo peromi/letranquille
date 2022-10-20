@@ -8,7 +8,7 @@ import MessageChatBox from "../components/messages/MessageChatBox";
 import VideoCall from "../components/videocall/VideoCall";
 import axios from "axios";
 import ls from "localstorage-slim";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import VideoReceivecall from "../components/videocall/VideoReceivecall";
 import { SocketContext } from "../context/SocketContext";
@@ -20,9 +20,7 @@ const DB = "user-m9j234u94";
 const USERDB = "dao";
 function Messages() {
     const navigate = useNavigate();
-    const {
-       subscription,
-    } = React.useContext(SocketContext);
+    const { subscription } = React.useContext(SocketContext);
     const [tab, setTab] = React.useState(0);
     const [user, setUser] = React.useState(null);
 
@@ -32,13 +30,100 @@ function Messages() {
     const [trashed, setTrashed] = React.useState([]);
     let params = useParams();
 
+    const receivedMessages = () => {
+        const token = ls.get(DB, { decrypt: true });
+        axios
+            .get(`/api/get-received-messages`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            })
+            .then((response) => {
+                console.log(response.data.messages);
+                setReceived(response.data.messages);
+            })
+            .catch((error) => {
+                // console.log(error)
+                // alert(error.response.data.message)
+
+                if (error.response.status == 401) {
+                    ls.remove(USERDB);
+                    ls.remove(DB);
+
+                    navigate("/login", { replace: true });
+
+                    alert(error.response.data.message);
+                }
+            });
+    };
+
+    const sentMessages = () => {
+        const token = ls.get(DB, { decrypt: true });
+        axios
+            .get(`/api/get-sent-messages`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            })
+            .then((response) => {
+                console.log(response.data.messages);
+                setSent(response.data.messages);
+            })
+            .catch((error) => {
+                // console.log(error)
+                // alert(error.response.data.message)
+
+                if (error.response.status == 401) {
+                    ls.remove(USERDB);
+                    ls.remove(DB);
+
+                    navigate("/login", { replace: true });
+
+                    alert(error.response.data.message);
+                }
+            });
+    };
+
+    const favoriteMessages = () => {
+        const token = ls.get(DB, { decrypt: true });
+        axios
+            .get(`/api/get-favorite-messages`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            })
+            .then((response) => {
+                console.log(response.data.messages);
+                setFavorite(response.data.messages);
+            })
+            .catch((error) => {
+                // console.log(error)
+                // alert(error.response.data.message)
+
+                if (error.response.status == 401) {
+                    ls.remove(USERDB);
+                    ls.remove(DB);
+
+                    navigate("/login", { replace: true });
+
+                    alert(error.response.data.message);
+                }
+            });
+    };
+
     React.useEffect(() => {
         let db = ls.get(USERDB, { decrypt: true });
         if (db != null) {
             console.log(db.user.user);
             setUser(db.user.user);
         }
-    }, [params]);
+        receivedMessages();
+        sentMessages();
+        favoriteMessages();
+    }, []);
     const [messages, setMessages] = React.useState([]);
 
     // const loadLastMessage = () =>{
@@ -99,11 +184,33 @@ function Messages() {
                     Trash
                 </button>
             </div>
-            <div className="h-screen w-full">
+            <div className="w-full">
                 {tab === 0 && (
                     <div>
                         {received.length > 0 ? (
-                            <div></div>
+                            <div className="px-20 p-8 flex flex-col gap-3">
+                            {received.map((m, index) => (
+
+                                <div key={index} className="mb-[18px]">
+                                <Link to={`/messages-single/${m.sender}`}  className="flex flex-row gap-x-2 items-center mb-[12px]">
+                                    <div
+                                        className="w-[34px] h-[34px] rounded-full"
+                                        style={{
+                                            backgroundImage: `url('/storage/avatar/${m.first_cover}')`,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                        }}
+                                    ></div>
+                                    <div className="mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4">
+
+                                    <span className="text-sm text-slate-500 ml-2">{m.name}:</span>
+                                        <p>{m.message}</p>
+
+                                    </div>
+                                    <p>4pm</p>
+                                </Link></div>
+                            ))}
+                        </div>
                         ) : (
                             <div className="flex flex-col justify-center w-full items-center">
                                 <h1 className="font-bold text-2xl mt-2">
@@ -128,11 +235,10 @@ function Messages() {
                         ) : (
                             <div className="flex flex-col justify-center w-full items-center">
                                 <h1 className="font-bold text-2xl mt-2">
-                                    Your favorites have not sent any message to you
+                                    Your favorites have not sent any message to
+                                    you
                                 </h1>
-                                <p className="">
-
-                                </p>
+                                <p className=""></p>
                                 <i className="fi-rr-comment-alt text-8xl my-4"></i>
 
                                 {/* <p>
@@ -145,7 +251,27 @@ function Messages() {
                 {tab === 2 && (
                     <div>
                         {sent.length > 0 ? (
-                            <div></div>
+                            <div className="px-20 p-8">
+                                {sent.map((m, index) => (
+                                    <Link to={`/messages-single/${m.recipient}`} key={index} className="flex flex-row gap-x-2 items-center">
+                                        <div
+                                            className="w-[34px] h-[34px] rounded-full"
+                                            style={{
+                                                backgroundImage: `url('/storage/avatar/${m.first_cover}')`,
+                                                backgroundSize: "cover",
+                                                backgroundPosition: "center",
+                                            }}
+                                        ></div>
+                                        <div className="mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4">
+
+                                        <span className="text-sm text-slate-500 ml-2">{m.name}:</span>
+                                            <p>{m.message}</p>
+
+                                        </div>
+                                        <p>4pm</p>
+                                    </Link>
+                                ))}
+                            </div>
                         ) : (
                             <div className="flex flex-col justify-center w-full items-center">
                                 <h1 className="font-bold text-2xl mt-2">
@@ -172,9 +298,7 @@ function Messages() {
                                 <h1 className="font-bold text-2xl mt-2">
                                     Your trash is empty
                                 </h1>
-                                <p className="">
-                                    No trashed message
-                                </p>
+                                <p className="">No trashed message</p>
                                 <i className="fi-rr-comment-alt text-8xl my-4"></i>
 
                                 {/* <p>

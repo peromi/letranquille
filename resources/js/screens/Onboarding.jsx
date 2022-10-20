@@ -152,19 +152,19 @@ function Onboarding() {
                                     if (iam == "man") {
                                         setIam("");
                                     } else {
-                                        setIam("man");
+                                        setIam("male");
                                     }
                                 }}
                             >
                                 <div
                                     style={{
                                         borderColor:
-                                            iam == "man" ? "#C62251" : "grey",
+                                            iam == "male" ? "#C62251" : "grey",
                                     }}
                                 >
                                     <img
                                         src={
-                                            iam == "man"
+                                            iam == "male"
                                                 ? data.manActive
                                                 : data.man
                                         }
@@ -173,7 +173,7 @@ function Onboarding() {
                                 <p className="font-bold text-lg"
                                     style={{
                                         color:
-                                            iam == "man" ? "#C62251" : "grey",
+                                            iam == "male" ? "#C62251" : "grey",
                                     }}
                                 >
                                     Man
@@ -181,22 +181,22 @@ function Onboarding() {
                             </li>
                             <li
                                 onClick={() => {
-                                    if (iam == "woman") {
+                                    if (iam == "female") {
                                         setIam("");
                                     } else {
-                                        setIam("woman");
+                                        setIam("female");
                                     }
                                 }}
                             >
                                 <div
                                     style={{
                                         borderColor:
-                                            iam == "woman" ? "#C62251" : "grey",
+                                            iam == "female" ? "#C62251" : "grey",
                                     }}
                                 >
                                     <img
                                         src={
-                                            iam == "woman"
+                                            iam == "female"
                                                 ? data.womanActive
                                                 : data.woman
                                         }
@@ -205,7 +205,7 @@ function Onboarding() {
                                 <p className="font-bold text-lg"
                                     style={{
                                         color:
-                                            iam == "woman" ? "#C62251" : "grey",
+                                            iam == "female" ? "#C62251" : "grey",
                                     }}
                                 >
                                     Woman
@@ -248,24 +248,24 @@ function Onboarding() {
                         <ul>
                             <li
                                 onClick={() => {
-                                    if (lookingfor == "man") {
+                                    if (lookingfor == "male") {
                                         setLookingfor("");
                                     } else {
-                                        setLookingfor("man");
+                                        setLookingfor("male");
                                     }
                                 }}
                             >
                                 <div
                                     style={{
                                         borderColor:
-                                            lookingfor == "man"
+                                            lookingfor == "male"
                                                 ? "#C62251"
                                                 : "grey",
                                     }}
                                 >
                                     <img
                                         src={
-                                            lookingfor == "man"
+                                            lookingfor == "male"
                                                 ? data.manActive
                                                 : data.man
                                         }
@@ -274,7 +274,7 @@ function Onboarding() {
                                 <p className="font-bold text-lg"
                                     style={{
                                         color:
-                                            lookingfor == "man"
+                                            lookingfor == "male"
                                                 ? "#C62251"
                                                 : "grey",
                                     }}
@@ -284,24 +284,24 @@ function Onboarding() {
                             </li>
                             <li
                                 onClick={() => {
-                                    if (lookingfor == "woman") {
+                                    if (lookingfor == "female") {
                                         setLookingfor("");
                                     } else {
-                                        setLookingfor("woman");
+                                        setLookingfor("female");
                                     }
                                 }}
                             >
                                 <div
                                     style={{
                                         borderColor:
-                                            lookingfor == "woman"
+                                            lookingfor == "female"
                                                 ? "#C62251"
                                                 : "grey",
                                     }}
                                 >
                                     <img
                                         src={
-                                            lookingfor == "woman"
+                                            lookingfor == "female"
                                                 ? data.womanActive
                                                 : data.woman
                                         }
@@ -310,7 +310,7 @@ function Onboarding() {
                                 <p className="font-bold text-lg"
                                     style={{
                                         color:
-                                            lookingfor == "woman"
+                                            lookingfor == "female"
                                                 ? "#C62251"
                                                 : "grey",
                                     }}
@@ -320,24 +320,24 @@ function Onboarding() {
                             </li>
                             <li
                                 onClick={() => {
-                                    if (lookingfor == "anyone") {
+                                    if (lookingfor == "any") {
                                         setLookingfor("");
                                     } else {
-                                        setLookingfor("anyone");
+                                        setLookingfor("any");
                                     }
                                 }}
                             >
                                 <div
                                     style={{
                                         borderColor:
-                                            lookingfor == "anyone"
+                                            lookingfor == "any"
                                                 ? "#C62251"
                                                 : "grey",
                                     }}
                                 >
                                     <img
                                         src={
-                                            lookingfor == "anyone"
+                                            lookingfor == "any"
                                                 ? data.anyoneActive
                                                 : data.anyone
                                         }
@@ -346,7 +346,7 @@ function Onboarding() {
                                 <p className="font-bold text-lg"
                                     style={{
                                         color:
-                                            lookingfor == "anyone"
+                                            lookingfor == "any"
                                                 ? "#C62251"
                                                 : "grey",
                                     }}
@@ -4506,6 +4506,8 @@ handleFriendship()
     const [countrycode, setCountrycode] = React.useState('')
     const [statecode, setStatecode] = React.useState('')
     const [citycode, setCitycode] = React.useState('')
+    const [latitude, setLatitude] = React.useState('')
+    const [longitude, setLongitude] = React.useState('')
     const [currency, setCurrency] = React.useState('')
     const [currencySymbol, setCurrencySymbol] = React.useState('')
     const [flag, setFlag] = React.useState('🇺🇸')
@@ -4524,6 +4526,8 @@ handleFriendship()
                     country: countrycode,
                     state: statecode,
                     city: citycode,
+                    latitude: latitude,
+                    longitude:longitude,
                     currency:currency,
                     currency_symbol:currencySymbol
                 },
@@ -4618,7 +4622,19 @@ handleFriendship()
         </select>
 {/* city */}
 <select className='ring-1 p-3 mb-4 ring-slate-900/5 outline-0 bg-transparent w-full'
-value={citycode} onChange={(e) =>setCitycode(e.target.value)}
+value={citycode} onChange={(e) =>{
+    setCitycode(e.target.value)
+    let result = cities.filter((c)=>c.name == e.target.value)
+
+   console.log(result)
+
+    setLatitude(result[0].latitude)
+    setLongitude(result[0].longitude)
+    setCountrycode(result[0].country_code)
+    setStatecode(result[0].state_code)
+
+
+    }}
 >
         <option>Select city</option>
             {citysearch.map((c,index)=><option key={index}>{c.name}</option>)}

@@ -910,23 +910,23 @@ const handleHobby = () => {
                             )}
 
                             {/* Food */}
-                            {food.type === "vegetarian" && (
+                            {food.food_type === "vegetarian" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.foodie} />
-                                    <p>{food.type}</p>
+                                    <p>{food.food_type}</p>
                                 </div>
                             )}
-                            {food.type === "vegan" && (
+                            {food.food_type === "vegan" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.flower} />
-                                    <p>{food.type}</p>
+                                    <p>{food.food_type}</p>
                                 </div>
                             )}
 
-                            {food.type === "non vegetarian" && (
+                            {food.food_type === "non vegetarian" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.chicken} />
-                                    <p>{food.type}</p>
+                                    <p>{food.food_type}</p>
                                 </div>
                             )}
 

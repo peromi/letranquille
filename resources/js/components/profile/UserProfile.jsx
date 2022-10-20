@@ -8,6 +8,9 @@ import { SocketContext } from "../../context/SocketContext";
 import ls from "localstorage-slim";
 import axios from "axios";
 import { toast } from "react-toastify";
+import country from '../../assets/json/country.json'
+import states from '../../assets/json/states.json'
+import cities from '../../assets/json/cities.json'
 
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
@@ -16,14 +19,13 @@ function UserProfile({ profile, liked, reload }) {
     const { likeprofile } = React.useContext(SocketContext);
     const navigate = useNavigate();
     let check_liked = liked.find((user) => user.profile_id === profile.id);
-    console.log(check_liked)
-    console.log("LIKED",liked)
+
+    const [nation, setNation] = React.useState('');
 
     const loadProfile = () => {
         let db = ls.get(USERDB, { decrypt: true });
 
         if (db !== null) {
-            console.log("DATA", db.user.user);
 
             likeprofile({
                 to: profile.id,
@@ -48,7 +50,7 @@ function UserProfile({ profile, liked, reload }) {
                 }
             )
             .then((response) => {
-                console.log(response.data);
+
                 toast.success(response.data.message);
             })
             .catch((err) => {
@@ -72,6 +74,34 @@ function UserProfile({ profile, liked, reload }) {
             });
     };
 
+    React.useEffect(()=>{
+
+        let i = setTimeout(()=>{
+            let index = cities.findIndex((c)=>c['name'] === profile.city);
+
+        if(index !== undefined){
+
+            if(cities[index].name !== "any"){
+                if(cities[index].name === profile.city){
+                    setNation(cities[index].country_code)
+                }else{
+
+                    setNation("OO")
+
+                }
+
+            }else{
+                setNation("any")
+
+            }
+        }
+        },1000)
+
+
+        return ()=>{
+            clearTimeout(i)
+        }
+    },[])
     return (
         <div
             className=" ring-1 ring-slate-900/5 hover:ring-1 hover:ring-red-600 transition-all duration-500 ease hover:drop-shadow-2xl rounded-xl bg-white animate__animated animate__slideInUp"
@@ -79,7 +109,10 @@ function UserProfile({ profile, liked, reload }) {
         >
             <div className="flex flex-col p-2">
                 <div className="bg-yellow-200 relative overflow-hidden rounded-xl">
-                    <img className="" src={`/storage/avatar/${profile.first_cover}`} />
+
+                    <div className="w-full h-[325px]" style={{backgroundImage:`url('/storage/avatar/${profile.first_cover}')`, backgroundSize:'cover', backgroundPosition:'top'}}>
+
+                    </div>
 
                     <div className="absolute bottom-0 right-0 left-0 " style={{ background:'linear-gradient(to bottom,rgba(0,0,0,0), rgba(0,0,0,1)' }}>
 
@@ -96,9 +129,9 @@ function UserProfile({ profile, liked, reload }) {
                             <i class="fi fi-sr-marker ml-2"></i>
                             <h4 className="text-sm">
                                 {profile.city},{" "}
-                                {profile.country}
+                                {nation}
                             </h4>
-                            <p className="text-sm">5 miles away</p>
+                            {/* <p className="text-sm">5 miles away</p> */}
                         </div>
                         {/* <p className="bg-red-600 text-sm p-1 font-bold text-white text-center w-full">85% Match</p> */}
                     </div>
@@ -169,7 +202,7 @@ function UserProfile({ profile, liked, reload }) {
                                 ></i>
                             </button>
                         )}
-                        <Link to={`/messages-single/${profile.id}`}>
+                        <Link to={`/messages-single/${profile.user_id}`}>
                             <i
                                 class="fi fi-rr-paper-plane"
                                 style={styles.icon}
@@ -179,7 +212,7 @@ function UserProfile({ profile, liked, reload }) {
                     <div className="flex items-center px-3 rounded-full ring-1 ring-slate-900/5 gap-x-2 bg-zinc-100 hover:bg-red-600 hover:text-white p-2">
                         <p>{profile.gallery.length}</p>
                         <Divider orientation="vertical" />
-                        <Link to={`/profile/${profile.id}`}>View Profile</Link>
+                        <Link to={`/profile/${profile.user_id}`}>View Profile</Link>
                     </div>
                 </div>
             </div>

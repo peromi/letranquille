@@ -58,11 +58,14 @@ function MainContainer(props) {
     <div >
 
         <Navigation select={props.select} />
-         {props.children}
+        <div className="h-auto">
+            {props.children}
+        </div>
+
          <ToastContainer   />
 
 
-         <div className='pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white'>
+         {/* <div className='pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white'>
         <p>Copy 2022. All rights reserved</p>
 
         <div className='flex justify-center items-center gap-x-[34px]'>
@@ -89,7 +92,7 @@ function MainContainer(props) {
 
      <div className="bg-white flex justify-center items-center p-5">
      <div id="google_translate_element" className="p-2 ring-1 ring-slate-900/5 px-12 flex flex-col"></div>
-     </div>
+     </div> */}
     </div>
   )
 }

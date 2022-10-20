@@ -12,18 +12,18 @@ import ls from "localstorage-slim";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
-
+import { integerPropType } from "@mui/utils";
+import { style } from "@mui/system";
 
 const DATABASE_KEY = "user-m9j234u94";
 const DBNAV = "nav";
 const USERDB = "dao";
 const subscribe = "subscriptionDb";
 function Membership() {
-
-    const [convert, setConvert] = React.useState([])
-    const [value, setValue] = React.useState(1)
-    const [user, setUser] = React.useState({})
+    const [rate, setRate] = React.useState('');
+    const [convert, setConvert] = React.useState([]);
+    const [value, setValue] = React.useState(1);
+    const [user, setUser] = React.useState({});
     const [tab, setTab] = React.useState(0);
     const [process, setProcess] = React.useState(0);
     const [type, setType] = React.useState("");
@@ -106,39 +106,37 @@ function Membership() {
             });
     };
 
-    const loadCurrencyValue = () =>{
-        axios.get('https://open.er-api.com/v6/latest/CAD',{
-            headers:{
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
+    const loadCurrencyValue = () => {
+        axios
+        .get("https://api.exchangerate.host/latest/?base=CAD", {
+            headers: {
+
+                "Content-Type": "application/json",
             },
-            withCredentials:true
-        }).then((res)=>{
 
-            console.log(res.data.rate)
-        }).catch((error)=>{
-            console.log(error)
         })
-    }
+            .then((res) => {
+                console.log(res.data.rates);
+                setRate(res.data.rates)
 
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
+    React.useEffect(() => {
+        let db = ls.get(USERDB, { decrypt: true });
 
-    React.useEffect(()=>{
+        if (db !== null) {
+            setUser(db.user.user);
+        }
 
-
-            let db = ls.get(USERDB, { decrypt: true })
-
-            if (db !== null) {
-
-                setUser(db.user.user)
-            }
-
-            loadCurrencyValue()
-    },[])
+        loadCurrencyValue();
+    }, []);
 
     return (
         <div className="w-full mx-auto bg-white">
-
             <div className="bg-red-600 w-full px-12  flex gap-x-6 mb-4">
                 <button
                     className={
@@ -263,22 +261,24 @@ function Membership() {
                                         Subscription
                                     </p>
                                     <div className="flex my-4 items-end">
-
-                                        <div className="flex flex-row justify-end items-center">
-                                             <h1 className="text-3xl font-bold">
-                                             {user.currency_symbol} 90
-                                        </h1><span className="text-md">{user.currency}</span>
+                                        <div className="flex flex-row justify-center items-center">
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}{" "}
+                                                {(17.5 *   rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                            <span className="text-sm">
+                                                {user.currency}
+                                            </span>
                                         </div>
 
-                                        <span>/7days</span>
 
                                     </div>
+                                    <span>(7days)</span>
 
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -286,14 +286,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(90);
+                                            setAmount(17.5 * rate[user.currency]);
                                             setCredit(3000);
                                             setDuration(7);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full   font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                     </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-slate-300 px-4 p-2 rounded-full ">
@@ -305,22 +305,23 @@ function Membership() {
                                         Subscription
                                     </p>
                                     <div className="flex my-4 items-end">
-
                                         <div className="flex flex-row justify-end items-center">
-                                             <h1 className="text-3xl font-bold">
-                                             {user.currency_symbol} 100
-                                        </h1><span className="text-md">{user.currency}</span>
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}
+                                                {(34.99 *   rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                            <span className="text-sm">
+                                                {user.currency}
+                                            </span>
                                         </div>
 
-                                        <span>/1mo</span>
 
                                     </div>
-
+                                    <span> 1month</span>
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -328,14 +329,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(100);
+                                            setAmount(34.99 * rate[user.currency]);
                                             setCredit(3000);
                                             setDuration(30);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full  font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                          </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-slate-300 px-4 p-2 rounded-full ">
@@ -347,22 +348,23 @@ function Membership() {
                                         Subscription
                                     </p>
                                     <div className="flex my-4 items-end">
-
                                         <div className="flex flex-row justify-end items-center">
-                                             <h1 className="text-3xl font-bold">
-                                             {user.currency_symbol} 120
-                                        </h1><span className="text-md">{user.currency}</span>
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}{" "}
+                                                {(23.33 * 3 *   rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                             <span className="text-sm">
+                                                {user.currency}
+                                            </span>
                                         </div>
 
-                                        <span>/6mo</span>
 
                                     </div>
-
+<span>3months</span>
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -370,14 +372,13 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(100);
+                                            setAmount(23.33 * 3 * rate[user.currency]);
                                             setCredit(3000);
-                                            setDuration(30);
+                                            setDuration(90);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full  font-bold"
                                     >
                                         <p>Choose Plan</p>
-
                                     </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
@@ -390,22 +391,23 @@ function Membership() {
                                         Subscription
                                     </p>
                                     <div className="flex my-4 items-end">
-
                                         <div className="flex flex-row justify-end items-center">
-                                             <h1 className="text-3xl font-bold">
-                                             {user.currency_symbol} {`${1900*123}`}
-                                        </h1><span className="text-md">{user.currency}</span>
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}{" "}
+                                                {(139.99 *   rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                            <span className="text-sm">
+                                                {user.currency}
+                                            </span>
                                         </div>
 
-                                        <span>/yr</span>
 
                                     </div>
-
+ <span>12months</span>
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -413,14 +415,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(190);
+                                            setAmount(139.99 * rate[user.currency]);
                                             setCredit(3000);
                                             setDuration(365);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                        </button>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -442,19 +444,24 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            98 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/7days</span>
-                                    </div>
+                                    <div className="flex my-4 items-end">
+                                        <div className="flex flex-row justify-end items-center">
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}{" "}
+                                                {(20 *   rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                            <span className="text-sm">
+                                                {user.currency}
+                                            </span>
+                                        </div>
 
+
+                                    </div>
+<span>7days</span>
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -462,14 +469,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(90);
+                                            setAmount(20 * rate[user.currency]);
                                             setCredit(3000);
                                             setDuration(7);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full  font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                         </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-amber-300 px-4 p-2 rounded-full  ">
@@ -480,19 +487,24 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            120 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/1mo</span>
-                                    </div>
+                                    <div className="flex my-4 items-end">
+                                        <div className="flex flex-row justify-end items-center">
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}{" "}
+                                                {(39.99 *  rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                            <span className="text-sm">
+                                                {user.currency}
+                                            </span>
+                                        </div>
 
+
+                                    </div>
+<span>1month</span>
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -500,14 +512,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(120);
+                                            setAmount(39.99 * rate[user.currency]);
                                             setCredit(3000);
-                                            setDuration(180);
+                                            setDuration(30);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                           </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-amber-300 px-4 p-2 rounded-full  ">
@@ -518,19 +530,24 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            120 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/6mo</span>
+                                    <div className="flex my-4 items-end">
+                                        <div className="flex flex-row justify-end items-center">
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}{" "}
+                                                {(79.98 *  rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                            <span className="text-sm">
+                                                {user.currency}
+                                            </span>
+                                        </div>
+
                                     </div>
+                                        <span>3months</span>
 
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -538,14 +555,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(120);
+                                            setAmount(79.98 *rate[user.currency]);
                                             setCredit(3000);
-                                            setDuration(180);
+                                            setDuration(90);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                           </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-amber-300 px-4 p-2 rounded-full ">
@@ -556,19 +573,24 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            190 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/yr</span>
+                                    <div className="flex my-4 items-end">
+                                        <div className="flex flex-row justify-end items-center">
+                                            <h1 className="text-2xl font-bold">
+                                                {user.currency_symbol}{" "}
+                                                {(149.99 *  rate[user.currency]).toLocaleString()}
+                                            </h1>
+                                            <span className="text-sm">
+                                                {user.currency}
+                                            </span>
+                                        </div>
+
                                     </div>
+                                        <span>12months</span>
 
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -576,14 +598,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(190);
+                                            setAmount(149.99 * rate[user.currency]);
                                             setCredit(3000);
                                             setDuration(365);
                                         }}
                                         className="mt-2 w-full hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                      </button>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -606,19 +628,22 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            98 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/7days</span>
+                                    <div className="flex my-4 items-end">
+
+                                        <div className="flex flex-row justify-end items-center">
+                                             <h1 className="text-2xl font-bold">
+                                             {user.currency_symbol} {(40.00*  rate[user.currency]).toLocaleString()}
+                                        </h1><span className="text-sm">{user.currency}</span>
+                                        </div>
+
+
                                     </div>
+                                        <span>7days</span>
 
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -626,14 +651,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(90);
+                                            setAmount(40.00*rate[user.currency]);
                                             setCredit(3000);
                                             setDuration(7);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-centerbg-purple-900  px-[34px] p-[6px] rounded-full  font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                         </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-purple-900 text-white px-4 p-2 rounded-full  ">
@@ -644,19 +669,22 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            120 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/1mo</span>
+                                    <div className="flex my-4 items-end">
+
+                                        <div className="flex flex-row justify-end items-center">
+                                             <h1 className="text-2xl font-bold">
+                                             {user.currency_symbol} {(79.98*  rate[user.currency]).toLocaleString()}
+                                        </h1><span className="text-md">{user.currency}</span>
+                                        </div>
+
+
                                     </div>
+                                        <span>1month</span>
 
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -664,14 +692,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(120);
+                                            setAmount(79.98*rate[user.currency]);
                                             setCredit(3000);
-                                            setDuration(180);
+                                            setDuration(30);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-purple-900  px-[34px] p-[6px] rounded-full font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                           </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-purple-900  px-4 p-2 rounded-full  ">
@@ -682,19 +710,22 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            120 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/6mo</span>
+                                    <div className="flex my-4 items-end">
+
+                                        <div className="flex flex-row justify-end items-center">
+                                             <h1 className="text-2xl font-bold">
+                                             {user.currency_symbol} {(159.97*  rate[user.currency]).toLocaleString()}
+                                        </h1><span className="text-sm">{user.currency}</span>
+                                        </div>
+
+
                                     </div>
+                                        <span>3months</span>
 
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -702,14 +733,14 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(120);
+                                            setAmount(159.97*rate[user.currency]);
                                             setCredit(3000);
-                                            setDuration(180);
+                                            setDuration(90);
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-purple-900  px-[34px] p-[6px] rounded-full font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                           </button>
+                                    </button>
                                 </div>
                                 <div className="flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5">
                                     <h1 className="bg-purple-900 text-white px-4 p-2 rounded-full ">
@@ -720,19 +751,22 @@ function Membership() {
                                         <br />
                                         Subscription
                                     </p>
-                                    <div className="flex my-4">
-                                        <span>{user.currency_symbol}</span>
-                                        <h1 className="text-3xl font-bold">
-                                            190 <span className="text-md">{user.currency}</span>
-                                        </h1>
-                                        <span>/yr</span>
+                                    <div className="flex my-4 items-end">
+
+                                        <div className="flex flex-row justify-end items-center">
+                                             <h1 className="text-2xl font-bold">
+                                             {user.currency_symbol} {(299.98* rate[user.currency]).toLocaleString()}
+                                        </h1><span className="text-sm">{user.currency}</span>
+                                        </div>
+
+
                                     </div>
+                                        <span>12months</span>
 
                                     <p>*VAT & local taxes may apply</p>
                                     <div className="w-[24px] h-[3px] bg-slate-300 rounded-full mb-3" />
                                     <ul>
                                         <li>Unlimited Messaging</li>
-                                        <li>Unlimited Calling</li>
                                         <li>Profile Always on top</li>
                                         <li>Better Match Making</li>
                                     </ul>
@@ -740,19 +774,18 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(190);
+                                            setAmount(299.98*rate[user.currency]);
                                             setCredit(3000);
                                             setDuration(365);
                                         }}
                                         className="mt-2 w-full hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-purple-900  px-[34px] p-[6px] rounded-full font-bold"
                                     >
                                         <p>Choose Plan</p>
-                                      </button>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     )}
-
                 </div>
             )}
 
@@ -1176,7 +1209,7 @@ function Membership() {
                                     }}
                                 >
                                     <p>{type}</p>
-                                    <p>${amount}</p>
+                                    <p className="font-bold text-2xl">{user.currency_symbol}{new Intl.NumberFormat( {style:'currency', currency:user.currency}).format(amount)}</p>
                                 </div>
                                 <div
                                     style={{
@@ -1199,7 +1232,7 @@ function Membership() {
                                     }}
                                 >
                                     <p>Total</p>
-                                    <p>${amount}</p>
+                                    <p className="font-bold text-2xl">{user.currency_symbol}{new Intl.NumberFormat( {style:'currency', currency:user.currency,}).format(amount)}</p>
                                 </div>
 
                                 {process == 1 && (
@@ -1256,7 +1289,7 @@ function Membership() {
                                             options={{
                                                 "client-id":
                                                     "ATtzjhuIaE8LR7VOs2LhvaK4no7WtUxQ8P18QgJuuGvwKo7Dc7p-mh6gm10Nj8LYYke8MScZcx93wIC5",
-                                                currency: "USD",
+                                                currency: user.currency,
                                             }}
                                         >
                                             <PayPalButtons
@@ -1272,7 +1305,7 @@ function Membership() {
                                                                     description:
                                                                         type,
                                                                     amount: {
-                                                                        value: amount,
+                                                                        value: (amount).toFixed(2),
                                                                     },
                                                                 },
                                                             ],

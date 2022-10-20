@@ -44,6 +44,8 @@ class LocationController extends Controller
         $location->country = $request->input('country');
         $location->state = $request->input('state');
         $location->city = $request->input('city');
+        $location->latitude = $request->input('latitude');
+        $location->longitude = $request->input('longitude');
         $location->currency = $request->input('currency');
         $location->currency_symbol = $request->input('currency_symbol');
 

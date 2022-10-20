@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('country');
             $table->string('state');
             $table->string('city');
+            $table->double('latitude');
+            $table->double('longitude');
             $table->string('currency');
             $table->string('currency_symbol');
             $table->string('show_profile')->nullable();

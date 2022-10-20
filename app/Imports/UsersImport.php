@@ -18,6 +18,8 @@ use App\Models\Profile;
 use App\Models\Religion;
 use App\Models\SexualOrientation;
 use App\Models\User;
+use DateTime;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -31,6 +33,11 @@ class UsersImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
+
+        $data_json = file_get_contents("../resources/js/assets/json/cities.json");
+
+        $cities = json_decode($data_json);
+
 
         $user = new User();
            $user->email = $row['email'];
@@ -60,7 +67,14 @@ class UsersImport implements ToModel,WithHeadingRow
         }
 
            $profile->name = $row['name'];
+
+
            $profile->birthday = $row['birthday'];
+
+           $profile->age = Carbon::now()->diffInYears(Carbon::parse($row['birthday']));
+
+
+
            if($row['gender'] == 'Female'){
             $profile->bodytype = "curvy";
            }else{
@@ -127,8 +141,8 @@ class UsersImport implements ToModel,WithHeadingRow
         $avatar = new Avatar();
 
         $avatar->user_id = $user->id;
-        $avatar->first_cover = $row['id']."_1";
-        $avatar->second_cover = $row['id']."_2";
+        $avatar->first_cover = $row['id']."_1.jpg";
+        $avatar->second_cover = $row['id']."_2.jpg";
 
         $avatar->save();
 
@@ -137,7 +151,7 @@ class UsersImport implements ToModel,WithHeadingRow
         for($i = 1; $i <= 3; $i++){
             $gallery = new Gallery();
             $gallery->user_id = $user->id;
-            $gallery->cover = $row['id']."_".$i;
+            $gallery->cover = $row['id']."_".$i.".jpg";
 
             $gallery->save();
         }
@@ -146,31 +160,47 @@ class UsersImport implements ToModel,WithHeadingRow
         // location
         $location = new Location();
         $location->user_id = $user->id;
-        $location->country = $row['country'];
+        if(trim($row['city']) !== null){
+            foreach($cities as $city){
+                $stx = get_object_vars($city);
 
-        if( $row['state'] == null){
-            $location->state = "any";
-        }else{
-            $location->state = $row['state'];
-        }
 
-        if( $row['city'] == null){
-            $location->city = "any";
-        }else{
-            $location->city = $row['city'];
+
+
+                $location->country = $stx['country_code'];
+                $location->state = $stx['state_code'];
+                $location->city = $stx['name'];
+                $location->latitude = $stx['latitude'];
+                $location->longitude = $stx['longitude'];
+
+
+
+
+            }
+
         }
 
         $location->currency = "USD";
-        $location->currency_symbol = "$";
-
+                $location->currency_symbol = "$";
         $location->save();
+
+
+
+
+
+
 
         // age pref
 
+        $agepick = [20, 25, 30, 32, 35, 40];
+        $agepickmax = [45, 48, 50, 54, 58, 60, 70, 75];
+        $ran1 = rand(0, 5);
+        $ran2 = rand(0, 7);
+
         $age_pref = new PreferenceAge();
         $age_pref->user_id = $user->id;
-        $age_pref->age_min = 20;
-        $age_pref->age_max = 60;
+        $age_pref->age_min = $agepick[$ran1];
+        $age_pref->age_max = $agepickmax[$ran2];
 
         $age_pref->save();
 

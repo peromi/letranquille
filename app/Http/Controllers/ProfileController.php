@@ -19,9 +19,9 @@ class ProfileController extends Controller
     public function index()
     {
 
-        $newUser = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('religions', 'religions.user_id', '=', 'users.id')->join('hobbies','hobbies.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->join('galleries', 'galleries.user_id', '=', 'users.id')->where('users.id','=', auth()->user()->id)->first(['users.*', 'profiles.*', 'avatars.*']);
+        $newUser = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('religions', 'religions.user_id', '=', 'users.id')->join('hobbies','hobbies.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->join('galleries', 'galleries.user_id', '=', 'users.id')->where('users.id','=', auth()->user()->id)->first(['users.*', 'profiles.*', 'avatars.*', 'galleries.*']);
 
-        return response(['user'=>$newUser]);
+        return json_encode(['user'=>$newUser]);
     }
 
     /**
@@ -55,7 +55,9 @@ class ProfileController extends Controller
         $profile->iam = $request->input('iam');
         $profile->lookingfor = $request->input('lookingfor');
         $profile->name = $request->name;
+
         $profile->birthday = $request->birthday;
+        $profile->age =  Carbon::now()->diffInYears(Carbon::parse($request->birthday));
         $profile->bodytype = $request->input('bodytype');
         $profile->show_bodytype = $request->input('body_show');
         $profile->height = $request->input('height');
@@ -81,7 +83,7 @@ class ProfileController extends Controller
     {
         $newUser = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('religions', 'religions.user_id', '=', 'users.id')->join('hobbies','hobbies.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->join('galleries', 'galleries.user_id', '=', 'users.id')->where('users.id','=', $id)->first(['users.*', 'profiles.*', 'avatars.*']);
 
-        return response(['user' => $newUser]);
+        return json_encode(['user' => $newUser]);
     }
 
     /**

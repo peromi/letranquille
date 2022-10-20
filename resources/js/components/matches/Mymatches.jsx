@@ -4,11 +4,110 @@ import UserProfile from "../profile/UserProfile";
 import Filteroverlay from "./Filteroverlay";
 import { SocketContext } from "../../context/SocketContext";
 import woman from "../../assets/images/awoman.jpg";
+import aman from "../../assets/images/aman.png";
 import lady from "../../assets/images/lady.jpg";
+import ls from 'localstorage-slim'
 
-function Mymatches({ profiles, user, reload }) {
+
+const USERDB = 'dao'
+const DB = "user-m9j234u94"
+const subscribe = "subscriptionDb"
+
+function Mymatches({action}) {
     const [filter, setFilter] = React.useState(false);
 
+    const [user, setUser] = React.useState('');
+
+    const [explores, setExplores] = React.useState([])
+    const [userlikes, setUserlikes] = React.useState([])
+    const [subscription, setSubscription] = React.useState(null)
+
+    const [links, setLinks] = React.useState([]);
+    const [currentpage, setCurrentpage] = React.useState("");
+    const [lastpage, setLastpage] = React.useState("");
+    const [firstpageurl, setFirstpageurl] = React.useState("");
+    const [lastpageurl, setLastpageurl] = React.useState("");
+    const [frompage, setFrompage] = React.useState("");
+    const [topage, setTopage] = React.useState("");
+    const [nextpageurl, setNextpageurl] = React.useState("");
+    const [prevpageurl, setPrevpageurl] = React.useState("");
+    const [total, setTotal] = React.useState("");
+
+    const loadData = ()=>{
+        const token = ls.get(DB,{decrypt:true})
+        axios.get("/api/matches",{
+            headers:{
+                'Accept':'application/json',
+                'Authorization':'Bearer '+token
+            }
+        }).then((response)=>{
+            console.log(response.data.matches)
+            setExplores(response.data.matches["data"]);
+            setLinks(response.data.matches["links"]);
+            setFrompage(response.data.matches["from"]);
+            setTopage(response.data.matches["to"]);
+            setTotal(response.data.matches["total"]);
+
+            setUserlikes(response.data.user.likes)
+            setSubscription(response.data.subscription)
+            ls.set(subscribe, response.data.subscription, {encrypt: true})
+        }).catch((error)=>{
+
+            // console.log(error)
+            alert(error)
+
+
+                // ls.remove(USERDB)
+                // ls.remove(DB)
+
+                // navigate('/login', {replace:true})
+
+                // alert(error.response.data.message)
+
+
+        })
+    }
+
+    const paginate = (url) => {
+        const token = ls.get(DB, { decrypt: true });
+
+        axios
+            .get(`${url}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            })
+            .then((response) => {
+                console.log(response.data);
+                setExplores(response.data.matches["data"]);
+                setLinks(response.data.matches["links"]);
+                setFrompage(response.data.matches["from"]);
+                setTopage(response.data.matches["to"]);
+                setTotal(response.data.matches["total"]);
+            });
+    };
+    const reload = () => {
+        loadData();
+    };
+
+    React.useEffect(()=>{
+
+        let db = ls.get(USERDB, { decrypt: true })
+
+        if (db !== null) {
+
+             setUser(db.user.user)
+
+
+            console.log("MATCHES",db.user.user.iam)
+
+        }else{
+
+
+        }
+        loadData()
+    },[])
     return (
         <div style={{ position: "relative" }}>
             <div
@@ -47,17 +146,69 @@ function Mymatches({ profiles, user, reload }) {
             </p> */}
 
             {/* Matched Profiles */}
-            {profiles.length > 0 ? <div className="grid grid-cols-5 gap-4 pt-2">
+            <div className="md:w-full mx-auto  h-screen p-12 mb-12">
+                {explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
+                    <div>
+                        {links.map((link) => {
+                            if(link.label === "&laquo; Previous"){
+                               return (<button
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.url == null
+                                        ? " text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
+                                    }
+                                >
+                                    Previous
+                                </button>)
+                            }else if(link.label === "Next &raquo;"){
+                                return(<button
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.url == null
+                                        ? "text-xl text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
+                                    }
+                                >
+                                    Next
+                                </button>)
+                            }else{ return (
+                                <button
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.active
+                                            ? "text-xl text-red-600 font-bold mx-2"
+                                            : "font-bold mx-2"
+                                    }
+                                >
+                                    {link.label}
+                                </button>
+                            );}
 
-                {profiles.map((profile, index) => (
-                    <UserProfile
-                        profile={profile}
-                        liked={user}
-                        key={index}
-                        reload={reload}
-                    />)
-                    )}
-            </div>:<div className="flex flex-col justify-center w-full items-center">
+                        })}
+                    </div>
+                    <div className="flex flex-row justify-end items-center font-bold">
+                        <p>from:{" "}{frompage}</p>
+                        <p className="mx-2">-</p>
+                        <p>{topage}</p>
+                        <p className="ml-4 text-red-600">Total: {total}</p>
+                    </div>
+                </div>}
+
+                {/* <Match /> */}
+
+                {explores.length > 0 ? (
+                    <div className="grid grid-cols-5 gap-4 pt-2">
+                        {explores.map((profile, index) => (
+                            <UserProfile
+                                profile={profile}
+                                liked={userlikes}
+                                key={index}
+                                reload={reload}
+                            />
+                        ))}
+                    </div>
+                ):<div className="flex flex-col justify-center w-full items-center">
                         <h1 className="font-bold text-2xl mt-2">
                             You do not have any match
                         </h1>
@@ -67,7 +218,7 @@ function Mymatches({ profiles, user, reload }) {
                             a message yet, "Like" them instead!
                         </p>
                         <img
-                            src={woman}
+                            src={user.iam == "male"? woman:aman}
                             width="200"
                             className="rounded-full my-6"
                         />
@@ -90,6 +241,7 @@ function Mymatches({ profiles, user, reload }) {
             {/* {filter && <Filteroverlay handleclose={()=>{
                     setFilter(!filter);
                 }} />} */}
+        </div>
         </div>
     );
 }

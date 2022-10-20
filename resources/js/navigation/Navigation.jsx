@@ -14,7 +14,7 @@ const USERDB = 'dao'
 const subscribe = "subscriptionDb"
 const Navigation = ({ select }) => {
 
-    const {addUser, subscription, setSubscription} = React.useContext(SocketContext)
+    const {currentuser, setCurrentuser, subscription, setSubscription} = React.useContext(SocketContext)
 
     const navigate = useNavigate()
   const [profile, setProfile] = React.useState({})
@@ -38,9 +38,9 @@ const Navigation = ({ select }) => {
     let db = ls.get(USERDB, { decrypt: true })
 
     if (db !== null) {
-        console.log("DATA",db.user.user)
-         addUser(db.user.user)
-         console.log(db.user.user.country)
+
+         setCurrentuser(db.user.user)
+
 
          setProfileloc(db.user.user.city+','+db.user.user.country)
       setProfile(db.user.user)

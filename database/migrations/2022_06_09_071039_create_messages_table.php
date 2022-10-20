@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string("by");
             $table->softDeletes();
             $table->timestamps();
+
+
+            $table->foreign('sender')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('recipient')->references('id')->on('users')->cascadeOnDelete();
+
         });
     }
 

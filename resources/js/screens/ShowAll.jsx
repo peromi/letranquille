@@ -34,6 +34,16 @@ function ShowAll() {
 
     const [user, setUser] = React.useState({})
 
+    const [links, setLinks] = React.useState([]);
+    const [currentpage, setCurrentpage] = React.useState("");
+    const [lastpage, setLastpage] = React.useState("");
+    const [firstpageurl, setFirstpageurl] = React.useState("");
+    const [lastpageurl, setLastpageurl] = React.useState("");
+    const [frompage, setFrompage] = React.useState("");
+    const [topage, setTopage] = React.useState("");
+    const [nextpageurl, setNextpageurl] = React.useState("");
+    const [prevpageurl, setPrevpageurl] = React.useState("");
+    const [total, setTotal] = React.useState("");
 
 
 
@@ -46,7 +56,7 @@ function ShowAll() {
        const loadData = ()=>{
         const token = ls.get(DB, {decrypt:true})
 
-        axios.get('/api/explore',{
+        axios.get('/api/get-all-users',{
 
                 headers:{
                     'Accept':'application/json',
@@ -55,14 +65,40 @@ function ShowAll() {
 
         }).then((response)=>{
             console.log(response.data)
-            setExplores(response.data.explores)
-            console.log(response.data.user)
-            setActive(response.data.user)
-            setUser(response.data.user)
+
+            setExplores(response.data.allusers["data"]);
+            setLinks(response.data.allusers["links"]);
+            setFrompage(response.data.allusers["from"]);
+            setTopage(response.data.allusers["to"]);
+            setTotal(response.data.allusers["total"]);
+            // setActive(response.data.user)
+            // setUser(response.data.user)
 
 
         })
     }
+
+
+
+    const paginate = (url) => {
+        const token = ls.get(DB, { decrypt: true });
+
+        axios
+            .get(`${url}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            })
+            .then((response) => {
+                console.log(response.data);
+                setExplores(response.data.allusers["data"]);
+                setLinks(response.data.allusers["links"]);
+                setFrompage(response.data.allusers["from"]);
+                setTopage(response.data.allusers["to"]);
+                setTotal(response.data.allusers["total"]);
+            });
+    };
 const  reload = () => {
     loadData()
 }
@@ -78,23 +114,29 @@ React.useEffect(()=>{
            console.log("db.user")
            setUser(db.user.user)
        }
-    loadData()
+
+       if(explores.length > 0){
+
+       }else{
+        loadData()
+       }
+
 
     // let result = explores.filter((c)=>c.country)
 },[])
   return (
    <MainContainer select="show-all">
 
-<p>{user.name}</p>
+{/* <p>{user.name}</p> */}
 <div className='flex md:flex-row flex-col w-full bg-red-600 justify-around p-2 items-center gap-4'>
 
     <div className='flex-1 w-full  font-bold'>
         <p className="text-white">Seeking a</p>
         <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full'>
-            <option >man</option>
+            <option >male</option>
             <option>any</option>
 
-            <option >woman</option>
+            <option >female</option>
         </select>
     </div>
     <div className='flex-1 w-full font-bold'>
@@ -155,6 +197,55 @@ React.useEffect(()=>{
 
 {/* <Match /> */}
 
+{explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
+                    <div>
+                        {links.map((link) => {
+                            if(link.label === "&laquo; Previous"){
+                               return (<button
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.url == null
+                                        ? " text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
+                                    }
+                                >
+                                    Previous
+                                </button>)
+                            }else if(link.label === "Next &raquo;"){
+                                return(<button
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.url == null
+                                        ? "text-xl text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
+                                    }
+                                >
+                                    Next
+                                </button>)
+                            }else{ return (
+                                <button
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.active
+                                            ? "text-xl text-red-600 font-bold mx-2"
+                                            : "font-bold mx-2"
+                                    }
+                                >
+                                    {link.label}
+                                </button>
+                            );}
+
+                        })}
+                    </div>
+                    <div className="flex flex-row justify-end items-center font-bold">
+                        <p>from:{" "}{frompage}</p>
+                        <p className="mx-2">-</p>
+                        <p>{topage}</p>
+                        <p className="ml-4 text-red-600">Total: {total}</p>
+                    </div>
+                </div>}
+
+
 {explores.length > 0 ? <div className="grid grid-cols-5 gap-4 pt-2">
 
     {explores.map((profile, index) => (
@@ -175,7 +266,7 @@ React.useEffect(()=>{
                 a message yet, "Like" them instead!
             </p>
             <img
-                src={woman}
+                src={user.iam == "male"? woman:man}
                 width="200"
                 className="rounded-full my-6"
             />

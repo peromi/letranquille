@@ -2,6 +2,30 @@ import React from 'react'
 import HomeContainer from './HomeContainer'
 
 function MembershipScreen() {
+
+    const [rates, setRates] =  React.useState('')
+
+    const loadCurrencyValue = () => {
+        axios
+            .get("https://api.exchangerate.host/latest/?base=CAD", {
+                headers: {
+
+                    "Content-Type": "application/json",
+                },
+
+            })
+            .then((res) => {
+                console.log(res.data);
+                setRates(res.data.rates)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    React.useEffect(()=>{
+        loadCurrencyValue()
+    },[])
   return (
    <HomeContainer>
      <h1 className='mt-3 mb-2 font-bold text-3xl text-center'>Choose from our Membership</h1>
@@ -13,10 +37,10 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Weekly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>90</h1>
+                <h1 className='text-3xl font-bold'>{(17.50 * rates['USD']).toFixed(2)}</h1>
                 <span>/7days</span>
             </div>
-            <p>*VAT & local taxes may apply</p>
+            <p>$18 *VAT & local taxes may apply</p>
             <div className='w-[24px] h-[3px] bg-slate-300 rounded-full mb-3' />
             <ul>
                 <li>Unlimited Messaging</li>
@@ -34,8 +58,8 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Monthly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>100</h1>
-                <span>/6mo</span>
+                <h1 className='text-3xl font-bold'>{(34.99 * rates['USD']).toFixed(2)}</h1>
+                <span>/1mo</span>
             </div>
             <p>*VAT & local taxes may apply</p>
             <div className='w-[24px] h-[3px] bg-slate-300 rounded-full mb-3' />
@@ -55,7 +79,7 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
+                <h1 className='text-3xl font-bold'>{(139.99 * rates['USD']).toFixed(2)}</h1>
                 <span>/yr</span>
             </div>
             <p>*VAT & local taxes may apply</p>
@@ -80,7 +104,7 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Weekly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>98</h1>
+                <h1 className='text-3xl font-bold'>{(20.00 * rates['USD']).toFixed(2)}</h1>
                 <span>/7days</span>
             </div>
             <p>*VAT & local taxes may apply</p>
@@ -101,8 +125,8 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Monthly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>120</h1>
-                <span>/6mo</span>
+                <h1 className='text-3xl font-bold'>{(39.99 * rates['USD']).toFixed(2)}</h1>
+                <span>/1mo</span>
             </div>
             <p>*VAT & local taxes may apply</p>
             <div className='w-[24px] h-[3px] bg-slate-300 rounded-full mb-3' />
@@ -122,7 +146,7 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
+                <h1 className='text-3xl font-bold'>{(149.99* rates['USD']).toFixed(2)}</h1>
                 <span>/yr</span>
             </div>
             <p>*VAT & local taxes may apply</p>
@@ -147,8 +171,8 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
-                <span>/yr</span>
+                <h1 className='text-3xl font-bold'>{(40 * rates['USD']).toFixed(2)}</h1>
+                <span>/7days</span>
             </div>
             <p>*VAT & local taxes may apply</p>
             <div className='w-[24px] h-[3px] bg-slate-300 rounded-full mb-3' />
@@ -168,8 +192,8 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
-                <span>/yr</span>
+                <h1 className='text-3xl font-bold'>{(79.98 * rates['USD']).toFixed(2)}</h1>
+                <span>/1mo</span>
             </div>
             <p>*VAT & local taxes may apply</p>
             <div className='w-[24px] h-[3px] bg-slate-300 rounded-full mb-3' />
@@ -189,7 +213,7 @@ function MembershipScreen() {
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
-                <h1 className='text-3xl font-bold'>190</h1>
+                <h1 className='text-3xl font-bold'>{(159.99  * rates['USD']).toFixed(2)}</h1>
                 <span>/yr</span>
             </div>
             <p>*VAT & local taxes may apply</p>

@@ -17,6 +17,7 @@ const subscribe = "subscriptionDb"
 const USERDB = 'dao'
 
 const ContextProvider = ({children}) =>{
+    const [currentuser, setCurrentuser] = useState(null)
     const [recipient, setRecipient] = useState('')
     const [status, setStatus] = useState('')
     const [subscription, setSubscription] = useState('');
@@ -246,7 +247,7 @@ const ContextProvider = ({children}) =>{
 
 
     return (
-        <SocketContext.Provider value={{id,setId, subscription, setSubscription, sendpeer, answerpeer,profileview,likeprofile, status, setStatus,coords, isGeolocationAvailable, isGeolocationEnabled, sendMessage,chatmessage, addUser, me,call,callAccepted,myVideo,userVideo,leaveCall,answerCall,callUser,name,setName,callEnded,stream,start, setStart, incoming, setIncoming}}>
+        <SocketContext.Provider value={{id,setId, subscription, setSubscription, sendpeer, answerpeer,profileview,likeprofile, status, setStatus,coords, isGeolocationAvailable, isGeolocationEnabled, sendMessage,chatmessage,currentuser, setCurrentuser, addUser, me,call,callAccepted,myVideo,userVideo,leaveCall,answerCall,callUser,name,setName,callEnded,stream,start, setStart, incoming, setIncoming}}>
             {children}
         </SocketContext.Provider>
     )

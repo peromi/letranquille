@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('duration');
 
             $table->double('credit');
+            $table->date('expiry');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

@@ -392,13 +392,9 @@ abstract class Model implements Arrayable, ArrayAccess, CanBeEscapedWhenCastToSt
      */
     public static function shouldBeStrict(bool $shouldBeStrict = true)
     {
-        if (! $shouldBeStrict) {
-            return;
-        }
-
-        static::preventLazyLoading();
-        static::preventSilentlyDiscardingAttributes();
-        static::preventAccessingMissingAttributes();
+        static::preventLazyLoading($shouldBeStrict);
+        static::preventSilentlyDiscardingAttributes($shouldBeStrict);
+        static::preventAccessingMissingAttributes($shouldBeStrict);
     }
 
     /**
@@ -2196,7 +2192,11 @@ abstract class Model implements Arrayable, ArrayAccess, CanBeEscapedWhenCastToSt
      */
     public function offsetExists($offset): bool
     {
-        return ! is_null($this->getAttribute($offset));
+        try {
+            return ! is_null($this->getAttribute($offset));
+        } catch (MissingAttributeException) {
+            return false;
+        }
     }
 
     /**
