@@ -293,7 +293,7 @@ const handleHobby = () => {
                     },
                 })
                 .then((response) => {
-                    console.log("Yours", response.data.user);
+                    console.log("Yours", response.data);
                     let data = response.data.user;
 
                     setProfile(data);
@@ -663,7 +663,7 @@ const handleHobby = () => {
                         >
                             <div style={{ width: "100%" }}>
                                 <h3>Religion</h3>
-                                <p style={styles.pink}>{religion.name}</p>
+                                <p style={styles.pink}>{religion.religion_name}</p>
                             </div>
                             {params.id === undefined && (
                                 <button
@@ -675,7 +675,7 @@ const handleHobby = () => {
                                         cursor: "pointer",
                                     }}
                                     onClick={() => {
-                                        setValue(religion.name);
+                                        setValue(religion.relgion_name);
                                         setSetting("religion");
                                     }}
                                 >
