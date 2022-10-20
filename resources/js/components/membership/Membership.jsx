@@ -1289,7 +1289,7 @@ function Membership() {
                                             options={{
                                                 "client-id":
                                                     "ATtzjhuIaE8LR7VOs2LhvaK4no7WtUxQ8P18QgJuuGvwKo7Dc7p-mh6gm10Nj8LYYke8MScZcx93wIC5",
-                                                currency: user.currency,
+                                                currency: "USD",
                                             }}
                                         >
                                             <PayPalButtons
@@ -1305,7 +1305,7 @@ function Membership() {
                                                                     description:
                                                                         type,
                                                                     amount: {
-                                                                        value: (amount).toFixed(2),
+                                                                        value: (amount/rate[user.currency * rate['USD']]).toFixed(2),
                                                                     },
                                                                 },
                                                             ],

@@ -18,7 +18,6 @@ use App\Models\Profile;
 use App\Models\Religion;
 use App\Models\SexualOrientation;
 use App\Models\User;
-use DateTime;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -34,9 +33,7 @@ class UsersImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
 
-        $data_json = file_get_contents("../resources/js/assets/json/cities.json");
 
-        $cities = json_decode($data_json);
 
 
         $user = new User();
@@ -157,32 +154,36 @@ class UsersImport implements ToModel,WithHeadingRow
         }
 
 
-        // location
+
+
+
+
         $location = new Location();
         $location->user_id = $user->id;
-        if(trim($row['city']) !== null){
-            foreach($cities as $city){
-                $stx = get_object_vars($city);
 
 
+          $location->country = $row['country'];
+
+          if(trim($row['state']) == null){
+            $location->state = "any";
+          }else{
+            $location->state = $row['state'];
+          }
 
 
-                $location->country = $stx['country_code'];
-                $location->state = $stx['state_code'];
-                $location->city = $stx['name'];
-                $location->latitude = $stx['latitude'];
-                $location->longitude = $stx['longitude'];
-
-
-
-
+            if(trim($row['city']) == null){
+                $location->city = "any";
+            }else{
+                $location->city = trim($row['city']);
             }
 
-        }
+            $location->latitude = 0.000001;
+            $location->longitude = 0.000001;
+            $location->currency = "USD";
+            $location->currency_symbol = "$";
+            $location->save();
 
-        $location->currency = "USD";
-                $location->currency_symbol = "$";
-        $location->save();
+
 
 
 
@@ -192,15 +193,15 @@ class UsersImport implements ToModel,WithHeadingRow
 
         // age pref
 
-        $agepick = [20, 25, 30, 32, 35, 40];
-        $agepickmax = [45, 48, 50, 54, 58, 60, 70, 75];
+        $agepick = rand(18,40);
+        $agepickmax = rand(41,75);
         $ran1 = rand(0, 5);
         $ran2 = rand(0, 7);
 
         $age_pref = new PreferenceAge();
         $age_pref->user_id = $user->id;
-        $age_pref->age_min = $agepick[$ran1];
-        $age_pref->age_max = $agepickmax[$ran2];
+        $age_pref->age_min = $agepick ;
+        $age_pref->age_max = $agepickmax;
 
         $age_pref->save();
 
@@ -238,7 +239,13 @@ class UsersImport implements ToModel,WithHeadingRow
         $pref_desired_relationship->relationship_type = "long term";
         $pref_desired_relationship->save();
 
-        return $user;
 
+
+        echo $user->id;
+
+        return $user;
     }
+
+
+
 }

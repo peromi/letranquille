@@ -41,4 +41,8 @@ class ActionController extends Controller
         Excel::import(new UsersImport, $request->file('file')->store('temp'));
         return back();
     }
+
+    public function upload(){
+
+    }
 }
