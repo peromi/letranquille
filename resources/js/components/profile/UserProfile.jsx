@@ -81,7 +81,7 @@ function UserProfile({ profile, liked, reload }) {
 
         if(index !== undefined){
 
-            if(cities[index].name !== "any"){
+            if(cities[index].name !== undefined){
                 if(cities[index].name === profile.city){
                     setNation(cities[index].country_code)
                 }else{
