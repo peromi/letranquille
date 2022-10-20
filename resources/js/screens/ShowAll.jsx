@@ -199,9 +199,9 @@ React.useEffect(()=>{
 
 {explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
                     <div>
-                        {links.map((link) => {
+                        {links.map((link, index) => {
                             if(link.label === "&laquo; Previous"){
-                               return (<button
+                               return (<button key={index}
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
@@ -212,7 +212,7 @@ React.useEffect(()=>{
                                     Previous
                                 </button>)
                             }else if(link.label === "Next &raquo;"){
-                                return(<button
+                                return(<button key={index}
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
@@ -223,7 +223,7 @@ React.useEffect(()=>{
                                     Next
                                 </button>)
                             }else{ return (
-                                <button
+                                <button key={index}
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.active
