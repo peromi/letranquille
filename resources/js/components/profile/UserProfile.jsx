@@ -3,7 +3,7 @@ import React from "react";
 import "../../../css/userprofile.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { data } from "../../constants";
-import "animate.css";
+// import "animate.css";
 import { SocketContext } from "../../context/SocketContext";
 import ls from "localstorage-slim";
 import axios from "axios";
@@ -82,7 +82,7 @@ function UserProfile({ profile, liked, reload }) {
         if(index !== undefined){
 
             if(cities[index].name !== undefined){
-                if(cities[index].name === profile.city){
+                if(cities[index].name === profile.city && cities[index].country_code === profile.country || cities[index].name === profile.city && cities[index].country_name === profile.country){
                     setNation(cities[index].country_code)
                 }else{
 

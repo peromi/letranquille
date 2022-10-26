@@ -58,6 +58,7 @@ function MainContainer(props) {
     <div >
 
         <Navigation select={props.select} />
+
         <div className="h-auto">
             {props.children}
         </div>

@@ -13,12 +13,15 @@ import man from "../assets/images/aman.png";
 import lady from "../assets/images/lady.jpg";
 import { Link } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
+import Userplaceholder from "../components/loaders/Userplaceholder";
 
 const DB = "user-m9j234u94";
 const USERDB = "dao";
 
 function Explore() {
     const {  subscription, setSubscription} = React.useContext(SocketContext)
+
+    const [loading, setLoading] = React.useState(true)
     const [explores, setExplores] = React.useState([]);
     const [userlikes, setUserlikes] = React.useState([]);
     const [user, setUser] = React.useState(null);
@@ -52,6 +55,7 @@ function Explore() {
     const loadData = () => {
         const token = ls.get(DB, { decrypt: true });
 
+        setLoading(true)
         axios
             .get("/api/explore", {
                 headers: {
@@ -69,6 +73,7 @@ function Explore() {
 
                 console.log(response.data.user);
 
+                setLoading(false)
                 // setUser(response.data.user);
             });
     };
@@ -76,6 +81,7 @@ function Explore() {
     const searchUser = () => {
         const token = ls.get(DB, { decrypt: true });
 
+        setLoading(true)
         axios.post('/api/explore-search',{
             from:code,
             code:from,
@@ -94,12 +100,15 @@ function Explore() {
                 setFrompage(res.data.explores["from"]);
                 setTopage(res.data.explores["to"]);
                 setTotal(res.data.explores["total"]);
+
+                setLoading(false)
         })
     }
 
     const paginate = (url) => {
         const token = ls.get(DB, { decrypt: true });
 
+        setLoading(true)
         axios
             .get(`${url}`, {
                 headers: {
@@ -114,6 +123,7 @@ function Explore() {
                 setFrompage(response.data.explores["from"]);
                 setTopage(response.data.explores["to"]);
                 setTotal(response.data.explores["total"]);
+                setLoading(false)
             });
     };
     const reload = () => {
@@ -287,7 +297,22 @@ function Explore() {
                 </div>
             </div>
 
-            <div className="md:w-full mx-auto  h-screen p-12 mb-12">
+           {loading ? <div className="md:w-full mx-auto  h-screen p-12 mb-12 block">
+                <div className="grid grid-cols-5 gap-4 pt-2">
+
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                                <Userplaceholder />
+                </div>
+             </div>:
+            <div className="md:w-full mx-auto  h-screen p-12 mb-5">
                 {explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
                     <div>
                         {links.map((link) => {
@@ -350,7 +375,7 @@ function Explore() {
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col justify-center w-full items-center">
+                    <div className="flex flex-col justify-center w-full items-center block">
                         <h1 className="font-bold text-2xl mt-2">
                             You do not have any match
                         </h1>
@@ -376,7 +401,7 @@ function Explore() {
                         </p>
                     </div>
                 )}
-            </div>
+            </div>}
         </MainContainer>
     );
 }

@@ -24,10 +24,12 @@
 <body>
 
     <div id="root">
-        <div style="background-color: #E5EFF1" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
-            <img src="{{asset('/images/logo.png')}}" />
+        <div style="background-color: #000000" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
+            {{-- <img src="{{asset('/images/logo.png')}}" />
             <h1 class="text-2xl">Welcome to Le-Tranquille.</h1>
-            <img src="{{asset('/images/giphy.gif')}}" width="120px" />
+            <img src="{{asset('/images/giphy.gif')}}" width="120px" /> --}}
+            <video width="100%" autoplay loop preload="auto" controls>
+            <source src="{{asset('/assets/video/love.mp4')}}" type="video/mp4"> </video>
         </div>
     </div>
 
