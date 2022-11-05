@@ -59,26 +59,15 @@ function Register() {
     }
     return (
         <AuthContainer>
-<<<<<<< HEAD
             <div className="w-[350px]">
             <Link to="/" className="text-red-600 text-[14px] font-bold hover:text-red-800 mb-3" >Back to Home Page</Link>
-=======
-            <Link to="/" className="text-red-600 text-[14px] font-bold hover:text-red-800 mb-3" >Back to Home Page</Link>
-
-            <h1 className="text-3xl text-center font-bold">Welcome</h1>
-                        <h1 class="text-xl text-center font-bold">
-                            to start a new Journey!
-                        </h1>
-                        <h1 class="text-xl text-center font-bold text-red-500">
-                            Sign Up
-                        </h1>
->>>>>>> 7ce730534b1cc5157234e08f9d91c036d530528d
-
-<h1 className="text-3xl text-center font-bold">Sign Up</h1>
-            <h1 class="text-xl text-center font-bold">
-                Create a new account here
-            </h1>
             
+                       
+            <h1 className="text-3xl text-center font-bold">Sign Up</h1>
+                        <h1 class="text-xl text-center font-bold">
+                          Create a new account
+                        </h1>
+                       
 
 <form action="#">
     {/* <div class="floating-input">

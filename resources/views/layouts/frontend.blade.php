@@ -28,7 +28,6 @@
 <body>
 
     <div id="root">
-<<<<<<< HEAD
         <div style="background:url({{asset('images/loveback.jpg')}}); position:fixed; top:0; left:0; right:0; bottom:0">
             <div style="background:rgba(160, 12, 12, 0.6)" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
                 <img class="md:w-[120px] animate__animated animate__pulse animate__infinite	infinite animate__fast" style="filter: brightness(0) invert(1)" src="{{asset('/images/logo.png')}}" />
@@ -36,14 +35,6 @@
                 <p class="text-yellow-400">Loading please wait...</p>
    
             </div>
-=======
-        <div style="background-color: #000000" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
-            {{-- <img src="{{asset('/images/logo.png')}}" />
-            <h1 class="text-2xl">Welcome to Le-Tranquille.</h1>
-            <img src="{{asset('/images/giphy.gif')}}" width="120px" /> --}}
-            <video width="100%" autoplay loop preload="auto" controls>
-            <source src="{{asset('/assets/video/love.mp4')}}" type="video/mp4"> </video>
->>>>>>> 7ce730534b1cc5157234e08f9d91c036d530528d
         </div>
         
     </div>
