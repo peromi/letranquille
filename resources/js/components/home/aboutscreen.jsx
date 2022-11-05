@@ -7,8 +7,8 @@ function AboutScreen() {
   return (
     <HomeContainer>
             {/* banner */}
-     <div className='h-[354px] flex flex-col justify-center items-center '>
-        <h1 className='text-6xl font-bold'>About Us</h1>
+     <div className='h-[354px] bg-red-500 flex flex-col justify-center items-center '>
+        <h1 className='text-6xl text-white font-bold'>About Us</h1>
      </div>
      {/* content */}
      <div className="w-8/12 mx-auto mb-4">

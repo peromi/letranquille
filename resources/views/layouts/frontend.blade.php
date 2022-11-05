@@ -19,16 +19,24 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <title>Le tranquille</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="3c341ec2-dbcb-4edd-a640-c5bb8dd39176";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
 <body>
 
     <div id="root">
-        <div style="background-color: #E5EFF1" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
-            <img src="{{asset('/images/logo.png')}}" />
-            <h1 class="text-2xl">Welcome to Le-Tranquille.</h1>
-            <img src="{{asset('/images/giphy.gif')}}" width="120px" />
+        <div style="background:url({{asset('images/loveback.jpg')}}); position:fixed; top:0; left:0; right:0; bottom:0">
+            <div style="background:rgba(160, 12, 12, 0.6)" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
+                <img class="md:w-[120px] animate__animated animate__pulse animate__infinite	infinite animate__fast" style="filter: brightness(0) invert(1)" src="{{asset('/images/logo.png')}}" />
+                <h1 class="text-2xl md:text-8xl text-white animate__animated animate__pulse animate__infinite	infinite">Le-Tranquille.</h1>
+                <p class="text-yellow-400">Loading please wait...</p>
+   
+            </div>
         </div>
+        
     </div>
 
 

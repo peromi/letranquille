@@ -66,7 +66,7 @@ class User extends Authenticatable
     }
 
     public function gallery(){
-        return $this->hasMany(Gallery::class, "user_id");
+        return $this->hasMany(Gallery::class);
     }
 
     public function location(){

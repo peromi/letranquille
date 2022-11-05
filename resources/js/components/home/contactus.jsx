@@ -8,7 +8,7 @@ function ContactUs() {
     <HomeContainer>
     {/* banner */}
     <div className='h-screen text-center'>
-    <div className='h-[154px] flex flex-col justify-center items-center '>
+    <div className='h-[154px] mt-3 flex flex-col justify-center items-center '>
 <h1 className='text-6xl font-bold'>Contact Us</h1>
 </div>
 {/* content */}

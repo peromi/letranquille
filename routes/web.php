@@ -2,12 +2,13 @@
 
 use App\Events\MessageNotification;
 use App\Http\Controllers\ActionController;
+use App\Models\Avatar;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,24 @@ Route::post('/user-import', [ActionController::class, 'fileImport']);
 Route::get('handle-payment', 'PayPalPaymentController@handlePayment')->name('make.payment');
 Route::get('cancel-payment', 'PayPalPaymentController@paymentCancel')->name('cancel.payment');
 Route::get('payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
+
+
+
+Route::get("/delete-none-existing-users", function(){
+
+    $avatars = Avatar::all();
+
+    foreach ( $avatars as $avatar ){
+        if(Storage::exists("/public/avatar/".$avatar->first_cover)){
+
+        }else{
+            User::find($avatar->user_id)->delete();
+        }
+    }
+
+    return "Unexisting users deleted successfully";
+
+});
 
 
 

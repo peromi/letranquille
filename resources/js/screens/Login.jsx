@@ -67,15 +67,12 @@ function Login() {
     return (
 
          <AuthContainer >
-             <Link to="/" style={{ fontSize:23, fontWeight: "bold" }}><i className="fi  fi-rr-angle-small-left
-"></i> Home</Link>
-             <h1 className="text-3xl text-center font-bold">Welcome</h1>
+             <Link to="/" className="text-red-600 text-[14px] font-bold hover:text-red-800 mb-3" >Back to Home Page</Link>
+             <h1 className="text-3xl text-center font-bold">Login</h1>
                         <h1 class="text-xl text-center font-bold">
-                            to start a new Journey!
+                          Gain access to explore
                         </h1>
-                        <h1 class="text-xl text-center font-bold text-red-500">
-                            Login
-                        </h1>
+                       
 
                         <div>
                             {/* <div class="floating-input">

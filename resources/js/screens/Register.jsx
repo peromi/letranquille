@@ -59,111 +59,115 @@ function Register() {
     }
     return (
         <AuthContainer>
-            <Link to="/" style={{ fontSize:23, fontWeight: "bold" }}><i className="fi  fi-rr-angle-small-left
-"></i> Home</Link>
-            <h1 className="text-3xl text-center font-bold">Welcome</h1>
-                        <h1 class="text-xl text-center font-bold">
-                            to start a new Journey!
-                        </h1>
-                        <h1 class="text-xl text-center font-bold text-red-500">
-                            Sign Up
-                        </h1>
+            <div className="w-[350px]">
+            <Link to="/" className="text-red-600 text-[14px] font-bold hover:text-red-800 mb-3" >Back to Home Page</Link>
 
-            <form action="#">
-                {/* <div class="floating-input">
-                <label for="email">Email or Mobile*</label>
-                <input type="text" placeholder="Email or Mobile*" />
-            </div> */}
+<h1 className="text-3xl text-center font-bold">Sign Up</h1>
+            <h1 class="text-xl text-center font-bold">
+                Create a new account here
+            </h1>
+            
 
-                <TextField
-                    style={{
-                        width: "100%",
-                        marginTop: 23,
+<form action="#">
+    {/* <div class="floating-input">
+    <label for="email">Email or Mobile*</label>
+    <input type="text" placeholder="Email or Mobile*" />
+</div> */}
 
-                    }}
-                    inputProps={{
-                        style: {
+    <TextField
+        style={{
+            width: "100%",
+            marginTop: 23,
 
-                            fontWeight: "bold",
-                        },
-                    }}
-                    variant="outlined"
-                    label="Email*"
-                    InputLabelProps={{
-                        style: {
+        }}
+        inputProps={{
+            style: {
 
-                            fontWeight: "bold",
-                        },
-                    }}
-                    value={email}
+                fontWeight: "bold",
+            },
+        }}
+        variant="outlined"
+        label="Email*"
+        InputLabelProps={{
+            style: {
 
-                    onChange={(e)=>setEmail(e.target.value)}
-                />
-                <TextField
+                fontWeight: "bold",
+            },
+        }}
+        value={email}
 
-                    id="outlined-basic"
-                    style={{ width: "100%", marginTop: 12 }}
-                    inputProps={{
-                        style: {
+        onChange={(e)=>setEmail(e.target.value)}
+    />
+    <TextField
 
-                            fontWeight: "bold",
-                        },
-                    }}
-                    InputLabelProps={{
-                        style: {
+        id="outlined-basic"
+        style={{ width: "100%", marginTop: 12 }}
+        inputProps={{
+            style: {
 
-                            fontWeight: "bold",
-                        },
-                    }}
-                    type="password"
-                    label="Password*"
-                    variant="outlined"
-                    value={password}
+                fontWeight: "bold",
+            },
+        }}
+        InputLabelProps={{
+            style: {
 
-                    onChange={(e)=>setPassword(e.target.value)}
-                />
-                <TextField
-                    id="c"
-                    style={{ width: "100%", marginTop: 12, marginBottom:24 }}
-                    inputProps={{
-                        style: {
+                fontWeight: "bold",
+            },
+        }}
+        type="password"
+        label="Password*"
+        variant="outlined"
+        value={password}
 
-                            fontWeight: "bold",
-                        },
-                    }}
-                    InputLabelProps={{
-                        style: {
+        onChange={(e)=>setPassword(e.target.value)}
+    />
+    <TextField
+        id="c"
+        style={{ width: "100%", marginTop: 12, marginBottom:24 }}
+        inputProps={{
+            style: {
 
-                            fontWeight: "bold",
-                        },
-                    }}
-                    type="password"
-                    label="Confirm Password*"
-                    variant="outlined"
-                    value={confirm}
+                fontWeight: "bold",
+            },
+        }}
+        InputLabelProps={{
+            style: {
 
-                    onChange={(e)=>setConfirm(e.target.value)}
-                />
-                 <Button variant="contained" className="" style={{ marginTop:21, height:48, width:'100%',   fontWeight:'bold' }} color="primary" onClick={()=>{
-                    handleRegister();
-                }}>Sign Up</Button>
-               <div class="flex justify-center items-center font-bold mt-2 mb-5 gap-x-2">
-                                <p>Already have an Account?</p>
-                                <Link to="/login" className="text-2xl text-red-500">Login</Link>
-                            </div>
-                <div class="divider">
-                    <p>Or</p>
+                fontWeight: "bold",
+            },
+        }}
+        type="password"
+        label="Confirm Password*"
+        variant="outlined"
+        value={confirm}
+
+        onChange={(e)=>setConfirm(e.target.value)}
+    />
+     <Button variant="contained" className="" style={{ marginTop:21, height:48, width:'100%',   fontWeight:'bold' }} color="primary" onClick={()=>{
+        handleRegister();
+    }}>Sign Up</Button>
+   <div class="flex justify-center items-center font-bold mt-2 mb-5 gap-x-2">
+                    <p>Already have an Account?</p>
+                    <Link to="/login" className="text-2xl text-red-500">Login</Link>
                 </div>
-                <div class="social">
-                    <Link to="#" className="hover:bg-blue-900 flex flex-row font-bold rounded-md bg-blue-800 justify-center text-white items-center gap-x-2 w-full">
-                        <i class="fi fi-brands-facebook text-white pt-2"></i>
-                        <p className="text-white text-lg">SignUp with Facebook</p>
-                    </Link>
+    <div class="divider">
+        <p>Or</p>
+    </div>
+    <div class="">
+        <Link to="#" className="hover:bg-blue-900 p-3 flex flex-row font-bold rounded-md bg-blue-800 justify-center text-white items-center gap-x-2 w-full">
+            <i class="fi fi-brands-facebook text-white pt-2"></i>
+            <p className="text-white text-lg">SignUp with Facebook</p>
+        </Link>
 
-                </div>
+    </div>
 
 
-            </form>
+</form>   
+                
+                
+                
+                
+                </div>                                  
         </AuthContainer>
     );
 }

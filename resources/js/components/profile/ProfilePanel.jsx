@@ -93,6 +93,7 @@ const handleHobby = () => {
         });
 };
     // Avatar
+    const [newavatar, setNewavatar] = React.useState('')
     const [avatar, setAvatar] = React.useState(null);
     const [avatar2, setAvatar2] = React.useState(null);
     const [cover, setCover] = React.useState(null);
@@ -108,10 +109,13 @@ const handleHobby = () => {
     const [profile, setProfile] = React.useState({});
     const [hover, setHover] = React.useState(false);
     const [setting, setSetting] = React.useState("");
+
+    const [profession, setProfession] = React.useState('')
     const [value, setValue] = React.useState("");
     const [height, setHeight] = React.useState(3.0);
     const autoCompleteRef = React.useRef(null);
 
+    const [user, setUser] = React.useState("")
     const [religion, setReligion] = React.useState("");
     const [gallery, setGallery] = React.useState([]);
     const [hobby, setHobby] = React.useState([]);
@@ -138,53 +142,53 @@ const handleHobby = () => {
     const [location, setLocation] = React.useState({});
 
     // Get current location
-    const getCurrentLocation = () => {
-        axios
-            .get("http://ip-api.com/json")
-            .then((response) => {
-                console.log(response.data);
-                const { city, country, countryCode, lat, lon } = response.data;
-                setQuery(`${city}, ${countryCode} ${country}`);
-                setLocation({ lat: lat, lon: lon });
-            })
-            .catch((error) => {
-                if (isGeolocationAvailable) {
-                    if (isGeolocationEnabled) {
-                        if (coords) {
-                            setLocation({
-                                lat: coords.latitude,
-                                lon: coords.longitude,
-                            });
-                        }
-                    }
-                }
-                // console.log(error.response.data);
-            });
-    };
+    // const getCurrentLocation = () => {
+    //     axios
+    //         .get("http://ip-api.com/json")
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             const { city, country, countryCode, lat, lon } = response.data;
+    //             setQuery(`${city}, ${countryCode} ${country}`);
+    //             setLocation({ lat: lat, lon: lon });
+    //         })
+    //         .catch((error) => {
+    //             if (isGeolocationAvailable) {
+    //                 if (isGeolocationEnabled) {
+    //                     if (coords) {
+    //                         setLocation({
+    //                             lat: coords.latitude,
+    //                             lon: coords.longitude,
+    //                         });
+    //                     }
+    //                 }
+    //             }
+    //             // console.log(error.response.data);
+    //         });
+    // };
 
     let autoComplete;
 
-    const loadScript = (url, callback) => {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
+    // const loadScript = (url, callback) => {
+    //     let script = document.createElement("script");
+    //     script.type = "text/javascript";
 
-        if (script.readyState) {
-            script.onreadystatechange = function () {
-                if (
-                    script.readyState === "loaded" ||
-                    script.readyState === "complete"
-                ) {
-                    script.onreadystatechange = null;
-                    callback();
-                }
-            };
-        } else {
-            script.onload = () => callback();
-        }
+    //     if (script.readyState) {
+    //         script.onreadystatechange = function () {
+    //             if (
+    //                 script.readyState === "loaded" ||
+    //                 script.readyState === "complete"
+    //             ) {
+    //                 script.onreadystatechange = null;
+    //                 callback();
+    //             }
+    //         };
+    //     } else {
+    //         script.onload = () => callback();
+    //     }
 
-        script.src = url;
-        document.getElementsByTagName("head")[0].appendChild(script);
-    };
+    //     script.src = url;
+    //     document.getElementsByTagName("head")[0].appendChild(script);
+    // };
 
     function handleScriptLoad(updateQuery, autoCompleteRef) {
         autoComplete = new window.google.maps.places.Autocomplete(
@@ -293,12 +297,17 @@ const handleHobby = () => {
                     },
                 })
                 .then((response) => {
-                    console.log("Yours", response.data);
+                    console.log("Yours", response.data.user);
                     let data = response.data.user;
 
-                    setProfile(data);
+
+                    setUser(data.user)
+                    setNewavatar(data.avatar)
+                    setProfile(data.profile);
                     setReligion(data.religion);
+                    setLocation(data.location)
                     setGallery(data.gallery);
+                    setProfession(data.profession)
                     setHobby(data.hobbies);
                     setAge(data.preference_age);
                     setDrink(data.preference_drink);
@@ -320,9 +329,15 @@ const handleHobby = () => {
                 })
                 .then((response) => {
                     let data = response.data.user;
-                    setProfile(data);
+
+                    console.log(response.data.user)
+                    setUser(data.user)
+                    setNewavatar(data.avatar)
+                    setProfile(data.profile);
                     setReligion(data.religion);
                     setGallery(data.gallery);
+                    setProfession(data.profession)
+                    setLocation(data.location)
                     setHobby(data.hobbies);
                     setAge(data.preference_age);
                     setDrink(data.preference_drink);
@@ -386,7 +401,7 @@ const handleHobby = () => {
     };
 
     React.useEffect(() => {
-        loadScript()
+        // loadScript()
         loadProfile();
         loadUserProfile();
     }, [params]);
@@ -398,7 +413,7 @@ const handleHobby = () => {
                 style={{
                     background:
                         profile.cover != null
-                            ? `url('/storage/cover/${profile.cover}')`
+                            ? `url('/storage/cover/${newavatar.cover}')`
                             : "url(" + data.bg + ")",
                     backgroundPosition: "center center",
                     backgroundSize: "cover",
@@ -421,7 +436,7 @@ const handleHobby = () => {
                         style={{}}
                     >
                         <img className="rounded-lg md:w-[100%] md:h-[100%] w-[100%] "
-                            src={`/storage/avatar/${profile.first_cover}`}
+                            src={`/storage/avatar/${newavatar.first_cover}`}
 
                         />
                         {hover && (
@@ -440,7 +455,7 @@ const handleHobby = () => {
                                 <div className="flex gap-3 text-md font-bold"
 
                                 >
-                                    <p className="capitalize text-zinc-100">{profile.address}</p>{" "}
+                                    <p className="capitalize text-zinc-100">{location.country}</p>{" "}
                                     {params.id === undefined && (
                                         <button className="text-red-400">Change</button>
                                     )}
@@ -553,7 +568,7 @@ const handleHobby = () => {
                         >
                             <div  >
                                 <h3>Bio</h3>
-                                <p style={styles.pink}>{profile.bio}</p>
+                                <p style={styles.pink}>{newavatar.bio}</p>
                             </div>
                             {params.id === undefined && (
                                 <button
@@ -565,7 +580,7 @@ const handleHobby = () => {
                                         cursor: "pointer",
                                     }}
                                     onClick={() => {
-                                        setValue(profile.bio);
+                                        setValue(newavatar.bio);
                                         setSetting("bio");
                                     }}
                                 >
@@ -675,7 +690,7 @@ const handleHobby = () => {
                                         cursor: "pointer",
                                     }}
                                     onClick={() => {
-                                        setValue(religion.relgion_name);
+                                        setValue();
                                         setSetting("religion");
                                     }}
                                 >
@@ -698,7 +713,7 @@ const handleHobby = () => {
                         >
                             <div style={{ width: "100%" }}>
                                 <h3>Location</h3>
-                                <p style={styles.pink}>{profile.address}</p>
+                                <p style={styles.pink}>{location.city}, {location.state},{location.country}</p>
                             </div>
                             {params.id === undefined && (
                                 <button
@@ -741,7 +756,7 @@ const handleHobby = () => {
                         >
                             <div style={{ width: "100%" }}>
                                 <h3>Profession</h3>
-                                <p style={styles.pink}>{profile.job}</p>
+                                <p style={styles.pink}>{profession.job}</p>
                             </div>
                             {params.id === undefined && (
                                 <button
@@ -753,7 +768,7 @@ const handleHobby = () => {
                                         cursor: "pointer",
                                     }}
                                     onClick={() => {
-                                        setValue(profile.job);
+                                        setValue(profession.job);
                                         setSetting("profession");
                                     }}
                                 >
@@ -777,7 +792,7 @@ const handleHobby = () => {
                             <div style={{ width: "100%" }}>
                                 <h3>Description</h3>
                                 <p style={styles.pink}>
-                                    {profile.description ??
+                                    {profession.description ??
                                         "No description available"}
                                 </p>
                             </div>
@@ -791,7 +806,7 @@ const handleHobby = () => {
                                         cursor: "pointer",
                                     }}
                                     onClick={() => {
-                                        setValue(profile.description);
+                                        setValue(profession.description);
                                         setSetting("description");
                                     }}
                                 >
@@ -930,112 +945,112 @@ const handleHobby = () => {
                                 </div>
                             )}
 
-                            {food.type === "doesn't matter" && (
+                            {food.food_type === "doesn't matter" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <p>Food Habit</p>
-                                    <p>{food.type}</p>
+                                    <p>{food.food_type}</p>
                                 </div>
                             )}
 
                             {/* Body Type */}
-                            {bodytype.type === "muscular" && (
+                            {bodytype.body_type === "muscular" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.muscular} />
-                                    <p>{bodytype.type}</p>
+                                    <p>{bodytype.body_type}</p>
                                 </div>
                             )}
-                            {bodytype.type === "curvy" && (
+                            {bodytype.body_type === "curvy" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.curvy} />
-                                    <p>{bodytype.type}</p>
+                                    <p>{bodytype.body_type}</p>
                                 </div>
                             )}
 
-                            {bodytype.type === "slim" && (
+                            {bodytype.body_type === "slim" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.slim} />
-                                    <p>{bodytype.type}</p>
+                                    <p>{bodytype.body_type}</p>
                                 </div>
                             )}
-                            {bodytype.type === "average" && (
+                            {bodytype.body_type === "average" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.average} />
-                                    <p>{bodytype.type}</p>
+                                    <p>{bodytype.body_type}</p>
                                 </div>
                             )}
 
-                            {bodytype.type === "doesn't matter" && (
+                            {bodytype.body_type === "doesn't matter" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <p>Body Type</p>
-                                    <p>{bodytype.type}</p>
+                                    <p>{bodytype.body_type}</p>
                                 </div>
                             )}
 
                             {/* relationship */}
-                            {relationship.type === "long term" && (
+                            {relationship.relationship_type === "long term" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.ring} />
-                                    <p>{relationship.type}</p>
+                                    <p>{relationship.relationship_type}</p>
                                 </div>
                             )}
-                            {relationship.type === "short term" && (
+                            {relationship.relationship_type === "short term" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.flower} />
-                                    <p>{relationship.type}</p>
+                                    <p>{relationship.relationship_type}</p>
                                 </div>
                             )}
 
-                            {relationship.type === "hookups" && (
+                            {relationship.relationship_type === "hookups" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.friend} />
-                                    <p>{relationship.type}</p>
+                                    <p>{relationship.relationship_type}</p>
                                 </div>
                             )}
-                            {relationship.type === "new friends" && (
+                            {relationship.relationship_type === "new friends" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.average} />
-                                    <p>{relationship.type}</p>
+                                    <p>{relationship.relationship_type}</p>
                                 </div>
                             )}
 
                             {/* smoking */}
-                            {smoke.type === "smoker" && (
+                            {smoke.smoke_type === "smoker" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.smoke} />
-                                    <p>{smoke.type}</p>
+                                    <p>{smoke.smoke_type}</p>
                                 </div>
                             )}
-                            {smoke.type === "non smoker" && (
+                            {smoke.smoke_type === "non smoker" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.nosmoke} />
-                                    <p>{smoke.type}</p>
+                                    <p>{smoke.smoke_type}</p>
                                 </div>
                             )}
 
-                            {smoke.type === "occasional smoker" && (
+                            {smoke.smoke_type === "occasional smoker" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <img src={data.smoke} />
-                                    <p>{smoke.type}</p>
+                                    <p>{smoke.smoke_type}</p>
                                 </div>
                             )}
-                            {smoke.type === "doesn't matter" && (
+                            {smoke.smoke_type === "doesn't matter" && (
                                 <div className="w-[45%] p-6 ring-1 ring-slate-900/5 flex flex-col justify-center items-center rounded-lg h-[180px] font-bold">
                                     <p>Smoking Habit</p>
-                                    <p>{smoke.type}</p>
+                                    <p>{smoke.smoke_type}</p>
                                 </div>
                             )}
                         </div>
                         {/* Age */}
                         <div style={{ marginTop: 14, fontWeight: "bold" }}>
                             <p>
-                                Age from {age.min} to {age.max}years
+                                Age from {age.age_min} to {age.age_max}years
                             </p>
                         </div>
                         {/* Distance */}
                         <div style={{ marginTop: 14, fontWeight: "bold" }}>
                             <p>
-                                From {profile.distance_min}km to{" "}
-                                {profile.distance_max}km
+                                {/* From {profile.distance_min}km to{" "}
+                                {profile.distance_max}km */}
                             </p>
                         </div>
 

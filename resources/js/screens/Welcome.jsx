@@ -94,9 +94,9 @@ function Welcome() {
                                 life
                             </h1>
                             <p className="font-bold text-xl mt-2 md:w-3/4">
-                                Start meeting new People wih matching
+                                Start meeting new People with matching
                                 personalities around you with{" "}
-                                <span>Le tranquille Dating</span>
+                                <span>Le tranquille Dating.</span>
                             </p>
                             <Link to="/register" className="hover:bg-white bg-yellow-300 p-3 rounded-md mt-[45px] md:w-1/2 text-center text-black font-bold">
                                 Start your Lovely Journey now{"  "}
