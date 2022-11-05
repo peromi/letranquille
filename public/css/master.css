@@ -19,6 +19,31 @@
     src: url("../fonts/Wavehaus-95SemiBold.woff"); src: url("../fonts/Wavehaus-42Light.woff")
 }
 
+@font-face {
+    font-family: Montserrat;
+    
+    src: url("../fonts/Montserrat-Medium.ttf");
+    src: url("../fonts/Montserrat-Regular.ttf");
+}
+
+@font-face {
+    font-family: Roboto;
+    
+    src: url("../fonts/Roboto-Medium.ttf");
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    src: url("../fonts/Roboto-Black.ttf");
+    src: url("../fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url("../fonts/Montserrat-Bold.ttf");
+}
+
 
 *{
     padding: 0;
@@ -27,8 +52,10 @@
     list-style: none;
     text-decoration: none;
     outline: 0;
-    font-family: 'Dosis';
+    font-family: 'Roboto';
 }
+
+
 
 /* body::-webkit-scrollbar{
     width: 6px;

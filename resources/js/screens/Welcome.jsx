@@ -35,32 +35,32 @@ function Welcome() {
     return (
         <div>
             <div className="relative">
-                <div className="flex justify-between bg-red-800 h-[48px] fixed items-center right-0 left-0 px-3 " style={{ zIndex:9999999 }}>
+                <div className="flex justify-between bg-red-800 h-[68px] fixed items-center right-0 left-0 px-3 " style={{ zIndex:9999999 }}>
                     <div className='w-[120px]'>
                        <img src={data.longlogo} style={{ filter:'brightness(0) invert(1)' }} />
                     </div>
 
-                        <ul className="hidden md:flex gap-6 font-bold text-white">
-                            <li>
+                        <ul className="hidden md:flex gap-6  text-white text-xl">
+                            <li className="hover:text-yellow-200">
                                 <Link to="/">Home</Link>
                             </li>
-                            <li>
+                            <li className="hover:text-yellow-200">
                                 <Link to="/story">Stories</Link>
                             </li>
-                            <li>
+                            <li className="hover:text-yellow-200">
                                 <Link to="/membership">Membership</Link>
                             </li>
-                            <li>
+                            <li className="hover:text-yellow-200">
                                 <Link to="/about">About</Link>
                             </li>
-                            <li>
+                            <li className="hover:text-yellow-200">
                                 <Link to="/contact-us">Contact Us</Link>
                             </li>
                         </ul>
 
-                    <div class="hidden font-bold md:flex gap-4 text-white">
-                        <Link to="/register">Sign Up</Link>
-                        <Link to="/login">Login</Link>
+                    <div class="hidden text-xl md:flex gap-4 text-white">
+                        <Link className="hover:text-yellow-200" to="/register">Sign Up</Link>
+                        <Link className="hover:text-yellow-200" to="/login">Login</Link>
                     </div>
                     <button onClick={()=>{
                         setShowmenu(!showmenu)
@@ -89,11 +89,11 @@ function Welcome() {
                     <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
                         <div class="text-white flex justify-around flex-col ">
                             <div className="flex flex-col">
-                            <h1 className="font-bold md:text-6xl text-4xl " style={{ fontFamily:"FredokaOne" }}>
+                            <h1 className="font-['Roboto-Bold'] md:text-6xl text-4xl " style={{   }}>
                                 Make the First move and find the love of your
                                 life
                             </h1>
-                            <p className="font-bold text-xl mt-2 md:w-3/4">
+                            <p className="  text-xl mt-2 md:w-3/4 ">
                                 Start meeting new People with matching
                                 personalities around you with{" "}
                                 <span>Le tranquille Dating.</span>

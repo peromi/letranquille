@@ -893,6 +893,9 @@ video {
 .h-\[200px\] {
   height: 200px;
 }
+.h-\[68px\] {
+  height: 68px;
+}
 .w-full {
   width: 100%;
 }
@@ -1440,6 +1443,12 @@ video {
 .align-middle {
   vertical-align: middle;
 }
+.font-\[Roboto-Bold\] {
+  font-family: Roboto-Bold;
+}
+.font-\[\'Roboto-Bold\'\] {
+  font-family: 'Roboto-Bold';
+}
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -1656,6 +1665,10 @@ video {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.hover\:text-yellow-200:hover {
+  --tw-text-opacity: 1;
+  color: rgb(254 240 138 / var(--tw-text-opacity));
 }
 .hover\:ring-1:hover {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);

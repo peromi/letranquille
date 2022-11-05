@@ -102,7 +102,15 @@ function Onboarding() {
             bodyType.length > 0 &&
             name.length > 0
         ) {
-            axios
+            
+            var date = new Date(selectedDate)
+            var today = new Date()
+            var age = today.getFullYear() - date.getFullYear()
+            if(age < 18){
+                alert("You are not upto 18 years!")
+                return
+            }else{
+                axios
                 .post(
                     "/api/profile",
                     {
@@ -135,6 +143,10 @@ function Onboarding() {
                 .catch((err) => {
                     toast.error(e.response.data.message);
                 });
+            }
+            
+            
+            
         } else {
             toast.error("Ensure the right fields are selected.");
         }
@@ -582,6 +594,7 @@ function Onboarding() {
                         }}
                     />
                 </MuiPickersUtilsProvider>
+                <p>What's Your Height</p>
                     <select onChange={(e)=>setHeight(e.target.value)} value={height} className="p-3 mb-3 ring-1 ring-slate-900/5 w-full">
                         <option value={3}>3ft</option>
                         <option value={4}>4ft</option>
@@ -625,6 +638,7 @@ function Onboarding() {
                     color="primary"
                     onClick={() => {
                         handlePersonalInfo();
+
                     }}
                 >
                     Continue
@@ -4557,12 +4571,12 @@ handleFriendship()
         return (
             <>
                 <div style={{ position: "relative", marginTop: 34 }}>
-                    <img src={data.map} style={{ width: "100%" }} />
+                    {/* <img src={data.map} style={{ width: "100%" }} /> */}
                     <div
                         style={{
                             position: "absolute",
-                            width: "100%",
-                            height: "100%",
+                            width: "80%",
+                            height: "80%",
                             alignItems: "center",
                             justifyContent: "center",
                             top: 0,
@@ -4572,7 +4586,7 @@ handleFriendship()
                             display: "flex",
                         }}
                     >
-                        <Spinner
+                        {/* <Spinner
                             name="ball-scale-ripple-multiple"
                             style={{
                                 color: "#cecece",
@@ -4583,7 +4597,7 @@ handleFriendship()
                         <i
                             class="fa-solid fa-magnifying-glass"
                             style={{ color: "gray" }}
-                        ></i>
+                        ></i> */}
                     </div>
                 </div>
 
@@ -4731,8 +4745,7 @@ value={citycode} onChange={(e) =>{
                         <>
                             <h1 className="font-bold text-2xl">Your Location {stepNumber}/11 </h1>
                             <p>
-                                Allow Location access to get your Location
-                                automatically
+                                Choose your Country, State and City...
                             </p>
                         </>
                     )}
