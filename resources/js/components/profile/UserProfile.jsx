@@ -108,7 +108,7 @@ function UserProfile({ profile, liked, reload }) {
 
         >
             <div className="flex flex-col p-2">
-                <div className="bg-yellow-200 relative overflow-hidden rounded-xl">
+                <div className="bg-white relative overflow-hidden rounded-xl">
 
                     <div className="w-full h-[200px]" style={{backgroundImage:`url('/storage/avatar/${profile.first_cover}')`, backgroundSize:'cover', backgroundPosition:'top'}}>
 

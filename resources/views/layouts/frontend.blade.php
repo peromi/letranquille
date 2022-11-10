@@ -31,7 +31,7 @@
         <div style="background:url({{asset('images/loveback.jpg')}}); position:fixed; top:0; left:0; right:0; bottom:0">
             <div style="background:rgba(160, 12, 12, 0.6)" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
                 <img class="md:w-[120px] animate__animated animate__pulse animate__infinite	infinite animate__fast" style="filter: brightness(0) invert(1)" src="{{asset('/images/logo.png')}}" />
-                <h1 class="text-2xl md:text-8xl text-white animate__animated animate__pulse animate__infinite	infinite">Le-Tranquille.</h1>
+                <h1 class="text-2xl md:text-8xl font-['FredokaOne'] text-white animate__animated animate__pulse animate__infinite	infinite">Le-Tranquille.</h1>
                 <p class="text-yellow-400">Loading please wait...</p>
    
             </div>

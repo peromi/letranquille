@@ -44,6 +44,13 @@
     src: url("../fonts/Montserrat-Bold.ttf");
 }
 
+@font-face {
+    font-family: Quicksand;
+    
+    src: url("../fonts/Quicksand-Medium.ttf");
+    src: url("../fonts/Quicksand-Regular.ttf");
+}
+
 
 *{
     padding: 0;
@@ -52,7 +59,7 @@
     list-style: none;
     text-decoration: none;
     outline: 0;
-    font-family: 'Roboto';
+    font-family: 'Quicksand';
 }
 
 
