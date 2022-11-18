@@ -294,6 +294,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
             
             return json_encode(['profile' => $profile]);
+            
            
         }
 
