@@ -103,6 +103,8 @@ function ShowAll() {
             // setUser(response.data.user)
 
             setIsLoading(false)
+        }).catch((e)=>{
+            navigate("/profile-update",{replace: false})
         })
     }
 
