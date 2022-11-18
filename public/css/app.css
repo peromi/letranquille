@@ -1595,6 +1595,9 @@ video {
 .pt-4 {
   padding-top: 1rem;
 }
+.pb-12 {
+  padding-bottom: 3rem;
+}
 .pt-\[80px\] {
   padding-top: 80px;
 }

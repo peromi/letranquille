@@ -38,6 +38,7 @@ function PreferenceSettings() {
     const [liveInState, setLiveInState] = useState("any")
     const [liveInCity, setLiveInCity] = useState("any")
 
+    const [seekingfor, setSeekingfor] = useState("any");
     const [education, setEducation] = useState("any");
     const [haveChildren, setHaveChildren] = useState("any");
     const [ageMin, setAgeMin] = useState("any");
@@ -132,6 +133,7 @@ function PreferenceSettings() {
 
 
 
+                    setSeekingfor(pref.seekingfor)
                     setEducation(pref.education)
                     setHaveChildren(pref.have_children)
                     setAgeMin(pref.age_min)
@@ -225,6 +227,7 @@ function PreferenceSettings() {
             .put(
                 `/api/edit-preferences/${userid.user_id}`,
                 {
+                    seekingfor: seekingfor,
                     education: education,
                     have_children: haveChildren,
                     age_min: ageMin,
@@ -321,6 +324,23 @@ function PreferenceSettings() {
                         </tr>
                     </thead>
                     <tbody className="font-bold">
+                        <tr className=" ">
+                            <td className="px-3">Seekingfor:</td>
+                            <td className="ml-4 pl-4 font-bold ring-1 flex flex-row">
+                                <select
+                                    className="w-full h-[40px]"
+                                    value={seekingfor}
+                                    onChange={(e) => setSeekingfor(e.target.value)}
+                                >
+                                    <option value="">Which gender do you seek?</option>
+                                    <option >male</option>
+                                    <option >female</option> 
+                                    
+                                </select>
+
+                                 
+                            </td>
+                        </tr>
                         <tr className=" ">
                             <td className="px-3">Age Range:</td>
                             <td className="ml-4 pl-4 font-bold ring-1 flex flex-row">
@@ -852,7 +872,7 @@ function PreferenceSettings() {
                             </td>
                         </tr>
                         <tr className="bg-[#dfd9d9]">
-                            <td className="px-3">Education:{education}</td>
+                            <td className="px-3">Education:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
                                 <input
                                     type="text"

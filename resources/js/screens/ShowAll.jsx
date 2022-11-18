@@ -23,8 +23,18 @@ const DB = "user-m9j234u94"
 const USERDB = "dao"
 function ShowAll() {
 
+
+    const [seeking, setSeeking] = React.useState("");
+    const [ageMin, setAgeMin] = React.useState("");
+    const [ageMax, setAgeMax] = React.useState("");
+    const [liveInCountry, setLiveInCountry] = React.useState("");
+    const [liveInState, setLiveInState] = React.useState("");
+    const [liveInCity, setLiveInCity] = React.useState("");
+    const [withIn, setWithIn] = React.useState("");
+
     const [isLoading, setIsLoading] = React.useState(true)
     const [explores, setExplores] = React.useState([])
+    const [preferences,setPreferences] = React.useState("")
     const [searchresult, setSearchresult] = React.useState([])
     const [userlikes, setUserlikes] = React.useState([])
 
@@ -74,6 +84,16 @@ function ShowAll() {
             setFrompage(response.data.allusers["from"]);
             setTopage(response.data.allusers["to"]);
             setTotal(response.data.allusers["total"]);
+
+            setPreferences(response.data.preference);
+
+            let pref = response.data.preference
+            setSeeking(pref.seekingfor)
+            setAgeMin(pref.age_min)
+            setAgeMax(pref.age_max)
+            setLiveInCountry(pref.live_in.split(',')[0])
+            setLiveInState(pref.live_in.split(',')[1])
+            setLiveInCity(pref.live_in.split(',')[2])
             // setActive(response.data.user)
             // setUser(response.data.user)
 
@@ -139,32 +159,33 @@ if(isLoading){
 
     <div className='flex-1 w-full  font-bold'>
         <p className="text-white">Seeking a</p>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full'>
-            <option >male</option>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={seeking} onChange={(e)=>setSeekingfor(e.target.value)}>
             <option>any</option>
+            <option>male</option>
 
-            <option >female</option>
+            <option>female</option>
         </select>
     </div>
     <div className='flex-1 w-full font-bold'>
         <p className="text-white">Age</p>
         <div className='flex md:flex-row flex-col gap-4'>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white md:w-1/2 w-full'>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white md:w-1/2 w-full' value={ageMin} onChange={(e)=>setAgeMin(e.target.value)}>
 
             {age.map((a, index)=><option key={index} >{a}</option>)}
         </select>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white md:w-1/2 w-full'>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white md:w-1/2 w-full' value={ageMax} onChange={(e)=>setAgeMax(e.target.value)}>
             {age.map((a, index)=><option key={index} >{a}</option>)}
         </select>
         </div>
     </div>
     <div className='flex-1 w-full  font-bold'>
         <p className="text-white">Country</p>
-       <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' onChange={(e)=>{
+       <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInCountry} onChange={(e)=>{
         let result = states.filter((s)=>s.country_code  == e.target.value)
         setStatesearch(result)
         console.log(result.length)
         setCountrycode(e.target.value)
+        setLiveInCountry(e.target.options[e.target.selectedIndex].text)
        }}>
 
                 <option>Any</option>
@@ -173,10 +194,11 @@ if(isLoading){
     </div>
     <div className='flex-1 w-full   font-bold'>
         <p className="text-white">State/Province</p>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' onChange={(e)=>{
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInState} onChange={(e)=>{
             let result = cities.filter((c)=>c.state_code == e.target.value && c.country_code == countrycode)
             console.log(result.length)
             setCitysearch(result)
+            setLiveInState(e.target.options[e.target.selectedIndex].text)
         }}>
 
 <option>Any</option>
@@ -185,7 +207,7 @@ if(isLoading){
     </div>
     <div className='flex-1 w-full  font-bold'>
         <p className="text-white">City</p>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full'>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInCity} onChange={(e)=>setLiveInCity(e.target.value)}>
         <option>Any</option>
             {citysearch.map((c,index)=><option key={index} >{c.name}</option>)}
         </select>
@@ -290,6 +312,57 @@ if(isLoading){
 
 
         </div>}
+
+        {explores.length > 0 && <div className="flex flex-row justify-between items-center mt-4 pb-12">
+                    <div>
+                        {links.map((link, index) => {
+                            if(link.label === "&laquo; Previous"){
+                               return (<button key={index}
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.url == null
+                                        ? " text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
+                                    }
+                                >
+                                    Previous
+                                </button>)
+                            }else if(link.label === "Next &raquo;"){
+                                return(<button key={index}
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.url == null
+                                        ? "text-xl text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
+                                    }
+                                >
+                                    Next
+                                </button>)
+                            }else{ return (
+                                <button key={index}
+                                    onClick={() => paginate(link.url)}
+                                    className={
+                                        link.active
+                                            ? "text-xl text-red-600 font-bold mx-2"
+                                            : "font-bold mx-2"
+                                    }
+                                >
+                                    {link.label}
+                                </button>
+                            );}
+
+                        })}
+                    </div>
+                    <div className="flex flex-row justify-end items-center font-bold">
+                        <p>from:{" "}{frompage}</p>
+                        <p className="mx-2">-</p>
+                        <p>{topage}</p>
+                        <p className="ml-4 text-red-600">Total: {total}</p>
+                    </div>
+                </div>}
+
+                <div className="mt-6" />
+
 </div>
    </MainContainer>
   )

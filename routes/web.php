@@ -22,13 +22,24 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::get('/', function () {
+    // Artisan::call('migrate');
     // Artisan::call('migrate:fresh');
-    Artisan::call('storage:link');
+    // Artisan::call('storage:link');
     // Artisan::call('view:clear');
     // Artisan::call('config:clear');
     // Artisan::call('route:clear');
-    Artisan::call('view:cache');
+    // Artisan::call('view:cache');
     return view('welcome');
+});
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    // Artisan::call('migrate:fresh');
+    Artisan::call('storage:link');
+    Artisan::call('view:clear');
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:cache');
+    return "Migrate complete";
 });
 
 Route::get('/reset', function () {
