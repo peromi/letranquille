@@ -27,8 +27,8 @@ Route::get('/', function () {
     // Artisan::call('storage:link');
     // Artisan::call('view:clear');
     // Artisan::call('config:clear');
-    Artisan::call('route:cache');
-    Artisan::call('view:cache');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
     return view('welcome');
 });
 Route::get('/migrate', function () {
