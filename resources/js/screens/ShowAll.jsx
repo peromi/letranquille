@@ -23,6 +23,7 @@ const DB = "user-m9j234u94"
 const USERDB = "dao"
 function ShowAll() {
 
+    const navigate = useNavigate()
 
     const [seeking, setSeeking] = React.useState("any");
     const [ageMin, setAgeMin] = React.useState("any");
@@ -95,6 +96,8 @@ function ShowAll() {
             setLiveInCountry(pref.live_in.split(',')[0])
             setLiveInState(pref.live_in.split(',')[1])
             setLiveInCity(pref.live_in.split(',')[2])
+           }else{
+            navigate("/profile-update",{replace: false})
            }
             // setActive(response.data.user)
             // setUser(response.data.user)
