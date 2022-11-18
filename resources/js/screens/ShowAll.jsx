@@ -24,12 +24,12 @@ const USERDB = "dao"
 function ShowAll() {
 
 
-    const [seeking, setSeeking] = React.useState("");
-    const [ageMin, setAgeMin] = React.useState("");
-    const [ageMax, setAgeMax] = React.useState("");
-    const [liveInCountry, setLiveInCountry] = React.useState("");
-    const [liveInState, setLiveInState] = React.useState("");
-    const [liveInCity, setLiveInCity] = React.useState("");
+    const [seeking, setSeeking] = React.useState("any");
+    const [ageMin, setAgeMin] = React.useState("any");
+    const [ageMax, setAgeMax] = React.useState("any");
+    const [liveInCountry, setLiveInCountry] = React.useState("any");
+    const [liveInState, setLiveInState] = React.useState("any");
+    const [liveInCity, setLiveInCity] = React.useState("any");
     const [withIn, setWithIn] = React.useState("");
 
     const [isLoading, setIsLoading] = React.useState(true)
@@ -88,12 +88,14 @@ function ShowAll() {
             setPreferences(response.data.preference);
 
             let pref = response.data.preference
+           if(pref !== null){
             setSeeking(pref.seekingfor)
             setAgeMin(pref.age_min)
             setAgeMax(pref.age_max)
             setLiveInCountry(pref.live_in.split(',')[0])
             setLiveInState(pref.live_in.split(',')[1])
             setLiveInCity(pref.live_in.split(',')[2])
+           }
             // setActive(response.data.user)
             // setUser(response.data.user)
 
