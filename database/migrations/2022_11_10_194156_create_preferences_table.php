@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('preferences', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
+            // $table->string('seekingfor')->default('any');
             $table->string('education')->default('any');
             $table->string('have_children')->default('any');
             $table->string('age_min')->default('any');
