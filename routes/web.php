@@ -32,7 +32,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/migrate', function () {
-    Artisan::call('migrate');
+    Artisan::call('migrate:refresh --step=1');
     // Artisan::call('migrate:fresh');
     Artisan::call('storage:link');
     Artisan::call('view:clear');
