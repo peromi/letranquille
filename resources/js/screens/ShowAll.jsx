@@ -16,12 +16,14 @@ import lady from "../assets/images/lady.jpg";
 import man from "../assets/images/aman.png";
 
 import {SocketContext} from '../context/SocketContext'
+import LoadingPage from '../components/loaders/LoadingPage';
 
 
 const DB = "user-m9j234u94"
 const USERDB = "dao"
 function ShowAll() {
 
+    const [isLoading, setIsLoading] = React.useState(true)
     const [explores, setExplores] = React.useState([])
     const [searchresult, setSearchresult] = React.useState([])
     const [userlikes, setUserlikes] = React.useState([])
@@ -54,6 +56,7 @@ function ShowAll() {
        }
 
        const loadData = ()=>{
+        setIsLoading(true)
         const token = ls.get(DB, {decrypt:true})
 
         axios.get('/api/get-all-users',{
@@ -74,7 +77,7 @@ function ShowAll() {
             // setActive(response.data.user)
             // setUser(response.data.user)
 
-
+            setIsLoading(false)
         })
     }
 
@@ -124,6 +127,10 @@ React.useEffect(()=>{
 
     // let result = explores.filter((c)=>c.country)
 },[])
+
+if(isLoading){
+    return <LoadingPage />
+}
   return (
    <MainContainer select="show-all">
 

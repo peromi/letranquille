@@ -57,9 +57,11 @@ import bg from "../assets/images/bg.jpg";
 import regularcoin from "../assets/images/Regular.png";
 import goldcoin from "../assets/images/Gold.png";
 import boostercoin from "../assets/images/Booster.png";
+import lovetransparent from "../assets/images/lovetransparent.jpg";
 
 
 const data = {
+    lovetransparent,
     regularcoin, goldcoin, boostercoin,
     silvercrown,
     bg,

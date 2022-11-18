@@ -29,7 +29,8 @@ function Login() {
     React.useEffect(()=>{
         const step = ls.get(REG_STEPS);
         if(step !== null){
-            navigate('/onboarding', {replace:true})
+            ls.remove(REG_STEPS)
+            // navigate('/onboarding', {replace:true})
         }
     },[])
 
@@ -52,7 +53,7 @@ function Login() {
 
 
                     // addUser(response.data.user.id, response.user.name)
-                    navigate('/matches',{replace:true})
+                    navigate('/show-all',{replace:true})
 
             }).catch(e=>{
                 toast.update(id, {render: "Something went wrong", type: "error", isLoading: false, autoClose:true });

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import "../../../css/profilepanel.scss";
 import MainContainer from "../../containers/MainContainer";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -20,43 +20,70 @@ import "animate.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
 function ProfilePanel() {
     const navigate = useNavigate();
     const params = useParams();
-    const [optionbutton, setOptionbutton] = React.useState(false);
-    // Hobbies
-    const [cooking, setCooking] = React.useState("");
-    const [gaming, setGaming] = React.useState("");
-    const [gym, setGym] = React.useState("");
-    const [kpop, setKpop] = React.useState("");
-    const [photography, setPhotography] = React.useState("");
-    const [music, setMusic] = React.useState("");
-    const [netflix, setNetflix] = React.useState("");
-    const [beach, setBeach] = React.useState("");
-    const [sarcasm, setSarcasm] = React.useState("");
-    const [baseball, setBaseball] = React.useState("");
-    const [manga, setManga] = React.useState("");
-    const [art, setArt] = React.useState("");
-    const [vegan, setVegan] = React.useState("");
+    // Preferences
+    const [preferences, setPreferences] = React.useState({})
+    const [iam, setIam] = useState("")
+    const [lookingfor, setLookingfor] = useState("")
+    const [name, setName] = useState("")
+    const [birthday, setBirthday] = useState("")
 
-    // Interest
-    const [reading, setReading] = React.useState("");
-    const [mountain, setMountain] = React.useState("");
-    const [travelling, setTravelling] = React.useState("");
-    const [football, setFootball] = React.useState("");
-    const [nba, setNba] = React.useState("");
-    const [hiphop, setHiphop] = React.useState("");
-    const [athlete, setAthlete] = React.useState("");
-    const [astrology, setAstrology] = React.useState("");
-    const [dancing, setDancing] = React.useState("");
-    const [foodie, setFoodie] = React.useState("");
-    const [anime, setAnime] = React.useState("");
-    const [marvel, setMarvel] = React.useState("");
-    const [vegetarian, setVegetarian] = React.useState("");
+    const [loveQuote, setLoveQuote] = React.useState("No Quote")
+    const [memberQuote, setMemberQuote] = React.useState("No Quote")
+    const [seekingQuote, setSeekingQuote] = React.useState("No Quote")
+    const [datingFor, setDatingFor] = React.useState("No Answer")
+    const [gender, setGender] = React.useState("male")
+    const [liveInCountry, setLiveInCountry] = useState("No Answer")
+    const [liveInState, setLiveInState] = useState("No Answer")
+    const [liveInCity, setLiveInCity] = useState("No Answer")
 
-    const [hobbies, setHobbies] = React.useState([]);
+    // states
+    const [education, setEducation] = useState("No Answer")
+    const [haveChildren, setHaveChildren] = useState("No Answer")
+    const [age, setAge] = useState("No Answer")
+    const [liveIn, setLiveIn] = useState("No Answer")
+    const [relocate, setRelocate] = useState("No Answer")
+    const [hairColor, setHairColor] = useState("No Answer")
+    const [eyeColor, setEyeColor] = useState("No Answer")
+    const [weight, setWeight] = useState("No Answer")
+    const [height, setHeight] = useState("No Answer")
+    const [smoke, setSmoke] = useState("No Answer")
+    const [drink, setDrink] = useState("No Answer")
+    const [ethnicity, setEthnicity] = useState("No Answer")
+    const [bodyStyle, setBodyStyle] = useState("No Answer")
+    const [bodyArt, setBodyArt] = useState("No Answer")
+    const [appearance, setAppearance] = useState("No Answer")
+    const [maritalStatus, setMaritalStatus] = useState("No Answer")
+    const [numberOfChildren, setNumberOfChildren] = useState("No Answer")
+    const [oldestChild, setOldestChild] = useState("No Answer")
+    const [youngest, setYoungest] = useState("No Answer")
+    const [wantMoreChildren, setWantMoreChildren] = useState("No Answer")
+    const [havePets, setHavePets] = useState("No Answer")
+    const [occupation, setOccupation] = useState("No Answer")
+    const [employmentStatus, setEmploymentStatus] = useState("No Answer")
+    const [annualIncome, setAnnualIncome] = useState("No Answer")
+    const [livingSituation, setLivingSituation] = useState("No Answer")
+    const [nationality, setNationality] = useState("No Answer")
+    const [languagesSpoken, setLanguagesSpoken] = useState("No Answer")
+    const [englishAbility, setEnglishAbility] = useState("No Answer")
+    const [frenchAbility, setFrenchAbility] = useState("No Answer")
+    const [religiousValue, setReligiousValue] = useState("No Answer")
+    const [polygamy, setPolygamy] = useState("No Answer")
+    const [starSign, setStarSign] = useState("No Answer")
+    const [religion, setReligion] = useState("No Answer")
+    const [favoriteMovie, setFavoriteMovie] = useState("No Answer")
+    const [favoriteMusic, setFavoriteMusic] = useState("No Answer")
+    const [dressStyle, setDressStyle] = useState("No Answer")
+    const [humor, setHumor] = useState("No Answer")
+    const [hobbiesAndInterest, setHobbiesAndInterest] = useState("No Answer")
+    const [personality, setPersonality] = useState("No Answer")
+
+
     const handleHobby = () => {
         const token = ls.get(DATABASE_KEY, { decrypt: true });
 
@@ -93,16 +120,8 @@ function ProfilePanel() {
     };
     // Avatar
     const [newavatar, setNewavatar] = React.useState("");
-    const [avatar, setAvatar] = React.useState(null);
-    const [avatar2, setAvatar2] = React.useState(null);
     const [cover, setCover] = React.useState(null);
 
-    const [gallery1, setGallery1] = React.useState(null);
-    const [gallery2, setGallery2] = React.useState(null);
-    const [gallery3, setGallery3] = React.useState(null);
-    const [gallery4, setGallery4] = React.useState(null);
-    const [gallery5, setGallery5] = React.useState(null);
-    const [gallery6, setGallery6] = React.useState(null);
 
     const { profileview } = React.useContext(SocketContext);
     const [profile, setProfile] = React.useState({});
@@ -110,23 +129,13 @@ function ProfilePanel() {
     const [setting, setSetting] = React.useState("");
 
     const [profession, setProfession] = React.useState("");
-    const [value, setValue] = React.useState("");
-    const [height, setHeight] = React.useState(3.0);
     const autoCompleteRef = React.useRef(null);
 
     const [user, setUser] = React.useState("");
-    const [religion, setReligion] = React.useState("");
+    
     const [gallery, setGallery] = React.useState([]);
-    const [hobby, setHobby] = React.useState([]);
-
     //   Preferences hooks
-    const [age, setAge] = React.useState("");
-    const [bodytype, setBodytype] = React.useState("");
-    const [drink, setDrink] = React.useState("");
-    const [food, setFood] = React.useState("");
-    const [smoke, setSmoke] = React.useState("");
-    const [relationship, setRelationship] = React.useState("");
-    const [religions, setReligions] = React.useState("");
+   
 
     const [distance, setDistance] = React.useState([1, 50]);
 
@@ -140,66 +149,12 @@ function ProfilePanel() {
 
     const [location, setLocation] = React.useState({});
 
-    // Get current location
-    // const getCurrentLocation = () => {
-    //     axios
-    //         .get("http://ip-api.com/json")
-    //         .then((response) => {
-    //             console.log(response.data);
-    //             const { city, country, countryCode, lat, lon } = response.data;
-    //             setQuery(`${city}, ${countryCode} ${country}`);
-    //             setLocation({ lat: lat, lon: lon });
-    //         })
-    //         .catch((error) => {
-    //             if (isGeolocationAvailable) {
-    //                 if (isGeolocationEnabled) {
-    //                     if (coords) {
-    //                         setLocation({
-    //                             lat: coords.latitude,
-    //                             lon: coords.longitude,
-    //                         });
-    //                     }
-    //                 }
-    //             }
-    //             // console.log(error.response.data);
-    //         });
-    // };
+    
+   let autoComplete;
 
-    let autoComplete;
+     
 
-    // const loadScript = (url, callback) => {
-    //     let script = document.createElement("script");
-    //     script.type = "text/javascript";
-
-    //     if (script.readyState) {
-    //         script.onreadystatechange = function () {
-    //             if (
-    //                 script.readyState === "loaded" ||
-    //                 script.readyState === "complete"
-    //             ) {
-    //                 script.onreadystatechange = null;
-    //                 callback();
-    //             }
-    //         };
-    //     } else {
-    //         script.onload = () => callback();
-    //     }
-
-    //     script.src = url;
-    //     document.getElementsByTagName("head")[0].appendChild(script);
-    // };
-
-    function handleScriptLoad(updateQuery, autoCompleteRef) {
-        autoComplete = new window.google.maps.places.Autocomplete(
-            autoCompleteRef.current,
-            { types: ["(cities)"], componentRestrictions: { country: [] } }
-        );
-        autoComplete.setFields(["address_components", "formatted_address"]);
-        autoComplete.addListener("place_changed", () =>
-            handlePlaceSelect(updateQuery)
-        );
-    }
-
+   
     async function handlePlaceSelect(updateQuery) {
         const addressObject = autoComplete.getPlace();
         const query = addressObject.formatted_address;
@@ -303,24 +258,74 @@ function ProfilePanel() {
                     },
                 })
                 .then((response) => {
-                    console.log("Yours", response.data.user);
+                    console.log("Yours", response.data);
                     let data = response.data.user;
 
                     setUser(data.user);
                     setNewavatar(data.avatar);
                     setProfile(data.profile);
-                    setReligion(data.religion);
-                    setLocation(data.location);
+
+                    setPreferences(response.data.preference);
+                    // setReligion(data.religion);
+                    // setLocation(data.location);
                     setGallery(data.gallery);
-                    setProfession(data.profession);
-                    setHobby(data.hobbies);
-                    setAge(data.preference_age);
-                    setDrink(data.preference_drink);
-                    setSmoke(data.preference_smoke);
-                    setRelationship(data.preference_relationship);
-                    setFood(data.preference_food);
-                    setBodytype(data.preference_bodytype);
-                    setReligions(data.preference_religion);
+                    let prof = data.profile;
+                   
+                    setIam(prof.iam)
+                    setLookingfor(prof.lookingfor)
+                    setName(prof.name)
+                    setBirthday(prof.birthday)
+                    setAge(prof.age)
+                    setBodyStyle(prof.bodytype)
+                    setHeight(prof.height)
+                    setSmoke(prof.life_style_smoke)
+                    setDrink(prof.life_style_drink)
+                    setEducation(prof.education)
+                    setHaveChildren(prof.have_children)
+                    setLoveQuote(prof.love_quote)
+                    setMemberQuote(prof.member_quote )
+                    setSeekingQuote(prof.seeking_quote)
+                    setGender(prof.gender)
+                    setDatingFor(prof.dating_for)
+                    setRelocate(prof.relocate)
+                    setHairColor(prof.hair_color)
+                    setEyeColor(prof.eye_color)
+                    setWeight(prof.weight)
+                    setEthnicity(prof.ethnicity)
+                    setBodyArt(prof.body_art)
+                    setAppearance(prof.appearance)
+                    setMaritalStatus(prof.marital_status)
+                    setNumberOfChildren(prof.number_of_children)
+                    setOldestChild(prof.oldest_child)
+                    setYoungest(prof.youngest_child)
+                    setWantMoreChildren(prof.want_more_children)
+                    setHavePets(prof.have_pets)
+                    setOccupation(prof.occupation)
+                    setEmploymentStatus(prof.employment_status)
+                    setAnnualIncome(prof.annual_income)
+                    setLivingSituation(prof.living_situation)
+                    setNationality(prof.nationality)
+                    setLanguagesSpoken(prof.languages_spoken)
+                    setEnglishAbility(prof.english_ability)
+                    setFrenchAbility(prof.french_ability)
+                    setReligiousValue(prof.religious_values)
+                    setPolygamy(prof.polygamy)
+                    setStarSign(prof.star_sign)
+                    setFavoriteMovie(prof.favorite_movie)
+                    setFavoriteMusic(prof.favorite_music)
+                    setDressStyle(prof.dress_style)
+                    setHumor(prof.humor)
+                    setReligion(prof.religion)
+                    setHobbiesAndInterest(prof.hobbies_interest)
+                    setPersonality(prof.personality)
+
+
+                    if(prof.live_in !== null){
+
+                        setLiveInCountry(prof.live_in.split(',')[0])
+                        setLiveInState(prof.live_in.split(',')[1])
+                        setLiveInCity(prof.live_in.split(',')[2])
+                    }
                 });
         } else {
             const token = ls.get(DATABASE_KEY, { decrypt: true });
@@ -334,27 +339,90 @@ function ProfilePanel() {
                 .then((response) => {
                     let data = response.data.user;
 
-                    console.log(response.data.user);
+                    console.log(response.data);
                     setUser(data.user);
                     setNewavatar(data.avatar);
                     setProfile(data.profile);
-                    setReligion(data.religion);
+                    setPreferences(response.data.preference);
+
+                    let prof = data.profile;
+                setIam(prof.iam)
+                setLookingfor(prof.lookingfor)
+                setName(prof.name)
+                setBirthday(prof.birthday)
+                setAge(prof.age)
+                setBodyStyle(prof.bodytype)
+                setHeight(prof.height)
+                setSmoke(prof.life_style_smoke)
+                setDrink(prof.life_style_drink)
+                setEducation(prof.education)
+                setHaveChildren(prof.have_children)
+                setLoveQuote(prof.love_quote)
+                setMemberQuote(prof.member_quote )
+                setSeekingQuote(prof.seeking_quote)
+                setGender(prof.gender)
+                setDatingFor(prof.dating_for)
+                setRelocate(prof.relocate)
+                setHairColor(prof.hair_color)
+                setEyeColor(prof.eye_color)
+                setWeight(prof.weight)
+                setEthnicity(prof.ethnicity)
+                setBodyArt(prof.body_art)
+                setAppearance(prof.appearance)
+                setMaritalStatus(prof.marital_status)
+                setNumberOfChildren(prof.number_of_children)
+                setOldestChild(prof.oldest_child)
+                setYoungest(prof.youngest_child)
+                setWantMoreChildren(prof.want_more_children)
+                setHavePets(prof.have_pets)
+                setOccupation(prof.occupation)
+                setEmploymentStatus(prof.employment_status)
+                setAnnualIncome(prof.annual_income)
+                setLivingSituation(prof.living_situation)
+                setNationality(prof.nationality)
+                setLanguagesSpoken(prof.languages_spoken)
+                setEnglishAbility(prof.english_ability)
+                setFrenchAbility(prof.french_ability)
+                setReligiousValue(prof.religious_values)
+                setPolygamy(prof.polygamy)
+                setStarSign(prof.star_sign)
+                setFavoriteMovie(prof.favorite_movie)
+                setFavoriteMusic(prof.favorite_music)
+                setDressStyle(prof.dress_style)
+                setHumor(prof.humor)
+                setReligion(prof.religion)
+                setHobbiesAndInterest(prof.hobbies_interest)
+                setPersonality(prof.personality)
+
+
+                
+                if(prof.live_in !== null){
+
+                    setLiveInCountry(prof.live_in.split(',')[0])
+                    setLiveInState(prof.live_in.split(',')[1])
+                    setLiveInCity(prof.live_in.split(',')[2])
+                }
+                    // setUser(data.user);
+                    // setNewavatar(data.avatar);
+                    // setProfile(data.profile);
+                    // setReligion(data.religion);
                     setGallery(data.gallery);
-                    setProfession(data.profession);
-                    setLocation(data.location);
-                    setHobby(data.hobbies);
-                    setAge(data.preference_age);
-                    setDrink(data.preference_drink);
-                    setSmoke(data.preference_smoke);
-                    setRelationship(data.preference_relationship);
-                    setFood(data.preference_food);
-                    setBodytype(data.preference_bodytype);
-                    setReligions(data.preference_religion);
+                    // setProfession(data.profession);
+                    // setLocation(data.location);
+                    // setHobby(data.hobbies);
+                    // setAge(data.preference_age);
+                    // setDrink(data.preference_drink);
+                    // setSmoke(data.preference_smoke);
+                    // setRelationship(data.preference_relationship);
+                    // setFood(data.preference_food);
+                    // setBodytype(data.preference_bodytype);
+                    // setReligions(data.preference_religion);
 
                     handleProfileView();
                 });
         }
     };
+
 
     const imageUpload = () => {
         const token = ls.get(DATABASE_KEY, { decrypt: true });
@@ -403,6 +471,8 @@ function ProfilePanel() {
             });
     };
 
+     
+
     React.useEffect(() => {
         // loadScript()
         loadProfile();
@@ -439,17 +509,25 @@ function ProfilePanel() {
                     <div className="w-[100%] pl-12 flex flex-col h-full">
                         <div className="flex flex-row items-center">
                             {/* quote */}
-                            <p className=" bg-red-400 p-2 rounded-md self-auto font-bold text-white">Quote here</p>
+                            <p className=" bg-red-400 p-2 rounded-md self-auto font-bold text-white">{profile.love_quote ?? "No quote"}</p>
                             <div className="flex-1" />
                             
-                            <button className="mr-3 w-[60px] h-[60px] rounded-full bg-black flex justify-center items-center">
+                            {params.id !== undefined && <div className="flex flex-row"> 
+                            <button className="mr-3 w-[60px] h-[60px] rounded-full bg-black flex justify-center items-center" title={`Like ${name}`}>
                                 <i className="fi fi-sr-heart text-3xl text-white text-center mt-[2px]"></i>
                             </button>
-                            <button className="mr-3 w-[60px] h-[60px] rounded-full bg-black flex flex-col justify-center items-center">
+                            <Link to={`/messages-single/${profile.user_id}`}  className="mr-6 w-[60px] h-[60px] rounded-full bg-black flex flex-col justify-center items-center"  title={`Send a message to ${name}`}>
                                 <i className=" fi fi-sr-comment text-2xl text-white  text-center"></i>
-                            </button>
+                            </Link>
+                            </div>}
+
+                            {params.id === undefined &&  <Link to="/profile-update" className=" w-[60px] h-[60px] rounded-full bg-black flex flex-col justify-center items-center"  title="Update your profile">
+                                <i className=" fi fi-rr-edit text-2xl text-white  text-center"></i>
+                            </Link>}
+                           
                          
                         </div>
+                         
 
                         {/* name */}
                         <div className="flex flex-row items-center justify-start">
@@ -466,24 +544,24 @@ function ProfilePanel() {
                         </div>
 
                         {/* sex */}
-                        <p>Female / Single / ID: {profile.user_id}</p>
+                        <p className="capitalize">{iam} / {maritalStatus ?? "No answer"} / ID: {profile.user_id}</p>
                         {/* seeking */}
-                        <p>Seeking Male 40 - 59 for: Romance / Dating</p>
+                        <p className="capitalize">Seeking {lookingfor} {preferences !== null ? preferences.age_min  : "No answer"} - {preferences !== null ? preferences.age_max  : "No answer"} for: {datingFor  ?? "No answer"}</p>
 
                         {/* active online or offline */}
                         <div className="flex flex-row items-center">
                             <p className="flex-1">Last active: 44mins ago</p>
-                            <div className="flex flex-row justify-center items-center gap-x-3">
+                            {params.id !== undefined && <div className="flex flex-row justify-center items-center gap-x-3">
                             <span className="mr-2">
-                                <button title={`Add ${profile.name} to your favorite`}><i className="fi fi-sr-star text-3xl"></i></button>
+                                <button title={`Add ${name} to your favorite`}><i className="fi fi-sr-star text-3xl"></i></button>
                             </span>
                             <span className="mr-2">
-                                <button><h1 className="text-4xl font-bold">!</h1></button>
+                                <button title={`"Get to know more about ${name}"`}><h1 className="text-4xl font-bold">!</h1></button>
                             </span>
                             <span>
-                            <button title={`Ban ${profile.name}`}><i className="fi fi-rr-ban text-3xl"></i></button>
+                            <button title={`Ban ${name}`}><i className="fi fi-rr-ban text-3xl"></i></button>
                             </span>
-                            </div>
+                            </div>}
                         </div>
 
                         {/* divider */}
@@ -502,12 +580,12 @@ function ProfilePanel() {
 
                                     <th>
                                         <p className="flex-1 float-left pl-6 text-2xl font-bold capitalize">
-                                        {profile.name}
+                                        {name}
                                         </p>
                                     </th>
                                     <th>
                                         <p className="flex-1 float-left pl-4 text-2xl">
-                                            She's Looking For
+                                           {iam === "male" ? "He's":"She's"} Looking For
                                         </p>
                                     </th>
                                 </tr>
@@ -518,34 +596,34 @@ function ProfilePanel() {
                                         Education:
                                     </td>
                                     <td className="bg-slate-100 px-4">
-                                        No Answer
+                                        {education  ?? "No answer"}
                                     </td>
-                                    <td className="bg-zinc-50 px-4">Any</td>
+                                    <td className="bg-zinc-50 px-4">{preferences !== null ? preferences.education : "No answer"}</td>
                                 </tr>
                                 <tr>
                                     <td className="bg-zinc-100 px-4">
                                         Have children:
                                     </td>
                                     <td className="bg-zinc-50 px-4">
-                                        Yes - don't live at home
+                                        {haveChildren ?? "No answer"}
                                     </td>
-                                    <td className="bg-zinc-100 px-4">Any</td>
+                                    <td className="bg-zinc-100 px-4">{preferences !== null ? preferences.have_children : "No answer"}</td>
                                 </tr>
                                 <tr>
                                     <td className="bg-zinc-50 px-4">Drink:</td>
                                     <td className="bg-zinc-100 px-4">
-                                        Ocassionally drink
+                                        {drink ?? "No answer"}
                                     </td>
-                                    <td className="bg-zinc-50 px-4">Any</td>
+                                    <td className="bg-zinc-50 px-4">{preferences !== null ? preferences.drink : "No answer"}</td>
                                 </tr>
                                 <tr>
                                     <td className="bg-zinc-100 px-4">
                                         Religion:
                                     </td>
                                     <td className="bg-zinc-50 px-4">
-                                        Christian
+                                        {religion ?? "No answer"}
                                     </td>
-                                    <td className="bg-zinc-100 px-4">Any</td>
+                                    <td className="bg-zinc-100 px-4">{preferences !== null ? preferences.religion : "No answer"}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -566,7 +644,7 @@ function ProfilePanel() {
                     Member Overview
                 </h1>
                 <div className="flex flex-row">
-                    <p className="mr-">A responsible and gentle woman</p>
+                    <p className="mr-">{memberQuote ?? "No answer"}</p>
                     <button>Translate</button>
                 </div>
 
@@ -575,7 +653,7 @@ function ProfilePanel() {
                 <h1 className="font-bold text-xl text-red-600 mt-20">
                     Seeking
                 </h1>
-                <p>A partner for life</p>
+                <p>{seekingQuote ?? "No answer"}</p>
 
                 <table width={"100%"} className="mt-20 flex-1">
                     <thead>
@@ -587,13 +665,13 @@ function ProfilePanel() {
                             </th>
                             <th>
                                 <p className="flex-1 float-left font-bold text-xl text-red-700 capitalize">
-                                    {profile.name}
+                                    {profile.name ?? "No answer"}
                                 </p>
                             </th>
                             <th></th>
                             <th>
                                 <p className="flex-1 float-left font-bold text-xl text-red-700">
-                                    She's Looking For
+                                {iam === "male" ? "He's":"She's"} Looking For
                                 </p>
                             </th>
                         </tr>
@@ -602,366 +680,364 @@ function ProfilePanel() {
                         <tr className="bg-[#f8f8f8]">
                             <td className="px-3">Gender:</td>
                             <td className="bg-green-100 pl-4 font-bold">
-                                Female
+                                {iam}
                             </td>
                             <td></td>
-                            <td className="bg-green-200 ml-4 pl-4">Male</td>
+                            <td className="bg-green-200 ml-4 pl-4">{lookingfor}</td>
                         </tr>
                         <tr>
                             <td className="px-3">Age:</td>
                             <td className=" ml-4 pl-4 font-bold bg-green-500">
-                                44
+                                {age}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-red-300">
-                                40 - 59
+                               {preferences !== null ? preferences.age_min : "No answer"} - {preferences !== null ? preferences.age_max : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f8f8f8]">
                             <td className="px-3">Live in:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e5e5e5]">
-                                Douala, Littoral, Cameroon
+                                {liveInCity ?? "No answer"}, {liveInState ?? "No answer"}, {liveInCountry ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#EBEBEB]">
-                                Any
+                               {preferences !== null ? preferences.live_in : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Relocate:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Willing to relocate to another country
+                                {relocate ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                                {preferences !== null ? preferences.relocate : "No answer"}
                             </td>
                         </tr>
 
                         {/* Appearance */}
                         <tr>
-                            <p className="font-bold text-xl mt-12 mb-3 text-red-600">
-                                Appearance
-                            </p>
+                            <td>Appearance</td>
                         </tr>
 
                         {/* other information */}
                         <tr className="bg-[#fffefe] ">
                             <td className="px-3">Hair color:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f0f0f0]">
-                                Black
+                               {hairColor ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
-                                Any
+                                {preferences !== null ? preferences.hair_color : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebe9e9]">
                             <td className="px-3">Eye color:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Brown
+                               {eyeColor ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                               {preferences !== null ? preferences.eye_color : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#d6d5d5]">
                             <td className="px-3">Height:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                5' 6" (168 cm)
+                                {height ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                Any
+                                {preferences !== null ? preferences.height : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fffefe]">
                             <td className="px-3">Weight:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                40kg (88 lb)
+                                {weight ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                                {preferences !== null ? preferences.weight : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Body style:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                                Average
+                                {bodyStyle ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
-                                Any
+                                {preferences !== null ? preferences.body_style : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ffffff]">
                             <td className="px-3">Ethnicity:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                African
+                                {ethnicity ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                                {preferences !== null ? preferences.ethnicity : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Body art:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ebe8e8]">
-                                Other
+                               {bodyArt ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f0efef]">
-                                Any
+                                {preferences !== null ? preferences.body_art : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Appearance:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Attractive
+                                {appearance ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                Any
+                                {preferences !== null ? preferences.appearance : "No answer"}
                             </td>
                         </tr>
 
                         {/* Lifestyle */}
                         <tr>
-                            <p className="font-bold text-xl mt-12 mb-3 text-red-600">
+                           <td> <p className="font-bold text-xl mt-12 mb-3 text-red-600">
                                 Lifestyle
-                            </p>
+                            </p></td>
                         </tr>
 
                         {/* other information */}
                         <tr className="bg-[#fffefe] ">
                             <td className="px-3">Drink:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f0f0f0]">
-                                Occassionally
+                                {drink ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
-                                Any
+                                {preferences !== null ? preferences.drink : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebe9e9]">
                             <td className="px-3">Smoke:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Don't smoe
+                                {smoke ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                                {preferences !== null ? preferences.smoke : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#d6d5d5]">
                             <td className="px-3">Marital status:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                Single
+                                {maritalStatus ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                Any
+                                {preferences !== null ? preferences.marital_status : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fffefe]">
                             <td className="px-3">Have children:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Yes - don't live at home
+                                {haveChildren ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                                {preferences !== null ? preferences.have_children : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Number of children:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                                1
+                                {numberOfChildren ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
-                                Any
+                                {preferences !== null ? preferences.number_of_children : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ffffff]">
                             <td className="px-3">Oldest child:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                1
+                                {oldestChild ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                                {preferences !== null ? preferences.oldest_child : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Youngest child:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ebe8e8]">
-                                No Answer
+                                {youngest ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f0efef]">
-                                Any
+                                {preferences !== null ? preferences.youngest_child : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Want (more) children:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                                Not Sure
+                                {wantMoreChildren ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e6e4e4]">
-                                Any
+                                {preferences !== null ? preferences.want_more_children : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Have pets:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Cat
+                                {havePets ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                Any
+                               {preferences !== null ? preferences.have_pets : "No answer"}
                             </td>
                         </tr>
 
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Occupation:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                                Construction/Trades
+                                {occupation ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e6e4e4]">
-                                Any
+                                {preferences !== null ? preferences.occupation : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Employment status:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Prefer not to say
+                                {employmentStatus ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                Any
+                                {preferences !== null ? preferences.employment_status : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Annual income:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                                Prefer not to say
+                                {annualIncome ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e6e4e4]">
-                                Any
+                                {preferences !== null ? preferences.annual_income : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Living situation:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                Live Alone
+                                {livingSituation ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                                Any
+                                {preferences !== null ? preferences.living_situation : "No answer"}
                             </td>
                         </tr>
                         {/* background culture */}
                         <tr>
-                            <p className="font-bold text-xl mt-12 mb-3 text-red-600">
+                            <td><p className="font-bold text-xl mt-12 mb-3 text-red-600">
                                 Background / Cultural Values
-                            </p>
+                            </p></td>
                         </tr>
 
                         {/* other information */}
                         <tr className="bg-[#fffdfd]">
                             <td className="px-3">Nationality:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f3efefe3]">
-                                No Answer
+                                {nationality ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
-                                Any
+                                {preferences !== null ? preferences.nationality : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#dfd9d9]">
                             <td className="px-3">Education:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                No Answer
+                                {education ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fafafa]">
-                                Any
+                                {preferences !== null ? preferences.education : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f3f0f0]">
                             <td className="px-3">Languages spoken:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f3f1f1]">
-                                French
+                                {languagesSpoken ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f1efef]">
-                                Any
+                                {preferences !== null ? preferences.languages_spoken : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#eceaea]">
                             <td className="px-3">English ability:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f1eeee]">
-                                Some
+                                {englishAbility ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f7f5f5]">
-                                Any
+                                {preferences !== null ? preferences.english_ability : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f0efef]">
                             <td className="px-3">French ability:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f7f3f3]">
-                                No Answer
+                                {frenchAbility ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e7e6e6]">
-                                Any
+                                {preferences !== null ? preferences.french_ability : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f5f3f3]">
                             <td className="px-3">Religion:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e9e7e7]">
-                                Christian
+                                {religion ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ebe7e7]">
-                                Any
+                                {preferences !== null ? preferences.religion : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#e9e5e5]">
                             <td className="px-3">Religious values:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#faf5f5]">
-                                No Answer
+                                {religiousValue ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e4e3e3]">
-                                Any
+                                {preferences !== null ? preferences.religious_values : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Polygamy:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e2e0e0]">
-                                Don't accept polygamy
+                                {polygamy ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f1f1]">
-                                Any
+                                {preferences !== null ? preferences.polygamy : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Star sign:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#dbdbdb]">
-                                Leo
+                                {starSign ?? "No answer"}
                             </td>
                             <td></td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
-                                Any
+                                {preferences !== null ? preferences.star_sign : "No answer"}
                             </td>
                         </tr>
                     </tbody>
@@ -982,13 +1058,13 @@ function ProfilePanel() {
                         <h1 className="font-bold text-xl  text-red-600">
                             Favorite Movie:
                         </h1>
-                        <p>Titanic</p>
+                        <p>{favoriteMovie ?? "No answer"}</p>
                     </span>
                     <span>
                         <h1 className="font-bold text-xl text-red-600">
                             Favorite Music:
                         </h1>
-                        <p>Blues, Jazz Old school</p>
+                        <p>{favoriteMusic ?? "No answer"}</p>
                     </span>
                 </div>
                 {/* More about second */}
@@ -997,13 +1073,13 @@ function ProfilePanel() {
                         <h1 className="font-bold text-xl  text-red-600">
                             Dress Style:
                         </h1>
-                        <p>Dress Sexy</p>
+                        <p>{dressStyle ?? "No answer"}</p>
                     </span>
                     <span>
                         <h1 className="font-bold text-xl text-red-600">
                             Humor:
                         </h1>
-                        <p>Say any humor</p>
+                        <p>{humor ?? "No answer"}</p>
                     </span>
                 </div>
                 {/* More about third */}
@@ -1012,13 +1088,13 @@ function ProfilePanel() {
                         <h1 className="font-bold text-xl  text-red-600">
                             Hobbies & Interests:
                         </h1>
-                        <p>Films, Music & baseball</p>
+                        <p>{hobbiesAndInterest ?? "No answer"}</p>
                     </span>
                     <span>
                         <h1 className="font-bold text-xl text-red-600">
                             Personality:
                         </h1>
-                        <p>Your personality here</p>
+                        <p>{personality ?? "No answer"}</p>
                     </span>
                 </div>
 

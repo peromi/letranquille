@@ -7,6 +7,7 @@ import woman from "../../assets/images/awoman.jpg";
 import aman from "../../assets/images/aman.png";
 import lady from "../../assets/images/lady.jpg";
 import ls from 'localstorage-slim'
+import LoadingPage from "../loaders/LoadingPage";
 
 
 const USERDB = 'dao'
@@ -15,6 +16,7 @@ const subscribe = "subscriptionDb"
 
 function Mymatches({action}) {
     const [filter, setFilter] = React.useState(false);
+    const [isloading, setIsLoading] = React.useState(false);
 
     const [user, setUser] = React.useState('');
 
@@ -34,6 +36,7 @@ function Mymatches({action}) {
     const [total, setTotal] = React.useState("");
 
     const loadData = ()=>{
+        setIsLoading(true)
         const token = ls.get(DB,{decrypt:true})
         axios.get("/api/matches",{
             headers:{
@@ -51,6 +54,7 @@ function Mymatches({action}) {
             setUserlikes(response.data.user.likes)
             setSubscription(response.data.subscription)
             ls.set(subscribe, response.data.subscription, {encrypt: true})
+            setIsLoading(false)
         }).catch((error)=>{
 
             // console.log(error)
@@ -64,7 +68,7 @@ function Mymatches({action}) {
 
                 // alert(error.response.data.message)
 
-
+            setIsLoading(false)
         })
     }
 
@@ -108,6 +112,11 @@ function Mymatches({action}) {
         }
         loadData()
     },[])
+    if(isloading){
+        return (
+           <LoadingPage />
+        )
+    }
     return (
         <div style={{ position: "relative" }}>
             <div

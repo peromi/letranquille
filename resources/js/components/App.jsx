@@ -48,6 +48,8 @@ import BlockedList from "./activities/BlockedList";
 import Favorite from "./activities/Favorite";
 import ProfileView from "./activities/ProfileView";
 import MessageSingle from "../screens/MessageSingle";
+import UpdatePreference from "../screens/UpdatePreference";
+import ProfileUpdate from "./profile/ProfileUpdate";
 
 
 
@@ -98,10 +100,12 @@ function App() {
                     <Route path="/messages" element={<Messages />} />
                     <Route path="/messages-single/:id" element={<MessageSingle />} />
                     <Route path="/profile" element={<ProfilePanel />} />
+                    <Route path="/profile-update" element={<ProfileUpdate />} />
                     <Route path="/profile/:id" element={<ProfilePanel />} />
                     <Route path="/notification" element={<Notification />} />
                     <Route path="/notification/:id" element={<Notification />} />
                     <Route path="/preference-settings" element={<PreferenceSettings />} />
+                    <Route path="/update-preference" element={<UpdatePreference />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/show-all" element={<ShowAll />} />
                     {/* <Route path="/credit-coins" element={<CreditCoins />} /> */}

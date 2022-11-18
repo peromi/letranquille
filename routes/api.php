@@ -6,6 +6,7 @@ use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\BodyTypeController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeightController;
 use App\Http\Controllers\HobbyController;
@@ -45,6 +46,7 @@ use App\Models\PreferenceDesiredRelationship;
 use App\Models\PreferenceDrink;
 use App\Models\PreferenceFood;
 use App\Models\PreferenceReligion;
+use App\Models\Preferences;
 use App\Models\PreferenceSmoke;
 use App\Models\Profession;
 use App\Models\Profile;
@@ -98,83 +100,206 @@ Route::middleware('auth:sanctum')->get('/dashboard', function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('/profile', ProfileController::class);
+    // Route::apiResource('/profile', ProfileController::class);
 
     Route::get('/user-profile', function () {
 
         // $user = User::where('users.id', auth()->user()->id)->join('profiles', 'profiles.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->with('religion')->with('gallery')->with('hobbies')->with('preferenceAge')->first();
         $user = User::where('id',auth()->user()->id)->with('religion')->with('profession')->with('avatar')->with('profile')->with('gallery')->with('hobbies')->with('sexOrientation')->with('preferenceAge')->with('preferenceRelationship')->with('preferenceDrink')->with('preferenceFood')->with('preferenceSmoke')->with('preferenceReligion')->with('preferenceBodytype')->with('location')->first();
 
+        $preference = Preferences::where("user_id", $user->id)->first();
 
-        return json_encode(['user' => $user]);
+        return json_encode(['user' => $user, 'preference' => $preference]);
     });
 
     Route::get('/user-profile/{id}', function ($id) {
         $user = User::where('id',$id)->with('religion')->with('profession')->with('avatar')->with('profile')->with('gallery')->with('hobbies')->with('sexOrientation')->with('preferenceAge')->with('preferenceRelationship')->with('preferenceDrink')->with('preferenceFood')->with('preferenceSmoke')->with('preferenceReligion')->with('preferenceBodytype')->with('location')->first();
 
 
+        $preferences = Preferences::where("user_id", $user->id)->first();
 
+        $match_preference = Preferences::where("user_id", auth()->user()->id)->first();
 
-        return json_encode(['user' => $user]);
+        return json_encode(['user' => $user, 'preference' => $preferences, "match_preference" => $match_preference]);
     });
 
-    Route::put('/profile', function (Request $request) {
-        $profile = Profile::where('user_id', auth()->user()->id)->first();
+    Route::get('/profile/{id}', [ProfileController::class, "show"]);
+    Route::put('/profile/{id}', function(Request $request, $id){
+        $profile = Profile::where("user_id", $id)->first();
+        
 
-        if ($request->input('iam') != null) {
-            $profile->iam = $request->input('iam');
+        $profile->iam = $request->input("gender");
+        $profile->lookingfor = $request->input("lookingfor");
+        $profile->name = $request->input("name");
+        $profile->birthday = $request->input("birthday");
+        $profile->age = $request->input("age");
+        $profile->bodytype = $request->input("bodytype");
+        $profile->height = $request->input("height");
+        $profile->life_style_smoke = $request->input("life_style_smoke");
+        $profile->life_style_drink = $request->input("life_style_drink");
+        $profile->education = $request->input("education");
+        $profile->have_children = $request->input("have_children");
+        $profile->love_quote = $request->input("love_quote");
+        $profile->member_quote = $request->input("member_quote");
+        $profile->seeking_quote = $request->input("seeking_quote");
+        $profile->gender = $request->input("gender");
+        $profile->dating_for = $request->input("dating_for");
+        $profile->live_in = $request->input("live_in");
+        $profile->relocate = $request->input("relocate");
+        $profile->hair_color = $request->input("hair_color");
+        $profile->eye_color = $request->input("eye_color");
+        $profile->weight = $request->input("weight");
+        $profile->ethnicity = $request->input("ethnicity");
+        $profile->body_art = $request->input("body_art");
+        $profile->appearance = $request->input("appearance");
+        $profile->marital_status = $request->input("marital_status");
+        $profile->number_of_children = $request->input("number_of_children");
+        $profile->oldest_child = $request->input("oldest_child");
+        $profile->youngest_child = $request->input("youngest_child");
+        $profile->want_more_children = $request->input("want_more_children");
+        $profile->have_pets = $request->input("have_pets");
+        $profile->occupation = $request->input("occupation");
+        $profile->employment_status = $request->input("employment_status");
+        $profile->annual_income = $request->input("annual_income");
+        $profile->living_situation = $request->input("living_situation");
+        $profile->nationality = $request->input("nationality");
+        $profile->languages_spoken = $request->input("languages_spoken");
+        $profile->english_ability = $request->input("english_ability");
+        $profile->french_ability = $request->input("french_ability");
+        $profile->religious_values = $request->input("religious_values");
+        $profile->polygamy = $request->input("polygamy");
+        $profile->star_sign = $request->input("star_sign");
+        $profile->favorite_movie = $request->input("favorite_movie");
+        $profile->favorite_music = $request->input("favorite_music");
+        $profile->dress_style = $request->input("dress_style");
+        $profile->humor = $request->input("humor");
+        $profile->religion = $request->input("religion");
+        $profile->hobbies_interest = $request->input("hobbies_interest");
+        $profile->personality = $request->input("personality");
+
+
+
+
+        // imagee upload
+
+        // $avatar = Avatar::where("user_id", $id)->first();
+
+        
+
+        // if($request->hasFile("avatar")){
+
+        //     Storage::delete("/public/avatar/". $avatar->first_cover);
+
+        //     $filename = $request->file("avatar")->getClientOriginalName();
+        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
+        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
+        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
+
+        //     $request->file('avatar')->storeAs("/public/avatar", $fileToSave);
+
+
+
+        //     $avatar->first_cover = $fileToSave;
+
+
+            
+
+        // }
+        // if($request->hasFile("avatar2")){
+
+        //     Storage::delete("public/avatar/". $avatar->second_cover);
+
+        //     $filename = $request->file("avatar2")->getClientOriginalName();
+        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
+        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
+        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
+
+        //     $request->file('avatar2')->storeAs("public/avatar/", $fileToSave);
+
+
+
+        //     $avatar->second_cover = $fileToSave;
+
+        // }
+
+
+
+        // // Gallery
+        // if($request->hasFile("gallery")){
+
+            
+
+        //     $filename = $request->file("gallery")->getClientOriginalName();
+        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
+        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
+        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
+
+        //     $request->file('gallery')->storeAs("/public/gallery", $fileToSave);
+
+
+        //     $gallery = new Gallery();
+        //     $gallery->user_id = $id;
+
+        //     $gallery->cover = $fileToSave;
+
+        //     $gallery->save();
+
+        // }
+        // if($request->hasFile("gallery2")){
+
+            
+
+        //     $filename = $request->file("gallery2")->getClientOriginalName();
+        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
+        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
+        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
+
+        //     $request->file('gallery2')->storeAs("public/gallery/", $fileToSave);
+
+
+        //     $gallery = new Gallery();
+        //     $gallery->user_id = $id;
+
+        //     $gallery->cover = $fileToSave;
+
+        //     $gallery->save();
+
+        // }
+        // if($request->hasFile("gallery3")){
+
+            
+
+        //     $filename = $request->file("gallery3")->getClientOriginalName();
+        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
+        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
+        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
+
+        //     $request->file('gallery3')->storeAs("/public/gallery", $fileToSave);
+
+
+        //     $gallery = new Gallery();
+        //     $gallery->user_id = $id;
+
+        //     $gallery->cover = $fileToSave;
+
+        //    if( $gallery->save()){
+        
+        //    };
+
+        // }
+       
+       
+
+        if($profile->save()){
+
+            
+            return json_encode(['profile' => $profile]);
+           
         }
 
-        if ($request->input('lookingfor') != null) {
-            $profile->lookingfor = $request->input('lookingfor');
-        }
-
-        if ($request->input('name') != null) {
-            $profile->name = $request->name;
-        }
-
-        if ($request->birthday != null) {
-            $profile->birthday =  $request->birthday;
-        }
-
-        if ($request->input('bodytype') != null) {
-            $profile->bodytype = $request->input('bodytype');
-        }
-
-        if ($request->input('body_show') != null) {
-            $profile->show_bodytype = $request->input('body_show');
-        }
-        if ($request->input('height') != null) {
-            $profile->height = $request->input('height');
-        }
-        if ($request->input('height_show') != null) {
-            $profile->show_height = $request->input('height_show');
-        }
-        if ($request->input('drink') != null) {
-            $profile->life_style_drink = $request->input('drink');
-        }
-        if ($request->input('smoke') != null) {
-            $profile->life_style_smoke = $request->input('smoke');
-        }
-        if ($request->input('food') != null) {
-            $profile->life_style_food = $request->input('food');
-        }
-        if ($request->input('relationship') != null) {
-            $profile->life_style_relationship = $request->input('relationship');
-        }
-
-
-
-
-
-
-
-        if ($profile->save()) {
-            return json_encode(['message' => 'profile information updated'], 201);
-        } else {
-            return json_encode(['message' => 'Something went wrong.'], 401);
-        }
     });
+    Route::get('/profile', [ProfileController::class, "index"]);
+    Route::post('/profile', [ProfileController::class, "store"]);
     Route::apiResource('/religion', ReligionController::class);
     Route::apiResource('/profession', ProfessionController::class);
     Route::apiResource('/sexual-orientation', SexualOrientationController::class);
@@ -183,6 +308,139 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/gallery', GalleryController::class);
     Route::apiResource('/location', LocationController::class);
 
+
+    // update avatar
+    Route::post("/avatar-update", function (Request $request){
+        $avatar = Avatar::where("user_id", auth()->user()->id);
+            
+            //AVATAR PROFILE
+
+            if($request->hasFile('avatar')){
+
+                Storage::delete("public/avatar/".$avatar->first_cover);
+
+                $fileWithExt = $request->file('avatar')->getClientOriginalName();
+                $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+                $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+                $fileToSave = md5($filename.time()).'.'.$ext;
+                $request->file('avatar')->storeAs('public/avatar/', $fileToSave);
+
+                // AVATAR 2
+                if($request->hasFile('avatar2')){
+                    Storage::delete("public/avatar/".$avatar->second_cover);
+                    $fileWithExt2 = $request->file('avatar2')->getClientOriginalName();
+                    $filename2 = pathinfo($fileWithExt2, PATHINFO_FILENAME);
+                    $ext2 = pathinfo($fileWithExt2, PATHINFO_EXTENSION);
+                    $fileToSave2 = md5($filename2.time()).'.'.$ext2;
+                    $request->file('avatar2')->storeAs('public/avatar/', $fileToSave2);
+    
+                } 
+
+
+               
+                $avatar->first_cover = $fileToSave;
+                $avatar->second_cover = $fileToSave2;
+                $avatar->bio = $request->input('bio');
+
+                // $avatar->save();
+
+            }
+
+            // Gallery
+            // $gallery = new Gallery();
+            // if($request->hasFile('gallery1'))
+            // {
+            //     $fileWithExt = $request->file('gallery1')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery1')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery->user_id = auth()->user()->id;
+            //     $gallery->cover = $fileToSave;
+            //     // $gallery->save();
+            // }
+
+            // // Gallery 2
+            // $gallery2 = new Gallery();
+            // if($request->hasFile('gallery2'))
+            // {
+            //     $fileWithExt = $request->file('gallery2')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery2')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery2->user_id = auth()->user()->id;
+            //     $gallery2->cover =$fileToSave;
+            //     $gallery2->save();
+            // }
+
+            // // Gallery 3
+            // $gallery3 = new Gallery();
+            // if($request->hasFile('gallery3'))
+            // {
+            //     $fileWithExt = $request->file('gallery3')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery3')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery3->user_id = auth()->user()->id;
+            //     $gallery3->cover = $fileToSave;
+            //     $gallery3->save();
+            // }
+
+            // // Gallery 4
+            // $gallery4 = new Gallery();
+            // if($request->hasFile('gallery4'))
+            // {
+            //     $fileWithExt = $request->file('gallery4')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery4')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery4->user_id = auth()->user()->id;
+            //     $gallery4->cover =  $fileToSave;
+            //     $gallery4->save();
+            // }
+            // // Gallery 5
+            // $gallery5 = new Gallery();
+            // if($request->hasFile('gallery5'))
+            // {
+            //     $fileWithExt = $request->file('gallery5')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery5')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery5->user_id = auth()->user()->id;
+            //     $gallery5->cover = $fileToSave;
+            //     $gallery5->save();
+            // }
+            // // Gallery 6
+            // $gallery6 = new Gallery();
+            // if($request->hasFile('gallery6'))
+            // {
+            //     $fileWithExt = $request->file('gallery6')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery6')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery6->user_id = auth()->user()->id;
+            //     $gallery6->cover =  $fileToSave;
+            //     $gallery6->save();
+            // }
+
+
+            if($avatar->save()){
+                return response(['message'=>'Profile Picture added.'], 201);
+            }else{
+                return response(['message'=>'Something went wrong.'],401);
+            }
+    });
     // Send message notification
     Route::post('/message-notification', function (Request $request) {
         $user = User::find($request->input('id'));
@@ -287,7 +545,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
             if ($avatar->save()) {
 
-                return json_encode(['message' =>  'Profile updated successfully'], 201);
+                return json_encode(['message' =>  'Profile updated successfully', "avatar"=>$avatar], 201);
             }
         }
     });
@@ -451,11 +709,34 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     // Load all preference
+    Route::post("/add-preferences", function(Request $request){
+        $check_exist_user = Preferences::where("user_id", $request->input('user_id'))->first();
+
+
+
+
+        if($check_exist_user != null){
+            return json_encode(['preference' => $check_exist_user]);
+        }else{
+            $preference = new Preferences(); 
+            $preference->user_id = $request->input('user_id');
+    
+            if($preference->save()){
+                return json_encode(['preference' => $preference]);
+            }
+        }
+
+      
+        
+    });
+
+    Route::put("/edit-preferences/{id}", [PreferencesController::class,'update']);
     Route::get('/all-preferences', function () {
 
-        $preference = User::where('id', auth()->user()->id)->with('preferenceAge')->with('preferenceReligion')->with('preferenceBodytype')->with('preferenceFood')->with('preferenceDrink')->with('preferenceSmoke')->with('preferenceRelationship')->first();
+        // $preference = User::where('id', auth()->user()->id)->with('preferenceAge')->with('preferenceReligion')->with('preferenceBodytype')->with('preferenceFood')->with('preferenceDrink')->with('preferenceSmoke')->with('preferenceRelationship')->first();
 
-        return json_encode(['preference' => $preference], 201);
+        $preferences = Preferences::where("user_id", auth()->user()->id)->first();
+        return json_encode(['preference' => $preferences]);
     });
 
     // Update Preferences
@@ -725,7 +1006,7 @@ Route::get('/get-all-test', function () {
     // $allusers = User::join('profiles', 'profiles.user_id','=', 'users.id')->where('profiles.iam', 'female')->join('locations', 'locations.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('preference_ages', 'preference_ages.user_id', '=', 'users.id')->with('gallery')->paginate(250)->shuffle();
     // $user = Profile::join('users', 'users.id', '=', 'profiles.user_id')->join('avatars', 'avatars.user_id', '=', 'profiles.user_id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'profiles.user_id')->join('professions', 'professions.user_id', '=', 'profiles.user_id')->join('locations', 'locations.user_id', '=', 'profiles.user_id')->with('religion')->with('gallery')->with('hobbies')->with('preferenceAge')->with('preferenceSmoke')->with('preferenceDrink')->with('preferenceFood')->with('preferenceRelationship')->with('preferenceReligion')->with('preferenceBodytype')->where('users.id', auth()->user()->id)->first();
 
-
+    $preferences = Preferences::where("user_id", auth()->user()->id)->first();
 
     $gallery = User::find(7435)->with('hobbies')->first();
 

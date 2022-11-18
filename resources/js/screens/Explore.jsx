@@ -14,6 +14,7 @@ import lady from "../assets/images/lady.jpg";
 import { Link } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
 import Userplaceholder from "../components/loaders/Userplaceholder";
+import LoadingPage from "../components/loaders/LoadingPage";
 
 const DB = "user-m9j234u94";
 const USERDB = "dao";
@@ -155,6 +156,12 @@ function Explore() {
         loadData();
 
     }, []);
+
+    if(loading ){
+        return (
+            <LoadingPage />
+        )
+    }
     return (
         <MainContainer select="explore">
             <div className="flex md:flex-row flex-col w-full bg-red-600 text-white justify-around p-2 items-center gap-4">
@@ -297,21 +304,7 @@ function Explore() {
                 </div>
             </div>
 
-           {loading ? <div className="md:w-full mx-auto  h-screen p-12 mb-12 block">
-                <div className="grid grid-cols-5 gap-4 pt-2">
-
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                                <Userplaceholder />
-                </div>
-             </div>:
+            
             <div className="md:w-full mx-auto  h-screen p-12 mb-5">
                 {explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
                     <div>
@@ -401,7 +394,7 @@ function Explore() {
                         </p>
                     </div>
                 )}
-            </div>}
+            </div>
         </MainContainer>
     );
 }
