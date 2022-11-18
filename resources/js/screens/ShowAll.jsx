@@ -26,12 +26,12 @@ function ShowAll() {
 
     const navigate = useNavigate()
 
-    const [seeking, setSeeking] = React.useState("any");
-    const [ageMin, setAgeMin] = React.useState("any");
-    const [ageMax, setAgeMax] = React.useState("any");
-    const [liveInCountry, setLiveInCountry] = React.useState("any");
-    const [liveInState, setLiveInState] = React.useState("any");
-    const [liveInCity, setLiveInCity] = React.useState("any");
+    const [seeking, setSeeking] = React.useState("");
+    const [ageMin, setAgeMin] = React.useState("");
+    const [ageMax, setAgeMax] = React.useState("");
+    const [liveInCountry, setLiveInCountry] = React.useState("");
+    const [liveInState, setLiveInState] = React.useState("");
+    const [liveInCity, setLiveInCity] = React.useState("");
     const [withIn, setWithIn] = React.useState("");
 
     const [isLoading, setIsLoading] = React.useState(true)
@@ -106,6 +106,7 @@ function ShowAll() {
             setIsLoading(false)
         }).catch((e)=>{
             navigate("/profile-update",{replace: false})
+            setIsLoading(false)
         })
     }
 
