@@ -168,7 +168,7 @@ if(isLoading){
 
     <div className='flex-1 w-full  font-bold'>
         <p className="text-white">Seeking a</p>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={seeking} onChange={(e)=>setSeekingfor(e.target.value)}>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={seeking} onChange={(e)=>setSeeking(e.target.value)}>
             <option>any</option>
             <option>male</option>
 

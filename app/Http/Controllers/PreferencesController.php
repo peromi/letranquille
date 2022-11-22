@@ -79,6 +79,7 @@ class PreferencesController extends Controller
 
             
             
+            $preference->seekingfor = $request->input('seekingfor');
             $preference->education = $request->input('education');
        
 

@@ -11,7 +11,7 @@ import ls from 'localstorage-slim'
 
 const SocketContext = createContext()
 // const socket = io("https://le-tranquille.herokuapp.com/")
-const socket = io("http://localhost:9000")
+const socket = io("http://localhost:9090")
 const DB = "user-m9j234u94"
 const subscribe = "subscriptionDb"
 const USERDB = 'dao'
@@ -150,9 +150,9 @@ const ContextProvider = ({children}) =>{
 
 
     const  answerpeer = ()=>{
-        peer.on('signal', (data)=>{
-            alert(data)
-        })
+        // peer.on('signal', (data)=>{
+        //     alert(data)
+        // })
     }
 
     const sendpeer = (data)=>{
@@ -247,7 +247,7 @@ const ContextProvider = ({children}) =>{
 
 
     return (
-        <SocketContext.Provider value={{id,setId, subscription, setSubscription, sendpeer, answerpeer,profileview,likeprofile, status, setStatus,coords, isGeolocationAvailable, isGeolocationEnabled, sendMessage,chatmessage,currentuser, setCurrentuser, addUser, me,call,callAccepted,myVideo,userVideo,leaveCall,answerCall,callUser,name,setName,callEnded,stream,start, setStart, incoming, setIncoming}}>
+        <SocketContext.Provider value={{id,setId, subscription, setSubscription, sendpeer, answerpeer,profileview,likeprofile, status, setStatus,coords, isGeolocationAvailable, isGeolocationEnabled, sendMessage,chatmessage,currentuser, setCurrentuser, addUser, me,call,callAccepted,myVideo,userVideo,leaveCall,answerCall,callUser,name,setName,callEnded,stream,start, setStart, incoming, setIncoming, socket}}>
             {children}
         </SocketContext.Provider>
     )

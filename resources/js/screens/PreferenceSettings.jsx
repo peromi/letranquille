@@ -38,7 +38,7 @@ function PreferenceSettings() {
     const [liveInState, setLiveInState] = useState("any")
     const [liveInCity, setLiveInCity] = useState("any")
 
-    const [seekingfor, setSeekingfor] = useState("any");
+    const [seekingfor, setSeekingfor] = useState("");
     const [education, setEducation] = useState("any");
     const [haveChildren, setHaveChildren] = useState("any");
     const [ageMin, setAgeMin] = useState("any");
@@ -332,9 +332,9 @@ function PreferenceSettings() {
                                     value={seekingfor}
                                     onChange={(e) => setSeekingfor(e.target.value)}
                                 >
-                                    <option value="">Which gender do you seek?</option>
-                                    <option >male</option>
-                                    <option >female</option> 
+                                    <option value="any">Which gender do you seek?</option>
+                                    <option>male</option>
+                                    <option>female</option> 
                                     
                                 </select>
 
@@ -585,15 +585,28 @@ function PreferenceSettings() {
                         <tr className="bg-[#ffffff]">
                             <td className="px-3">Ethnicity:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                <input
-                                    type="text"
-                                    placeholder="Type your ethnic"
+                            <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={ethnicity}
                                     onChange={(e) =>
                                         setEthnicity(e.target.value)
                                     }
-                                />
+                                >
+                                    <option value="">
+                                        Please specify your ethnicity
+                                    </option>
+                                    <option>Caucasian</option>
+                                    <option>African-American</option>
+                                    <option>Latino or Hispanic</option>
+                                    <option>Asian</option>
+                                    <option>Native American</option>
+                                    <option>
+                                        Native Hawaiian or Pacific Islander
+                                    </option>
+                                    <option>Two or More</option>
+                                    <option>Other/Unknown</option>
+                                    <option>Prefer not to say</option>
+                                </select>
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
@@ -874,15 +887,26 @@ function PreferenceSettings() {
                         <tr className="bg-[#dfd9d9]">
                             <td className="px-3">Education:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                                <input
-                                    type="text"
-                                    placeholder="Education"
+                            <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={education}
                                     onChange={(e) =>
                                         setEducation(e.target.value)
                                     }
-                                />
+                                >
+                                    <option value="">
+                                        What is the highest degree or level of
+                                        education you have completed?
+                                    </option>
+
+                                    <option>Some High School</option>
+                                    <option>High School</option>
+                                    <option>Bachelor's Degree</option>
+                                    <option>Master's Degree</option>
+                                    <option>Ph.D. or higher</option>
+                                    <option>Trade School</option>
+                                    <option>Prefer not to say</option>
+                                </select>
                             </td>
                         </tr>
                         <tr className="bg-[#f3f0f0]">

@@ -34,6 +34,15 @@
                 <h1 class="text-2xl md:text-8xl font-['FredokaOne'] text-white animate__animated animate__pulse animate__infinite	infinite">Le-Tranquille.</h1>
                 <p class="text-yellow-400">Loading please wait...</p>
    
+
+   <div class="sk-chase">
+          <div class="sk-chase-dot"></div>
+          <div class="sk-chase-dot"></div>
+          <div class="sk-chase-dot"></div>
+          <div class="sk-chase-dot"></div>
+          <div class="sk-chase-dot"></div>
+          <div class="sk-chase-dot"></div>
+        </div>
             </div>
         </div>
         

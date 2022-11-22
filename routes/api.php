@@ -124,8 +124,147 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/profile/{id}', [ProfileController::class, "show"]);
-    Route::put('/profile/{id}', function(Request $request, $id){
-        $profile = Profile::where("user_id", $id)->first();
+    Route::put('/profile/{id}',[ProfileController::class, "update"]);
+    Route::get('/profile', [ProfileController::class, "index"]);
+    Route::post('/profile', [ProfileController::class, "store"]);
+
+    Route::apiResource('/religion', ReligionController::class);
+    Route::apiResource('/profession', ProfessionController::class);
+    Route::apiResource('/sexual-orientation', SexualOrientationController::class);
+    Route::apiResource('/user-hobby', HobbyController::class);
+    Route::apiResource('/avatar', AvatarController::class);
+    Route::apiResource('/gallery', GalleryController::class);
+    Route::apiResource('/location', LocationController::class);
+
+
+    // update avatar
+    Route::post("/user-avatar-update", function (Request $request){
+        $avatar = Avatar::where("user_id", auth()->user()->id)->first();
+            
+            //AVATAR PROFILE
+
+            if($request->hasFile('avatar')){
+
+                Storage::delete("public/avatar/".$avatar->first_cover);
+
+                $fileWithExt = $request->file('avatar')->getClientOriginalName();
+                $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+                $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+                $fileToSave = md5($filename.time()).'.'.$ext;
+                $request->file('avatar')->storeAs('public/avatar/', $fileToSave);
+
+                // AVATAR 2
+                if($request->hasFile('avatar2')){
+                    Storage::delete("public/avatar/".$avatar->second_cover);
+                    $fileWithExt2 = $request->file('avatar2')->getClientOriginalName();
+                    $filename2 = pathinfo($fileWithExt2, PATHINFO_FILENAME);
+                    $ext2 = pathinfo($fileWithExt2, PATHINFO_EXTENSION);
+                    $fileToSave2 = md5($filename2.time()).'.'.$ext2;
+                    $request->file('avatar2')->storeAs('public/avatar/', $fileToSave2);
+    
+                } 
+
+
+               
+                $avatar->first_cover = $fileToSave;
+                $avatar->second_cover = $fileToSave2;
+                 
+
+                // $avatar->save();
+
+            }
+
+           
+            $gallery = new Gallery();
+            if($request->hasFile('gallery'))
+            {
+                $fileWithExt = $request->file('gallery')->getClientOriginalName();
+                $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+                $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+                $fileToSave = md5($filename.time()).'.'.$ext;
+                $request->file('gallery')->storeAs('public/gallery/', $fileToSave);
+
+                $gallery->user_id = auth()->user()->id;
+                $gallery->cover = $fileToSave;
+                $gallery->save();
+            }
+
+            // Gallery 2
+            $gallery2 = new Gallery();
+            if($request->hasFile('gallery2'))
+            {
+                $fileWithExt = $request->file('gallery2')->getClientOriginalName();
+                $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+                $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+                $fileToSave = md5($filename.time()).'.'.$ext;
+                $request->file('gallery2')->storeAs('public/gallery/', $fileToSave);
+
+                $gallery2->user_id = auth()->user()->id;
+                $gallery2->cover =$fileToSave;
+                $gallery2->save();
+            }
+
+            // Gallery 3
+            $gallery3 = new Gallery();
+            if($request->hasFile('gallery3'))
+            {
+                $fileWithExt = $request->file('gallery3')->getClientOriginalName();
+                $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+                $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+                $fileToSave = md5($filename.time()).'.'.$ext;
+                $request->file('gallery3')->storeAs('public/gallery/', $fileToSave);
+
+                $gallery3->user_id = auth()->user()->id;
+                $gallery3->cover = $fileToSave;
+                $gallery3->save();
+            }
+
+            // // Gallery 4
+            // $gallery4 = new Gallery();
+            // if($request->hasFile('gallery4'))
+            // {
+            //     $fileWithExt = $request->file('gallery4')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery4')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery4->user_id = auth()->user()->id;
+            //     $gallery4->cover =  $fileToSave;
+            //     $gallery4->save();
+            // }
+            // // Gallery 5
+            // $gallery5 = new Gallery();
+            // if($request->hasFile('gallery5'))
+            // {
+            //     $fileWithExt = $request->file('gallery5')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery5')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery5->user_id = auth()->user()->id;
+            //     $gallery5->cover = $fileToSave;
+            //     $gallery5->save();
+            // }
+            // // Gallery 6
+            // $gallery6 = new Gallery();
+            // if($request->hasFile('gallery6'))
+            // {
+            //     $fileWithExt = $request->file('gallery6')->getClientOriginalName();
+            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
+            //     $fileToSave = md5($filename.time()).'.'.$ext;
+            //     $request->file('gallery6')->storeAs('public/gallery/', $fileToSave);
+
+            //     $gallery6->user_id = auth()->user()->id;
+            //     $gallery6->cover =  $fileToSave;
+            //     $gallery6->save();
+            // }
+
+
+
+            $profile = Profile::where("user_id", auth()->user()->id)->first();
         
 
         $profile->iam = $request->input("gender");
@@ -178,268 +317,10 @@ Route::middleware('auth:sanctum')->group(function () {
         $profile->personality = $request->input("personality");
 
 
-
-
-        // imagee upload
-
-        // $avatar = Avatar::where("user_id", $id)->first();
-
-        
-
-        // if($request->hasFile("avatar")){
-
-        //     Storage::delete("/public/avatar/". $avatar->first_cover);
-
-        //     $filename = $request->file("avatar")->getClientOriginalName();
-        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
-        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
-        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
-
-        //     $request->file('avatar')->storeAs("/public/avatar", $fileToSave);
-
-
-
-        //     $avatar->first_cover = $fileToSave;
-
-
-            
-
-        // }
-        // if($request->hasFile("avatar2")){
-
-        //     Storage::delete("public/avatar/". $avatar->second_cover);
-
-        //     $filename = $request->file("avatar2")->getClientOriginalName();
-        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
-        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
-        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
-
-        //     $request->file('avatar2')->storeAs("public/avatar/", $fileToSave);
-
-
-
-        //     $avatar->second_cover = $fileToSave;
-
-        // }
-
-
-
-        // // Gallery
-        // if($request->hasFile("gallery")){
-
-            
-
-        //     $filename = $request->file("gallery")->getClientOriginalName();
-        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
-        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
-        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
-
-        //     $request->file('gallery')->storeAs("/public/gallery", $fileToSave);
-
-
-        //     $gallery = new Gallery();
-        //     $gallery->user_id = $id;
-
-        //     $gallery->cover = $fileToSave;
-
-        //     $gallery->save();
-
-        // }
-        // if($request->hasFile("gallery2")){
-
-            
-
-        //     $filename = $request->file("gallery2")->getClientOriginalName();
-        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
-        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
-        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
-
-        //     $request->file('gallery2')->storeAs("public/gallery/", $fileToSave);
-
-
-        //     $gallery = new Gallery();
-        //     $gallery->user_id = $id;
-
-        //     $gallery->cover = $fileToSave;
-
-        //     $gallery->save();
-
-        // }
-        // if($request->hasFile("gallery3")){
-
-            
-
-        //     $filename = $request->file("gallery3")->getClientOriginalName();
-        //     $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
-        //     $ext = pathinfo($fileBasename, PATHINFO_EXTENSION);
-        //     $fileToSave = md5($fileBasename.time()).'.'.$ext;
-
-        //     $request->file('gallery3')->storeAs("/public/gallery", $fileToSave);
-
-
-        //     $gallery = new Gallery();
-        //     $gallery->user_id = $id;
-
-        //     $gallery->cover = $fileToSave;
-
-        //    if( $gallery->save()){
-        
-        //    };
-
-        // }
-       
-       
-
-        if($profile->save()){
-
-            
-            return json_encode(['profile' => $profile]);
-            
-           
-        }
-
-    });
-    Route::get('/profile', [ProfileController::class, "index"]);
-    Route::post('/profile', [ProfileController::class, "store"]);
-    Route::apiResource('/religion', ReligionController::class);
-    Route::apiResource('/profession', ProfessionController::class);
-    Route::apiResource('/sexual-orientation', SexualOrientationController::class);
-    Route::apiResource('/user-hobby', HobbyController::class);
-    Route::apiResource('/avatar', AvatarController::class);
-    Route::apiResource('/gallery', GalleryController::class);
-    Route::apiResource('/location', LocationController::class);
-
-
-    // update avatar
-    Route::post("/avatar-update", function (Request $request){
-        $avatar = Avatar::where("user_id", auth()->user()->id);
-            
-            //AVATAR PROFILE
-
-            if($request->hasFile('avatar')){
-
-                Storage::delete("public/avatar/".$avatar->first_cover);
-
-                $fileWithExt = $request->file('avatar')->getClientOriginalName();
-                $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
-                $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
-                $fileToSave = md5($filename.time()).'.'.$ext;
-                $request->file('avatar')->storeAs('public/avatar/', $fileToSave);
-
-                // AVATAR 2
-                if($request->hasFile('avatar2')){
-                    Storage::delete("public/avatar/".$avatar->second_cover);
-                    $fileWithExt2 = $request->file('avatar2')->getClientOriginalName();
-                    $filename2 = pathinfo($fileWithExt2, PATHINFO_FILENAME);
-                    $ext2 = pathinfo($fileWithExt2, PATHINFO_EXTENSION);
-                    $fileToSave2 = md5($filename2.time()).'.'.$ext2;
-                    $request->file('avatar2')->storeAs('public/avatar/', $fileToSave2);
-    
-                } 
-
-
-               
-                $avatar->first_cover = $fileToSave;
-                $avatar->second_cover = $fileToSave2;
-                $avatar->bio = $request->input('bio');
-
-                // $avatar->save();
-
-            }
-
-            // Gallery
-            // $gallery = new Gallery();
-            // if($request->hasFile('gallery1'))
-            // {
-            //     $fileWithExt = $request->file('gallery1')->getClientOriginalName();
-            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
-            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
-            //     $fileToSave = md5($filename.time()).'.'.$ext;
-            //     $request->file('gallery1')->storeAs('public/gallery/', $fileToSave);
-
-            //     $gallery->user_id = auth()->user()->id;
-            //     $gallery->cover = $fileToSave;
-            //     // $gallery->save();
-            // }
-
-            // // Gallery 2
-            // $gallery2 = new Gallery();
-            // if($request->hasFile('gallery2'))
-            // {
-            //     $fileWithExt = $request->file('gallery2')->getClientOriginalName();
-            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
-            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
-            //     $fileToSave = md5($filename.time()).'.'.$ext;
-            //     $request->file('gallery2')->storeAs('public/gallery/', $fileToSave);
-
-            //     $gallery2->user_id = auth()->user()->id;
-            //     $gallery2->cover =$fileToSave;
-            //     $gallery2->save();
-            // }
-
-            // // Gallery 3
-            // $gallery3 = new Gallery();
-            // if($request->hasFile('gallery3'))
-            // {
-            //     $fileWithExt = $request->file('gallery3')->getClientOriginalName();
-            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
-            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
-            //     $fileToSave = md5($filename.time()).'.'.$ext;
-            //     $request->file('gallery3')->storeAs('public/gallery/', $fileToSave);
-
-            //     $gallery3->user_id = auth()->user()->id;
-            //     $gallery3->cover = $fileToSave;
-            //     $gallery3->save();
-            // }
-
-            // // Gallery 4
-            // $gallery4 = new Gallery();
-            // if($request->hasFile('gallery4'))
-            // {
-            //     $fileWithExt = $request->file('gallery4')->getClientOriginalName();
-            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
-            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
-            //     $fileToSave = md5($filename.time()).'.'.$ext;
-            //     $request->file('gallery4')->storeAs('public/gallery/', $fileToSave);
-
-            //     $gallery4->user_id = auth()->user()->id;
-            //     $gallery4->cover =  $fileToSave;
-            //     $gallery4->save();
-            // }
-            // // Gallery 5
-            // $gallery5 = new Gallery();
-            // if($request->hasFile('gallery5'))
-            // {
-            //     $fileWithExt = $request->file('gallery5')->getClientOriginalName();
-            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
-            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
-            //     $fileToSave = md5($filename.time()).'.'.$ext;
-            //     $request->file('gallery5')->storeAs('public/gallery/', $fileToSave);
-
-            //     $gallery5->user_id = auth()->user()->id;
-            //     $gallery5->cover = $fileToSave;
-            //     $gallery5->save();
-            // }
-            // // Gallery 6
-            // $gallery6 = new Gallery();
-            // if($request->hasFile('gallery6'))
-            // {
-            //     $fileWithExt = $request->file('gallery6')->getClientOriginalName();
-            //     $filename = pathinfo($fileWithExt, PATHINFO_FILENAME);
-            //     $ext = pathinfo($fileWithExt, PATHINFO_EXTENSION);
-            //     $fileToSave = md5($filename.time()).'.'.$ext;
-            //     $request->file('gallery6')->storeAs('public/gallery/', $fileToSave);
-
-            //     $gallery6->user_id = auth()->user()->id;
-            //     $gallery6->cover =  $fileToSave;
-            //     $gallery6->save();
-            // }
-
-
-            if($avatar->save()){
-                return response(['message'=>'Profile Picture added.'], 201);
+            if($avatar->save() && $profile->save()){
+                return json_encode(['message'=>'Profile Picture added.',"profile" => $profile, "avatar"=>$avatar]);
             }else{
-                return response(['message'=>'Something went wrong.'],401);
+                return json_encode(['message'=>'Something went wrong.']);
             }
     });
     // Send message notification
@@ -911,8 +792,23 @@ Route::middleware('auth:sanctum')->group(function () {
         $message->sender = auth()->user()->id;
         $message->recipient = $request->input('recipient');
         $message->message = $request->input('message');
+        
 
         $check_favorite = Favorite::where('user_id', auth()->user()->id)->where('profile_id', $request->input('recipient'))->first();
+
+        if($request->hasFile('data')){
+            $filename = $request->file('data')->getClientOriginalName();
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+
+            $fileToSave = md5($filename.time()).".".$ext;
+            
+            $request->file('data')->storeAs("public/messages/", $fileToSave );
+
+            $message->data = $fileToSave;
+        }
+
+        $message->data_type = $request->input("type");
 
         if ($check_favorite !== null) {
             $message->by = "favorite";
@@ -936,7 +832,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get-messages/{id}', function ($id) {
         $recipient =   User::where('users.id', $id)->join('profiles', 'profiles.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->with('gallery')->first(['users.*', 'profiles.name', 'profiles.user_id',  'profiles.age', 'avatars.first_cover', 'locations.country', 'locations.state', 'locations.city']);
 
-        $messages = Message::where('recipient', auth()->user()->id)->where('sender', $id)->orWhere('sender', auth()->user()->id)->where('recipient', $id)->get();
+        $messages = Message::where('recipient', auth()->user()->id)->where('sender', $id)->orWhere('sender', auth()->user()->id)->where('recipient', $id)->latest()->get();
         return json_encode(['messages' => $messages, 'recipient' => $recipient]);
     });
 

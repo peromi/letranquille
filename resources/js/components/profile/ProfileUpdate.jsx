@@ -1,27 +1,16 @@
-import React,{useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../../../css/profilepanel.scss";
 import MainContainer from "../../containers/MainContainer";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { SocketContext } from "../../context/SocketContext";
 import ls from "localstorage-slim";
-import { data } from "../../constants";
-import {
-    Button,
-    Checkbox,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    TextField,
-    Grid,
-    Slider,
-    Paper,
-} from "@material-ui/core";
+ 
 import "animate.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import cities from "../../assets/json/cities.json";
 import country from "../../assets/json/country.json";
-import states from "../../assets/json/states.json"; 
+import states from "../../assets/json/states.json";
 
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
@@ -30,73 +19,72 @@ const ProfileUpdate = () => {
     const navigate = useNavigate();
     const params = useParams();
 
-   
-    const [preferences, setPreferences]= useState({})
+    const [preferences, setPreferences] = useState({});
 
     // avatar and gallery
-    const [avatar, setAvatar] = useState("")
-    const [avatar2, setAvatar2] = useState("")
+    const [avatar, setAvatar] = useState("");
+    const [avatar2, setAvatar2] = useState("");
 
-    const [gallery, setGallery] = useState("")
-    const [gallery2, setGallery2] = useState("")
-    const [gallery3, setGallery3] = useState("")
+    const [gallery, setGallery] = useState("");
+    const [gallery2, setGallery2] = useState("");
+    const [gallery3, setGallery3] = useState("");
 
     // main section
-    const [iam, setIam] = useState("")
-    const [lookingfor, setLookingfor] = useState("")
-    const [name, setName] = useState("")
-    const [birthday, setBirthday] = useState("")
+    const [iam, setIam] = useState("");
+    const [lookingfor, setLookingfor] = useState("");
+    const [name, setName] = useState("");
+    const [birthday, setBirthday] = useState("");
 
-    const [loveQuote, setLoveQuote] = React.useState("No Quote")
-    const [memberQuote, setMemberQuote] = React.useState("No Quote")
-    const [seekingQuote, setSeekingQuote] = React.useState("No Quote")
-    const [datingFor, setDatingFor] = React.useState("No Answer")
-    const [gender, setGender] = React.useState("male")
-    const [liveInCountry, setLiveInCountry] = useState("No Answer")
-    const [liveInState, setLiveInState] = useState("No Answer")
-    const [liveInCity, setLiveInCity] = useState("No Answer")
+    const [loveQuote, setLoveQuote] = React.useState("No Quote");
+    const [memberQuote, setMemberQuote] = React.useState("No Quote");
+    const [seekingQuote, setSeekingQuote] = React.useState("No Quote");
+    const [datingFor, setDatingFor] = React.useState("No Answer");
+    const [gender, setGender] = React.useState("male");
+    const [liveInCountry, setLiveInCountry] = useState("No Answer");
+    const [liveInState, setLiveInState] = useState("No Answer");
+    const [liveInCity, setLiveInCity] = useState("No Answer");
 
     // states
-    const [education, setEducation] = useState("No Answer")
-    const [haveChildren, setHaveChildren] = useState("No Answer")
-    const [age, setAge] = useState("No Answer")
-    const [liveIn, setLiveIn] = useState("No Answer")
-    const [relocate, setRelocate] = useState("No Answer")
-    const [hairColor, setHairColor] = useState("No Answer")
-    const [eyeColor, setEyeColor] = useState("No Answer")
-    const [weight, setWeight] = useState("No Answer")
-    const [height, setHeight] = useState("No Answer")
-    const [smoke, setSmoke] = useState("No Answer")
-    const [drink, setDrink] = useState("No Answer")
-    const [ethnicity, setEthnicity] = useState("No Answer")
-    const [bodyStyle, setBodyStyle] = useState("No Answer")
-    const [bodyArt, setBodyArt] = useState("No Answer")
-    const [appearance, setAppearance] = useState("No Answer")
-    const [maritalStatus, setMaritalStatus] = useState("No Answer")
-    const [numberOfChildren, setNumberOfChildren] = useState("No Answer")
-    const [oldestChild, setOldestChild] = useState("No Answer")
-    const [youngest, setYoungest] = useState("No Answer")
-    const [wantMoreChildren, setWantMoreChildren] = useState("No Answer")
-    const [havePets, setHavePets] = useState("No Answer")
-    const [occupation, setOccupation] = useState("No Answer")
-    const [employmentStatus, setEmploymentStatus] = useState("No Answer")
-    const [annualIncome, setAnnualIncome] = useState("No Answer")
-    const [livingSituation, setLivingSituation] = useState("No Answer")
-    const [nationality, setNationality] = useState("No Answer")
-    const [languagesSpoken, setLanguagesSpoken] = useState("No Answer")
-    const [englishAbility, setEnglishAbility] = useState("No Answer")
-    const [frenchAbility, setFrenchAbility] = useState("No Answer")
-    const [religiousValue, setReligiousValue] = useState("No Answer")
-    const [polygamy, setPolygamy] = useState("No Answer")
-    const [starSign, setStarSign] = useState("No Answer")
-    const [religion, setReligion] = useState("No Answer")
-    const [favoriteMovie, setFavoriteMovie] = useState("No Answer")
-    const [favoriteMusic, setFavoriteMusic] = useState("No Answer")
-    const [dressStyle, setDressStyle] = useState("No Answer")
-    const [humor, setHumor] = useState("No Answer")
-    const [hobbiesAndInterest, setHobbiesAndInterest] = useState("No Answer")
-    const [personality, setPersonality] = useState("No Answer")
-    
+    const [education, setEducation] = useState("No Answer");
+    const [haveChildren, setHaveChildren] = useState("No Answer");
+    const [age, setAge] = useState("No Answer");
+    const [liveIn, setLiveIn] = useState("No Answer");
+    const [relocate, setRelocate] = useState("No Answer");
+    const [hairColor, setHairColor] = useState("No Answer");
+    const [eyeColor, setEyeColor] = useState("No Answer");
+    const [weight, setWeight] = useState("No Answer");
+    const [height, setHeight] = useState("No Answer");
+    const [smoke, setSmoke] = useState("No Answer");
+    const [drink, setDrink] = useState("No Answer");
+    const [ethnicity, setEthnicity] = useState("No Answer");
+    const [bodyStyle, setBodyStyle] = useState("No Answer");
+    const [bodyArt, setBodyArt] = useState("No Answer");
+    const [appearance, setAppearance] = useState("No Answer");
+    const [maritalStatus, setMaritalStatus] = useState("No Answer");
+    const [numberOfChildren, setNumberOfChildren] = useState("No Answer");
+    const [oldestChild, setOldestChild] = useState("No Answer");
+    const [youngest, setYoungest] = useState("No Answer");
+    const [wantMoreChildren, setWantMoreChildren] = useState("No Answer");
+    const [havePets, setHavePets] = useState("No Answer");
+    const [occupation, setOccupation] = useState("No Answer");
+    const [employmentStatus, setEmploymentStatus] = useState("No Answer");
+    const [annualIncome, setAnnualIncome] = useState("No Answer");
+    const [livingSituation, setLivingSituation] = useState("No Answer");
+    const [nationality, setNationality] = useState("No Answer");
+    const [languagesSpoken, setLanguagesSpoken] = useState("No Answer");
+    const [englishAbility, setEnglishAbility] = useState("No Answer");
+    const [frenchAbility, setFrenchAbility] = useState("No Answer");
+    const [religiousValue, setReligiousValue] = useState("No Answer");
+    const [polygamy, setPolygamy] = useState("No Answer");
+    const [starSign, setStarSign] = useState("No Answer");
+    const [religion, setReligion] = useState("No Answer");
+    const [favoriteMovie, setFavoriteMovie] = useState("No Answer");
+    const [favoriteMusic, setFavoriteMusic] = useState("No Answer");
+    const [dressStyle, setDressStyle] = useState("No Answer");
+    const [humor, setHumor] = useState("No Answer");
+    const [hobbiesAndInterest, setHobbiesAndInterest] = useState("No Answer");
+    const [personality, setPersonality] = useState("No Answer");
+
     const handleHobby = () => {
         const token = ls.get(DATABASE_KEY, { decrypt: true });
 
@@ -132,21 +120,14 @@ const ProfileUpdate = () => {
             });
     };
     // Avatar
-    const [newavatar, setNewavatar] = React.useState(""); 
+    const [newavatar, setNewavatar] = React.useState("");
     const [cover, setCover] = React.useState(null);
-
-     
 
     const { profileview } = React.useContext(SocketContext);
     const [profile, setProfile] = React.useState({});
-    
-
-   
-   
-  
 
     //   Preferences hooks
-    
+
     const [statesearch, setStatesearch] = React.useState([]);
     const [citysearch, setCitysearch] = React.useState([]);
 
@@ -283,61 +264,59 @@ const ProfileUpdate = () => {
                     // setLocation(data.location);
                     setGallery(data.gallery);
                     let prof = data.profile;
-                    setIam(prof.iam)
-                    setLookingfor(prof.lookingfor)
-                    setName(prof.name)
-                    setBirthday(prof.birthday)
-                    setAge(prof.age)
-                    setBodyStyle(prof.bodytype)
-                    setHeight(prof.height)
-                    setSmoke(prof.life_style_smoke)
-                    setDrink(prof.life_style_drink)
-                    setEducation(prof.education)
-                    setHaveChildren(prof.have_children)
-                    setLoveQuote(prof.love_quote)
-                    setMemberQuote(prof.member_quote )
-                    setSeekingQuote(prof.seeking_quote)
-                    setGender(prof.gender)
-                    setDatingFor(prof.dating_for)
-                    setRelocate(prof.relocate)
-                    setHairColor(prof.hair_color)
-                    setEyeColor(prof.eye_color)
-                    setWeight(prof.weight)
-                    setEthnicity(prof.ethnicity)
-                    setBodyArt(prof.body_art)
-                    setAppearance(prof.appearance)
-                    setMaritalStatus(prof.marital_status)
-                    setNumberOfChildren(prof.number_of_children)
-                    setOldestChild(prof.oldest_child)
-                    setYoungest(prof.youngest_child)
-                    setWantMoreChildren(prof.want_more_children)
-                    setHavePets(prof.have_pets)
-                    setOccupation(prof.occupation)
-                    setEmploymentStatus(prof.employment_status)
-                    setAnnualIncome(prof.annual_income)
-                    setLivingSituation(prof.living_situation)
-                    setNationality(prof.nationality)
-                    setLanguagesSpoken(prof.languages_spoken)
-                    setEnglishAbility(prof.english_ability)
-                    setFrenchAbility(prof.french_ability)
-                    setReligiousValue(prof.religious_values)
-                    setPolygamy(prof.polygamy)
-                    setStarSign(prof.star_sign)
-                    setFavoriteMovie(prof.favorite_movie)
-                    setFavoriteMusic(prof.favorite_music)
-                    setDressStyle(prof.dress_style)
-                    setHumor(prof.humor)
-                    setReligion(prof.religion)
-                    setHobbiesAndInterest(prof.hobbies_interest)
-                    setPersonality(prof.personality)
+                    setIam(prof.iam);
+                    setLookingfor(prof.lookingfor);
+                    setName(prof.name);
+                    setBirthday(prof.birthday);
+                    setAge(prof.age);
+                    setBodyStyle(prof.bodytype);
+                    setHeight(prof.height);
+                    setSmoke(prof.life_style_smoke);
+                    setDrink(prof.life_style_drink);
+                    setEducation(prof.education);
+                    setHaveChildren(prof.have_children);
+                    setLoveQuote(prof.love_quote);
+                    setMemberQuote(prof.member_quote);
+                    setSeekingQuote(prof.seeking_quote);
+                    setGender(prof.gender);
+                    setDatingFor(prof.dating_for);
+                    setRelocate(prof.relocate);
+                    setHairColor(prof.hair_color);
+                    setEyeColor(prof.eye_color);
+                    setWeight(prof.weight);
+                    setEthnicity(prof.ethnicity);
+                    setBodyArt(prof.body_art);
+                    setAppearance(prof.appearance);
+                    setMaritalStatus(prof.marital_status);
+                    setNumberOfChildren(prof.number_of_children);
+                    setOldestChild(prof.oldest_child);
+                    setYoungest(prof.youngest_child);
+                    setWantMoreChildren(prof.want_more_children);
+                    setHavePets(prof.have_pets);
+                    setOccupation(prof.occupation);
+                    setEmploymentStatus(prof.employment_status);
+                    setAnnualIncome(prof.annual_income);
+                    setLivingSituation(prof.living_situation);
+                    setNationality(prof.nationality);
+                    setLanguagesSpoken(prof.languages_spoken);
+                    setEnglishAbility(prof.english_ability);
+                    setFrenchAbility(prof.french_ability);
+                    setReligiousValue(prof.religious_values);
+                    setPolygamy(prof.polygamy);
+                    setStarSign(prof.star_sign);
+                    setFavoriteMovie(prof.favorite_movie);
+                    setFavoriteMusic(prof.favorite_music);
+                    setDressStyle(prof.dress_style);
+                    setHumor(prof.humor);
+                    setReligion(prof.religion);
+                    setHobbiesAndInterest(prof.hobbies_interest);
+                    setPersonality(prof.personality);
 
-                     
-                if(prof.live_in !== null){
-
-                    setLiveInCountry(prof.live_in.split(',')[0])
-                    setLiveInState(prof.live_in.split(',')[1])
-                    setLiveInCity(prof.live_in.split(',')[2])
-                }
+                    if (prof.live_in !== null) {
+                        setLiveInCountry(prof.live_in.split(",")[0]);
+                        setLiveInState(prof.live_in.split(",")[1]);
+                        setLiveInCity(prof.live_in.split(",")[2]);
+                    }
                 });
         } else {
             const token = ls.get(DATABASE_KEY, { decrypt: true });
@@ -358,62 +337,59 @@ const ProfileUpdate = () => {
                     setPreferences(response.data.preferences);
 
                     let prof = data.profile;
-                setIam(prof.iam)
-                setLookingfor(prof.lookingfor)
-                setName(prof.name)
-                setBirthday(prof.birthday)
-                setAge(prof.age)
-                setBodyStyle(prof.bodytype)
-                setHeight(prof.height)
-                setSmoke(prof.life_style_smoke)
-                setDrink(prof.life_style_drink)
-                setEducation(prof.education)
-                setHaveChildren(prof.have_children)
-                setLoveQuote(prof.love_quote)
-                setMemberQuote(prof.member_quote )
-                setSeekingQuote(prof.seeking_quote)
-                setGender(prof.gender)
-                setDatingFor(prof.dating_for)
-                setRelocate(prof.relocate)
-                setHairColor(prof.hair_color)
-                setEyeColor(prof.eye_color)
-                setWeight(prof.weight)
-                setEthnicity(prof.ethnicity)
-                setBodyArt(prof.body_art)
-                setAppearance(prof.appearance)
-                setMaritalStatus(prof.marital_status)
-                setNumberOfChildren(prof.number_of_children)
-                setOldestChild(prof.oldest_child)
-                setYoungest(prof.youngest_child)
-                setWantMoreChildren(prof.want_more_children)
-                setHavePets(prof.have_pets)
-                setOccupation(prof.occupation)
-                setEmploymentStatus(prof.employment_status)
-                setAnnualIncome(prof.annual_income)
-                setLivingSituation(prof.living_situation)
-                setNationality(prof.nationality)
-                setLanguagesSpoken(prof.languages_spoken)
-                setEnglishAbility(prof.english_ability)
-                setFrenchAbility(prof.french_ability)
-                setReligiousValue(prof.religious_values)
-                setPolygamy(prof.polygamy)
-                setStarSign(prof.star_sign)
-                setFavoriteMovie(prof.favorite_movie)
-                setFavoriteMusic(prof.favorite_music)
-                setDressStyle(prof.dress_style)
-                setHumor(prof.humor)
-                setReligion(prof.religion)
-                setHobbiesAndInterest(prof.hobbies_interest)
-                setPersonality(prof.personality)
+                    setIam(prof.iam);
+                    setLookingfor(prof.lookingfor);
+                    setName(prof.name);
+                    setBirthday(prof.birthday);
+                    setAge(prof.age);
+                    setBodyStyle(prof.bodytype);
+                    setHeight(prof.height);
+                    setSmoke(prof.life_style_smoke);
+                    setDrink(prof.life_style_drink);
+                    setEducation(prof.education);
+                    setHaveChildren(prof.have_children);
+                    setLoveQuote(prof.love_quote);
+                    setMemberQuote(prof.member_quote);
+                    setSeekingQuote(prof.seeking_quote);
+                    setGender(prof.gender);
+                    setDatingFor(prof.dating_for);
+                    setRelocate(prof.relocate);
+                    setHairColor(prof.hair_color);
+                    setEyeColor(prof.eye_color);
+                    setWeight(prof.weight);
+                    setEthnicity(prof.ethnicity);
+                    setBodyArt(prof.body_art);
+                    setAppearance(prof.appearance);
+                    setMaritalStatus(prof.marital_status);
+                    setNumberOfChildren(prof.number_of_children);
+                    setOldestChild(prof.oldest_child);
+                    setYoungest(prof.youngest_child);
+                    setWantMoreChildren(prof.want_more_children);
+                    setHavePets(prof.have_pets);
+                    setOccupation(prof.occupation);
+                    setEmploymentStatus(prof.employment_status);
+                    setAnnualIncome(prof.annual_income);
+                    setLivingSituation(prof.living_situation);
+                    setNationality(prof.nationality);
+                    setLanguagesSpoken(prof.languages_spoken);
+                    setEnglishAbility(prof.english_ability);
+                    setFrenchAbility(prof.french_ability);
+                    setReligiousValue(prof.religious_values);
+                    setPolygamy(prof.polygamy);
+                    setStarSign(prof.star_sign);
+                    setFavoriteMovie(prof.favorite_movie);
+                    setFavoriteMusic(prof.favorite_music);
+                    setDressStyle(prof.dress_style);
+                    setHumor(prof.humor);
+                    setReligion(prof.religion);
+                    setHobbiesAndInterest(prof.hobbies_interest);
+                    setPersonality(prof.personality);
 
-
-                
-                if(prof.live_in !== null){
-
-                    setLiveInCountry(prof.live_in.split(',')[0])
-                    setLiveInState(prof.live_in.split(',')[1])
-                    setLiveInCity(prof.live_in.split(',')[2])
-                }
+                    if (prof.live_in !== null) {
+                        setLiveInCountry(prof.live_in.split(",")[0]);
+                        setLiveInState(prof.live_in.split(",")[1]);
+                        setLiveInCity(prof.live_in.split(",")[2]);
+                    }
                     // setUser(data.user);
                     // setNewavatar(data.avatar);
                     // setProfile(data.profile);
@@ -488,24 +464,87 @@ const ProfileUpdate = () => {
         ageArray.push(i);
     }
 
-    function loadUser(){
-        let db = ls.get(USERDB, { decrypt: true })
+    function loadUser() {
+        let db = ls.get(USERDB, { decrypt: true });
 
         if (db !== null) {
-            console.log(db)
-          setProfile(db.user.user)
-        } 
+            console.log(db);
+            setProfile(db.user.user);
+        }
     }
 
+    const updateImageAvatarAndGallery = () => {
+        const token = ls.get(DATABASE_KEY, { decrypt: true });
 
-const updateImageAvatarAndGallery = ()=>{
-    let formData = new FormData();
-    formData.append("avatar",avatar)
-    formData.append("avatar2",avatar2)
-    formData.append("gallery",gallery)
-    formData.append("gallery2",gallery2)
-    formData.append("gallery3",gallery3)
-}
+
+        let formData = new FormData();
+        formData.append("avatar", avatar);
+        formData.append("avatar2", avatar2);
+        formData.append("gallery", gallery);
+        formData.append("gallery2", gallery2);
+        formData.append("gallery3", gallery3);
+
+formData.append("iam", gender)
+formData.append("lookingfor", lookingfor)
+formData.append("name", name)
+formData.append("birthday", birthday)
+formData.append("age", age)
+formData.append("bodytype", bodyStyle)
+formData.append("height", height)
+formData.append("life_style_smoke", smoke)
+formData.append("life_style_drink", drink)
+formData.append("education", education)
+formData.append("have_children", haveChildren)
+formData.append("love_quote", loveQuote)
+formData.append("member_quote", memberQuote)
+formData.append("seeking_quote", seekingQuote)
+formData.append("gender", gender)
+formData.append("dating_for", datingFor)
+formData.append("live_in",liveInCountry + "," + liveInState + "," + liveInCity)
+formData.append("relocate", relocate)
+formData.append("hair_color", hairColor)
+formData.append("eye_color", eyeColor)
+formData.append("weight", weight)
+formData.append("ethnicity", ethnicity)
+formData.append("body_art", bodyArt)
+formData.append("appearance", appearance)
+formData.append("marital_status", maritalStatus)
+formData.append("number_of_children", numberOfChildren)
+formData.append("oldest_child", oldestChild)
+formData.append("youngest_child", youngest)
+formData.append("want_more_children", wantMoreChildren)
+formData.append("have_pets", havePets)
+formData.append("occupation", occupation)
+formData.append("employment_status", employmentStatus)
+formData.append("annual_income", annualIncome)
+formData.append("living_situation", livingSituation)
+formData.append("nationality", nationality)
+formData.append("languages_spoken", languagesSpoken)
+formData.append("english_ability", englishAbility)
+formData.append("french_ability", frenchAbility)
+formData.append("religious_values", religiousValue)
+formData.append("polygamy", polygamy)
+formData.append("star_sign", starSign)
+formData.append("favorite_movie", favoriteMovie)
+formData.append("favorite_music", favoriteMusic)
+formData.append("dress_style", dressStyle)
+formData.append("humor", humor)
+formData.append("religion", religion)
+formData.append("hobbies_interest", hobbiesAndInterest)
+formData.append("personality", personality)
+
+
+        axios
+        .post("/api/user-avatar-update", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Accept: "application/json",
+                Authorization: "Bearer " + token,
+            },
+        }).then((response)=>{
+            console.log(response.data);
+        })
+    };
 
     const updateProfile = () => {
         const token = ls.get(DATABASE_KEY, { decrypt: true });
@@ -513,130 +552,132 @@ const updateImageAvatarAndGallery = ()=>{
 
         var userid = db.user.user;
 
-        axios.put(`/api/profile/${userid.user_id}`,{
-            "iam":gender,
-            "lookingfor":lookingfor,
-            "name":name,
-            "birthday":birthday,
-            "age":age,
-            "bodytype":bodyStyle,
-            "height":height,
-            "life_style_smoke":smoke,
-            "life_style_drink":drink,
-            "education":education,
-            "have_children":haveChildren,
-            "love_quote":loveQuote,
-            "member_quote":memberQuote,
-            "seeking_quote":seekingQuote,
-            "gender":gender,
-            "dating_for":datingFor,
-            "live_in":liveInCountry+","+liveInState+","+liveInCity,
-            "relocate":relocate,
-            "hair_color":hairColor,
-            "eye_color":eyeColor,
-            "weight":weight,
-            "ethnicity":ethnicity,
-            "body_art":bodyArt,
-            "appearance":appearance,
-            "marital_status":maritalStatus,
-            "number_of_children":numberOfChildren,
-            "oldest_child":oldestChild,
-            "youngest_child":youngest,
-            "want_more_children":wantMoreChildren,
-            "have_pets":havePets,
-            "occupation":occupation,
-            "employment_status":employmentStatus,
-            "annual_income":annualIncome,
-            "living_situation":livingSituation,
-            "nationality":nationality,
-            "languages_spoken":languagesSpoken,
-            "english_ability":englishAbility,
-            "french_ability":frenchAbility,
-            "religious_values":religiousValue,
-            "polygamy":polygamy,
-            "star_sign":starSign,
-            "favorite_movie":favoriteMovie,
-            "favorite_music":favoriteMusic,
-            "dress_style":dressStyle,
-            "humor":humor,
-            "religion":religion,
-            "hobbies_interest":hobbiesAndInterest,
-            "personality":personality
-        },
-            {
-                headers: { 
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token,
+        axios
+            .put(
+                `/api/profile/${userid.user_id}`,
+                {
+                    iam: gender,
+                    lookingfor: lookingfor,
+                    name: name,
+                    birthday: birthday,
+                    age: age,
+                    bodytype: bodyStyle,
+                    height: height,
+                    life_style_smoke: smoke,
+                    life_style_drink: drink,
+                    education: education,
+                    have_children: haveChildren,
+                    love_quote: loveQuote,
+                    member_quote: memberQuote,
+                    seeking_quote: seekingQuote,
+                    gender: gender,
+                    dating_for: datingFor,
+                    live_in:
+                        liveInCountry + "," + liveInState + "," + liveInCity,
+                    relocate: relocate,
+                    hair_color: hairColor,
+                    eye_color: eyeColor,
+                    weight: weight,
+                    ethnicity: ethnicity,
+                    body_art: bodyArt,
+                    appearance: appearance,
+                    marital_status: maritalStatus,
+                    number_of_children: numberOfChildren,
+                    oldest_child: oldestChild,
+                    youngest_child: youngest,
+                    want_more_children: wantMoreChildren,
+                    have_pets: havePets,
+                    occupation: occupation,
+                    employment_status: employmentStatus,
+                    annual_income: annualIncome,
+                    living_situation: livingSituation,
+                    nationality: nationality,
+                    languages_spoken: languagesSpoken,
+                    english_ability: englishAbility,
+                    french_ability: frenchAbility,
+                    religious_values: religiousValue,
+                    polygamy: polygamy,
+                    star_sign: starSign,
+                    favorite_movie: favoriteMovie,
+                    favorite_music: favoriteMusic,
+                    dress_style: dressStyle,
+                    humor: humor,
+                    religion: religion,
+                    hobbies_interest: hobbiesAndInterest,
+                    personality: personality,
                 },
-            }).then((res)=>{
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            )
+            .then((res) => {
                 console.log(res.data);
                 let prof = res.data.profile;
-                setIam(prof.gender)
-                setLookingfor(prof.lookingfor)
-                setName(prof.name)
-                setBirthday(prof.birthday)
-                setAge(prof.age)
-                setBodyStyle(prof.bodytype)
-                setHeight(prof.height)
-                setSmoke(prof.life_style_smoke)
-                setDrink(prof.life_style_drink)
-                setEducation(prof.education)
-                setHaveChildren(prof.have_children)
-                setLoveQuote(prof.love_quote)
-                setMemberQuote(prof.member_quote)
-                setSeekingQuote(prof.seeking_quote)
-                setGender(prof.gender)
-                setDatingFor(prof.dating_for)
-                setRelocate(prof.relocate)
-                setHairColor(prof.hair_color)
-                setEyeColor(prof.eye_color)
-                setWeight(prof.weight)
-                setEthnicity(prof.ethnicity)
-                setBodyArt(prof.body_art)
-                setAppearance(prof.appearance)
-                setMaritalStatus(prof.marital_status)
-                setNumberOfChildren(prof.number_of_children)
-                setOldestChild(prof.oldest_child)
-                setYoungest(prof.youngest_child)
-                setWantMoreChildren(prof.want_more_children)
-                setHavePets(prof.have_pets)
-                setOccupation(prof.occupation)
-                setEmploymentStatus(prof.employment_status)
-                setAnnualIncome(prof.annual_income)
-                setLivingSituation(prof.living_situation)
-                setNationality(prof.nationality)
-                setLanguagesSpoken(prof.languages_spoken)
-                setEnglishAbility(prof.english_ability)
-                setFrenchAbility(prof.french_ability)
-                setReligiousValue(prof.religious_values)
-                setPolygamy(prof.polygamy)
-                setStarSign(prof.star_sign)
-                setFavoriteMovie(prof.favorite_movie)
-                setFavoriteMusic(prof.favorite_music)
-                setDressStyle(prof.dress_style)
-                setHumor(prof.humor)
-                setReligion(prof.religion)
-                setHobbiesAndInterest(prof.hobbies_interest)
-                setPersonality(prof.personality)
+                setIam(prof.gender);
+                setLookingfor(prof.lookingfor);
+                setName(prof.name);
+                setBirthday(prof.birthday);
+                setAge(prof.age);
+                setBodyStyle(prof.bodytype);
+                setHeight(prof.height);
+                setSmoke(prof.life_style_smoke);
+                setDrink(prof.life_style_drink);
+                setEducation(prof.education);
+                setHaveChildren(prof.have_children);
+                setLoveQuote(prof.love_quote);
+                setMemberQuote(prof.member_quote);
+                setSeekingQuote(prof.seeking_quote);
+                setGender(prof.gender);
+                setDatingFor(prof.dating_for);
+                setRelocate(prof.relocate);
+                setHairColor(prof.hair_color);
+                setEyeColor(prof.eye_color);
+                setWeight(prof.weight);
+                setEthnicity(prof.ethnicity);
+                setBodyArt(prof.body_art);
+                setAppearance(prof.appearance);
+                setMaritalStatus(prof.marital_status);
+                setNumberOfChildren(prof.number_of_children);
+                setOldestChild(prof.oldest_child);
+                setYoungest(prof.youngest_child);
+                setWantMoreChildren(prof.want_more_children);
+                setHavePets(prof.have_pets);
+                setOccupation(prof.occupation);
+                setEmploymentStatus(prof.employment_status);
+                setAnnualIncome(prof.annual_income);
+                setLivingSituation(prof.living_situation);
+                setNationality(prof.nationality);
+                setLanguagesSpoken(prof.languages_spoken);
+                setEnglishAbility(prof.english_ability);
+                setFrenchAbility(prof.french_ability);
+                setReligiousValue(prof.religious_values);
+                setPolygamy(prof.polygamy);
+                setStarSign(prof.star_sign);
+                setFavoriteMovie(prof.favorite_movie);
+                setFavoriteMusic(prof.favorite_music);
+                setDressStyle(prof.dress_style);
+                setHumor(prof.humor);
+                setReligion(prof.religion);
+                setHobbiesAndInterest(prof.hobbies_interest);
+                setPersonality(prof.personality);
 
-
-                
-                if(prof.live_in !== null){
-
-                    setLiveInCountry(prof.live_in.split(',')[0])
-                    setLiveInState(prof.live_in.split(',')[1])
-                    setLiveInCity(prof.live_in.split(',')[2])
+                if (prof.live_in !== null) {
+                    setLiveInCountry(prof.live_in.split(",")[0]);
+                    setLiveInState(prof.live_in.split(",")[1]);
+                    setLiveInCity(prof.live_in.split(",")[2]);
                 }
-
-            }).catch((e)=>{
-                alert(e)
             })
-
-    }
+            .catch((e) => {
+                alert(e);
+            });
+    };
 
     React.useEffect(() => {
         // loadScript()
-        loadUser()
+        loadUser();
         loadProfile();
         loadUserProfile();
     }, []);
@@ -647,39 +688,66 @@ const updateImageAvatarAndGallery = ()=>{
                 <h1 className="font-bold text-xl mb-2">Profile Update</h1>
                 {/* first level */}
                 <div className="flex flex-row ">
-                     
-
                     {/* details */}
                     <div className="w-full flex flex-col ">
-                     
-
                         {/* name */}
                         <div className="flex flex-row items-center justify-start">
-                            <h1 className="font-bold text-2xl tracking-tighter mr-4 uppercase" title={name}>
+                            <h1
+                                className="font-bold text-2xl tracking-tighter mr-4 uppercase"
+                                title={name}
+                            >
                                 {name}
                             </h1>
-                          
                         </div>
 
                         {/* sex */}
- 
+
                         {/* seeking */}
 
-                        <input required type="text" placeholder="Your Name" value={name} onChange={(e)=>setName(e.target.value)} className="ring-1 ring-slate-900/7 h-[40px]   my-2 w-full"  title="You can edit your name here"/>
+                        <input
+                            required
+                            type="text"
+                            placeholder="Your Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="ring-1 ring-slate-900/7 h-[40px]   my-2 w-full"
+                            title="You can edit your name here"
+                        />
                         <p className="mt-3 font-bold">Birthday</p>
-                        <input required type="date" placeholder="birthday" value={birthday} onChange={(e)=>setBirthday(e.target.value)} className="ring-1 ring-slate-900/7 h-[40px]   my-2 w-full" title="You can edit your birthday here"  />
-                        <input type="text" placeholder="Your love quote" value={loveQuote} onChange={(e)=>setLoveQuote(e.target.value)} className="ring-1 ring-slate-900/7 h-[40px]   my-2 w-full" title="You can edit your love quote here" />
-                        
+                        <input
+                            required
+                            type="date"
+                            placeholder="birthday"
+                            value={birthday}
+                            onChange={(e) => setBirthday(e.target.value)}
+                            className="ring-1 ring-slate-900/7 h-[40px]   my-2 w-full"
+                            title="You can edit your birthday here"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Your love quote"
+                            value={loveQuote}
+                            onChange={(e) => setLoveQuote(e.target.value)}
+                            className="ring-1 ring-slate-900/7 h-[40px]   my-2 w-full"
+                            title="You can edit your love quote here"
+                        />
+
                         <div className="flex flex-row ring-1 ring-slate-900/7">
-                        <select required className="w-full h-[40px]" value={lookingfor} onChange={(e)=>setLookingfor(e.target.value)} title="What gender do you seek?">
-                                    <option>Seeking</option>
-                                    <option>male</option>
-                                    <option>female</option>
-                                </select>
+                            <select
+                                required
+                                className="w-full h-[40px]"
+                                value={lookingfor}
+                                onChange={(e) => setLookingfor(e.target.value)}
+                                title="What gender do you seek?" 
+                            >
+                                <option value="">Seeking</option>
+                                <option>male</option>
+                                <option>female</option>
+                            </select>
 
-                                {/* age */}
+                            {/* age */}
 
-                                {/* <select className="w-full h-[40px]">
+                            {/* <select className="w-full h-[40px]">
                                     <option>From age</option>
                                     {ageArray.map((age, index)=><option key={index}>{age}</option>)} 
                                 </select>
@@ -690,48 +758,79 @@ const updateImageAvatarAndGallery = ()=>{
                                 </select> */}
                         </div>
                         {/* active online or offline */}
-                        
-                        <input type="text" title="Why do you want to have a date?" value={datingFor} onChange={(e)=>setDatingFor(e.target.value)} placeholder="Reason for dating..."  className="my-2 ring-1 ring-slate-900/7 h-[40px]" />
 
-
-
+                        <input
+                            type="text"
+                            title="Why do you want to have a date?"
+                            value={datingFor}
+                            onChange={(e) => setDatingFor(e.target.value)}
+                            placeholder="Reason for dating..."
+                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                        />
 
                         <p>Profile Pictures (first & second)</p>
-                        <input type="file" placeholder=""   onChange={(e)=>{
-                            if(e.target.files && e.target.files[0]){
-                                setAvatar(e.target.files[0])
-                            }
-                        }} className="my-2 ring-1 ring-slate-900/7 h-[40px]" />
-                        <input type="file"   onChange={(e)=>{
-                            if(e.target.files && e.target.files[0]){
-                                setAvatar2(e.target.files[0])
+                        <input
+                            type="file"
+                            placeholder=""
+                            onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setAvatar(e.target.files[0]);
+                                }
+                            }}
+                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                        />
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setAvatar2(e.target.files[0]);
 
-                                alert(e.target.files[0])
-                            }
-                        }} placeholder=""  className="my-2 ring-1 ring-slate-900/7 h-[40px]" />
-                        
+                                    alert(e.target.files[0]);
+                                }
+                            }}
+                            placeholder=""
+                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                        />
+
                         {/* divider */}
                         <div className="border-t-[1px] border-slate-200 h-[1px] mt-1" />
 
                         {/* table overview */}
 
-<p>Upload image to add to gallery (upload upto 3 or more)</p>
-                        <input type="file"  onChange={(e)=>{
-                            if(e.target.files && e.target.files[0]){
-                                setGallery(e.target.files[0])
-                            }
-                        }} placeholder=""  className="my-2 ring-1 ring-slate-900/7 h-[40px]" />
-                        <input type="file"   onChange={(e)=>{
-                            if(e.target.files && e.target.files[0]){
-                                setGallery2(e.target.files[0])
-                            }
-                        }} placeholder=""  className="my-2 ring-1 ring-slate-900/7 h-[40px]" />
-                        <input type="file"   onChange={(e)=>{
-                            if(e.target.files && e.target.files[0]){
-                                setGallery3(e.target.files[0])
-                            }
-                        }} placeholder=""  className="my-2 ring-1 ring-slate-900/7 h-[40px]" />
-
+                        <p>
+                            Upload image to add to gallery (upload upto 3 or
+                            more)
+                        </p>
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setGallery(e.target.files[0]);
+                                }
+                            }}
+                            placeholder=""
+                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                        />
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setGallery2(e.target.files[0]);
+                                }
+                            }}
+                            placeholder=""
+                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                        />
+                        <input
+                            type="file"
+                            onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setGallery3(e.target.files[0]);
+                                }
+                            }}
+                            placeholder=""
+                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                        />
                     </div>
                 </div>
 
@@ -749,7 +848,8 @@ const updateImageAvatarAndGallery = ()=>{
 
                 <p>
                     <input
-                        value={memberQuote} onChange={(e)=>setMemberQuote(e.target.value)}
+                        value={memberQuote}
+                        onChange={(e) => setMemberQuote(e.target.value)}
                         placeholder="What kind of person are you desiring?"
                         className="bg-zinc-100 p-2 flex-1 border-0 rounded-md w-full"
                     />
@@ -762,7 +862,8 @@ const updateImageAvatarAndGallery = ()=>{
                 </h1>
                 <p>
                     <input
-                        value={seekingQuote} onChange={(e)=>setSeekingQuote(e.target.value)}
+                        value={seekingQuote}
+                        onChange={(e) => setSeekingQuote(e.target.value)}
                         placeholder="Seeking quote"
                         className="bg-zinc-100 p-2 flex-1 border-0 rounded-md w-full"
                     />
@@ -787,7 +888,13 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className=" ">
                             <td className="px-3">Gender:</td>
                             <td className="ml-4 pl-4 font-bold ring-1 ">
-                                <select required className="w-full h-[40px]" value={gender} onChange={(e)=>setGender(e.target.value)}>
+                                <select
+                                    required
+                                    className="w-full h-[40px]"
+                                    value={gender}
+                                    onChange={(e) => setGender(e.target.value)}
+                                >
+                                    <option value="">Select Gender</option>
                                     <option>male</option>
                                     <option>female</option>
                                 </select>
@@ -796,7 +903,11 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr>
                             <td className="px-3">Age:</td>
                             <td className="ml-4 pl-4 font-bold flex-1 ">
-                                <select className="w-full h-[40px]" value={age} onChange={(e)=>setAge(e.target.value)}>
+                                <select
+                                    className="w-full h-[40px]"
+                                    value={age}
+                                    onChange={(e) => setAge(e.target.value)}
+                                >
                                     {ageArray.map((n, i) => (
                                         <option key={i}>{n}</option>
                                     ))}
@@ -805,7 +916,7 @@ const updateImageAvatarAndGallery = ()=>{
                         </tr>
                         <tr className="">
                             <td className="px-3">Live in:</td>
-                             <td className="ml-4 pl-4 font-bold ">
+                            <td className="ml-4 pl-4 font-bold ">
                                 {/* Douala, Littoral, Cameroon */}
                                 <div className="w-full ring-1 ring-slate-900/5 flex flex-row justify-evenly ">
                                     <select
@@ -820,18 +931,23 @@ const updateImageAvatarAndGallery = ()=>{
                                             console.log(result.length);
                                             setCountrycode(e.target.value);
 
-                                            
-                                            setLiveInCountry( e.target.options[
-                                                e.target.selectedIndex
-                                            ].text);
-                                            
-                                             
+                                            setLiveInCountry(
+                                                e.target.options[
+                                                    e.target.selectedIndex
+                                                ].text
+                                            );
                                         }}
                                     >
                                         <option>Select country</option>
                                         <option>Any</option>
                                         {country.map((c, index) => (
-                                            <option key={index} value={c.code} selected={liveInCountry === c.name}>
+                                            <option
+                                                key={index}
+                                                value={c.code}
+                                                selected={
+                                                    liveInCountry === c.name
+                                                }
+                                            >
                                                 {c.name}
                                             </option>
                                         ))}
@@ -852,10 +968,11 @@ const updateImageAvatarAndGallery = ()=>{
                                             setCitysearch(result);
                                             setStatecode(e.target.value);
 
-                                            setLiveInState( e.target.options[
-                                                e.target.selectedIndex
-                                            ].text);
-                                             
+                                            setLiveInState(
+                                                e.target.options[
+                                                    e.target.selectedIndex
+                                                ].text
+                                            );
                                         }}
                                     >
                                         <option>Select state</option>
@@ -863,7 +980,10 @@ const updateImageAvatarAndGallery = ()=>{
                                         {statesearch.map((s, index) => (
                                             <option
                                                 key={index}
-                                                value={s.state_code} selected={liveInState === s.name}
+                                                value={s.state_code}
+                                                selected={
+                                                    liveInState === s.name
+                                                }
                                             >
                                                 {s.name}
                                             </option>
@@ -886,17 +1006,20 @@ const updateImageAvatarAndGallery = ()=>{
                                             );
                                             setStatecode(result[0].state_code);
 
-                                            setLiveInCity( e.target.options[
-                                                e.target.selectedIndex
-                                            ].text);
-
-                                             
+                                            setLiveInCity(
+                                                e.target.options[
+                                                    e.target.selectedIndex
+                                                ].text
+                                            );
                                         }}
                                     >
                                         <option>Select city</option>
                                         <option>Any</option>
                                         {citysearch.map((c, index) => (
-                                            <option key={index} selected={liveInCity === c.name}>
+                                            <option
+                                                key={index}
+                                                selected={liveInCity === c.name}
+                                            >
                                                 {c.name}
                                             </option>
                                         ))}
@@ -908,8 +1031,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Relocate:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                               
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={relocate}
                                     onChange={(e) =>
@@ -938,7 +1060,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#fffefe] ">
                             <td className="px-3">Hair color:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f0f0f0]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={hairColor}
                                     onChange={(e) =>
@@ -954,7 +1076,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#ebe9e9]">
                             <td className="px-3">Eye color:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={eyeColor}
                                     onChange={(e) =>
@@ -971,7 +1093,8 @@ const updateImageAvatarAndGallery = ()=>{
                             <td className="px-3">Height:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
                                 {/* 5' 6" (168 cm) */}
-                                <select required
+                                <select
+                                    required
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={height}
                                     onChange={(e) => setHeight(e.target.value)}
@@ -1003,7 +1126,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Body style:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={bodyStyle}
                                     onChange={(e) =>
@@ -1021,7 +1144,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#ffffff]">
                             <td className="px-3">Ethnicity:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <input
+                                {/* <input
                                     type="text"
                                     placeholder="Type your ethnic"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1029,13 +1152,36 @@ const updateImageAvatarAndGallery = ()=>{
                                     onChange={(e) =>
                                         setEthnicity(e.target.value)
                                     }
-                                />
-                                 </td>
+                                /> */}
+
+                                <select
+                                    className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
+                                    value={ethnicity}
+                                    onChange={(e) =>
+                                        setEthnicity(e.target.value)
+                                    }
+                                >
+                                    <option value="">
+                                        Please specify your ethnicity
+                                    </option>
+                                    <option>Caucasian</option>
+                                    <option>African-American</option>
+                                    <option>Latino or Hispanic</option>
+                                    <option>Asian</option>
+                                    <option>Native American</option>
+                                    <option>
+                                        Native Hawaiian or Pacific Islander
+                                    </option>
+                                    <option>Two or More</option>
+                                    <option>Other/Unknown</option>
+                                    <option>Prefer not to say</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Body art:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ebe8e8]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={bodyArt}
                                     onChange={(e) => setBodyArt(e.target.value)}
@@ -1050,7 +1196,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Appearance:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={appearance}
                                     onChange={(e) =>
@@ -1079,7 +1225,8 @@ const updateImageAvatarAndGallery = ()=>{
                             <td className="px-3">Drink:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f0f0f0]">
                                 {/* Occassionally */}
-                                <select required
+                                <select
+                                    required
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={drink}
                                     onChange={(e) => setDrink(e.target.value)}
@@ -1093,7 +1240,8 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#ebe9e9]">
                             <td className="px-3">Smoke:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <select required
+                                <select
+                                    required
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={smoke}
                                     onChange={(e) => setSmoke(e.target.value)}
@@ -1107,7 +1255,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#d6d5d5]">
                             <td className="px-3">Marital status:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={maritalStatus}
                                     onChange={(e) =>
@@ -1123,8 +1271,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#fffefe]">
                             <td className="px-3">Have children:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                               
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={haveChildren}
                                     onChange={(e) =>
@@ -1140,7 +1287,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Number of children:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={numberOfChildren}
                                     onChange={(e) =>
@@ -1160,7 +1307,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#ffffff]">
                             <td className="px-3">Oldest child:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={oldestChild}
                                     onChange={(e) =>
@@ -1180,7 +1327,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Youngest child:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ebe8e8]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={youngest}
                                     onChange={(e) =>
@@ -1200,7 +1347,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Want (more) children:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={wantMoreChildren}
                                     onChange={(e) =>
@@ -1216,7 +1363,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Have pets:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Type of pets"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1231,7 +1378,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Occupation:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Occupation"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1245,7 +1392,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Employment status:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Employment status"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1259,7 +1406,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Annual income:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Annual income"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1273,7 +1420,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Living situation:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={livingSituation}
                                     onChange={(e) =>
@@ -1297,7 +1444,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#fffdfd]">
                             <td className="px-3">Nationality:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f3efefe3]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Nationality"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1311,21 +1458,32 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#dfd9d9]">
                             <td className="px-3">Education:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
-                            <input
-                                    type="text"
-                                    placeholder="Education"
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={education}
                                     onChange={(e) =>
                                         setEducation(e.target.value)
                                     }
-                                />
+                                >
+                                    <option value="">
+                                        What is the highest degree or level of
+                                        education you have completed?
+                                    </option>
+
+                                    <option>Some High School</option>
+                                    <option>High School</option>
+                                    <option>Bachelor's Degree</option>
+                                    <option>Master's Degree</option>
+                                    <option>Ph.D. or higher</option>
+                                    <option>Trade School</option>
+                                    <option>Prefer not to say</option>
+                                </select>
                             </td>
                         </tr>
                         <tr className="bg-[#f3f0f0]">
                             <td className="px-3">Languages spoken:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f3f1f1]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Eg. English, French, German Spanish..."
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1339,7 +1497,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#eceaea]">
                             <td className="px-3">English ability:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f1eeee]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={englishAbility}
                                     onChange={(e) =>
@@ -1354,7 +1512,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#f0efef]">
                             <td className="px-3">French ability:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#f7f3f3]">
-                            <select
+                                <select
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
                                     value={frenchAbility}
                                     onChange={(e) =>
@@ -1369,7 +1527,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#f5f3f3]">
                             <td className="px-3">Religion:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#e9e7e7]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Religion"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1383,7 +1541,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#e9e5e5]">
                             <td className="px-3">Religious values:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#faf5f5]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Religious values"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1414,7 +1572,7 @@ const updateImageAvatarAndGallery = ()=>{
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Star sign:</td>
                             <td className=" ml-4 pl-4 font-bold bg-[#dbdbdb]">
-                            <input
+                                <input
                                     type="text"
                                     placeholder="Eg. Leo, Pisces, Libra"
                                     className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
@@ -1441,16 +1599,26 @@ const updateImageAvatarAndGallery = ()=>{
                             Favorite Movie:
                         </h1>
                         {/* <p>Titanic</p> */}
-                        <input type="text" value={favoriteMovie} onChange={(e)=>setFavoriteMovie(e.target.value)} placeholder="eg Movie Title" className="w-full h-[40px] my-1 ring-1 ring-slate-900/7" />
-                           
+                        <input
+                            type="text"
+                            value={favoriteMovie}
+                            onChange={(e) => setFavoriteMovie(e.target.value)}
+                            placeholder="eg Movie Title"
+                            className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
+                        />
                     </span>
                     <span>
                         <h1 className="font-bold text-xl text-red-600">
                             Favorite Music:
                         </h1>
                         {/* <p>Blues, Jazz Old school</p> */}
-                        <input type="text" value={favoriteMusic} onChange={(e)=>setFavoriteMusic(e.target.value)} placeholder="Eg. Music genre" className="w-full h-[40px] my-1 ring-1 ring-slate-900/7" />
-                           
+                        <input
+                            type="text"
+                            value={favoriteMusic}
+                            onChange={(e) => setFavoriteMusic(e.target.value)}
+                            placeholder="Eg. Music genre"
+                            className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
+                        />
                     </span>
                 </div>
                 {/* More about second */}
@@ -1461,16 +1629,26 @@ const updateImageAvatarAndGallery = ()=>{
                         </h1>
                         {/* <p>Dress Sexy</p>
                          */}
-                         <input type="text" value={dressStyle} onChange={(e)=>setDressStyle(e.target.value)} placeholder="Eg. Sexy" className="w-full h-[40px] my-1 ring-1 ring-slate-900/7" />
-                           
+                        <input
+                            type="text"
+                            value={dressStyle}
+                            onChange={(e) => setDressStyle(e.target.value)}
+                            placeholder="Eg. Sexy"
+                            className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
+                        />
                     </span>
                     <span>
                         <h1 className="font-bold text-xl text-red-600">
                             Humor:
                         </h1>
                         {/* <p>Say any humor</p> */}
-                        <input type="text" value={humor} onChange={(e)=>setHumor(e.target.value)} placeholder="Humourous words" className="w-full h-[40px] my-1 ring-1 ring-slate-900/7" />
-                           
+                        <input
+                            type="text"
+                            value={humor}
+                            onChange={(e) => setHumor(e.target.value)}
+                            placeholder="Humourous words"
+                            className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
+                        />
                     </span>
                 </div>
                 {/* More about third */}
@@ -1481,23 +1659,41 @@ const updateImageAvatarAndGallery = ()=>{
                         </h1>
                         {/* <p>Films, Music & baseball</p> */}
 
-                        <input type="text" value={hobbiesAndInterest} onChange={(e)=>setHobbiesAndInterest(e.target.value)} placeholder="Hobbies & Interest" className="w-full h-[40px] my-1 ring-1 ring-slate-900/7" />
-                       
+                        <input
+                            type="text"
+                            value={hobbiesAndInterest}
+                            onChange={(e) =>
+                                setHobbiesAndInterest(e.target.value)
+                            }
+                            placeholder="Hobbies & Interest"
+                            className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
+                        />
                     </span>
                     <span>
                         <h1 className="font-bold text-xl text-red-600">
                             Personality:
                         </h1>
                         {/* <p>Your personality here</p> */}
-                        <input type="text" value={personality} onChange={(e)=>setPersonality(e.target.value)} placeholder="Your personality" className="w-full h-[40px] my-1 ring-1 ring-slate-900/7" />
-                       
+                        <input
+                            type="text"
+                            value={personality}
+                            onChange={(e) => setPersonality(e.target.value)}
+                            placeholder="Your personality"
+                            className="w-full h-[40px] my-1 ring-1 ring-slate-900/7"
+                        />
                     </span>
                 </div>
 
-                <button onClick={()=>{
-                    imageUpload()
-                    updateProfile()
-                }} className="bg-red-600 px-20 p-3 text-white mt-20 justify-center hover:bg-yellow-600">Save Update</button>
+                <button
+                    onClick={() => {
+               
+                        updateImageAvatarAndGallery()
+                        // updateProfile();
+                    }}
+                    className="bg-red-600 px-20 p-3 text-white mt-20 justify-center hover:bg-yellow-600"
+                >
+                    Save Update
+                </button>
             </div>
         </MainContainer>
     );

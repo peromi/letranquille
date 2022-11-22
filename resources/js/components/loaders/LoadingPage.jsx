@@ -20,9 +20,18 @@ const LoadingPage = () => {
 
 <img src={data.logo} className="md:w-[80px]  animate__animated animate__pulse animate__infinite	infinite animate__fast"  />
 <h1 className='font-[FredokaOne] text-4xl animate__animated animate__pulse animate__infinite	infinite animate__fast'>Le - Tranquille</h1>
+    
+<div className="sk-chase">
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+        </div>
     <p className="mb-8 font-bold">Please wait.....</p>
 
-    <Spinner name='circle' color='white' style={{fontSize:45}} />
+    {/* <Spinner name='circle' color='white' style={{fontSize:45}} /> */}
         </div>
 </div>
   )

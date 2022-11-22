@@ -26,6 +26,9 @@ const USERDB = "dao";
 function ProfilePanel() {
     const navigate = useNavigate();
     const params = useParams();
+
+    // Slide show for profile images
+    const [slideshow, setSlideshow] = React.useState("")
     // Preferences
     const [preferences, setPreferences] = React.useState({})
     const [iam, setIam] = useState("")
@@ -487,20 +490,22 @@ function ProfilePanel() {
                     {/* avatar */}
                     <div className="w-[450px] h-full flex flex-col">
                    
-                   <div className="w-full  h-[80%]" style={{
-                    background:  `url('/storage/avatar/${newavatar.first_cover}')`
-                           ,
-                    backgroundPosition: "center center",
-                    backgroundSize: "cover",
-                    backgroundRepeat:"no-repeat"
-                }}>
-                   
+                   <div className="w-full  h-[80%]"  >
+                   {slideshow.trim() !== "" ?<img src={`${slideshow}`} width="100%" height="100%" />:<img src={`/storage/avatar/${newavatar.first_cover}`} width="100%" height="100%" />} 
                    </div>
                         {/* <img src={profile != null? ` /storage/avatar/${newavatar.first_cover}`:`${data.bg}`} className="w-[100%]" /> */}
                         {/* gallery */}
                         <div className="flex flex-row gap-x-3 mt-1 flex-wrap">
+                        <img onClick={()=>{
+                                    setSlideshow("/storage/avatar/"+newavatar.first_cover)
+                                }}  src={`/storage/avatar/${newavatar.first_cover}`} className="w-[54px]" />
+                        <img onClick={()=>{
+                                    setSlideshow("/storage/avatar/"+newavatar.second_cover)
+                                }}  src={`/storage/avatar/${newavatar.second_cover}`} className="w-[54px]" />
                             {gallery.map((photo, index) => (
-                                <img key={index} src={`/storage/gallery/${photo.cover}`} className="w-[54px]" />
+                                <img onClick={()=>{
+                                    setSlideshow("/storage/gallery/"+photo.cover)
+                                }} key={index} src={`/storage/gallery/${photo.cover}`} className="w-[54px]" />
                             ))}
                         </div>
                     </div>

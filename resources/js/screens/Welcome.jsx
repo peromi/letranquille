@@ -41,7 +41,7 @@ function Welcome() {
                         />
                     </div>
 
-                    <ul className="hidden md:flex gap-6  text-white text-xl font-bold">
+                    <ul className="hidden md:flex gap-6  text-white text-md font-bold">
                         <li className="hover:text-yellow-200">
                             <Link to="/">Home</Link>
                         </li>
@@ -59,7 +59,7 @@ function Welcome() {
                         </li>
                     </ul>
 
-                    <div class="hidden text-xl md:flex gap-4 text-white font-bold">
+                    <div class="hidden text-md md:flex gap-4 text-white font-bold">
                         <Link className="hover:text-yellow-200" to="/register">
                             Sign Up
                         </Link>
@@ -99,12 +99,12 @@ function Welcome() {
                         </div>
                     </div>
                 )}
-                <div class="pt-[80px] md:pt-[45px] bg-red-800 px-3 pb-3">
+                <div class="pt-[80px] md:pt-[45px] bg-red-800 px-3 pb-3  h-[600px] overflow-hidden ">
                     <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-                        <div class="text-white flex justify-around flex-col ">
+                        <div class="text-white flex pt-20 flex-col ">
                             <div className="flex flex-col">
                                 <h1
-                                    className="font-['FredokaOne'] md:text-7xl text-4xl "
+                                    className=" md:text-7xl text-4xl font-['Mona-Bold']"
                                     style={{}}
                                 >
                                     Make the First move and find the love of
@@ -117,7 +117,7 @@ function Welcome() {
                                 </p>
                                 <Link
                                     to="/register"
-                                    className="hover:bg-white bg-yellow-300 p-3 rounded-md mt-[45px] md:w-1/2 text-center text-black font-bold"
+                                    className="hover:bg-white bg-yellow-300 mb-2 p-3 rounded-md mt-[45px] md:w-1/2 text-center text-black font-bold"
                                 >
                                     Start your Lovely Journey now{"  "}
                                     <span class="fi-rr-user-add ml-2"></span>
@@ -146,8 +146,8 @@ function Welcome() {
                             </div>
                         </div>
 
-                        <ul className="md:grid grid-cols-3 gap-3 hidden">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
+                        <ul className="md:grid grid-cols-3 gap-3 hidden rotate-12">
+                            {[1, 2, 3, 4, 5, 6, 7,8].map(
                                 (p, index) => (
                                     <li
                                         key={index}
