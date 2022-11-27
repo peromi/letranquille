@@ -31,12 +31,12 @@ function Messages() {
     let params = useParams();
 
     const receivedMessages = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios
             .get(`/api/get-received-messages`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -59,12 +59,12 @@ function Messages() {
     };
 
     const sentMessages = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios
             .get(`/api/get-sent-messages`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -87,12 +87,12 @@ function Messages() {
     };
 
     const favoriteMessages = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios
             .get(`/api/get-favorite-messages`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {

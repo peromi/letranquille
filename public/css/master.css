@@ -11,14 +11,20 @@
     font-family: "FredokaOne" ;
     src: url("../fonts/FredokaOne.ttf");
 }
-
-@font-face{
-    font-family: "Wavehaus";
-    src: url("../fonts/Wavehaus-128Bold.woff"); src: url("../fonts/Wavehaus-158ExtraBold.woff");
-    src: url("../fonts/Wavehaus-66Book.woff"); src: url("../fonts/Wavehaus-28Thin.woff");
-    src: url("../fonts/Wavehaus-95SemiBold.woff"); src: url("../fonts/Wavehaus-42Light.woff")
+@font-face {
+    font-family: "Inter-black" ;
+    src: url("../fonts/Inter-Black.ttf");
+}
+@font-face {
+    font-family: "Inter-bold" ;
+    src: url("../fonts/Inter-bold.ttf");
+}
+@font-face {
+    font-family: "Inter-extrabold" ;
+    src: url("../fonts/Inter-ExtraBold.ttf");
 }
 
+ 
 @font-face {
     font-family: Montserrat;
     
@@ -79,7 +85,7 @@
 }
 
 h1{
-    font-family: "Mona";
+    font-family: "Inter-bold";
     
     
 }

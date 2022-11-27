@@ -7,9 +7,7 @@ import { toast } from 'react-toastify'
 import { SocketContext } from '../context/SocketContext'
 import "../../css/navigation.css"
 
-
-const DATABASE_KEY = 'user-m9j234u94'
-const DBNAV = 'nav'
+ 
 const USERDB = 'dao'
 const subscribe = "subscriptionDb"
 const Navigation = ({ select }) => {
@@ -21,6 +19,9 @@ const Navigation = ({ select }) => {
   const [showmenu, setShowmenu] = React.useState(false)
   const [profileloc, setProfileloc] = React.useState('')
   const [upgraded, setUpgraded] = React.useState(null)
+  const [country, setCountry] = React.useState("")
+  const [state, setState] = React.useState("")
+  const [city, setCity] = React.useState("")
 
   const [navmenu, setNavmenu] = React.useState(false)
   const [profilemenu, setProfilemenu] = React.useState(false)
@@ -34,42 +35,50 @@ const Navigation = ({ select }) => {
   }
 
 
-  const loadProfile = React.useCallback(() => {
+  const loadProfile  =() => {
     let db = ls.get(USERDB, { decrypt: true })
 
     if (db !== null) {
 
-         setCurrentuser(db.user.user)
+         setCurrentuser(db)
+         console.log(db.profile)
 
 
-         setProfileloc(db.user.user.city+','+db.user.user.country)
-      setProfile(db.user.user)
+        //  setProfileloc(db.user.user.city+','+db.user.user.country)
+      setProfile(db.profile)
+      // let data = db.profile
+
+      // setCountry(data.live_in.split(',')[0])
+      // setState(data.live_in.split(',')[1])
+      // setCity(data.live_in.split(',')[2])
 
 
     }else{
 
 
     }
-  }, [profile])
-  React.useEffect(() => {
-    loadProfile()
+  }
 
-    return ()=>{
-        setProfile()
-setShowmenu()
-setProfileloc()
-    }
 
-  }, [])
+//   React.useEffect(() => {
+   
+
+//     return ()=>{
+  
+// setShowmenu()
+// setProfileloc()
+//     }
+
+//   }, [])
 
   const [note, setnote] = React.useState([])
 
   const loadData = () => {
-      let token = ls.get(DATABASE_KEY, {decrypt:true})
+      let db = ls.get(USERDB, {decrypt:true})
       axios.get("/api/notification", {
           headers: {
               Accept:'application/json',
-              Authorization: 'Bearer ' + token
+              Authorization: 'Bearer ' + db.token
           }
       }).then((response)=>{
           console.log(response.data)
@@ -81,12 +90,17 @@ setProfileloc()
 
 
   React.useEffect(()=>{
-    let id = setInterval(loadData,10000)
-    let db = ls.get(USERDB, {decrypt:true})
-    // if(db == null){
+    loadProfile()
+  },[])
 
-    //    window.location.href = "/"
-    // }
+  React.useEffect(()=>{
+    let id = setInterval(()=>{
+     
+      loadData()
+      // loadProfile()
+    
+    },10000)
+    
     loadSubscriptions()
     return ()=>{
         clearInterval(id)
@@ -94,23 +108,23 @@ setProfileloc()
   }, [note])
 
   const handleLogout = ()=>{
-    const token = ls.get(DATABASE_KEY, {decrypt:true});
+    const db = ls.get(USERDB, {decrypt:true});
 
       axios.post("/api/logout", {}, {
           headers:{
               'Accept':'application/json',
-              'Authorization':'Bearer '+token
+              'Authorization':'Bearer '+db.token
           }
       }).then((response)=>{
-        ls.remove(DATABASE_KEY)
+       
         ls.remove(USERDB)
 
 
-          toast.success(response.data.message);
+          // toast.success(response.data.message);
           navigate("/", {replace:true});
 
       }).catch((err)=>{
-        ls.remove(DATABASE_KEY)
+       
         ls.remove(USERDB)
 
           toast.success(response.data.message);
@@ -198,11 +212,11 @@ setProfileloc()
 
       <div className=" flex justify-end items-center w-[350px]  gap-x-5 font-bold relative">
         <div className="flex relative bg-zinc-100  pr-2 p-1 rounded-full">
-          <img src={`/storage/avatar/${profile.first_cover}`} className="w-[35px] h-[35px] rounded-full mr-4" />
+          {profile.first_photo === undefined ?<div className="w-[45px] h-[45px] bg-slate-900 rounded-full" />:<img src={`/storage/avatar/${profile.first_photo}`} className="w-[35px] h-[35px] rounded-full mr-4" />}
           <div className="capitalize mr-6 flex-1">
             <p className="-mb-2">{profile.name}</p>
             <span className="text-[12px] -mt-2">
-              {profileloc} <a href="#" className='text-red-600'>Change</a>
+              {profile.live_in === null ? '...': profile.live_in} <a href="#" className='text-red-600'>Change</a>
             </span>
           </div>
           <button onClick={()=>{
@@ -250,20 +264,48 @@ setProfileloc()
         </button>
        <img src={data.longlogo} className="w-[120px]" />
        {/* <i class="fi fi-rr-bell text-2xl"></i> */}
-       <img src={`/storage/avatar/${profile.first_cover}`} className="w-[40px] h-[40px] rounded-full mr-4" onClick={()=>{
+       {/* {profile.first_photo === null ? <div />:<img src={`/storage/avatar/${profile.first_photo}`} className="w-[40px] h-[40px] rounded-full mr-4" onClick={()=>{
         setProfilemenu(!profilemenu)
-       }} />
+       }} />} */}
     </div>
 
-    {navmenu && <div className='fixed right-0 left-0 top-[45px] bottom-0 bg-white z-50'>
-    <ul className=" flex flex-col items-center gap-y-3   text-xl font-bold pt-6">
-                        <Link to="/explore">Explore</Link>
-                        <Link to="/matches">Matches</Link>
-                        <Link to="/messages">Messages</Link>
-                        <Link to="/activities">Activities</Link>
-                        <Link to="/notification">Notification</Link>
+{/* mobile menu */}
+    <div className='md:hidden  lg:hidden fixed right-0 left-0  shadow-lg   bottom-0 bg-white z-50'>
+    <ul className="flex flex-row items-center h-full justify-between p-2 w-full  text-md font-bold  ">
+                        <Link to="/show-all" className='flex flex-col justify-center items-center'>
+                        <i class="fi fi-rr-users"></i>
+                          <p className='text-xs'>All</p>
+                        </Link>
+                        <Link to="/explore" className='flex flex-col justify-center items-center'>
+                        <i class="fi fi-rr-playing-cards"></i>
+                        <p className='text-xs'>Explore</p>
+                          </Link>
+                        <Link to="/matches" className='flex flex-col justify-center items-center'>
+                        <i class="fi fi-rr-following"></i>
+                          <p className='text-xs'>Matches</p>
+                          </Link>
+                        <Link to="/messages" className='flex flex-col justify-center items-center'>
+                        <i class="fi fi-rr-comments"></i>
+                          <p className='text-xs'>Messages</p>
+                          </Link>
+                        <Link to="/activities" className='flex flex-col justify-center items-center'>
+                        <i class="fi fi-rr-user-add"></i>
+                          <p className='text-xs'>Activity</p>
+                          </Link>
+                        <Link to="/activities" className='flex flex-col justify-center items-center'>
+                        <i class="fi-rr-menu-dots-vertical"></i>
+                          <p className='text-xs'>More</p>
+                          </Link>
+                        {/* <Link to="/notification" className='flex flex-col justify-center items-center'>
+                        <i class="fi fi-rr-bell"></i>
+                          <p className='text-xs'>Notify</p>
+                          </Link>
+                        <Link to="/profile" className='flex flex-col justify-center items-center'>
+                        <i class="fi fi-rr-user"></i>
+                        <p className='text-xs'>Profile</p>
+                        </Link> */}
                     </ul>
-    </div>}
+    </div>
     {profilemenu && <div className='fixed right-0 left-0 top-[45px] bottom-0 bg-white z-50'>
     <ul className=" flex flex-col items-center gap-y-3   text-xl font-bold pt-6">
     <Link className='flex gap-x-[12px] hover:text-red-600' to="/profile"> View My Profile</Link>

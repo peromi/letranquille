@@ -87,40 +87,7 @@ function ProfilePanel() {
     const [personality, setPersonality] = useState("No Answer")
 
 
-    const handleHobby = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
-
-        if (token == null) {
-            return;
-        }
-        if (hobbies.length > 10) {
-            toast.error("You can only choose 10 hobbies.");
-            return;
-        }
-
-        axios
-            .post(
-                "/api/user-hobby",
-                {
-                    hobby: hobbies,
-                },
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            )
-            .then((response) => {
-                toast.success(response.data.message);
-                loadUserProfile();
-                loadProfile();
-                setSetting("");
-            })
-            .catch((error) => {
-                toast.error(error.response.data.message);
-            });
-    };
+  
     // Avatar
     const [newavatar, setNewavatar] = React.useState("");
     const [cover, setCover] = React.useState(null);
@@ -218,17 +185,17 @@ function ProfilePanel() {
         let db = ls.get(USERDB, { decrypt: true });
 
         if (db !== null) {
-            console.log("DATA", db.user.user);
+            console.log("DATA", db.user);
 
             if (params !== null) {
-                profileview({ to: params.id, name: db.user.user.name });
+                profileview({ to: params.id, name: db.profile.name});
             }
         } else {
         }
     }, []);
 
     const handleProfileView = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios
             .post(
                 "/api/profile-view",
@@ -238,7 +205,7 @@ function ProfilePanel() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 }
             )
@@ -252,26 +219,26 @@ function ProfilePanel() {
 
     const loadUserProfile = () => {
         if (params.id === undefined) {
-            const token = ls.get(DATABASE_KEY, { decrypt: true });
+            const db = ls.get(USERDB, { decrypt: true });
             axios
                 .get("/api/user-profile", {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 })
                 .then((response) => {
                     console.log("Yours", response.data);
-                    let data = response.data.user;
+                    let data = response.data ;
 
                     setUser(data.user);
-                    setNewavatar(data.avatar);
+                    // setNewavatar(data.avatar);
                     setProfile(data.profile);
 
                     setPreferences(response.data.preference);
                     // setReligion(data.religion);
                     // setLocation(data.location);
-                    setGallery(data.gallery);
+                    setGallery(data.user.gallery);
                     let prof = data.profile;
                    
                     setIam(prof.iam)
@@ -331,22 +298,22 @@ function ProfilePanel() {
                     }
                 });
         } else {
-            const token = ls.get(DATABASE_KEY, { decrypt: true });
+            const db = ls.get(USERDB, { decrypt: true });
             axios
                 .get("/api/user-profile/" + params.id, {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 })
                 .then((response) => {
-                    let data = response.data.user;
+                    let data = response.data 
 
                     console.log(response.data);
                     setUser(data.user);
-                    setNewavatar(data.avatar);
+                    // setNewavatar(data.avatar);
                     setProfile(data.profile);
-                    setPreferences(response.data.preference);
+                    setPreferences(data.preference);
 
                     let prof = data.profile;
                 setIam(prof.iam)
@@ -409,7 +376,7 @@ function ProfilePanel() {
                     // setNewavatar(data.avatar);
                     // setProfile(data.profile);
                     // setReligion(data.religion);
-                    setGallery(data.gallery);
+                    setGallery(data.user.gallery);
                     // setProfession(data.profession);
                     // setLocation(data.location);
                     // setHobby(data.hobbies);
@@ -428,7 +395,7 @@ function ProfilePanel() {
 
 
     const imageUpload = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         let ids = toast.loading("Please wait...");
         if (token == null) {
             return;
@@ -491,17 +458,17 @@ function ProfilePanel() {
                     <div className="w-[450px] h-full flex flex-col">
                    
                    <div className="w-full  h-[80%]"  >
-                   {slideshow.trim() !== "" ?<img src={`${slideshow}`} width="100%" height="100%" />:<img src={`/storage/avatar/${newavatar.first_cover}`} width="100%" height="100%" />} 
+                   {slideshow.trim() !== "" ?<img src={`${slideshow}`} width="100%" height="100%" />:<img src={`/storage/avatar/${profile.first_photo}`} width="100%" height="100%" />} 
                    </div>
                         {/* <img src={profile != null? ` /storage/avatar/${newavatar.first_cover}`:`${data.bg}`} className="w-[100%]" /> */}
                         {/* gallery */}
                         <div className="flex flex-row gap-x-3 mt-1 flex-wrap">
                         <img onClick={()=>{
-                                    setSlideshow("/storage/avatar/"+newavatar.first_cover)
-                                }}  src={`/storage/avatar/${newavatar.first_cover}`} className="w-[54px]" />
+                                    setSlideshow("/storage/avatar/"+profile.first_photo)
+                                }}  src={`/storage/avatar/${profile.first_photo}`} className="w-[54px]" />
                         <img onClick={()=>{
-                                    setSlideshow("/storage/avatar/"+newavatar.second_cover)
-                                }}  src={`/storage/avatar/${newavatar.second_cover}`} className="w-[54px]" />
+                                    setSlideshow("/storage/avatar/"+profile.second_photo)
+                                }}  src={`/storage/avatar/${profile.second_photo}`} className="w-[54px]" />
                             {gallery.map((photo, index) => (
                                 <img onClick={()=>{
                                     setSlideshow("/storage/gallery/"+photo.cover)
@@ -537,7 +504,7 @@ function ProfilePanel() {
                         {/* name */}
                         <div className="flex flex-row items-center justify-start">
                             <h1 className="font-bold text-2xl tracking-tighter mr-4 uppercase">
-                                {profile.name}
+                                {name}
                             </h1>
                             <span className="mx-3">
                             <i className="fi fi-sr-user"></i>

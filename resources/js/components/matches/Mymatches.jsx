@@ -10,8 +10,7 @@ import ls from 'localstorage-slim'
 import LoadingPage from "../loaders/LoadingPage";
 
 
-const USERDB = 'dao'
-const DB = "user-m9j234u94"
+const USERDB = 'dao' 
 const subscribe = "subscriptionDb"
 
 function Mymatches({action}) {
@@ -37,11 +36,11 @@ function Mymatches({action}) {
 
     const loadData = ()=>{
         setIsLoading(true)
-        const token = ls.get(DB,{decrypt:true})
+        const db = ls.get(USERDB,{decrypt:true})
         axios.get("/api/matches",{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+token
+                'Authorization':'Bearer '+ db.token
             }
         }).then((response)=>{
             console.log(response.data.matches)
@@ -73,13 +72,13 @@ function Mymatches({action}) {
     }
 
     const paginate = (url) => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
 
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -101,10 +100,10 @@ function Mymatches({action}) {
 
         if (db !== null) {
 
-             setUser(db.user.user)
+             setUser(db.profile)
 
 
-            console.log("MATCHES",db.user.user.iam)
+            console.log("MATCHES",db.profile.iam)
 
         }else{
 

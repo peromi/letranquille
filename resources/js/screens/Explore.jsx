@@ -54,14 +54,15 @@ function Explore() {
     }
 
     const loadData = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
+        setActive(db.profile)
 
         setLoading(true)
         axios
             .get("/api/explore", {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -76,11 +77,13 @@ function Explore() {
 
                 setLoading(false)
                 // setUser(response.data.user);
+            }).catch((e)=>{
+                setLoading(false)
             });
     };
 
     const searchUser = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
 
         setLoading(true)
         axios.post('/api/explore-search',{
@@ -92,7 +95,7 @@ function Explore() {
         }, {
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + token,
+                Authorization: "Bearer " + db.token,
             },
         }).then((res)=>{
             console.log(res.data)
@@ -107,14 +110,14 @@ function Explore() {
     }
 
     const paginate = (url) => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
 
         setLoading(true)
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -139,14 +142,17 @@ function Explore() {
 
         if (db !== null) {
 
-             setUser(db.user.user)
+            let data = db.profile
+            let pref = db.preference
+
+             setUser(data)
 
 
-             setIam(db.user.user.iam);
-             setSeeking(db.user.user.lookingfor);
-             setFrom(db.user.user.country);
-             setAgeMin(db.user.user.age_min);
-             setAgeMax(db.user.user.age_max);
+             setIam(data.iam);
+             setSeeking(data.lookingfor);
+             setFrom(data.country);
+             setAgeMin(pref.age_min);
+             setAgeMax(pref.age_max);
 
 
         }else{
@@ -234,11 +240,11 @@ function Explore() {
                                     from.trim().localeCompare("any") == 0 ? true:false
                                 }>any</option> */}
                         {country.map((c, index)=>{
-                            if(from.trim().localeCompare(c.name) === 0){
+                            if(from  === c.name){
                                 return  <option
                                 key={index}
 
-                                value={c.code}
+                             
 
 
                                 selected={
@@ -251,7 +257,7 @@ function Explore() {
                                 return <option
                                 key={index}
 
-                                value={c.code}
+                               
                             >
                                 {c.name}
                             </option>
@@ -378,7 +384,7 @@ function Explore() {
                             a message yet, "Like" them instead!
                         </p>
                         <img
-                            src={active.iam == "male"? woman:man}
+                            src={iam == "male"? woman:man}
                             width="200"
                             className="rounded-full my-6"
                         />

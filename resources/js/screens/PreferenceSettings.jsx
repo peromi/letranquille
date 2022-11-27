@@ -110,12 +110,12 @@ function PreferenceSettings() {
     const [age, setAge] = React.useState([20, 28]);
 
     const loadPreference = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios
             .get("/api/all-preferences", {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -188,44 +188,44 @@ function PreferenceSettings() {
 
     // add preferences temporal
 
-    const addPreferences = () => {
-        const token = ls.get(DB, { decrypt: true });
-        let db = ls.get(USERDB, { decrypt: true });
+    // const addPreferences = () => {
+    //     const token = ls.get(DB, { decrypt: true });
+    //     let db = ls.get(USERDB, { decrypt: true });
 
-        var userid = db.user.user;
+    //     var userid = db.user;
 
-        axios
-            .post(
-                "/api/add-preferences",
-                {
-                    user_id: userid.user_id,
-                },
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            )
-            .then((res) => {
-                console.log(res.data.preference);
+    //     axios
+    //         .post(
+    //             "/api/add-preferences",
+    //             {
+    //                 user_id: userid.id,
+    //             },
+    //             {
+    //                 headers: {
+    //                     Accept: "application/json",
+    //                     Authorization: "Bearer " + db.token,
+    //                 },
+    //             }
+    //         )
+    //         .then((res) => {
+    //             console.log(res.data.preference);
 
-                setPreferences(res.data.preference);
-            });
-    };
+    //             setPreferences(res.data.preference);
+    //         });
+    // };
 
     // Update Preferences
     const updatePreferences = () => {
         setLoading(true);
-        const token = ls.get(DB, { decrypt: true });
+       
 
         let db = ls.get(USERDB, { decrypt: true });
 
-        var userid = db.user.user;
+        var userid = db.user;
 
         axios
             .put(
-                `/api/edit-preferences/${userid.user_id}`,
+                `/api/edit-preferences/${userid.id}`,
                 {
                     seekingfor: seekingfor,
                     education: education,
@@ -266,7 +266,7 @@ function PreferenceSettings() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 }
             )
@@ -274,10 +274,19 @@ function PreferenceSettings() {
                 console.log("Result:" + res.data.preference);
 
                 setPreferences(res.data.preference);
+
+                ls.set(
+                    USERDB,
+                    { user: db.user, token: db.token, profile: db.profile, preference: res.data.preference},
+                    { encrypt: true })
                 setLoading(false);
             })
             .catch((e) => {
-                alert(e);
+
+console.log(e)
+                // alert(e.response.data.message);
+
+                setLoading(false);
             });
     };
 
@@ -286,14 +295,14 @@ function PreferenceSettings() {
 
         if (db !== null) {
             console.log(db);
-            setProfile(db.user.user);
+            setProfile(db.profile);
         }
     }
 
     React.useEffect(() => {
         loadUser();
         loadPreference();
-        addPreferences();
+        
     }, []);
 
     if (loading) {

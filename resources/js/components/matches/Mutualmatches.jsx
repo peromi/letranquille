@@ -40,11 +40,11 @@ function Mutualmatches({action}) {
     const [total, setTotal] = React.useState("");
 
     const loadData = ()=>{
-        const token = ls.get(DB,{decrypt:true})
+        const db = ls.get(USERDB,{decrypt:true})
         axios.get("/api/mutual-matches",{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+token
+                'Authorization':'Bearer '+db.token
             }
         }).then((response)=>{
             console.log(response.data.matches)
@@ -77,13 +77,13 @@ function Mutualmatches({action}) {
     }
 
     const paginate = (url) => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(DB, { decrypt: true });
 
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -105,10 +105,10 @@ function Mutualmatches({action}) {
 
         if (db !== null) {
 
-             setUser(db.user.user)
+             setUser(db.profile)
 
 
-            console.log("MATCHES",db.user.user.iam)
+            console.log("MATCHES",db.profile.iam)
 
         }else{
 

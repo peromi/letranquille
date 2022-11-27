@@ -27,14 +27,15 @@ function MembershipScreen() {
         loadCurrencyValue()
     },[])
   return (
-   <HomeContainer>
-     <h1 className='mt-3 mb-2 font-bold text-3xl text-center'>Choose from our Membership</h1>
+      <HomeContainer>
+       <div className='mt-20' />
+     <h1 className=' mb-2 font-bold text-3xl text-center tracking-tighter mt-6'>Choose from our Membership</h1>
      <div className='w-[45px] h-[4px] rounded-full bg-slate-500 mx-auto' />
-    <h1 className='mt-3 mb-2 font-bold text-3xl text-center'>Silver Package</h1>
+    <h1 className='mt-3 mb-2 font-bold text-3xl text-center tracking-tighter '>Silver Package</h1>
     <div className='pb-4 w-10/12 mx-auto flex flex-col justify-between items-center md:flex-row'>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-slate-200 px-4 p-2 rounded-full  '>Silver</h1>
-            <p className='text-4xl font-bold mt-1 mb-1'>Weekly<br />Subscription</p>
+            <h1 className='bg-slate-200 px-4 p-2 rounded-full tracking-tighter  '>Silver</h1>
+            <p className='text-4xl font-bold mt-1 mb-1 tracking-tighter '>Weekly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
                 <h1 className='text-3xl font-bold'>{(17.50 * rates['USD']).toFixed(2)}</h1>
@@ -54,7 +55,7 @@ function MembershipScreen() {
             </button>
         </div>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-slate-300 px-4 p-2 rounded-full '>Silver</h1>
+            <h1 className='bg-slate-300 px-4 p-2 rounded-full tracking-tighter  '>Silver</h1>
             <p className='text-4xl font-bold mt-1 mb-1'>Monthly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
@@ -75,8 +76,8 @@ function MembershipScreen() {
             </button>
         </div>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-slate-300 px-4 p-2 rounded-full '>Sliver</h1>
-            <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
+            <h1 className='bg-slate-300 px-4 p-2 rounded-full tracking-tighter '>Sliver</h1>
+            <p className='text-4xl font-bold mt-1 mb-1 tracking-tighter '>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
                 <h1 className='text-3xl font-bold'>{(139.99 * rates['USD']).toFixed(2)}</h1>
@@ -97,11 +98,11 @@ function MembershipScreen() {
         </div>
 
     </div>
-    <h1 className='mt-3 mb-2 font-bold text-3xl text-center'>Gold Package</h1>
+    <h1 className='mt-3 mb-2 font-bold text-3xl text-center tracking-tighter '>Gold Package</h1>
     <div className='pb-4 w-10/12 mx-auto flex flex-col justify-between items-center md:flex-row'>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-amber-300 px-4 p-2 rounded-full'>Gold</h1>
-            <p className='text-4xl font-bold mt-1 mb-1'>Weekly<br />Subscription</p>
+            <h1 className='bg-amber-300 px-4 p-2 rounded-full tracking-tighter '>Gold</h1>
+            <p className='text-4xl font-bold mt-1 mb-1 tracking-tighter '>Weekly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
                 <h1 className='text-3xl font-bold'>{(20.00 * rates['USD']).toFixed(2)}</h1>
@@ -121,8 +122,8 @@ function MembershipScreen() {
             </button>
         </div>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-amber-300 px-4 p-2 rounded-full  '>Gold</h1>
-            <p className='text-4xl font-bold mt-1 mb-1'>Monthly<br />Subscription</p>
+            <h1 className='bg-amber-300 px-4 p-2 rounded-full tracking-tighter  '>Gold</h1>
+            <p className='text-4xl font-bold mt-1 mb-1 tracking-tighter '>Monthly<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
                 <h1 className='text-3xl font-bold'>{(39.99 * rates['USD']).toFixed(2)}</h1>
@@ -142,8 +143,8 @@ function MembershipScreen() {
             </button>
         </div>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-amber-300 px-4 p-2 rounded-full '>Gold</h1>
-            <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
+            <h1 className='bg-amber-300 px-4 p-2 rounded-full tracking-tighter  '>Gold</h1>
+            <p className='text-4xl font-bold mt-1 mb-1 tracking-tighter '>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
                 <h1 className='text-3xl font-bold'>{(149.99* rates['USD']).toFixed(2)}</h1>
@@ -164,10 +165,10 @@ function MembershipScreen() {
         </div>
 
     </div>
-    <h1 className='mt-3 mb-2 font-bold text-3xl text-center'>Platinum Package</h1>
+    <h1 className='mt-3 mb-2 font-bold text-3xl text-center tracking-tighter '>Platinum Package</h1>
     <div className='pb-4 w-10/12 mx-auto flex flex-col justify-between items-center md:flex-row'>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-purple-800 px-4 p-2 rounded-full text-white'>Platinum</h1>
+            <h1 className='bg-purple-800 px-4 p-2 rounded-full text-white tracking-tighter '>Platinum</h1>
             <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
@@ -188,8 +189,8 @@ function MembershipScreen() {
             </button>
         </div>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-purple-800 px-4 p-2 rounded-full text-white'>Platinum</h1>
-            <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
+            <h1 className='bg-purple-800 px-4 p-2 rounded-full text-white tracking-tighter '>Platinum</h1>
+            <p className='text-4xl font-bold mt-1 mb-1 tracking-tighter '>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
                 <h1 className='text-3xl font-bold'>{(79.98 * rates['USD']).toFixed(2)}</h1>
@@ -209,8 +210,8 @@ function MembershipScreen() {
             </button>
         </div>
         <div className='flex flex-col justify-center items-center py-2 font-bold bg-white px-4 ring-1 ring-slate-900/5'>
-            <h1 className='bg-purple-800 px-4 p-2 rounded-full text-white'>Platinum</h1>
-            <p className='text-4xl font-bold mt-1 mb-1'>Annual<br />Subscription</p>
+            <h1 className='bg-purple-800 px-4 p-2 rounded-full text-white tracking-tighter '>Platinum</h1>
+            <p className='text-4xl font-bold mt-1 mb-1 tracking-tighter '>Annual<br />Subscription</p>
             <div className='flex my-4'>
                 <span>$</span>
                 <h1 className='text-3xl font-bold'>{(159.99  * rates['USD']).toFixed(2)}</h1>

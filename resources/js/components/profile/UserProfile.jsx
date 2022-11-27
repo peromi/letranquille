@@ -18,6 +18,8 @@ const USERDB = "dao";
 function UserProfile({ profile, liked, reload }) {
     const { likeprofile } = React.useContext(SocketContext);
     const navigate = useNavigate();
+
+    const {preferences} = profile
     let check_liked = liked.find((user) => user.profile_id === profile.id);
 
     const [nation, setNation] = React.useState('');
@@ -30,14 +32,14 @@ function UserProfile({ profile, liked, reload }) {
             likeprofile({
                 to: profile.id,
                 message: "liked your profile",
-                name: db.user.user.name,
+                name: db.profile.name,
             });
         } else {
         }
     };
 
     const handleLiked = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios.post("/api/likes",
                 {
                     profile: profile.id,
@@ -45,7 +47,7 @@ function UserProfile({ profile, liked, reload }) {
                 {
                     headers: {
                         'Accept': "application/json",
-                        'Authorization': "Bearer " + token,
+                        'Authorization': "Bearer " + db.token,
                     },
                 }
             )
@@ -59,11 +61,11 @@ function UserProfile({ profile, liked, reload }) {
     };
 
     const handleUnlike = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios.delete("/api/likes-delete/" + check_liked.id, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -110,7 +112,7 @@ function UserProfile({ profile, liked, reload }) {
             <div className="flex flex-col p-2">
                 <div className="bg-white relative overflow-hidden rounded-xl">
 
-                    <div className="w-full h-[200px]" style={{backgroundImage:`url('/storage/avatar/${profile.first_cover}')`, backgroundSize:'cover', backgroundPosition:'top'}}>
+                    <div className="w-full h-[200px]" style={{backgroundImage:`url('/storage/avatar/${profile.first_photo}')`, backgroundSize:'cover', backgroundPosition:'top'}}>
 
                     </div>
 
@@ -127,9 +129,8 @@ function UserProfile({ profile, liked, reload }) {
                         </h2>
                         <div className="text-white flex items-center font-bold gap-x-3 ">
                             <i class="fi fi-sr-marker ml-2"></i>
-                            <h4 className="text-sm">
-                                {profile.city},{" "}
-                                {nation}
+                            <h4 className="text-xs">
+                                {profile.live_in}
                             </h4>
                             {/* <p className="text-sm">5 miles away</p> */}
                         </div>
@@ -140,8 +141,8 @@ function UserProfile({ profile, liked, reload }) {
     className="flex justify-between items-center"
                 >
                     <p className="font-bold text-[15px] capitalize">
-                        Seeking: {profile.lookingfor} {profile.age_min} -{" "}
-                        {profile.age_max}
+                        Seeking: {profile.lookingfor} {preferences.age_min} -{" "}
+                        {preferences.age_max}
                     </p>
                     <i
                         class="fa-solid fa-circle"
@@ -179,8 +180,8 @@ function UserProfile({ profile, liked, reload }) {
                                 }}
                             >
                                 <i
-                                    class="fi fi-sr-heart"
-                                    style={{ ...styles.icon, color: "red" }}
+                                    class="fi fi-sr-heart text-md text-red-600"
+                            
                                 ></i>
                             </button>
                         ) : (
@@ -197,22 +198,22 @@ function UserProfile({ profile, liked, reload }) {
                                 }}
                             >
                                 <i
-                                    class="fi fi-rr-heart"
-                                    style={styles.icon}
+                                    class="fi fi-rr-heart text-md"
+                          
                                 ></i>
                             </button>
                         )}
                         <Link to={`/messages-single/${profile.user_id}`}>
                             <i
-                                class="fi fi-rr-paper-plane"
-                                style={styles.icon}
+                                class="fi fi-rr-paper-plane text-md"
+                           
                             ></i>
                         </Link>
                     </div>
-                    <div className="flex items-center px-3 rounded-full ring-1 ring-slate-900/5 gap-x-2 bg-zinc-100 hover:bg-red-600 hover:text-white p-2">
+                    <div className="flex items-center px-3 ml-8 rounded-full ring-1 ring-slate-900/5 gap-x-2 bg-zinc-100 hover:bg-red-600 hover:text-white p-2">
                         <p>{profile.gallery.length}</p>
                         <Divider orientation="vertical" />
-                        <Link to={`/profile/${profile.user_id}`}>View Profile</Link>
+                        <Link to={`/profile/${profile.user_id}`} className=""><small>View Profile</small></Link>
                     </div>
                 </div>
             </div>

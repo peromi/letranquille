@@ -16,16 +16,9 @@ function Welcome() {
     const [showmenu, setShowmenu] = React.useState(false);
     let year = new Date().getFullYear();
 
-    const loadExistUser = () => {
-        const step = JSON.parse(localStorage.getItem(REG_STEPS));
-
-        if (step !== null) {
-            navigate("/onboarding", { replace: true });
-        }
-    };
-
+    
     React.useEffect(() => {
-        loadExistUser();
+ 
     }, []);
     return (
         <div>
@@ -104,7 +97,7 @@ function Welcome() {
                         <div class="text-white flex pt-20 flex-col ">
                             <div className="flex flex-col">
                                 <h1
-                                    className=" md:text-7xl text-4xl font-['Mona-Bold']"
+                                    className="md:text-6xl lg:text-5xl text-4xl font-['Inter-black'] tracking-tighter"
                                     style={{}}
                                 >
                                     Make the First move and find the love of
@@ -174,8 +167,8 @@ function Welcome() {
             <div class="pt-5 pb-5">
                 <div class="w-11/12 mx-auto md:grid md:grid-cols-2 flex flex-col-reverse items-center gap-4">
                     <div className="flex flex-col">
-                        <h1 className="text-4xl font-bold font-['FredokaOne']">
-                            Find your <span className="text-red-600 font-['FredokaOne'] font-bold">Match</span> Near you
+                        <h1 className="text-4xl font-bold font-['Inter-black'] tracking-tighter">
+                            Find your <span className="text-red-600 font-['Inter-black'] font-bold">Match</span> Near you
                         </h1>
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
@@ -212,8 +205,8 @@ function Welcome() {
                         <img src={chat} className="md:w-[400px]" />
                     </div>
                     <div className="flex flex-col">
-                        <h1 className="text-4xl font-bold text-right font-['FredokaOne']">
-                            <span className="text-red-600 font-['FredokaOne'] font-bold">Chat</span> with Matches
+                        <h1 className="text-4xl font-bold text-right font-['Inter-black'] tracking-tighter">
+                            <span className="text-red-600 font-['Inter-black'] font-bold">Chat</span> with Matches
                         </h1>
                         <p className="text-justify">
                             Lorem ipsum dolor sit amet consectetur adipisicing
@@ -237,8 +230,8 @@ function Welcome() {
                 style={{ overflowX: "hidden" }}
             >
                 <div class="flex flex-col justify-center  ml-[24px]">
-                    <h1 className="text-4xl font-bold w-3/4 font-['FredokaOne']">
-                        <span className="text-red-600 font-['FredokaOne'] font-bold">Discover</span> the best
+                    <h1 className="text-4xl font-bold w-3/4 font-['Inter-black'] tracking-tighter">
+                        <span className="text-red-600 font-['Inter-black'] font-bold">Discover</span> the best
                         Match According to your Passion and Hobbies
                     </h1>
                     <p>

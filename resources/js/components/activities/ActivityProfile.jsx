@@ -7,7 +7,7 @@ import ls from 'localstorage-slim'
 import axios from "axios";
 
 
-const DB = "user-m9j234u94"
+const USERDB = "dao"
 function ActivityProfile({profile}) {
     const [showgallery, setShowgallery] = React.useState(false)
     const [index, setIndex] = React.useState(0)
@@ -15,11 +15,11 @@ function ActivityProfile({profile}) {
 
     const loadGallery = () =>{
 
-        const token  = ls.get(DB, {decrypt:true})
+        const db = ls.get(USERDB, { decrypt: true });
         axios.get('/api/user-gallery/'+profile.id,{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+token
+                'Authorization':'Bearer '+db.token
             }
         }).then((response)=>{
             setGallery(response.data.gallery)

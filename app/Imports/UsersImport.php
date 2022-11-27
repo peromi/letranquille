@@ -12,6 +12,7 @@ use App\Models\PreferenceDesiredRelationship;
 use App\Models\PreferenceDrink;
 use App\Models\PreferenceFood;
 use App\Models\PreferenceReligion;
+use App\Models\Preferences;
 use App\Models\PreferenceSmoke;
 use App\Models\Profession;
 use App\Models\Profile;
@@ -56,6 +57,7 @@ class UsersImport implements ToModel, WithHeadingRow
             $profile->user_id = $user->id;
 
             $profile->iam =   strtolower($row['gender']);
+            $profile->gender = strtolower($row['gender']);
             if ($row['gender'] == 'Female') {
                 $profile->lookingfor = "male";
             } else {
@@ -79,68 +81,69 @@ class UsersImport implements ToModel, WithHeadingRow
 
             $profile->show_bodytype = "false";
             if ($row['gender'] == 'Female') {
-                $profile->height = 6;
+                $profile->height = "6' (165cm)";
             } else {
-                $profile->height = 7;
+                $profile->height = "7' (205cm)";
             }
 
             $profile->show_height = "false";
-
-            $profile->life_style_food  = $food[$food_rand];
+ 
             $profile->life_style_smoke  = $smoke[$smoke_rand];
             $profile->life_style_drink  = $drink[$drink_rand];
             $profile->life_style_relationship  = $relationship[$relationship_rand];
 
-            $profile->save();
+            $profile->first_photo = $row['id'] . "_1.jpg";
+            $profile->second_photo = $row['id'] . "_2.jpg";
+
+           
 
 
 
 
             //    Religion
-            $religion = new Religion();
-            $religion->user_id = $user->id;
-            $religion->religion_name = "christian";
-            $religion->save();
+            // $religion = new Religion();
+            // $religion->user_id = $user->id;
+            // $religion->religion_name = "christian";
+            // $religion->save();
 
 
-            // profession
-            $profession = new Profession();
-            $profession->user_id = $user->id;
-            $profession->job =  "artisan";
+            // // profession
+            // $profession = new Profession();
+            // $profession->user_id = $user->id;
+            // $profession->job =  "artisan";
 
 
-            $profession->save();
+            // $profession->save();
 
-            $sex = ['straight'];
-            // SexualOrientation
-            $sexualOrientation = new SexualOrientation();
-            $sexualOrientation->user_id = $user->id;
-            $sexualOrientation->sex_type = "straight";
-            $sexualOrientation->show = "false";
+            // $sex = ['straight'];
+            // // SexualOrientation
+            // $sexualOrientation = new SexualOrientation();
+            // $sexualOrientation->user_id = $user->id;
+            // $sexualOrientation->sex_type = "straight";
+            // $sexualOrientation->show = "false";
 
-            $sexualOrientation->save();
+            // $sexualOrientation->save();
 
-            // hobbies and interest
+            // // hobbies and interest
 
-            $hobbies = ['cooking', 'netflix', 'gym', 'football', 'music'];
+            // $hobbies = ['cooking', 'netflix', 'gym', 'football', 'music'];
 
 
-            for ($i = 0; $i < 5; $i++) {
-                $hobby = new Hobby();
-                $hobby->user_id = $user->id;
-                $hobby->hobby = $hobbies[$i];
-                $hobby->save();
-            }
+            // for ($i = 0; $i < 5; $i++) {
+            //     $hobby = new Hobby();
+            //     $hobby->user_id = $user->id;
+            //     $hobby->hobby = $hobbies[$i];
+            //     $hobby->save();
+            // }
 
 
             // avatar
-            $avatar = new Avatar();
+            // $avatar = new Avatar();
 
-            $avatar->user_id = $user->id;
-            $avatar->first_cover = $row['id'] . "_1.jpg";
-            $avatar->second_cover = $row['id'] . "_2.jpg";
+            // $avatar->user_id = $user->id;
+           
 
-            $avatar->save();
+            // $avatar->save();
 
             // Gallery
 
@@ -156,33 +159,30 @@ class UsersImport implements ToModel, WithHeadingRow
 
 
 
-
-            $location = new Location();
-            $location->user_id = $user->id;
-
-
-            $location->country = $row['country'];
+ 
+            $country = $row['country'];
 
             if (trim($row['state']) == null) {
-                $location->state = "any";
+                $state = "any";
             } else {
-                $location->state = $row['state'];
+                $state = $row['state'];
             }
 
 
             if (trim($row['city']) == null) {
-                $location->city = "any";
+                $city = "any";
             } else {
-                $location->city = trim($row['city']);
+                $city = trim($row['city']);
             }
 
-            $location->latitude = 0.000001;
-            $location->longitude = 0.000001;
-            $location->currency = "USD";
-            $location->currency_symbol = "$";
-            $location->save();
+            $profile->live_in = $country.",".$state.",".$city;
 
+            $profile->love_quote = "Love is the greatest";
+            $profile->member_quote = "Love and respect";
+            $profile->seeking_quote = "Romance and love life"; 
+            $profile->dating_for = "Romance and Love";
 
+            $profile->save();
 
 
 
@@ -197,46 +197,28 @@ class UsersImport implements ToModel, WithHeadingRow
             $ran1 = rand(0, 5);
             $ran2 = rand(0, 7);
 
-            $age_pref = new PreferenceAge();
-            $age_pref->user_id = $user->id;
-            $age_pref->age_min = $agepick;
-            $age_pref->age_max = $agepickmax;
 
-            $age_pref->save();
-
-
-            $religionPref = new PreferenceReligion();
-            $religionPref->user_id = $user->id;
-            $religionPref->religion_type = "any";
-            $religionPref->save();
+            $preferences = new Preferences();
+      
+            $preferences->user_id = $user->id;
+            $preferences->age_min = $agepick;
+            $preferences->age_max = $agepickmax;
 
 
-            $pref_drink = new PreferenceDrink();
-            $pref_drink->user_id = $user->id;
-            $pref_drink->drink_type = "doesn't matter";
-            $pref_drink->save();
+            if ($row['gender'] == 'Female') {
+                $preferences->seekingfor = "male";
+            } else {
+                $preferences->seekingfor = "female";
+            }
+         
+
+            
+         
+
+            $preferences->save();
 
 
-            $pref_food = new PreferenceFood();
-            $pref_food->user_id = $user->id;
-            $pref_food->food_type = "non vegetarian";
-            $pref_food->save();
-
-
-            $pref_smoke = new PreferenceSmoke();
-            $pref_smoke->user_id = $user->id;
-            $pref_smoke->smoke_type = "doesn't matter";
-            $pref_smoke->save();
-
-            $pref_body = new PreferenceBodytype();
-            $pref_body->user_id = $user->id;
-            $pref_body->body_type = "doesn't matter";
-            $pref_body->save();
-
-            $pref_desired_relationship = new PreferenceDesiredRelationship();
-            $pref_desired_relationship->user_id = $user->id;
-            $pref_desired_relationship->relationship_type = "long term";
-            $pref_desired_relationship->save();
+            
 
 
 

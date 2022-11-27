@@ -69,13 +69,13 @@ function ShowAll() {
 
        const loadData = ()=>{
         setIsLoading(true)
-        const token = ls.get(DB, {decrypt:true})
+        const db = ls.get(USERDB, {decrypt:true})
 
         axios.get('/api/get-all-users',{
 
                 headers:{
                     'Accept':'application/json',
-                    'Authorization':'Bearer '+token
+                    'Authorization':'Bearer '+db.token
                 }
 
         }).then((response)=>{
@@ -90,18 +90,14 @@ function ShowAll() {
             setPreferences(response.data.preference);
 
             let pref = response.data.preference
-           if(pref !== null){
+          
             setSeeking(pref.seekingfor)
             setAgeMin(pref.age_min)
             setAgeMax(pref.age_max)
             setLiveInCountry(pref.live_in.split(',')[0])
             setLiveInState(pref.live_in.split(',')[1])
             setLiveInCity(pref.live_in.split(',')[2])
-           }else{
-            navigate("/profile-update",{replace: false})
-           }
-            // setActive(response.data.user)
-            // setUser(response.data.user)
+      
 
             setIsLoading(false)
         }).catch((e)=>{
@@ -113,13 +109,13 @@ function ShowAll() {
 
 
     const paginate = (url) => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(DB, { decrypt: true });
 
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -140,11 +136,11 @@ React.useEffect(()=>{
        }
        let db = ls.get(USERDB, {decrypt:true})
        if(db == null){
-           console.log(db.user)
+           
            navigate('/', {replace:true})
        }else{
-           console.log("db.user")
-           setUser(db.user.user)
+           console.log("db ")
+           setUser(db.profile)
        }
 
        if(explores.length > 0){
@@ -243,8 +239,8 @@ if(isLoading){
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
-                                        ? " text-slate-300 font-bold mx-2"
-                                        : "font-bold mx-2"
+                                        ? " text-slate-300 font-bold mx-2 sm:text-sm"
+                                        : "font-bold mx-2 sm:text-sm"
                                     }
                                 >
                                     Previous
@@ -254,8 +250,8 @@ if(isLoading){
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
-                                        ? "text-xl text-slate-300 font-bold mx-2"
-                                        : "font-bold mx-2"
+                                        ? "text-xl text-slate-300 font-bold mx-2 sm:text-sm"
+                                        : "font-bold mx-2 sm:text-sm"
                                     }
                                 >
                                     Next
@@ -265,8 +261,8 @@ if(isLoading){
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.active
-                                            ? "text-xl text-red-600 font-bold mx-2"
-                                            : "font-bold mx-2"
+                                            ? "text-xl text-red-600 font-bold mx-2 sm:text-sm"
+                                            : "font-bold mx-2 sm:text-sm"
                                     }
                                 >
                                     {link.label}
@@ -275,7 +271,7 @@ if(isLoading){
 
                         })}
                     </div>
-                    <div className="flex flex-row justify-end items-center font-bold">
+                    <div className="md:flex flex-row justify-end items-center font-bold hidden">
                         <p>from:{" "}{frompage}</p>
                         <p className="mx-2">-</p>
                         <p>{topage}</p>
@@ -284,7 +280,7 @@ if(isLoading){
                 </div>}
 
 
-{explores.length > 0 ? <div className="grid grid-cols-5 gap-4 pt-2">
+{explores.length > 0 ? <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
 
     {explores.map((profile, index) => (
         <UserProfile

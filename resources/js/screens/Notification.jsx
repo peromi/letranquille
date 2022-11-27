@@ -10,11 +10,11 @@ function Notification() {
     const [data, setData] = React.useState([])
 
     const loadData = () => {
-        let token = ls.get(DB, {decrypt:true})
+        const db = ls.get(USERDB, { decrypt: true });
         axios.get("/api/notifications", {
             headers: {
                 Accept:'application/json',
-                Authorization: 'Bearer ' + token
+                Authorization: 'Bearer ' + db.token
             }
         }).then((response)=>{
             console.log("NOTIFY",response.data)

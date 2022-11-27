@@ -13,7 +13,7 @@ import ls from 'localstorage-slim'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 const DATABASE_KEY = 'user-m9j234u94'
-
+const USERDB = 'dao'
 function Coins() {
     const [balance, setBalance] = React.useState(0);
     const [process, setProcess] = React.useState(0);
@@ -35,11 +35,11 @@ function Coins() {
     const [coupon, setCoupon] = React.useState("");
 
     const loadData = () =>{
-        const token = ls.get(DATABASE_KEY, {decrypt:true})
+        const db = ls.get(USERDB, { decrypt: true });
         axios.get("/api/membership", {
             headers: {
                 Accept:'application/json',
-                Authorization: 'Bearer ' + token
+                Authorization: 'Bearer ' + db.token
             }
         }).then((response) =>{
 
@@ -59,7 +59,7 @@ function Coins() {
         })
     }
     const _loadCredit = ()=>{
-        const token = ls.get(DATABASE_KEY, {decrypt:true})
+        const db = ls.get(USERDB, { decrypt: true });
         axios.post("/api/buy-coins", {
             address:address,
             country:country,
@@ -72,7 +72,7 @@ function Coins() {
           }, {
               headers: {
                   Accept:'application/json',
-                  Authorization: 'Bearer ' + token
+                  Authorization: 'Bearer ' + db.token
               }
           }).then((response)=>{
               console.log(response.data)

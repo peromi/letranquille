@@ -10,7 +10,7 @@ import { UserContextProvider } from '../context/Usercontext';
 function AuthContainer(props) {
   return (
     <UserContextProvider>
-        <div className='bg-primary bg-image' style={{ position:'relative', overflow:'hidden', width:'100%',  }}>
+        <div className='bg-red-800 bg-image' style={{ position:'relative', overflow:'hidden', width:'100%',  }}>
         {/* <img src={back} style={{ position:'fixed', zIndex:'1', top:0, bottom:0, right:0, left:0 }} /> */}
       <div className="flex justify-center  items-center vw-100 vh-100" style={{ zIndex:23 }}>
                 <div className="p-4" style={{ }}>

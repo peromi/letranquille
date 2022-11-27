@@ -29,10 +29,10 @@ function Preferences() {
 
 
     React.useEffect(()=>{
-        const data = ls.get(DATABASE_KEY, {decrypt:true});
+        const db = ls.get(USERDB, { decrypt: true });
         console.log(data);
 
-        if (data !== null) {
+        if (db !== null) {
             // navigate('/login', {replace:true})
         } else {
         }

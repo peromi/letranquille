@@ -4,13 +4,14 @@ import MainContainer from "../../containers/MainContainer";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { SocketContext } from "../../context/SocketContext";
 import ls from "localstorage-slim";
- 
+
 import "animate.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import cities from "../../assets/json/cities.json";
 import country from "../../assets/json/country.json";
 import states from "../../assets/json/states.json";
+import LoadingPage from "../loaders/LoadingPage";
 
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
@@ -18,7 +19,7 @@ const USERDB = "dao";
 const ProfileUpdate = () => {
     const navigate = useNavigate();
     const params = useParams();
-
+    const [loading, setLoading] = useState(false);
     const [preferences, setPreferences] = useState({});
 
     // avatar and gallery
@@ -159,65 +160,26 @@ const ProfileUpdate = () => {
 
     const [query, setQuery] = React.useState("");
 
-    const handleLocation = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
+    
+    
+   
 
-        if (token == null) {
-            return;
-        }
-
-        axios
-            .post(
-                "/api/location",
-                {
-                    address: query,
-                    latitude: location.lat,
-                    longitude: location.lon,
-                    min: distance[0],
-                    max: distance[1],
-                    allow_any_distance: allowProfile,
-                },
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            )
-            .then((response) => {
-                console.log(response.data);
-                setSteps("profile-completed");
-                setStepNumber(12);
-
-                ls.set(REG_STEPS, { step: 12, title: "profile-completed" }, {});
-                toast.success(response.data.message);
-            })
-            .catch((error) => {
-                toast.error(error.response.data.message);
-            });
-    };
-
-    const handleChange = (e) => {
-        setValue(e.target.value);
-        // setAnyReligion(false);
-    };
-
-    const handleHeight = (event, newValue) => {
-        setHeight(newValue);
-    };
-
-    const loadProfile = React.useCallback(() => {
+    const loadProfile = () => {
         let db = ls.get(USERDB, { decrypt: true });
 
         if (db !== null) {
-            console.log("DATA", db.user.user);
+           
 
-            if (params !== null) {
-                profileview({ to: params.id, name: db.user.user.name });
-            }
+            console.log(db)
+            
+
+            console.log("DATA PROFILE ONLY", db.profile);
+            // if (params.id !== undefined) {
+            //     profileview({ to: params.id, name: profileOnly.name });
+            // }
         } else {
         }
-    }, []);
+    } ;
 
     const handleProfileView = () => {
         const token = ls.get(DATABASE_KEY, { decrypt: true });
@@ -244,25 +206,25 @@ const ProfileUpdate = () => {
 
     const loadUserProfile = () => {
         if (params.id === undefined) {
-            const token = ls.get(DATABASE_KEY, { decrypt: true });
+            const db = ls.get(USERDB, { decrypt: true });
             axios
                 .get("/api/user-profile", {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 })
                 .then((response) => {
                     console.log(response.data);
-                    let data = response.data.user;
+                    let data = response.data;
 
                     // setUser(data.user);
-                    setNewavatar(data.avatar);
+                    // setNewavatar(data.avatar);
                     setProfile(data.profile);
-                    setPreferences(response.data.preferences);
+                    setPreferences(data.preference);
                     // setReligion(data.religion);
                     // setLocation(data.location);
-                    setGallery(data.gallery);
+                    setGallery(data.user.gallery);
                     let prof = data.profile;
                     setIam(prof.iam);
                     setLookingfor(prof.lookingfor);
@@ -319,22 +281,23 @@ const ProfileUpdate = () => {
                     }
                 });
         } else {
-            const token = ls.get(DATABASE_KEY, { decrypt: true });
+      
+            const db = ls.get(USERDB, { decrypt: true });
             axios
                 .get("/api/user-profile/" + params.id, {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 })
                 .then((response) => {
-                    let data = response.data.user;
+                    let data = response.data;
 
-                    console.log(response.data.user);
+                    console.log(data.user);
                     // setUser(data.user);
                     setNewavatar(data.avatar);
                     setProfile(data.profile);
-                    setPreferences(response.data.preferences);
+                    setPreferences(data.preference);
 
                     let prof = data.profile;
                     setIam(prof.iam);
@@ -407,6 +370,8 @@ const ProfileUpdate = () => {
                     // setReligions(data.preference_religion);
 
                     handleProfileView();
+                }).catch((e)=>{
+                    alert(e)
                 });
         }
     };
@@ -474,9 +439,11 @@ const ProfileUpdate = () => {
     }
 
     const updateImageAvatarAndGallery = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
 
+        setLoading(true)
 
+        
         let formData = new FormData();
         formData.append("avatar", avatar);
         formData.append("avatar2", avatar2);
@@ -484,66 +451,81 @@ const ProfileUpdate = () => {
         formData.append("gallery2", gallery2);
         formData.append("gallery3", gallery3);
 
-formData.append("iam", gender)
-formData.append("lookingfor", lookingfor)
-formData.append("name", name)
-formData.append("birthday", birthday)
-formData.append("age", age)
-formData.append("bodytype", bodyStyle)
-formData.append("height", height)
-formData.append("life_style_smoke", smoke)
-formData.append("life_style_drink", drink)
-formData.append("education", education)
-formData.append("have_children", haveChildren)
-formData.append("love_quote", loveQuote)
-formData.append("member_quote", memberQuote)
-formData.append("seeking_quote", seekingQuote)
-formData.append("gender", gender)
-formData.append("dating_for", datingFor)
-formData.append("live_in",liveInCountry + "," + liveInState + "," + liveInCity)
-formData.append("relocate", relocate)
-formData.append("hair_color", hairColor)
-formData.append("eye_color", eyeColor)
-formData.append("weight", weight)
-formData.append("ethnicity", ethnicity)
-formData.append("body_art", bodyArt)
-formData.append("appearance", appearance)
-formData.append("marital_status", maritalStatus)
-formData.append("number_of_children", numberOfChildren)
-formData.append("oldest_child", oldestChild)
-formData.append("youngest_child", youngest)
-formData.append("want_more_children", wantMoreChildren)
-formData.append("have_pets", havePets)
-formData.append("occupation", occupation)
-formData.append("employment_status", employmentStatus)
-formData.append("annual_income", annualIncome)
-formData.append("living_situation", livingSituation)
-formData.append("nationality", nationality)
-formData.append("languages_spoken", languagesSpoken)
-formData.append("english_ability", englishAbility)
-formData.append("french_ability", frenchAbility)
-formData.append("religious_values", religiousValue)
-formData.append("polygamy", polygamy)
-formData.append("star_sign", starSign)
-formData.append("favorite_movie", favoriteMovie)
-formData.append("favorite_music", favoriteMusic)
-formData.append("dress_style", dressStyle)
-formData.append("humor", humor)
-formData.append("religion", religion)
-formData.append("hobbies_interest", hobbiesAndInterest)
-formData.append("personality", personality)
-
+        formData.append("iam", gender);
+        formData.append("lookingfor", lookingfor);
+        formData.append("name", name);
+        formData.append("birthday", birthday);
+        formData.append("age", age);
+        formData.append("bodytype", bodyStyle);
+        formData.append("height", height);
+        formData.append("life_style_smoke", smoke);
+        formData.append("life_style_drink", drink);
+        formData.append("education", education);
+        formData.append("have_children", haveChildren);
+        formData.append("love_quote", loveQuote);
+        formData.append("member_quote", memberQuote);
+        formData.append("seeking_quote", seekingQuote);
+        formData.append("gender", gender);
+        formData.append("dating_for", datingFor);
+        formData.append(
+            "live_in",
+            liveInCountry + "," + liveInState + "," + liveInCity
+        );
+        formData.append("relocate", relocate);
+        formData.append("hair_color", hairColor);
+        formData.append("eye_color", eyeColor);
+        formData.append("weight", weight);
+        formData.append("ethnicity", ethnicity);
+        formData.append("body_art", bodyArt);
+        formData.append("appearance", appearance);
+        formData.append("marital_status", maritalStatus);
+        formData.append("number_of_children", numberOfChildren);
+        formData.append("oldest_child", oldestChild);
+        formData.append("youngest_child", youngest);
+        formData.append("want_more_children", wantMoreChildren);
+        formData.append("have_pets", havePets);
+        formData.append("occupation", occupation);
+        formData.append("employment_status", employmentStatus);
+        formData.append("annual_income", annualIncome);
+        formData.append("living_situation", livingSituation);
+        formData.append("nationality", nationality);
+        formData.append("languages_spoken", languagesSpoken);
+        formData.append("english_ability", englishAbility);
+        formData.append("french_ability", frenchAbility);
+        formData.append("religious_values", religiousValue);
+        formData.append("polygamy", polygamy);
+        formData.append("star_sign", starSign);
+        formData.append("favorite_movie", favoriteMovie);
+        formData.append("favorite_music", favoriteMusic);
+        formData.append("dress_style", dressStyle);
+        formData.append("humor", humor);
+        formData.append("religion", religion);
+        formData.append("hobbies_interest", hobbiesAndInterest);
+        formData.append("personality", personality);
 
         axios
-        .post("/api/user-avatar-update", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                Accept: "application/json",
-                Authorization: "Bearer " + token,
-            },
-        }).then((response)=>{
-            console.log(response.data);
-        })
+            .post("/api/user-avatar-update", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Accept: "application/json",
+                    Authorization: "Bearer " + db.token,
+                },
+            })
+            .then((response) => {
+                console.log(response.data);
+
+               
+
+                ls.set(
+                    USERDB,
+                    { user: db.user, token: db.token, profile: response.data.profile, preference: db.preference},
+                    { encrypt: true })
+
+
+                    setLoading(false)
+            }).catch((e)=>{
+                setLoading(false)
+            });
     };
 
     const updateProfile = () => {
@@ -682,6 +664,17 @@ formData.append("personality", personality)
         loadUserProfile();
     }, []);
 
+    let profileImage = document.getElementById("avatar");
+    let profileImage2 = document.getElementById("avatar2");
+
+    let galleryImage = document.getElementById("gallery");
+    let galleryImage2 = document.getElementById("gallery2");
+    let galleryImage3 = document.getElementById("gallery3");
+
+
+    if (loading) {
+        return <LoadingPage />;
+    }
     return (
         <MainContainer>
             <div className="px-40 pt-12 bg-white pb-32 border-t-[1px] font-bold">
@@ -738,7 +731,7 @@ formData.append("personality", personality)
                                 className="w-full h-[40px]"
                                 value={lookingfor}
                                 onChange={(e) => setLookingfor(e.target.value)}
-                                title="What gender do you seek?" 
+                                title="What gender do you seek?"
                             >
                                 <option value="">Seeking</option>
                                 <option>male</option>
@@ -768,7 +761,9 @@ formData.append("personality", personality)
                             className="my-2 ring-1 ring-slate-900/7 h-[40px]"
                         />
 
-                        <p>Profile Pictures (first & second)</p>
+                        <p className="mt-4">
+                            Profile Pictures (first & second)
+                        </p>
                         <input
                             type="file"
                             placeholder=""
@@ -777,27 +772,76 @@ formData.append("personality", personality)
                                     setAvatar(e.target.files[0]);
                                 }
                             }}
-                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                            id="avatar"
+                            className="hidden"
+                            accept="image/*"
                         />
                         <input
                             type="file"
                             onChange={(e) => {
                                 if (e.target.files && e.target.files[0]) {
                                     setAvatar2(e.target.files[0]);
-
-                                    alert(e.target.files[0]);
                                 }
                             }}
-                            placeholder=""
-                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                            id="avatar2"
+                            className="hidden"
+                            accept="image/*"
                         />
 
                         {/* divider */}
-                        <div className="border-t-[1px] border-slate-200 h-[1px] mt-1" />
 
                         {/* table overview */}
 
-                        <p>
+                        <div className="flex flex-row ring-1 ring-slate-900/5 p-2  bg-zinc-50 items-center">
+                            {avatar !== "" && (
+                                <img
+                                    src={URL.createObjectURL(avatar)}
+                                     
+                                    width={120}
+                                />
+                            )}
+                            <p className="flex-1">
+                                {avatar === ""
+                                    ? "Select image for your profile"
+                                    : avatar.name}
+                            </p>
+
+                            <button
+                                className="p-2 bg-slate-400 rounded-full px-12"
+                                onClick={() => {
+                                    profileImage.click();
+                                }}
+                            >
+                                Browse
+                            </button>
+                        </div>
+
+                        <p className="my-4">Second Profile Picture</p>
+                        <div className="flex flex-row ring-1 ring-slate-900/5 p-2  bg-zinc-50 items-center">
+                            {avatar2 !== "" &&  
+                                <img
+                                    src={URL.createObjectURL(avatar2)}
+                                    
+                                    width={120}
+                                />
+                           }
+                            <p className="flex-1">
+                                {avatar2 === ""
+                                    ? "Select image for your profile"
+                                    : avatar2.name}
+                            </p>
+
+                            <button
+                                className="p-2 bg-slate-400 rounded-full px-12"
+                                onClick={() => {
+                                    profileImage2.click();
+                                }}
+                            >
+                                Browse
+                            </button>
+                        </div>
+
+                        <p className="mt-4">
                             Upload image to add to gallery (upload upto 3 or
                             more)
                         </p>
@@ -808,8 +852,10 @@ formData.append("personality", personality)
                                     setGallery(e.target.files[0]);
                                 }
                             }}
-                            placeholder=""
-                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                            
+                            id="gallery"
+                            className="hidden"
+                            accept="image/*"
                         />
                         <input
                             type="file"
@@ -818,8 +864,9 @@ formData.append("personality", personality)
                                     setGallery2(e.target.files[0]);
                                 }
                             }}
-                            placeholder=""
-                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                            id="gallery2"
+                            className="hidden"
+                            accept="image/*"
                         />
                         <input
                             type="file"
@@ -828,9 +875,55 @@ formData.append("personality", personality)
                                     setGallery3(e.target.files[0]);
                                 }
                             }}
-                            placeholder=""
-                            className="my-2 ring-1 ring-slate-900/7 h-[40px]"
+                            id="gallery3"
+                            className="hidden"
+                            accept="image/*"
                         />
+
+<div className="flex flex-row ring-1 ring-slate-900/5 p-2  bg-zinc-50 items-center">
+                            
+                            <p className="flex-1">Select image for your gallery</p>
+
+                            <button
+                                className="p-2 bg-slate-400 rounded-full px-12"
+                                onClick={() => {
+                                    galleryImage.click();
+                                }}
+                            >
+                                Browse
+                            </button>
+                        </div>
+<div className="flex flex-row ring-1 ring-slate-900/5 p-2  bg-zinc-50 items-center">
+                            
+                            <p className="flex-1"> Select image for your gallery  
+                            </p>
+
+                            <button
+                                className="p-2 bg-slate-400 rounded-full px-12"
+                                onClick={() => {
+                                    galleryImage2.click();
+                                }}
+                            >
+                                Browse
+                            </button>
+                        </div>
+<div className="flex flex-row ring-1 ring-slate-900/5 p-2  bg-zinc-50 items-center">
+                            
+                            <p className="flex-1">
+                              Select image for your gallery 
+                            </p>
+
+                            <button
+                                className="p-2 bg-slate-400 rounded-full px-12"
+                                onClick={() => {
+                                    galleryImage3.click();
+                                }}
+                            >
+                                Browse
+                            </button>
+                        </div>
+
+                 
                     </div>
                 </div>
 
@@ -843,7 +936,7 @@ formData.append("personality", personality)
 
                 {/* Members */}
                 <h1 className="mt-32 font-bold text-red-600 text-xl">
-                    Member Overview
+                    Member Quote
                 </h1>
 
                 <p>
@@ -879,7 +972,7 @@ formData.append("personality", personality)
                             </th>
                             <th>
                                 <p className="flex-1 float-left font-bold text-xl text-red-700 capitalize">
-                                    {profile.name}
+                                    {name}
                                 </p>
                             </th>
                         </tr>
@@ -1686,8 +1779,16 @@ formData.append("personality", personality)
 
                 <button
                     onClick={() => {
-               
-                        updateImageAvatarAndGallery()
+
+                        let year = new Date(birthday);
+
+                        let date = new Date()
+
+                      
+
+                    if((date.getFullYear() - year.getFullYear()) > 17){updateImageAvatarAndGallery();}else{
+                        alert("Your birthdate must be above 18")
+                    }
                         // updateProfile();
                     }}
                     className="bg-red-600 px-20 p-3 text-white mt-20 justify-center hover:bg-yellow-600"

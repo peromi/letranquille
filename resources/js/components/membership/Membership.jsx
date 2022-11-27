@@ -45,7 +45,7 @@ function Membership() {
     const [discount, setDiscount] = React.useState(null);
 
     const handleCoupon = () => {
-        let token = ls.get(DATABASE_KEY, { decrypt: true });
+        let db = ls.get(USERDB, { decrypt: true });
         axios
             .post(
                 "/api/get-coupon",
@@ -55,7 +55,7 @@ function Membership() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 }
             )
@@ -73,7 +73,7 @@ function Membership() {
     };
 
     const _handleSignupMembership = () => {
-        let token = ls.get(DATABASE_KEY, { decrypt: true });
+        let db = ls.get(USERDB, { decrypt: true });
         axios
             .post(
                 "/api/membership",
@@ -89,7 +89,7 @@ function Membership() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 }
             )
@@ -129,7 +129,7 @@ function Membership() {
         let db = ls.get(USERDB, { decrypt: true });
 
         if (db !== null) {
-            setUser(db.user.user);
+            setUser(db.profile);
         }
 
         loadCurrencyValue();

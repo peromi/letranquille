@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Preferences;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,27 +31,55 @@ class RegisterController extends Controller
     {
         $this->validate($request, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => 'required',
+            'iam' => 'required',
+            'looking' => 'required',
+            'age' => 'required',
+            'password' => ['required', 'string', 'min:8'],
         ]);
 
 
         $user = new User();
         $user->email = $request->email;
+        $user->status = "online";
         $user->password = Hash::make($request->password);
 
         if($user->save()){
+
+            $profile = new Profile();
+            $profile->name = $request->name;
+            $profile->iam = $request->iam;
+            $profile->lookingfor = $request->looking;
+            $profile->age = $request->age;
+            $profile->user_id = $user->id;
+
+            $profile->save();
+
+
+            $preference = new Preferences();
+            $preference->user_id   = $user->id;
+
+            $preference->save();
 
             // if(!$user || !password_verify($request->password, $user->password)){
             //     return response()->json(['message' => 'Bad credentials'], 401);
             // }
 
-            $token = $user->createToken('token')->plainTextToken;
+            $newuser = User::where('id', $user->id)->with('gallery')->first();
 
-            return response(['token' => $token], 201);
+            $token = $newuser->createToken('token')->plainTextToken;
 
-        }else{
-            return response(['message'=>'Something went wrong, try again.'], 401);
-        }
+           
+  
+          
+            $preferences = Preferences::where("user_id",$newuser->id)->first();
+            $profile = Profile::where("user_id",$newuser->id)->first();
+           
+              return json_encode(['user'=>$newuser, 'token' => $token, "profile"=>$profile, "preference" => $preferences]);
+
+ 
+
+        } 
     }
 
     /**

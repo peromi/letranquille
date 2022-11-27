@@ -40,11 +40,11 @@ function Reversematches({action}) {
     const [total, setTotal] = React.useState("");
 
     const loadData = ()=>{
-        const token = ls.get(DB,{decrypt:true})
+        const db = ls.get(USERDB,{decrypt:true})
         axios.get("/api/reverse-matches",{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+token
+                'Authorization':'Bearer '+ db.token
             }
         }).then((response)=>{
             console.log(response.data.matches)
@@ -76,13 +76,13 @@ function Reversematches({action}) {
     }
 
     const paginate = (url) => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
 
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -105,10 +105,10 @@ function Reversematches({action}) {
 
         if (dbs !== null) {
 
-             setUser(dbs.user.user)
+             setUser(dbs.profile)
 
 
-            console.log("MATCHES",dbs.user.user.iam)
+            console.log("MATCHES",dbs.profile.iam)
 
         }else{
 

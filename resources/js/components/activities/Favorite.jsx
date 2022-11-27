@@ -7,18 +7,18 @@ import MainContainer from "../../containers/MainContainer";
 import woman from "../../assets/images/awoman.jpg";
 import lady from "../../assets/images/lady.jpg";
 
-const DB = "user-m9j234u94"
+const USERDB = 'dao'
 
 function Favorite() {
     const [favorite, setFavorite] = React.useState([])
     const [tab, setTab] = React.useState(0)
 
     const loadData = () =>{
-        const token = ls.get(DB, {decrypt:true})
+        const db = ls.get(USERDB, {decrypt:true})
         axios.get('/api/favorite',{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+token
+                'Authorization':'Bearer '+ db.token
             }
         }).then((response)=>{
             console.log(response.data)

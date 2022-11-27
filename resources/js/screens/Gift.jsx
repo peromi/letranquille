@@ -20,7 +20,7 @@ function Gift() {
             return;
         }
         setText(e.target.value.trim());
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
 
         axios
             .post(
@@ -31,7 +31,7 @@ function Gift() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 }
             )
@@ -45,7 +45,7 @@ function Gift() {
     };
 
     const _handleGiftMembership = () => {
-        let token = ls.get(DATABASE_KEY, { decrypt: true });
+        const db = ls.get(USERDB, { decrypt: true });
         axios
             .post(
                 "/api/gift-membership",
@@ -58,7 +58,7 @@ function Gift() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + db.token,
                     },
                 }
             )
