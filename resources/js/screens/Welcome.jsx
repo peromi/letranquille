@@ -205,11 +205,7 @@ function Welcome() {
                             <span className="text-red-600 font-['Inter-black'] font-bold">Chat</span> with Matches
                         </h1>
                         <p className="text-justify">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Placeat ullam velit consequatur explicabo
-                            necessitatibus similique voluptate excepturi eius
-                            dolorum quibusdam! Accusamus consequuntur eveniet
-                            dolorem aliquid mollitia neque eius non nobis.
+                        Letranquille offers serious dating. This means that if you're one of the millions of singles out there, and you're looking for love and companionship, our dating site is the one for you! Other dating sites are bigger and flashier, but you're best served by a dating site that suits your needs. If you want a serious relationship or a life time partner, don't waste your time - sign up for Letranquille today
                         </p>
                         <Link
                             to="/register"
