@@ -888,8 +888,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+// Route::post("/forgot-password", [RegisterController::class, 'forgot']);
+// Route::get("/password-reset", [RegisterController::class, 'getpasswordreset']);
+// Route::post("/password-reset", [RegisterController::class, 'resetpassword']);
+
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('/new_register', [RegisterController::class, 'store']);
+Route::post('/promo', [RegisterController::class, 'promo']);
 
 Route::get("/all-users", function () {
     $users = User::all();

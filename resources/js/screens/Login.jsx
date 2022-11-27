@@ -112,9 +112,9 @@ function Login() {
         <label for="check" className="text-sm font-bold">Remember Me?</label>
     </div>
     
-    <Link class="float-right text-primary font-bold md:text-md text-sm" to="/forget-password">
+    <a class="float-right text-primary font-bold md:text-md text-sm" href="/password/reset">
                                 Forgot your password?
-                            </Link>
+                            </a>
  </div>
 <Button variant="contained" className="w-full h-[48px] font-bold mb-4" color="primary" onClick={()=>{
                                handleLogin()

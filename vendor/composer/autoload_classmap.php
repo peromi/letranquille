@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\WebSocketServer' => $baseDir . '/app/Console/Commands/WebSocketServer.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Events\\MessageNotification' => $baseDir . '/app/Events/MessageNotification.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -47,6 +48,7 @@ return array(
     'App\\Http\\Controllers\\ReligionController' => $baseDir . '/app/Http/Controllers/ReligionController.php',
     'App\\Http\\Controllers\\SexualOrientationController' => $baseDir . '/app/Http/Controllers/SexualOrientationController.php',
     'App\\Http\\Controllers\\VideoCallController' => $baseDir . '/app/Http/Controllers/VideoCallController.php',
+    'App\\Http\\Controllers\\WebSocketController' => $baseDir . '/app/Http/Controllers/WebSocketController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -79,6 +81,7 @@ return array(
     'App\\Models\\Profession' => $baseDir . '/app/Models/Profession.php',
     'App\\Models\\Profile' => $baseDir . '/app/Models/Profile.php',
     'App\\Models\\ProfileView' => $baseDir . '/app/Models/ProfileView.php',
+    'App\\Models\\Promo' => $baseDir . '/app/Models/Promo.php',
     'App\\Models\\Religion' => $baseDir . '/app/Models/Religion.php',
     'App\\Models\\SexualOrientation' => $baseDir . '/app/Models/SexualOrientation.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

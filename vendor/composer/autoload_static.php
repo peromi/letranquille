@@ -677,6 +677,7 @@ class ComposerStaticInita180bfb786dc75c62262a882b137ba9f
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\WebSocketServer' => __DIR__ . '/../..' . '/app/Console/Commands/WebSocketServer.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Events\\MessageNotification' => __DIR__ . '/../..' . '/app/Events/MessageNotification.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -718,6 +719,7 @@ class ComposerStaticInita180bfb786dc75c62262a882b137ba9f
         'App\\Http\\Controllers\\ReligionController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReligionController.php',
         'App\\Http\\Controllers\\SexualOrientationController' => __DIR__ . '/../..' . '/app/Http/Controllers/SexualOrientationController.php',
         'App\\Http\\Controllers\\VideoCallController' => __DIR__ . '/../..' . '/app/Http/Controllers/VideoCallController.php',
+        'App\\Http\\Controllers\\WebSocketController' => __DIR__ . '/../..' . '/app/Http/Controllers/WebSocketController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -750,6 +752,7 @@ class ComposerStaticInita180bfb786dc75c62262a882b137ba9f
         'App\\Models\\Profession' => __DIR__ . '/../..' . '/app/Models/Profession.php',
         'App\\Models\\Profile' => __DIR__ . '/../..' . '/app/Models/Profile.php',
         'App\\Models\\ProfileView' => __DIR__ . '/../..' . '/app/Models/ProfileView.php',
+        'App\\Models\\Promo' => __DIR__ . '/../..' . '/app/Models/Promo.php',
         'App\\Models\\Religion' => __DIR__ . '/../..' . '/app/Models/Religion.php',
         'App\\Models\\SexualOrientation' => __DIR__ . '/../..' . '/app/Models/SexualOrientation.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

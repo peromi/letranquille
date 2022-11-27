@@ -2,6 +2,7 @@
 
 use App\Events\MessageNotification;
 use App\Http\Controllers\ActionController;
+use App\Http\Controllers\PromoController;
 use App\Models\Avatar;
 use App\Models\Profile;
 use App\Models\User;
@@ -98,9 +99,9 @@ Route::get('/user-upload', function(){
 
 Route::post('/user-import', [ActionController::class, 'fileImport']);
 
-Route::get('handle-payment', 'PayPalPaymentController@handlePayment')->name('make.payment');
-Route::get('cancel-payment', 'PayPalPaymentController@paymentCancel')->name('cancel.payment');
-Route::get('payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
+// Route::get('handle-payment', 'PayPalPaymentController@handlePayment')->name('make.payment');
+// Route::get('cancel-payment', 'PayPalPaymentController@paymentCancel')->name('cancel.payment');
+// Route::get('payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
 
 
 
@@ -119,6 +120,9 @@ Route::get("/delete-none-existing-users", function(){
     return "Unexisting users deleted successfully";
 
 });
+
+
+Route::resource('/promo-api', PromoController::class);
 
 
 

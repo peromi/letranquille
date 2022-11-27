@@ -51,6 +51,7 @@ import MessageSingle from "../screens/MessageSingle";
 import UpdatePreference from "../screens/UpdatePreference";
 import ProfileUpdate from "./profile/ProfileUpdate";
 import ForgetPassword from "./home/ForgetPassword";
+import CouponRegistration from "../screens/CouponRegistration";
 
 
 
@@ -87,7 +88,7 @@ function App() {
                     <Route path="/story" element={<StoryScreen />} />
                     <Route path="/membership" element={<MembershipScreen />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/forget-password" element={<ForgetPassword />} />
+                    <Route path="/promo-signup" element={<CouponRegistration />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/otp" element={<Otp />} />
                     <Route path="/onboarding" element={<Onboarding />} />

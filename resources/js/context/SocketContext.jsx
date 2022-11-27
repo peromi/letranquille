@@ -11,11 +11,19 @@ import ls from 'localstorage-slim'
 
 const SocketContext = createContext()
 // const socket = io("https://le-tranquille.herokuapp.com/")
-const socket = io("http://localhost:9090")
+const socket = io("http://localhost:8090")
 const DB = "user-m9j234u94"
 const subscribe = "subscriptionDb"
 const USERDB = 'dao'
 
+let conn = new WebSocket('ws://localhost:9090');
+    // conn.onopen = function(e) {
+    //     console.log("Connection established!");
+    // };
+
+    //   conn.onmessage = function(e) {
+    //       console.log(e.data);
+    //   };
 const ContextProvider = ({children}) =>{
     const [currentuser, setCurrentuser] = useState(null)
     const [recipient, setRecipient] = useState('')
@@ -61,6 +69,19 @@ const ContextProvider = ({children}) =>{
     useEffect(()=>{
 
         loadChatMessages()
+
+        conn.onopen= (e)=>{
+            console.log("Connection established....")
+
+            conn.send("Hello LeTranquille")
+        }
+
+
+       
+
+        conn.onmessage = (e)=>{
+            console.log(e.data)
+        }
 
         // if(window.indexedDB){
         //     alert("Supported browsers")
