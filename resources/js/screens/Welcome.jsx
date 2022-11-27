@@ -171,11 +171,7 @@ function Welcome() {
                             Find your <span className="text-red-600 font-['Inter-black'] font-bold">Match</span> Near you
                         </h1>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Placeat ullam velit consequatur explicabo
-                            necessitatibus similique voluptate excepturi eius
-                            dolorum quibusdam! Accusamus consequuntur eveniet
-                            dolorem aliquid mollitia neque eius non nobis.
+                        Letranquille makes dating as easy as pie - use our secure dating site to start chatting to other singles near you, then move your new-found love into the real world.
                         </p>
                         <Link
                             to="/register"
