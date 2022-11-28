@@ -363,7 +363,7 @@ function Explore() {
                 {/* <Match /> */}
 
                 {explores.length > 0 ? (
-                    <div className="grid grid-cols-5 gap-4 pt-2">
+                   <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
                         {explores.map((profile, index) => (
                             <UserProfile
                                 profile={profile}
@@ -374,7 +374,7 @@ function Explore() {
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col justify-center w-full items-center block">
+                    <div className="flex flex-col justify-center w-full items-center">
                         <h1 className="font-bold text-2xl mt-2">
                             You do not have any match
                         </h1>

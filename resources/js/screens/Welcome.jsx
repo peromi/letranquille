@@ -227,11 +227,7 @@ function Welcome() {
                         Match According to your Passion and Hobbies
                     </h1>
                     <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit. Consequatur perspiciatis, corporis explicabo
-                        voluptatibus debitis ea voluptas facere nobis fugiat!
-                        Neque commodi sapiente quidem saepe temporibus. Ipsum
-                        cumque sit dolorem expedita.
+                    Simply signing up with Letranquille... is easy - register with your email at the top of this page, answer our personality questions and start building your very own dating profile... simple!
                     </p>
                 </div>
 

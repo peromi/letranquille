@@ -452,6 +452,8 @@ function ProfilePanel() {
     return (
         <MainContainer>
             <div className="px-40 pt-12 bg-white pb-32 border-t-[1px] font-bold">
+
+                <p>Think of your dating profile as your first impression: you don't want to blow it! There's no need for your whole life story - that can wait - simply focus on writing about what interests you and what you hope to find on Letranquille. It also helps to upload a really nice picture so your fellow Letranquille members know who they're talking to - make it recent, and show off your best side!</p>
                 {/* first level */}
                 <div className="flex flex-row h-[400px]">
                     {/* avatar */}
