@@ -186,7 +186,7 @@ const Navigation = ({ select }) => {
               }else{
                   setShowmenu(true)
               }
-              className="ml-8"
+         
           }}>
             {showmenu ? <i class="fi fi-br-angle-small-up"></i>:<i class="fi fi-br-angle-small-down"></i>}
           </button>
