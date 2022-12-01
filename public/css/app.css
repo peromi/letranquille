@@ -2293,6 +2293,10 @@ video {
     width: 66.666667%;
   }
 
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1;

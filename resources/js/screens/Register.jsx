@@ -78,12 +78,12 @@ function Register() {
             <div className="w-full">
                
 
-               <div className="flex flex-row mt-2">
+               <div className="flex md:flex-row lg:flex-row flex-col mt-2">
                <div> 
                     <p className="font-bold">Your Name</p>
                     <input required type="text" placeholder="Your Name" value={name} onChange={(e)=>setName(e.target.value)} className="bg-zinc-50 ring-1 ring-slate-900/5 p-2 w-full outline-0 " />
 
-                    <div className="flex flex-row mt-[4px] mb-[14px] gap-x-4">
+                    <div className="flex md:flex-row lg:flex-row flex-col mt-[4px] mb-[14px] gap-x-4">
 
 
 
