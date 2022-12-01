@@ -38,12 +38,12 @@ const MessageSingle = () => {
     const [isUpload, setIsUpload] = React.useState(false);
 
     const loadData = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(DB, { decrypt: true });
         axios
             .get(`/api/get-messages/${params.id}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -68,7 +68,7 @@ const MessageSingle = () => {
     };
 
     const handleSendMessage = () => {
-        const token = ls.get(DB, { decrypt: true });
+        const db = ls.get(DB, { decrypt: true });
 
         let formData = new FormData();
 
@@ -81,7 +81,7 @@ const MessageSingle = () => {
             .post(`/api/send-message`, formData, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + token,
+                    Authorization: "Bearer " + db.token,
                 },
             })
             .then((response) => {
@@ -134,11 +134,11 @@ const MessageSingle = () => {
     React.useEffect(() => {
         let db = ls.get(USERDB, { decrypt: true });
         if (db !== null) {
-            console.log("current", db.user.user);
+            console.log("current", db.user);
             setUser(db.user.user);
         }
 
-        socket.emit("insertuser", { id: db.user.user.user_id });
+        socket.emit("insertuser", { id: db.user.id });
         socket.on("offer", (data) => {
             if (incomingcall === null) {
                 console.log(data);

@@ -19,13 +19,20 @@ import {
 import "animate.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { actions } from "../../store/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
 function ProfilePanel() {
     const navigate = useNavigate();
     const params = useParams();
+    const userpreferences = useSelector((state)=>state.user.preference)
+    const userprofile = useSelector((state)=>state.user.profile)
+    const uuser = useSelector((state)=>state.user.user)
+    const token = useSelector((state)=>state.user.token)
+
+    console.log(uuser)
 
     // Slide show for profile images
     const [slideshow, setSlideshow] = React.useState("")
@@ -195,7 +202,7 @@ function ProfilePanel() {
     }, []);
 
     const handleProfileView = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+    
         axios
             .post(
                 "/api/profile-view",
@@ -205,7 +212,7 @@ function ProfilePanel() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + db.token,
+                        Authorization: "Bearer " + token,
                     },
                 }
             )
@@ -219,97 +226,84 @@ function ProfilePanel() {
 
     const loadUserProfile = () => {
         if (params.id === undefined) {
-            const db = ls.get(USERDB, { decrypt: true });
-            axios
-                .get("/api/user-profile", {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + db.token,
-                    },
-                })
-                .then((response) => {
-                    console.log("Yours", response.data);
-                    let data = response.data ;
+            setUser(uuser);
+            // setNewavatar(data.avatar);
+            setProfile(userprofile);
 
-                    setUser(data.user);
-                    // setNewavatar(data.avatar);
-                    setProfile(data.profile);
-
-                    setPreferences(response.data.preference);
-                    // setReligion(data.religion);
-                    // setLocation(data.location);
-                    setGallery(data.user.gallery);
-                    let prof = data.profile;
-                   
-                    setIam(prof.iam)
-                    setLookingfor(prof.lookingfor)
-                    setName(prof.name)
-                    setBirthday(prof.birthday)
-                    setAge(prof.age)
-                    setBodyStyle(prof.bodytype)
-                    setHeight(prof.height)
-                    setSmoke(prof.life_style_smoke)
-                    setDrink(prof.life_style_drink)
-                    setEducation(prof.education)
-                    setHaveChildren(prof.have_children)
-                    setLoveQuote(prof.love_quote)
-                    setMemberQuote(prof.member_quote )
-                    setSeekingQuote(prof.seeking_quote)
-                    setGender(prof.gender)
-                    setDatingFor(prof.dating_for)
-                    setRelocate(prof.relocate)
-                    setHairColor(prof.hair_color)
-                    setEyeColor(prof.eye_color)
-                    setWeight(prof.weight)
-                    setEthnicity(prof.ethnicity)
-                    setBodyArt(prof.body_art)
-                    setAppearance(prof.appearance)
-                    setMaritalStatus(prof.marital_status)
-                    setNumberOfChildren(prof.number_of_children)
-                    setOldestChild(prof.oldest_child)
-                    setYoungest(prof.youngest_child)
-                    setWantMoreChildren(prof.want_more_children)
-                    setHavePets(prof.have_pets)
-                    setOccupation(prof.occupation)
-                    setEmploymentStatus(prof.employment_status)
-                    setAnnualIncome(prof.annual_income)
-                    setLivingSituation(prof.living_situation)
-                    setNationality(prof.nationality)
-                    setLanguagesSpoken(prof.languages_spoken)
-                    setEnglishAbility(prof.english_ability)
-                    setFrenchAbility(prof.french_ability)
-                    setReligiousValue(prof.religious_values)
-                    setPolygamy(prof.polygamy)
-                    setStarSign(prof.star_sign)
-                    setFavoriteMovie(prof.favorite_movie)
-                    setFavoriteMusic(prof.favorite_music)
-                    setDressStyle(prof.dress_style)
-                    setHumor(prof.humor)
-                    setReligion(prof.religion)
-                    setHobbiesAndInterest(prof.hobbies_interest)
-                    setPersonality(prof.personality)
+            setPreferences(userpreferences);
+            // setReligion(data.religion);
+            // setLocation(data.location);
+            setGallery(uuser.gallery);
+            let prof = userprofile;
+           
+            setIam(prof.iam)
+            setLookingfor(prof.lookingfor)
+            setName(prof.name)
+            setBirthday(prof.birthday)
+            setAge(prof.age)
+            setBodyStyle(prof.bodytype)
+            setHeight(prof.height)
+            setSmoke(prof.life_style_smoke)
+            setDrink(prof.life_style_drink)
+            setEducation(prof.education)
+            setHaveChildren(prof.have_children)
+            setLoveQuote(prof.love_quote)
+            setMemberQuote(prof.member_quote )
+            setSeekingQuote(prof.seeking_quote)
+            setGender(prof.gender)
+            setDatingFor(prof.dating_for)
+            setRelocate(prof.relocate)
+            setHairColor(prof.hair_color)
+            setEyeColor(prof.eye_color)
+            setWeight(prof.weight)
+            setEthnicity(prof.ethnicity)
+            setBodyArt(prof.body_art)
+            setAppearance(prof.appearance)
+            setMaritalStatus(prof.marital_status)
+            setNumberOfChildren(prof.number_of_children)
+            setOldestChild(prof.oldest_child)
+            setYoungest(prof.youngest_child)
+            setWantMoreChildren(prof.want_more_children)
+            setHavePets(prof.have_pets)
+            setOccupation(prof.occupation)
+            setEmploymentStatus(prof.employment_status)
+            setAnnualIncome(prof.annual_income)
+            setLivingSituation(prof.living_situation)
+            setNationality(prof.nationality)
+            setLanguagesSpoken(prof.languages_spoken)
+            setEnglishAbility(prof.english_ability)
+            setFrenchAbility(prof.french_ability)
+            setReligiousValue(prof.religious_values)
+            setPolygamy(prof.polygamy)
+            setStarSign(prof.star_sign)
+            setFavoriteMovie(prof.favorite_movie)
+            setFavoriteMusic(prof.favorite_music)
+            setDressStyle(prof.dress_style)
+            setHumor(prof.humor)
+            setReligion(prof.religion)
+            setHobbiesAndInterest(prof.hobbies_interest)
+            setPersonality(prof.personality)
 
 
-                    if(prof.live_in !== null){
+            if(prof.live_in !== null){
 
-                        setLiveInCountry(prof.live_in.split(',')[0])
-                        setLiveInState(prof.live_in.split(',')[1])
-                        setLiveInCity(prof.live_in.split(',')[2])
-                    }
-                });
+                setLiveInCountry(prof.live_in.split(',')[0])
+                setLiveInState(prof.live_in.split(',')[1])
+                setLiveInCity(prof.live_in.split(',')[2])
+            }
         } else {
-            const db = ls.get(USERDB, { decrypt: true });
+           
             axios
                 .get("/api/user-profile/" + params.id, {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + db.token,
+                        Authorization: "Bearer " + token,
                     },
                 })
                 .then((response) => {
                     let data = response.data 
 
-                    console.log(response.data);
+                    console.log("ANOTHER PROFILE",response.data);
                     setUser(data.user);
                     // setNewavatar(data.avatar);
                     setProfile(data.profile);
@@ -453,7 +447,7 @@ function ProfilePanel() {
         <MainContainer>
             <div className="px-40 pt-12 bg-white pb-32 border-t-[1px] font-bold">
 
-                <p>Think of your dating profile as your first impression: you don't want to blow it! There's no need for your whole life story - that can wait - simply focus on writing about what interests you and what you hope to find on Letranquille. It also helps to upload a really nice picture so your fellow Letranquille members know who they're talking to - make it recent, and show off your best side!</p>
+                <p className="p-3 shadow-md bg-yellow-400 mb-3 rounded-md">Think of your dating profile as your first impression: you don't want to blow it! There's no need for your whole life story - that can wait - simply focus on writing about what interests you and what you hope to find on Letranquille. It also helps to upload a really nice picture so your fellow Letranquille members know who they're talking to - make it recent, and show off your best side!</p>
                 {/* first level */}
                 <div className="flex flex-row h-[400px]">
                     {/* avatar */}
@@ -512,7 +506,7 @@ function ProfilePanel() {
                             <i className="fi fi-sr-user"></i>
                             </span>
                             <span>
-                            <i className="fi fi-sr-rec"></i>
+                            <i className={user.status ==="online" ? "fi fi-sr-rec text-green-500":"fi fi-sr-rec"}></i>
                                 
                             </span>
                         </div>
@@ -524,7 +518,7 @@ function ProfilePanel() {
 
                         {/* active online or offline */}
                         <div className="flex flex-row items-center">
-                            <p className="flex-1">Last active: 44mins ago</p>
+                            <p className="flex-1">Last active: {user.updated_at}</p>
                             {params.id !== undefined && <div className="flex flex-row justify-center items-center gap-x-3">
                             <span className="mr-2">
                                 <button title={`Add ${name} to your favorite`}><i className="fi fi-sr-star text-3xl"></i></button>
@@ -692,7 +686,7 @@ function ProfilePanel() {
 
                         {/* Appearance */}
                         <tr>
-                            <td>Appearance</td>
+                            <td className="text-xl font-bold text-red-500">Appearance</td>
                         </tr>
 
                         {/* other information */}

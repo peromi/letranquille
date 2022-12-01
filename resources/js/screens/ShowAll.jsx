@@ -18,13 +18,38 @@ import man from "../assets/images/aman.png";
 
 import {SocketContext} from '../context/SocketContext'
 import LoadingPage from '../components/loaders/LoadingPage';
-
+import useSWR from "swr"
+import { useSelector, useDispatch } from 'react-redux';
 
 const DB = "user-m9j234u94"
 const USERDB = "dao"
+
+const dbs = ls.get(USERDB, {decrypt:true})
+
+const fetcher = (url) => axios.get(url,{
+
+    headers:{
+        'Accept':'application/json',
+        'Authorization':'Bearer '+dbs.token
+    }
+
+}).then((resp)=>resp.data)
 function ShowAll() {
+    const dispatch = useDispatch()
+ 
+    const preference = useSelector((state)=>state.user.preference)
+    const profile = useSelector((state)=>state.user.profile)
+    const token = useSelector((state)=>state.user.token)
+     
+    
+    // const {data, error} = useSWR("/api/get-all-users", fetcher)
 
     const navigate = useNavigate()
+    const [pageIndex, setPageIndex] = React.useState(0);
+
+    const { data } = useSWR(`/api/get-all-users?page=${pageIndex}`, fetcher);
+
+    console.log(data)
 
     const [seeking, setSeeking] = React.useState("");
     const [ageMin, setAgeMin] = React.useState("");
@@ -69,13 +94,13 @@ function ShowAll() {
 
        const loadData = ()=>{
         setIsLoading(true)
-        const db = ls.get(USERDB, {decrypt:true})
+        
 
         axios.get('/api/get-all-users',{
 
                 headers:{
                     'Accept':'application/json',
-                    'Authorization':'Bearer '+db.token
+                    'Authorization':'Bearer '+token
                 }
 
         }).then((response)=>{
@@ -109,13 +134,13 @@ function ShowAll() {
 
 
     const paginate = (url) => {
-        const db = ls.get(DB, { decrypt: true });
-
+  
+      
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -125,6 +150,8 @@ function ShowAll() {
                 setFrompage(response.data.allusers["from"]);
                 setTopage(response.data.allusers["to"]);
                 setTotal(response.data.allusers["total"]);
+
+          
             });
     };
 const  reload = () => {
@@ -138,9 +165,6 @@ React.useEffect(()=>{
        if(db == null){
            
            navigate('/', {replace:true})
-       }else{
-           console.log("db ")
-           setUser(db.profile)
        }
 
        if(explores.length > 0){
@@ -231,38 +255,50 @@ if(isLoading){
 
 {/* <Match /> */}
 
+{isLoading && <div className=" bg-black rounded-full self-center w-fit p-3">
+    <div className="sk-chase">
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+          <div className="sk-chase-dot"></div>
+        </div>
+ 
+    
+    </div>}
 {explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
                     <div>
-                        {links.map((link, index) => {
+                        {links.map((link) => {
                             if(link.label === "&laquo; Previous"){
-                               return (<button key={index}
+                               return (<button
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
-                                        ? " text-slate-300 font-bold mx-2 sm:text-sm"
-                                        : "font-bold mx-2 sm:text-sm"
+                                        ? " text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
                                     }
                                 >
                                     Previous
                                 </button>)
                             }else if(link.label === "Next &raquo;"){
-                                return(<button key={index}
+                                return(<button
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
-                                        ? "text-xl text-slate-300 font-bold mx-2 sm:text-sm"
-                                        : "font-bold mx-2 sm:text-sm"
+                                        ? "text-xl text-slate-300 font-bold mx-2"
+                                        : "font-bold mx-2"
                                     }
                                 >
                                     Next
                                 </button>)
                             }else{ return (
-                                <button key={index}
+                                <button
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.active
-                                            ? "text-xl text-red-600 font-bold mx-2 sm:text-sm"
-                                            : "font-bold mx-2 sm:text-sm"
+                                            ? "text-xl text-red-600 font-bold mx-2"
+                                            : "font-bold mx-2"
                                     }
                                 >
                                     {link.label}
@@ -271,7 +307,7 @@ if(isLoading){
 
                         })}
                     </div>
-                    <div className="md:flex flex-row justify-end items-center font-bold hidden">
+                    <div className="flex flex-row justify-end items-center font-bold">
                         <p>from:{" "}{frompage}</p>
                         <p className="mx-2">-</p>
                         <p>{topage}</p>
@@ -290,7 +326,8 @@ if(isLoading){
             reload={reload}
         />)
         )}
-</div>:<div className="flex flex-col justify-center w-full items-center">
+</div>:<div>
+     {!isLoading ?<div className="flex flex-col justify-center w-full items-center">
             <h1 className="font-bold text-2xl mt-2">
                 You do not have any match
             </h1>
@@ -316,7 +353,15 @@ if(isLoading){
             </p>
 
 
-        </div>}
+        </div>:<div>
+            
+            <h1 className="font-bold text-3xl tracking-tighter text-black">
+                Loading Your Interface...
+            </h1>
+            
+            </div>}
+    
+    </div>}
 
         {explores.length > 0 && <div className="flex flex-row justify-between items-center mt-4 pb-12">
                     <div>

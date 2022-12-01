@@ -5,16 +5,33 @@ import {Button, TextField, FormControlLabel, Checkbox} from '@material-ui/core'
 import axios from "axios";
 import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom'
-import UserReducer from "../reducer/UserReducer";
 import ls from 'localstorage-slim';
 import { SocketContext } from "../context/SocketContext";
-
+import {useSelector, useDispatch} from "react-redux"
+import { actions } from "../store/userSlice";
 
 const DATABASE_KEY = "user-m9j234u94";
 const REG_STEPS = "stepper";
 const USERDB = "dao";
 function Login() {
-    const {addUser} = React.useContext(SocketContext)
+
+    const dispatch = useDispatch()
+    const addNewUser = (user) =>{
+        dispatch(actions.addUser(user))
+    }
+    const addNewPreference = (pref) =>{
+        dispatch(actions.addPreferences(pref))
+    }
+    const addNewProfile = (prof) =>{
+        dispatch(actions.addProfile(prof))
+    }
+    const addNewToken = (token) =>{
+        dispatch(actions.addToken(token))
+    }
+    const addNewSubscription = (subscribe) =>{
+        dispatch(actions.addSubscription(subscribe))
+    }
+
 
 
 
@@ -25,14 +42,7 @@ function Login() {
 
 
 
-
-    React.useEffect(()=>{
-        const step = ls.get(REG_STEPS);
-        if(step !== null){
-            ls.remove(REG_STEPS)
-            // navigate('/onboarding', {replace:true})
-        }
-    },[])
+ 
 
     const handleLogin = async() =>{
         // e.preventDefault()
@@ -51,15 +61,22 @@ function Login() {
                     if(res.status == 200){
                         ls.set(
                        USERDB,
-                       { user: res.data.user, token: res.data.token, profile: res.data.profile, preference: res.data.preference},
+                       { user: res.data.user, token: res.data.token,subscription:res.data.subscription, profile: res.data.profile, preference: res.data.preference},
                        { encrypt: true }
                    );
+
+                   addNewUser(res.data.user)
+                   addNewProfile(res.data.profile)
+                   addNewPreference(res.data.preference)
+                   addNewToken(res.data.token)
+                   addNewSubscription(res.data.subscription)
                     // addUser(response.data.user.id, response.user.name)
                     navigate('/show-all',{replace:true})
                    }
 
             }).catch(e=>{
-                toast.update(id, {render: "Something went wrong", type: "error", isLoading: false, autoClose:true });
+                console.log(e)
+                toast.update(id, {render: e.response.data.message, type: "error", isLoading: false, autoClose:true });
 
                 toast.error(e)
 

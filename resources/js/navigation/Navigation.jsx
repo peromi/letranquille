@@ -6,16 +6,18 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { SocketContext } from '../context/SocketContext'
 import "../../css/navigation.css"
+import {useSelector, useDispatch} from 'react-redux'
+import { actions } from '../store/userSlice'
 
  
 const USERDB = 'dao'
 const subscribe = "subscriptionDb"
 const Navigation = ({ select }) => {
 
-    const {currentuser, setCurrentuser, subscription, setSubscription} = React.useContext(SocketContext)
-
-    const navigate = useNavigate()
-  const [profile, setProfile] = React.useState({})
+  const profile = useSelector((state)=>state.user.profile)
+  const subscription = useSelector((state)=>state.user.subscription)
+  const navigate = useNavigate()
+  
   const [showmenu, setShowmenu] = React.useState(false)
   const [profileloc, setProfileloc] = React.useState('')
   const [upgraded, setUpgraded] = React.useState(null)
@@ -25,52 +27,13 @@ const Navigation = ({ select }) => {
 
   const [navmenu, setNavmenu] = React.useState(false)
   const [profilemenu, setProfilemenu] = React.useState(false)
-
-  const loadSubscriptions = ()=>{
-    let db = ls.get(subscribe, { decrypt: true});
-    if(db !== null){
-        setUpgraded(db)
-        setSubscription(db)
-    }
-  }
+ 
 
 
-  const loadProfile  =() => {
-    let db = ls.get(USERDB, { decrypt: true })
-
-    if (db !== null) {
-
-         setCurrentuser(db)
-         console.log(db.profile)
-
-
-        //  setProfileloc(db.user.user.city+','+db.user.user.country)
-      setProfile(db.profile)
-      // let data = db.profile
-
-      // setCountry(data.live_in.split(',')[0])
-      // setState(data.live_in.split(',')[1])
-      // setCity(data.live_in.split(',')[2])
-
-
-    }else{
-
-
-    }
-  }
-
-
-//   React.useEffect(() => {
    
+ 
 
-//     return ()=>{
-  
-// setShowmenu()
-// setProfileloc()
-//     }
-
-//   }, [])
-
+ 
   const [note, setnote] = React.useState([])
 
   const loadData = () => {
@@ -89,23 +52,21 @@ const Navigation = ({ select }) => {
   }
 
 
-  React.useEffect(()=>{
-    loadProfile()
-  },[])
+ 
 
-  React.useEffect(()=>{
-    let id = setInterval(()=>{
+  // React.useEffect(()=>{
+  //   let id = setInterval(()=>{
      
-      loadData()
-      // loadProfile()
+  //     loadData()
+  //     // loadProfile()
     
-    },10000)
+  //   },10000)
     
-    loadSubscriptions()
-    return ()=>{
-        clearInterval(id)
-    }
-  }, [note])
+  //   loadSubscriptions()
+  //   return ()=>{
+  //       clearInterval(id)
+  //   }
+  // }, [note])
 
   const handleLogout = ()=>{
     const db = ls.get(USERDB, {decrypt:true});
@@ -139,7 +100,7 @@ const Navigation = ({ select }) => {
     <div className="hidden drop-shadow-4xl z-40  md:flex justify-between h-[65px] bg-white items-center px-[5%]">
      <div className="flex w-[350px]">
          <Link to="/show-all"><img src={data.longlogo} className="w-[120px]" /></Link>
-         {upgraded === null && <Link to="/manage-subscription" className='flex gap-x-2 w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
+         {subscription === null && <Link to="/manage-subscription" className='flex gap-x-2 w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
           <img src={data.crown} className="w-[20px]" />
           <p className='text-sm'>Upgrade Membership</p>
         </Link>}
@@ -216,7 +177,7 @@ const Navigation = ({ select }) => {
           <div className="capitalize mr-6 flex-1">
             <p className="-mb-2">{profile.name}</p>
             <span className="text-[12px] -mt-2">
-              {profile.live_in === null ? '...': profile.live_in} <a href="#" className='text-red-600'>Change</a>
+              {profile.live_in === null ? '...': profile.live_in.split(',')[0]} <a href="#" className='text-red-600'>Change</a>
             </span>
           </div>
           <button onClick={()=>{

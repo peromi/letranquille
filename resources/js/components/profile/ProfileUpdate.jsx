@@ -13,14 +13,39 @@ import country from "../../assets/json/country.json";
 import states from "../../assets/json/states.json";
 import LoadingPage from "../loaders/LoadingPage";
 
+import { actions } from "../../store/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+
+
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
 
 const ProfileUpdate = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const preferences = useSelector((state)=>state.user.preference)
+    const profile = useSelector((state)=>state.user.profile)
+    const user = useSelector((state)=>state.user.user)
+
+
+  
+    const addNewUser = (user) =>{
+        dispatch(actions.addUser(user))
+    }
+    const addNewPreference = (pref) =>{
+        dispatch(actions.addPreferences(pref))
+    }
+    const addNewProfile = (prof) =>{
+        dispatch(actions.addProfile(prof))
+    }
+    const addNewToken = (token) =>{
+        dispatch(actions.addToken(token))
+    }
+
+
+
     const params = useParams();
-    const [loading, setLoading] = useState(false);
-    const [preferences, setPreferences] = useState({});
+    const [loading, setLoading] = useState(false); 
 
     // avatar and gallery
     const [avatar, setAvatar] = useState("");
@@ -31,101 +56,67 @@ const ProfileUpdate = () => {
     const [gallery3, setGallery3] = useState("");
 
     // main section
-    const [iam, setIam] = useState("");
-    const [lookingfor, setLookingfor] = useState("");
-    const [name, setName] = useState("");
-    const [birthday, setBirthday] = useState("");
+    const [iam, setIam] = useState(profile.iam);
+    const [lookingfor, setLookingfor] = useState(profile.lookingfor);
+    const [name, setName] = useState(profile.name);
+    const [birthday, setBirthday] = useState(profile.birthday);
 
-    const [loveQuote, setLoveQuote] = React.useState("No Quote");
-    const [memberQuote, setMemberQuote] = React.useState("No Quote");
-    const [seekingQuote, setSeekingQuote] = React.useState("No Quote");
-    const [datingFor, setDatingFor] = React.useState("No Answer");
-    const [gender, setGender] = React.useState("male");
-    const [liveInCountry, setLiveInCountry] = useState("No Answer");
-    const [liveInState, setLiveInState] = useState("No Answer");
-    const [liveInCity, setLiveInCity] = useState("No Answer");
+    const [loveQuote, setLoveQuote] = React.useState(profile.love_quote);
+    const [memberQuote, setMemberQuote] = React.useState(profile.member_quote);
+    const [seekingQuote, setSeekingQuote] = React.useState(profile.seeking_quote);
+    const [datingFor, setDatingFor] = React.useState(profile.dating_for);
+    const [gender, setGender] = React.useState(profile.gender);
+    const [liveInCountry, setLiveInCountry] = useState(profile.live_in.split(',')[0]);
+    const [liveInState, setLiveInState] = useState(profile.live_in.split(',')[1]);
+    const [liveInCity, setLiveInCity] = useState(profile.live_in.split(',')[2]);
 
     // states
-    const [education, setEducation] = useState("No Answer");
-    const [haveChildren, setHaveChildren] = useState("No Answer");
-    const [age, setAge] = useState("No Answer");
+    const [education, setEducation] = useState(profile.education);
+    const [haveChildren, setHaveChildren] = useState(profile.have_children);
+    const [age, setAge] = useState(profile.age);
     const [liveIn, setLiveIn] = useState("No Answer");
-    const [relocate, setRelocate] = useState("No Answer");
-    const [hairColor, setHairColor] = useState("No Answer");
-    const [eyeColor, setEyeColor] = useState("No Answer");
-    const [weight, setWeight] = useState("No Answer");
-    const [height, setHeight] = useState("No Answer");
-    const [smoke, setSmoke] = useState("No Answer");
-    const [drink, setDrink] = useState("No Answer");
-    const [ethnicity, setEthnicity] = useState("No Answer");
-    const [bodyStyle, setBodyStyle] = useState("No Answer");
-    const [bodyArt, setBodyArt] = useState("No Answer");
-    const [appearance, setAppearance] = useState("No Answer");
-    const [maritalStatus, setMaritalStatus] = useState("No Answer");
-    const [numberOfChildren, setNumberOfChildren] = useState("No Answer");
-    const [oldestChild, setOldestChild] = useState("No Answer");
-    const [youngest, setYoungest] = useState("No Answer");
-    const [wantMoreChildren, setWantMoreChildren] = useState("No Answer");
-    const [havePets, setHavePets] = useState("No Answer");
-    const [occupation, setOccupation] = useState("No Answer");
-    const [employmentStatus, setEmploymentStatus] = useState("No Answer");
-    const [annualIncome, setAnnualIncome] = useState("No Answer");
-    const [livingSituation, setLivingSituation] = useState("No Answer");
-    const [nationality, setNationality] = useState("No Answer");
-    const [languagesSpoken, setLanguagesSpoken] = useState("No Answer");
-    const [englishAbility, setEnglishAbility] = useState("No Answer");
-    const [frenchAbility, setFrenchAbility] = useState("No Answer");
-    const [religiousValue, setReligiousValue] = useState("No Answer");
-    const [polygamy, setPolygamy] = useState("No Answer");
-    const [starSign, setStarSign] = useState("No Answer");
-    const [religion, setReligion] = useState("No Answer");
-    const [favoriteMovie, setFavoriteMovie] = useState("No Answer");
-    const [favoriteMusic, setFavoriteMusic] = useState("No Answer");
-    const [dressStyle, setDressStyle] = useState("No Answer");
-    const [humor, setHumor] = useState("No Answer");
-    const [hobbiesAndInterest, setHobbiesAndInterest] = useState("No Answer");
-    const [personality, setPersonality] = useState("No Answer");
+    const [relocate, setRelocate] = useState(profile.relocate);
+    const [hairColor, setHairColor] = useState(profile.hair_color);
+    const [eyeColor, setEyeColor] = useState(profile.eye_color);
+    const [weight, setWeight] = useState(profile.weight);
+    const [height, setHeight] = useState(profile.height);
+    const [smoke, setSmoke] = useState(profile.smoke);
+    const [drink, setDrink] = useState(profile.drink);
+    const [ethnicity, setEthnicity] = useState(profile.ethnicity);
+    const [bodyStyle, setBodyStyle] = useState(profile.bodytype);
+    const [bodyArt, setBodyArt] = useState(profile.body_art);
+    const [appearance, setAppearance] = useState(profile.appearance);
+    const [maritalStatus, setMaritalStatus] = useState(profile.marital_status);
+    const [numberOfChildren, setNumberOfChildren] = useState(profile.number_of_children);
+    const [oldestChild, setOldestChild] = useState(profile.oldest_child);
+    const [youngest, setYoungest] = useState(profile.youngest_child);
+    const [wantMoreChildren, setWantMoreChildren] = useState(profile.want_more_children);
+    const [havePets, setHavePets] = useState(profile.have_pets);
+    const [occupation, setOccupation] = useState(profile.occupation);
+    const [employmentStatus, setEmploymentStatus] = useState(profile.employment_status);
+    const [annualIncome, setAnnualIncome] = useState(profile.annual_income);
+    const [livingSituation, setLivingSituation] = useState(profile.living_situation);
+    const [nationality, setNationality] = useState(profile.nationality);
+    const [languagesSpoken, setLanguagesSpoken] = useState(profile.languages_spoken);
+    const [englishAbility, setEnglishAbility] = useState(profile.english_ability);
+    const [frenchAbility, setFrenchAbility] = useState(profile.french_ability);
+    const [religiousValue, setReligiousValue] = useState(profile.religious_value);
+    const [polygamy, setPolygamy] = useState(profile.polygamy);
+    const [starSign, setStarSign] = useState(profile.star_sign);
+    const [religion, setReligion] = useState(profile.religion);
+    const [favoriteMovie, setFavoriteMovie] = useState(profile.favorite_movie);
+    const [favoriteMusic, setFavoriteMusic] = useState(profile.favorite_music);
+    const [dressStyle, setDressStyle] = useState(profile.dress_style);
+    const [humor, setHumor] = useState(profile.humor);
+    const [hobbiesAndInterest, setHobbiesAndInterest] = useState(profile.hobbies_and_interest);
+    const [personality, setPersonality] = useState(profile.personality);
 
-    const handleHobby = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
-
-        if (token == null) {
-            return;
-        }
-        if (hobbies.length > 10) {
-            toast.error("You can only choose 10 hobbies.");
-            return;
-        }
-
-        axios
-            .post(
-                "/api/user-hobby",
-                {
-                    hobby: hobbies,
-                },
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            )
-            .then((response) => {
-                toast.success(response.data.message);
-                loadUserProfile();
-                loadProfile();
-                setSetting("");
-            })
-            .catch((error) => {
-                toast.error(error.response.data.message);
-            });
-    };
+    
     // Avatar
     const [newavatar, setNewavatar] = React.useState("");
     const [cover, setCover] = React.useState(null);
 
-    const { profileview } = React.useContext(SocketContext);
-    const [profile, setProfile] = React.useState({});
+    const { profileview } = React.useContext(SocketContext); 
 
     //   Preferences hooks
 
@@ -164,22 +155,7 @@ const ProfileUpdate = () => {
     
    
 
-    const loadProfile = () => {
-        let db = ls.get(USERDB, { decrypt: true });
-
-        if (db !== null) {
-           
-
-            console.log(db)
-            
-
-            console.log("DATA PROFILE ONLY", db.profile);
-            // if (params.id !== undefined) {
-            //     profileview({ to: params.id, name: profileOnly.name });
-            // }
-        } else {
-        }
-    } ;
+    
 
     const handleProfileView = () => {
         const token = ls.get(DATABASE_KEY, { decrypt: true });
@@ -204,224 +180,9 @@ const ProfileUpdate = () => {
             });
     };
 
-    const loadUserProfile = () => {
-        if (params.id === undefined) {
-            const db = ls.get(USERDB, { decrypt: true });
-            axios
-                .get("/api/user-profile", {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + db.token,
-                    },
-                })
-                .then((response) => {
-                    console.log(response.data);
-                    let data = response.data;
+    
 
-                    // setUser(data.user);
-                    // setNewavatar(data.avatar);
-                    setProfile(data.profile);
-                    setPreferences(data.preference);
-                    // setReligion(data.religion);
-                    // setLocation(data.location);
-                    setGallery(data.user.gallery);
-                    let prof = data.profile;
-                    setIam(prof.iam);
-                    setLookingfor(prof.lookingfor);
-                    setName(prof.name);
-                    setBirthday(prof.birthday);
-                    setAge(prof.age);
-                    setBodyStyle(prof.bodytype);
-                    setHeight(prof.height);
-                    setSmoke(prof.life_style_smoke);
-                    setDrink(prof.life_style_drink);
-                    setEducation(prof.education);
-                    setHaveChildren(prof.have_children);
-                    setLoveQuote(prof.love_quote);
-                    setMemberQuote(prof.member_quote);
-                    setSeekingQuote(prof.seeking_quote);
-                    setGender(prof.gender);
-                    setDatingFor(prof.dating_for);
-                    setRelocate(prof.relocate);
-                    setHairColor(prof.hair_color);
-                    setEyeColor(prof.eye_color);
-                    setWeight(prof.weight);
-                    setEthnicity(prof.ethnicity);
-                    setBodyArt(prof.body_art);
-                    setAppearance(prof.appearance);
-                    setMaritalStatus(prof.marital_status);
-                    setNumberOfChildren(prof.number_of_children);
-                    setOldestChild(prof.oldest_child);
-                    setYoungest(prof.youngest_child);
-                    setWantMoreChildren(prof.want_more_children);
-                    setHavePets(prof.have_pets);
-                    setOccupation(prof.occupation);
-                    setEmploymentStatus(prof.employment_status);
-                    setAnnualIncome(prof.annual_income);
-                    setLivingSituation(prof.living_situation);
-                    setNationality(prof.nationality);
-                    setLanguagesSpoken(prof.languages_spoken);
-                    setEnglishAbility(prof.english_ability);
-                    setFrenchAbility(prof.french_ability);
-                    setReligiousValue(prof.religious_values);
-                    setPolygamy(prof.polygamy);
-                    setStarSign(prof.star_sign);
-                    setFavoriteMovie(prof.favorite_movie);
-                    setFavoriteMusic(prof.favorite_music);
-                    setDressStyle(prof.dress_style);
-                    setHumor(prof.humor);
-                    setReligion(prof.religion);
-                    setHobbiesAndInterest(prof.hobbies_interest);
-                    setPersonality(prof.personality);
-
-                    if (prof.live_in !== null) {
-                        setLiveInCountry(prof.live_in.split(",")[0]);
-                        setLiveInState(prof.live_in.split(",")[1]);
-                        setLiveInCity(prof.live_in.split(",")[2]);
-                    }
-                });
-        } else {
-      
-            const db = ls.get(USERDB, { decrypt: true });
-            axios
-                .get("/api/user-profile/" + params.id, {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + db.token,
-                    },
-                })
-                .then((response) => {
-                    let data = response.data;
-
-                    console.log(data.user);
-                    // setUser(data.user);
-                    setNewavatar(data.avatar);
-                    setProfile(data.profile);
-                    setPreferences(data.preference);
-
-                    let prof = data.profile;
-                    setIam(prof.iam);
-                    setLookingfor(prof.lookingfor);
-                    setName(prof.name);
-                    setBirthday(prof.birthday);
-                    setAge(prof.age);
-                    setBodyStyle(prof.bodytype);
-                    setHeight(prof.height);
-                    setSmoke(prof.life_style_smoke);
-                    setDrink(prof.life_style_drink);
-                    setEducation(prof.education);
-                    setHaveChildren(prof.have_children);
-                    setLoveQuote(prof.love_quote);
-                    setMemberQuote(prof.member_quote);
-                    setSeekingQuote(prof.seeking_quote);
-                    setGender(prof.gender);
-                    setDatingFor(prof.dating_for);
-                    setRelocate(prof.relocate);
-                    setHairColor(prof.hair_color);
-                    setEyeColor(prof.eye_color);
-                    setWeight(prof.weight);
-                    setEthnicity(prof.ethnicity);
-                    setBodyArt(prof.body_art);
-                    setAppearance(prof.appearance);
-                    setMaritalStatus(prof.marital_status);
-                    setNumberOfChildren(prof.number_of_children);
-                    setOldestChild(prof.oldest_child);
-                    setYoungest(prof.youngest_child);
-                    setWantMoreChildren(prof.want_more_children);
-                    setHavePets(prof.have_pets);
-                    setOccupation(prof.occupation);
-                    setEmploymentStatus(prof.employment_status);
-                    setAnnualIncome(prof.annual_income);
-                    setLivingSituation(prof.living_situation);
-                    setNationality(prof.nationality);
-                    setLanguagesSpoken(prof.languages_spoken);
-                    setEnglishAbility(prof.english_ability);
-                    setFrenchAbility(prof.french_ability);
-                    setReligiousValue(prof.religious_values);
-                    setPolygamy(prof.polygamy);
-                    setStarSign(prof.star_sign);
-                    setFavoriteMovie(prof.favorite_movie);
-                    setFavoriteMusic(prof.favorite_music);
-                    setDressStyle(prof.dress_style);
-                    setHumor(prof.humor);
-                    setReligion(prof.religion);
-                    setHobbiesAndInterest(prof.hobbies_interest);
-                    setPersonality(prof.personality);
-
-                    if (prof.live_in !== null) {
-                        setLiveInCountry(prof.live_in.split(",")[0]);
-                        setLiveInState(prof.live_in.split(",")[1]);
-                        setLiveInCity(prof.live_in.split(",")[2]);
-                    }
-                    // setUser(data.user);
-                    // setNewavatar(data.avatar);
-                    // setProfile(data.profile);
-                    // setReligion(data.religion);
-                    setGallery(data.gallery);
-                    // setProfession(data.profession);
-                    // setLocation(data.location);
-                    // setHobby(data.hobbies);
-                    // setAge(data.preference_age);
-                    // setDrink(data.preference_drink);
-                    // setSmoke(data.preference_smoke);
-                    // setRelationship(data.preference_relationship);
-                    // setFood(data.preference_food);
-                    // setBodytype(data.preference_bodytype);
-                    // setReligions(data.preference_religion);
-
-                    handleProfileView();
-                }).catch((e)=>{
-                    alert(e)
-                });
-        }
-    };
-
-    const imageUpload = () => {
-        const token = ls.get(DATABASE_KEY, { decrypt: true });
-        // let ids = toast.loading("Please wait...");
-        // if (token == null) {
-        //     return;
-        // }
-        // if (hobbies.length > 10) {
-        //     toast.error("You can only choose 10 hobbies.");
-        //     return;
-        // }
-        let formData = new FormData();
-        formData.append("cover", avatar);
-
-        axios
-            .post("/api/avatar-update", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token,
-                },
-            })
-            .then((response) => {
-                console.log(response.data);
-
-                toast.update(ids, {
-                    render: response.data.message,
-                    type: "success",
-                    isLoading: false,
-                    autoClose: true,
-                });
-
-                loadProfile();
-                loadUserProfile();
-                setSetting("");
-            })
-            .catch((error) => {
-                // toast.update(ids, {
-                //     render: "Something went wrong",
-                //     type: "error",
-                //     isLoading: false,
-                //     autoClose: true,
-                // });
-
-                toast.error(error);
-            });
-    };
+   
 
     var ageArray = [];
 
@@ -429,15 +190,7 @@ const ProfileUpdate = () => {
         ageArray.push(i);
     }
 
-    function loadUser() {
-        let db = ls.get(USERDB, { decrypt: true });
-
-        if (db !== null) {
-            console.log(db);
-            setProfile(db.user.user);
-        }
-    }
-
+ 
     const updateImageAvatarAndGallery = () => {
         const db = ls.get(USERDB, { decrypt: true });
 
@@ -521,8 +274,15 @@ const ProfileUpdate = () => {
                     { user: db.user, token: db.token, profile: response.data.profile, preference: db.preference},
                     { encrypt: true })
 
+                    addNewUser(db.user)
+                    addNewProfile(response.data.profile)
+                    addNewPreference(db.preference)
+                    addNewToken(db.token)
 
+                    
                     setLoading(false)
+                    navigate('/profile')
+
             }).catch((e)=>{
                 setLoading(false)
             });
@@ -657,12 +417,7 @@ const ProfileUpdate = () => {
             });
     };
 
-    React.useEffect(() => {
-        // loadScript()
-        loadUser();
-        loadProfile();
-        loadUserProfile();
-    }, []);
+     
 
     let profileImage = document.getElementById("avatar");
     let profileImage2 = document.getElementById("avatar2");

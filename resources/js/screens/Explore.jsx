@@ -310,7 +310,7 @@ function Explore() {
                 </div>
             </div>
 
-            
+      
             <div className="md:w-full mx-auto  h-screen p-12 mb-5">
                 {explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
                     <div>

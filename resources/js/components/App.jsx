@@ -52,10 +52,17 @@ import UpdatePreference from "../screens/UpdatePreference";
 import ProfileUpdate from "./profile/ProfileUpdate";
 import ForgetPassword from "./home/ForgetPassword";
 import CouponRegistration from "../screens/CouponRegistration";
+import { 
+    useQueryClient,
+    QueryClient,
+    QueryClientProvider,
+  } from 'react-query'
+
+  import { Provider } from "react-redux";
+import store from "../store";
 
 
-
-
+const queryClient = new QueryClient()
 
 const DB = "user-m9j234u94"
 function App() {
@@ -139,9 +146,14 @@ export default App;
 
 if (document.getElementById("root")) {
     ReactDOM.render(
+        <Provider store={store}>
         <ContextProvider>
+            <QueryClientProvider client={queryClient}>
                 <App />
+          </QueryClientProvider>
         </ContextProvider>
+        </Provider>
+   
 
     , document.getElementById("root"));
 }

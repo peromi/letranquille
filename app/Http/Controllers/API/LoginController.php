@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Membership;
 use App\Models\Preferences;
 use App\Models\Profile;
 use App\Models\User;
@@ -46,9 +47,11 @@ class LoginController extends Controller
 
         $preferences = Preferences::where("user_id",$user->id)->first();
         $profile = Profile::where("user_id",$user->id)->first();
+        $newuser = User::where("id",$user->id)->with('gallery')->with('likes')->first();
+        $subscription = Membership::where('user_id',$user->id)->first();
 
         $token = $user->createToken('token')->plainTextToken;
-            return json_encode(['user'=>$user, 'token' => $token, "profile"=>$profile, "preference" => $preferences]);
+            return json_encode(['user'=>$newuser, 'token' => $token,"subscription"=>$subscription, "profile"=>$profile, "preference" => $preferences]);
         }
 
 
