@@ -20,7 +20,7 @@ function ContactUs() {
 </p>
 
 <h1 className='text-[34px] my-2 font-bold text-red-800 tracking-tighter sm:text-2xl'>Email</h1>
-<p>If you'd like to send us an email, please <Link to='/contact-form'>Click here</Link></p>
+<p>If you'd like to send us an email, please <Link to='/contact-form' className='font-bold text-red-700'>Click here</Link></p>
 
 
 
