@@ -31,12 +31,12 @@ export const stories = [
     {
         image:first5,
         title:"You're the best I found my man on this site.",
-        message:"I've been on and off on this site for a while not but as God's timing is always different. I found my man on this site. Thanks to the AfroIntroductions team. He's so sweet and funny(my king)"
+        message:"I've been on and off on this site for a while not but as God's timing is always different. I found my man on this site. Thanks to the Letranquille team. He's so sweet and funny(my king)"
     },
     {
         image:first6,
         title:"Patience pays",
-        message:"I joined the site about 2 years ago. I never gave up . God finally answered my prayers by giving me the best man on earth from Finland. I'm from Cameroon. Patience pays. Thank you soo Soo much Afro. May everyone find a his /her better half 😊"
+        message:"I joined the site about 2 years ago. I never gave up . God finally answered my prayers by giving me the best man on earth from Finland. Patience pays. Thank you soo Soo much Letranquille. May everyone find a his /her better half 😊"
     },
     {
         image:first7,
