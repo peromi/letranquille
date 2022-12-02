@@ -211,9 +211,8 @@ function UserProfile({ profile, liked, reload }) {
                         </Link>
                     </div>
                     <div className="flex items-center px-3 ml-8 rounded-full ring-1 ring-slate-900/5 gap-x-2 bg-zinc-100 hover:bg-red-600 hover:text-white p-2">
-                        <p>{profile.gallery.length}</p>
-                        <Divider orientation="vertical" />
-                        <Link to={`/profile/${profile.user_id}`} className=""><small>View Profile</small></Link>
+                        
+                        <Link to={`/profile/${profile.user_id}`} className=""><small>Profile</small></Link>
                     </div>
                 </div>
             </div>

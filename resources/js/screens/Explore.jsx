@@ -15,14 +15,17 @@ import { Link } from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
 import Userplaceholder from "../components/loaders/Userplaceholder";
 import LoadingPage from "../components/loaders/LoadingPage";
-
+import {useSelector} from "react-redux"
 const DB = "user-m9j234u94";
 const USERDB = "dao";
 
 function Explore() {
-    const {  subscription, setSubscription} = React.useContext(SocketContext)
-
+ 
+    const preference = useSelector((state)=>state.user.preference)
+    const profile = useSelector((state)=>state.user.profile)
+    const token = useSelector((state)=>state.user.token)
     const [loading, setLoading] = React.useState(true)
+
     const [explores, setExplores] = React.useState([]);
     const [userlikes, setUserlikes] = React.useState([]);
     const [user, setUser] = React.useState(null);
@@ -41,10 +44,10 @@ function Explore() {
 
     // Search data
     const [iam, setIam] = React.useState("");
-    const [seeking, setSeeking] = React.useState("");
+    const [seeking, setSeeking] = React.useState(preference.seekingfor);
     const [from, setFrom] = React.useState("");
-    const [ageMin, setAgeMin] = React.useState(0);
-    const [ageMax, setAgeMax] = React.useState(0);
+    const [ageMin, setAgeMin] = React.useState(preference.age_min);
+    const [ageMax, setAgeMax] = React.useState(preference.age_max);
     const [code, setCode] = React.useState(0);
 
     const age = [];
@@ -83,7 +86,7 @@ function Explore() {
     };
 
     const searchUser = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+      
 
         setLoading(true)
         axios.post('/api/explore-search',{
@@ -95,7 +98,7 @@ function Explore() {
         }, {
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + db.token,
+                Authorization: "Bearer " + token,
             },
         }).then((res)=>{
             console.log(res.data)
@@ -110,14 +113,14 @@ function Explore() {
     }
 
     const paginate = (url) => {
-        const db = ls.get(USERDB, { decrypt: true });
+      
 
         setLoading(true)
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -134,31 +137,7 @@ function Explore() {
         loadData();
     };
     React.useEffect(() => {
-        for (var i = 18; i < 100; i++) {
-            age.push(i);
-        }
-
-        let db = ls.get(USERDB, { decrypt: true })
-
-        if (db !== null) {
-
-            let data = db.profile
-            let pref = db.preference
-
-             setUser(data)
-
-
-             setIam(data.iam);
-             setSeeking(data.lookingfor);
-             setFrom(data.country);
-             setAgeMin(pref.age_min);
-             setAgeMax(pref.age_max);
-
-
-        }else{
-
-
-        }
+        
         loadData();
 
     }, []);
@@ -363,7 +342,7 @@ function Explore() {
                 {/* <Match /> */}
 
                 {explores.length > 0 ? (
-                   <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
+                   <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {explores.map((profile, index) => (
                             <UserProfile
                                 profile={profile}

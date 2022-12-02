@@ -132,6 +132,46 @@ function ShowAll() {
     }
 
 
+    const searchUser = () => {
+      
+
+        setIsLoading(true)
+        axios.post('/api/search-users',{
+            seeking:seeking,
+            country:liveInCountry,
+            state:liveInState,
+            city:liveInCity,
+            age_min:ageMin,
+            age_max:ageMax 
+        }, {
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token,
+            },
+        }).then((response)=>{
+            console.log(response.data)
+            setExplores(response.data.allusers["data"]);
+            setLinks(response.data.allusers["links"]);
+            setFrompage(response.data.allusers["from"]);
+            setTopage(response.data.allusers["to"]);
+            setTotal(response.data.allusers["total"]);
+
+            setPreferences(response.data.preference);
+
+            let pref = response.data.preference
+          
+            setSeeking(pref.seekingfor)
+            setAgeMin(pref.age_min)
+            setAgeMax(pref.age_max)
+            setLiveInCountry(pref.live_in.split(',')[0])
+            setLiveInState(pref.live_in.split(',')[1])
+            setLiveInCity(pref.live_in.split(',')[2])
+      
+
+            setIsLoading(false)
+        })
+    }
+
 
     const paginate = (url) => {
   
@@ -209,7 +249,7 @@ if(isLoading){
     </div>
     <div className='flex-1 w-full  font-bold'>
         <p className="text-white">Country</p>
-       <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInCountry} onChange={(e)=>{
+       <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={countrycode} onChange={(e)=>{
         let result = states.filter((s)=>s.country_code  == e.target.value)
         setStatesearch(result)
         console.log(result.length)
@@ -223,9 +263,10 @@ if(isLoading){
     </div>
     <div className='flex-1 w-full   font-bold'>
         <p className="text-white">State/Province</p>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInState} onChange={(e)=>{
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={statecode} onChange={(e)=>{
             let result = cities.filter((c)=>c.state_code == e.target.value && c.country_code == countrycode)
             console.log(result.length)
+            setStatecode(e.target.value)
             setCitysearch(result)
             setLiveInState(e.target.options[e.target.selectedIndex].text)
         }}>
@@ -248,7 +289,7 @@ if(isLoading){
 
     <div className='flex-1 w-full'>
 
-        <button className='bg-black text-white justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white hover:text-black'>Search</button>
+        <button onClick={searchUser} className='bg-black text-white justify-center items-center p-2 w-full rounded-full font-bold hover:bg-white hover:text-black'>Search</button>
     </div>
 </div>
 <div className='md:w-full mx-auto  h-screen p-12'  >
@@ -315,8 +356,8 @@ if(isLoading){
                     </div>
                 </div>}
 
-
-{explores.length > 0 ? <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
+                {/* flex flex-row flex-wrap  md:justify-between justify-center */}
+{explores.length > 0 ? <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
 
     {explores.map((profile, index) => (
         <UserProfile

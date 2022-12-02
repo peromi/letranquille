@@ -8,6 +8,7 @@ import aman from "../../assets/images/aman.png";
 import lady from "../../assets/images/lady.jpg";
 import ls from 'localstorage-slim'
 import LoadingPage from "../loaders/LoadingPage";
+import { useSelector } from "react-redux";
 
 
 const USERDB = 'dao' 
@@ -17,11 +18,16 @@ function Mymatches({action}) {
     const [filter, setFilter] = React.useState(false);
     const [isloading, setIsLoading] = React.useState(false);
 
-    const [user, setUser] = React.useState('');
+    const profile = useSelector((state)=>state.user.profile)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const user = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
+
+ 
 
     const [explores, setExplores] = React.useState([])
     const [userlikes, setUserlikes] = React.useState([])
-    const [subscription, setSubscription] = React.useState(null)
+ 
 
     const [links, setLinks] = React.useState([]);
     const [currentpage, setCurrentpage] = React.useState("");
@@ -36,11 +42,11 @@ function Mymatches({action}) {
 
     const loadData = ()=>{
         setIsLoading(true)
-        const db = ls.get(USERDB,{decrypt:true})
+
         axios.get("/api/matches",{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+ db.token
+                'Authorization':'Bearer '+ token
             }
         }).then((response)=>{
             console.log(response.data.matches)
@@ -50,14 +56,12 @@ function Mymatches({action}) {
             setTopage(response.data.matches["to"]);
             setTotal(response.data.matches["total"]);
 
-            setUserlikes(response.data.user.likes)
-            setSubscription(response.data.subscription)
-            ls.set(subscribe, response.data.subscription, {encrypt: true})
+
             setIsLoading(false)
         }).catch((error)=>{
 
-            // console.log(error)
-            alert(error)
+            console.log(error.response.data)
+            // alert(error)
 
 
                 // ls.remove(USERDB)
@@ -72,13 +76,13 @@ function Mymatches({action}) {
     }
 
     const paginate = (url) => {
-        const db = ls.get(USERDB, { decrypt: true });
+
 
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -95,21 +99,8 @@ function Mymatches({action}) {
     };
 
     React.useEffect(()=>{
-
-        let db = ls.get(USERDB, { decrypt: true })
-
-        if (db !== null) {
-
-             setUser(db.profile)
-
-
-            console.log("MATCHES",db.profile.iam)
-
-        }else{
-
-
-        }
-        loadData()
+        loadData();
+ 
     },[])
     if(isloading){
         return (
@@ -208,10 +199,10 @@ function Mymatches({action}) {
                 {explores.length > 0 ? (
                     <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
                    
-                        {explores.map((profile, index) => (
+                        {explores.map((userprof, index) => (
                             <UserProfile
-                                profile={profile}
-                                liked={userlikes}
+                                profile={userprof}
+                                liked={user.likes}
                                 key={index}
                                 reload={reload}
                             />
@@ -227,7 +218,7 @@ function Mymatches({action}) {
                             a message yet, "Like" them instead!
                         </p>
                         <img
-                            src={user.iam == "male"? woman:aman}
+                            src={profile.iam == "male"? woman:aman}
                             width="200"
                             className="rounded-full my-6"
                         />

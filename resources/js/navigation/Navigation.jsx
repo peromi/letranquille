@@ -16,6 +16,7 @@ const Navigation = ({ select }) => {
 
   const profile = useSelector((state)=>state.user.profile)
   const subscription = useSelector((state)=>state.user.subscription)
+  const token = useSelector((state)=>state.user.token)
   const navigate = useNavigate()
   
   const [showmenu, setShowmenu] = React.useState(false)
@@ -69,12 +70,12 @@ const Navigation = ({ select }) => {
   // }, [note])
 
   const handleLogout = ()=>{
-    const db = ls.get(USERDB, {decrypt:true});
+     
 
       axios.post("/api/logout", {}, {
           headers:{
               'Accept':'application/json',
-              'Authorization':'Bearer '+db.token
+              'Authorization':'Bearer '+token
           }
       }).then((response)=>{
        
@@ -192,7 +193,7 @@ const Navigation = ({ select }) => {
           </button>
           {/* submenu */}
           {showmenu && (<div className="absolute z-30 top-[57px] w-[250px] animate__animated animate__slideInDown flex flex-col gap-y-3 bg-white drop-shadow-2xl p-4 right-0">
-           { upgraded === null &&  <Link className=' mb-1 flex bg-red-600 p-2 rounded-full justify-center items-center text-white' to="/manage-subscription">
+           { subscription === null &&  <Link className=' mb-1 flex bg-red-600 p-2 rounded-full justify-center items-center text-white' to="/manage-subscription">
                 <img src={data.crown} className="w-[24px] mr-1" />
                <p className='text-sm'>Upgrade to Paid Membership</p>
                 </Link>

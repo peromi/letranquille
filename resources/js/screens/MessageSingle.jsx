@@ -15,21 +15,29 @@ import { useNavigate } from "react-router-dom";
 import woman from "../assets/images/awoman.jpg";
 import lady from "../assets/images/lady.jpg";
 import moment from "moment";
+import { useSelector, useDispatch } from "react-redux";
+import LoadingPage from "../components/loaders/LoadingPage";
 
 const USERDB = "dao";
 const DB = "user-m9j234u94";
-const subscribe = "subscriptionDb";
+ 
 
 const MessageSingle = () => {
-    const { currentuser, subscription, socket } =
+    const { socket } =
         React.useContext(SocketContext);
     const navigate = useNavigate();
     const params = useParams();
 
+    const profile = useSelector((state)=>state.user.profile)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
+
     const [user, setUser] = React.useState(null);
 
+    const [isloading, setIsLoading] = React.useState(false)
     const [message, setMessage] = React.useState("");
-    const [recipient, setRecipient] = React.useState({});
+    const [recipient, setRecipient] = React.useState(null);
+    const [resprofile, setResprofile] = React.useState('')
     const [file, setFile] = React.useState(null);
     const [type, setType] = React.useState("text");
 
@@ -38,37 +46,40 @@ const MessageSingle = () => {
     const [isUpload, setIsUpload] = React.useState(false);
 
     const loadData = () => {
-        const db = ls.get(DB, { decrypt: true });
+        
         axios
             .get(`/api/get-messages/${params.id}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
-                console.log("fetch message");
+                console.log(response.data.recipient.profile)
 
                 setMessages(response.data.messages);
                 setRecipient(response.data.recipient);
+                setResprofile(response.data.recipient.profile)
+                 
             })
             .catch((error) => {
-                // console.log(error)
+                console.log(error)
+              
                 // alert(error.response.data.message)
 
-                if (error.response.status == 401) {
-                    ls.remove(USERDB);
-                    ls.remove(DB);
+                // if (error.response.status == 401) {
+                //     ls.remove(USERDB);
+                //     ls.remove(DB);
 
-                    navigate("/login", { replace: true });
+                //     navigate("/login", { replace: true });
 
-                    alert(error.response.data.message);
-                }
+                //     alert(error.response.data.message);
+                // }
             });
     };
 
     const handleSendMessage = () => {
-        const db = ls.get(DB, { decrypt: true });
+      
 
         let formData = new FormData();
 
@@ -81,7 +92,7 @@ const MessageSingle = () => {
             .post(`/api/send-message`, formData, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " +  token,
                 },
             })
             .then((response) => {
@@ -196,7 +207,11 @@ const MessageSingle = () => {
     //     }
     // };
 
+    if(isloading){
+        return <LoadingPage />
+    }
     return (
+         
         <MainContainer select="message">
             <div className="bg-red-800 w-full px-12  flex gap-x-6">
                 <button className="p-3 text-white font-bold border-b-4 border-white">
@@ -215,20 +230,20 @@ const MessageSingle = () => {
                         <div
                             className="md:w-[75px] md:h-[75px] bg-red-500 md:rounded-md w-[90px] h-[90px] rounded-full"
                             style={{
-                                backgroundImage: `url('/storage/avatar/${recipient.first_cover}')`,
+                                backgroundImage: `url('/storage/avatar/${resprofile.first_photo}')`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                             }}
                         ></div>
                     </div>
 
-                    <h1 className="font-bold text-xl">{recipient.name}</h1>
+                    <h1 className="font-bold text-xl">{resprofile.name}</h1>
                     <div className="flex md:flex-row flex-col justify-center items-center mr-1">
-                        <h1 className="font-bold text-2xl">{recipient.age}</h1>
+                        <h1 className="font-bold text-2xl">{resprofile.age}</h1>
                         <p>years</p>
                     </div>
                     <p className="md:flex hidden">
-                        {recipient.city}, {recipient.state} {recipient.country}
+                        {resprofile.live_in}
                     </p>
                 </div>
                 {/* message */}
@@ -236,7 +251,7 @@ const MessageSingle = () => {
                     {messages.length > 0 ? (
                         <div className=" overflow-y-scroll h-full bg-[#f4f4f4] relative p-3 pb-64">
                             {messages.map((m, index) => {
-                                if (m.sender === recipient.id) {
+                                if (m.sender === resprofile.user_id) {
                                     return (
                                         <div
                                             key={index}
@@ -245,7 +260,7 @@ const MessageSingle = () => {
                                             <div
                                                 className="w-[34px] h-[34px] rounded-full m-2"
                                                 style={{
-                                                    backgroundImage: `url('/storage/avatar/${recipient.first_cover}')`,
+                                                    backgroundImage: `url('/storage/avatar/${resprofile.first_photo}')`,
                                                     backgroundSize: "cover",
                                                     backgroundPosition:
                                                         "center",
@@ -253,7 +268,7 @@ const MessageSingle = () => {
                                             ></div>
                                             <div className="mr-12 font-bold p-3 bg-white rounded-md justify-between flex flex-col gap-x-4">
                                                 <span className="text-sm text-slate-500 ml-2">
-                                                    {recipient.name}:
+                                                    {resprofile.name}:
                                                 </span>
                                                 <div className="flex flex-row  items-center gap-x-2">
                                                    <p>{m.message}</p>
@@ -319,7 +334,7 @@ const MessageSingle = () => {
                                     );
                                 }
 
-                                if (m.recipient !== recipient.id) {
+                                if (m.recipient !== resprofile.user_id) {
                                     return (
                                         <div
                                             key={index}
@@ -355,7 +370,7 @@ const MessageSingle = () => {
                                             <div
                                                 className="w-[34px] h-[34px] rounded-full m-2"
                                                 style={{
-                                                    backgroundImage: `url('/storage/avatar/${recipient.first_cover}')`,
+                                                    backgroundImage: `url('/storage/avatar/${resprofile.first_photo}')`,
                                                     backgroundSize: "cover",
                                                     backgroundPosition:
                                                         "center",
@@ -363,7 +378,7 @@ const MessageSingle = () => {
                                             ></div>
                                             <div className="mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4">
                                                 <span className="text-sm text-slate-500 ml-2">
-                                                    {recipient.name}:
+                                                    {resprofile.name}:
                                                 </span>
                                                 <p>{m.message}</p>
                                                 {m.data_type === "audio" && (
@@ -399,7 +414,7 @@ const MessageSingle = () => {
                         <div className="flex flex-col justify-center items-center h-full">
                             <i className="fi fi-sr-comments text-5xl"></i>
                             <h1 className="font-bold text-2xl">
-                                Send message to {recipient.name}
+                                Send message to {resprofile.name}
                             </h1>
                             <p>To start conversion</p>
                         </div>
@@ -413,6 +428,7 @@ const MessageSingle = () => {
             <div className="w-full bottom-0 left-0 right-0   pr-36 bg-white px-12 p-5 flex flex-row items-center fixed">
                         <button
                             onClick={async () => {
+                                if(subscription !== null && subscription.type === 'platinum'){
                                 pc = new RTCPeerConnection(server)
                               await navigator.mediaDevices.getUserMedia({
                                     audio: true,
@@ -490,7 +506,11 @@ const MessageSingle = () => {
                           
                         
                                
-                            }}
+                            }else{
+                                alert("Upgrade your membership to platinum")
+                            }
+                        }
+                        }
                         >
                             <i class="fi fi-rr-microphone text-2xl"></i>
                         </button>
@@ -498,7 +518,7 @@ const MessageSingle = () => {
                         <textarea
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            placeholder={`Send message to ${recipient.name}`}
+                            placeholder={`Send message to ${resprofile.name}`}
                             className="flex-1 border-0 outline-0 p-3 m-3"
                         ></textarea>
                         <button>
@@ -591,15 +611,15 @@ const MessageSingle = () => {
                             }}
                         />
 
-                        <div className="flex flex-row h-[300px]">
+                        {/* <div className="flex flex-row h-[300px]">
                             <video id="webcam" autoPlay playsInline></video>
                             <video id="remotecam" autoPlay playsInline></video>
-                        </div>
+                        </div> */}
                         <h1 className="font-bold text-3xl">
                             What do you want to share
                         </h1>
                         <h1 className="font-bold text-3xl">
-                            with {recipient.name}?
+                            with {resprofile.name}?
                         </h1>
                         <div className="flex justify-center items-center mt-2">
                             <div className="md:w-[45%] flex flex-row justify-center items-center gap-x-4 ">
@@ -621,7 +641,7 @@ const MessageSingle = () => {
                                     <i class="fi fi-rr-file"></i>
                                     <p>Document</p>
                                 </button>
-                                <button
+                                {subscription !== null && subscription.plan_type === 'platinum' && <button
                                     className="bg-white ring-1 ring-slate-900/5 rounded-md p-4"
                                     onClick={() => {
                                         musicupload.click();
@@ -629,18 +649,21 @@ const MessageSingle = () => {
                                 >
                                     <i class="fi fi-rr-music"></i>
                                     <p>Music</p>
-                                </button>
-                                <button
+                                </button>}
+                                {subscription !== null && subscription.plan_type === 'platinum' && <button
                                     className="bg-white ring-1 ring-slate-900/5 rounded-md p-4"
                                     onClick={() => {
-                                        videoupload.click();
+                                     
+
+                                            videoupload.click();
+                                       
                                     }}
                                 >
                                     <i class="fi fi-rr-video-camera-alt"></i>
                                     <p>Video</p>
-                                </button>
+                                </button>}
 
-                                <button
+                                {/* <button
                                     className="bg-white ring-1 ring-slate-900/5 rounded-md p-4"
                                     onClick={async () => {
                                         // localStream = await navigator.mediaDevices.getDisplayMedia({video:true, audio:true}).then((currentStream)=>{
@@ -761,7 +784,7 @@ const MessageSingle = () => {
                                     }}
                                 >
                                     Stop Stream
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </div>
@@ -772,7 +795,7 @@ const MessageSingle = () => {
                     <div
                         className="w-[85px] h-[85px] rounded-full"
                         style={{
-                            backgroundImage: `url(/storage/avatar/${incomingcall.first_cover})`,
+                            backgroundImage: `url(/storage/avatar/${incomingcall.first_photo})`,
                             backgroundPosition: "center",
                             backgroundSize: "cover",
                         }}
@@ -873,14 +896,14 @@ const MessageSingle = () => {
                     <div
                         className="w-[85px] h-[85px] rounded-full"
                         style={{
-                            backgroundImage: `url(/storage/avatar/${recipient.first_cover})`,
+                            backgroundImage: `url(/storage/avatar/${resprofile.first_photo})`,
                             backgroundPosition: "center",
                             backgroundSize: "cover",
                         }}
                     ></div>
   <video id="webcam" autoPlay playsInline className="absolute -z-50 w-1"></video>
   <video id="remotecam" autoPlay playsInline className="absolute -z-50 w-1"></video>
-                    <h1 className="tracking-tighter">{recipient.name}</h1>
+                    <h1 className="tracking-tighter">{resprofile.name}</h1>
                     <p>Calling...</p>
 
                     <div className="flex flex-row justify-center gap-x-2 mt-3">

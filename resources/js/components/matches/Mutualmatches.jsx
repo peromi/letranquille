@@ -11,7 +11,7 @@ import woman from "../../assets/images/woman.webp";
 import lady from "../../assets/images/lady.jpg";
 import aman from "../../assets/images/aman.png";
 import ls from 'localstorage-slim'
-
+import { useSelector } from "react-redux";
 
 const USERDB = 'dao'
 const DB = "user-m9j234u94"
@@ -19,9 +19,12 @@ const subscribe = "subscriptionDb"
 
 function Mutualmatches({action}) {
     const navigate = useNavigate();
-    const { subscription,setSubscription } = React.useContext(SocketContext);
+    const profile = useSelector((state)=>state.user.profile)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const user = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
 
-    const [user, setUser] = React.useState('');
+ 
     const [filter, setFilter] = React.useState(false);
 
     const [explores, setExplores] = React.useState([])
@@ -40,11 +43,11 @@ function Mutualmatches({action}) {
     const [total, setTotal] = React.useState("");
 
     const loadData = ()=>{
-        const db = ls.get(USERDB,{decrypt:true})
+  
         axios.get("/api/mutual-matches",{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+db.token
+                'Authorization':'Bearer '+token
             }
         }).then((response)=>{
             console.log(response.data.matches)
@@ -53,15 +56,10 @@ function Mutualmatches({action}) {
             setFrompage(response.data.matches["from"]);
             setTopage(response.data.matches["to"]);
             setTotal(response.data.matches["total"]);
-
-
-
-            setUserlikes(response.data.user.likes)
-            setSubscription(response.data.subscription)
-            ls.set(subscribe, response.data.subscription, {encrypt: true})
+ 
         }).catch((error)=>{
 
-            // console.log(error)
+            console.log(error)
             alert(error)
 
 
@@ -77,13 +75,13 @@ function Mutualmatches({action}) {
     }
 
     const paginate = (url) => {
-        const db = ls.get(DB, { decrypt: true });
+      
 
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -101,20 +99,7 @@ function Mutualmatches({action}) {
 
     React.useEffect(()=>{
 
-        let db = ls.get(USERDB, { decrypt: true })
-
-        if (db !== null) {
-
-             setUser(db.profile)
-
-
-            console.log("MATCHES",db.profile.iam)
-
-        }else{
-
-
-        }
-
+        
         loadData()
     },[])
     return (
@@ -207,7 +192,7 @@ function Mutualmatches({action}) {
                 {/* <Match /> */}
 
                 {explores.length > 0 ? (
-                    <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
+                    <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
                    
                         {explores.map((profile, index) => (
                             <UserProfile
@@ -228,7 +213,7 @@ function Mutualmatches({action}) {
                             a message yet, "Like" them instead!
                         </p>
                         <img
-                            src={user.iam == "male"? awoman:aman}
+                            src={profile.iam == "male"? awoman:aman}
                             width="200"
                             className="rounded-full my-6"
                         />
@@ -277,7 +262,7 @@ function Mutualmatches({action}) {
                                 Upgrade Your Account
                             </h1>
                             <p className="text-lg">
-                                <span className="capitalize font-bold">{user.name}</span> you don't have
+                                <span className="capitalize font-bold">{profile.name}</span> you don't have
                                 access to <span className="font-bold">Mutual Matches</span>
                             </p>
 
@@ -313,7 +298,7 @@ function Mutualmatches({action}) {
                                 Upgrade Your Account
                             </h1>
                             <p className="text-lg">
-                                <span className="capitalize font-bold">{user.name}</span> you don't have
+                                <span className="capitalize font-bold">{profile.name}</span> you don't have
                                 access to <span className="font-bold">Mutual Matches</span>
                             </p>
 
@@ -329,7 +314,7 @@ function Mutualmatches({action}) {
 
                             <div className="flex flex-row gap-3 mt-4 justify-center items-center">
                                 <div  className="flex flex-col justify-center items-center font-bold">
-                                <img src={user.iam == "male"? aman:awoman} width="90" className="rounded-full" />
+                                <img src={profile.iam == "male"? aman:awoman} width="90" className="rounded-full" />
                                 <p>You</p>
                                 </div>
                                 <div className="flex flex-col justify-center items-center">
@@ -337,7 +322,7 @@ function Mutualmatches({action}) {
                                     <i className="fi-sr-arrow-left text-2xl"></i>
                                 </div>
                                 <div className="flex flex-col justify-center items-center font-bold">
-                                <img src={user.iam == "male"? awoman:aman} width="90"  className="rounded-full" />
+                                <img src={profile.iam == "male"? awoman:aman} width="90"  className="rounded-full" />
                                 <p>Them</p>
                                 </div>
                             </div>

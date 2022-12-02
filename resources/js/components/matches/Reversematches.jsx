@@ -10,7 +10,7 @@ import woman from "../../assets/images/woman.webp";
 import lady from "../../assets/images/lady.jpg";
 import aman from "../../assets/images/aman.png";
 import ls from 'localstorage-slim'
-
+import { useSelector } from "react-redux";
 
 
 const USERDB = 'dao'
@@ -19,7 +19,10 @@ const subscribe = "subscriptionDb"
 
 function Reversematches({action}) {
     const navigate = useNavigate();
-    const [subscription, setSubscription] =  React.useState(null)
+    const profile = useSelector((state)=>state.user.profile)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const user = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
 
     const [filter, setFilter] = React.useState(false);
 
@@ -27,7 +30,7 @@ function Reversematches({action}) {
     const [userlikes, setUserlikes] = React.useState([])
 
 
-    const [user, setUser] = React.useState('')
+    
     const [links, setLinks] = React.useState([]);
     const [currentpage, setCurrentpage] = React.useState("");
     const [lastpage, setLastpage] = React.useState("");
@@ -40,11 +43,11 @@ function Reversematches({action}) {
     const [total, setTotal] = React.useState("");
 
     const loadData = ()=>{
-        const db = ls.get(USERDB,{decrypt:true})
+       
         axios.get("/api/reverse-matches",{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+ db.token
+                'Authorization':'Bearer '+ token
             }
         }).then((response)=>{
             console.log(response.data.matches)
@@ -60,8 +63,8 @@ function Reversematches({action}) {
             // ls.set(subscribe, response.data.subscription, {encrypt: true})
         }).catch((error)=>{
 
-            // console.log(error)
-            alert(error)
+            console.log(error)
+            // alert(error)
 
 
                 // ls.remove(USERDB)
@@ -76,13 +79,13 @@ function Reversematches({action}) {
     }
 
     const paginate = (url) => {
-        const db = ls.get(USERDB, { decrypt: true });
+       
 
         axios
             .get(`${url}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -100,20 +103,7 @@ function Reversematches({action}) {
 
     React.useEffect(()=>{
 
-
-        let dbs = ls.get(USERDB, { decrypt: true })
-
-        if (dbs !== null) {
-
-             setUser(dbs.profile)
-
-
-            console.log("MATCHES",dbs.profile.iam)
-
-        }else{
-
-
-        }
+ 
         loadData()
     },[])
     return (
@@ -206,7 +196,7 @@ function Reversematches({action}) {
                 {/* <Match /> */}
 
                 {explores.length > 0 ? (
-                    <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
+                    <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
                    
                         {explores.map((profile, index) => (
                             <UserProfile
@@ -227,7 +217,7 @@ function Reversematches({action}) {
                             a message yet, "Like" them instead!
                         </p>
                         <img
-                            src={user.iam == "male"? woman:aman}
+                            src={profile.iam == "male"? woman:aman}
                             width="200"
                             className="rounded-full my-6"
                         />
@@ -270,7 +260,7 @@ function Reversematches({action}) {
                                 Upgrade Your Account
                             </h1>
                             <p className="text-lg">
-                                <span className="capitalize font-bold">{user.name}</span> you don't have
+                                <span className="capitalize font-bold">{profile.name}</span> you don't have
                                 access to <span className="font-bold">Mutual Matches</span>
                             </p>
 
@@ -306,7 +296,7 @@ function Reversematches({action}) {
                                 Upgrade Your Account
                             </h1>
                             <p className="text-lg">
-                                <span className="capitalize font-bold">{user.name}</span> you don't have
+                                <span className="capitalize font-bold">{profile.name}</span> you don't have
                                 access to <span className="font-bold">Reverse Mutual Matches</span>
                             </p>
 
@@ -322,7 +312,7 @@ function Reversematches({action}) {
 
                             <div className="flex flex-row gap-3 mt-4 justify-center items-center">
                             <div className="flex flex-col justify-center items-center font-bold">
-                                <img src={user.iam == "male"? awoman:aman} width="90"  className="rounded-full" />
+                                <img src={profile.iam == "male"? awoman:aman} width="90"  className="rounded-full" />
                                 <p>Them</p>
                                 </div>
                             <div className="flex flex-col justify-center items-center">
@@ -330,7 +320,7 @@ function Reversematches({action}) {
                                     <i className="fi-sr-arrow-right text-2xl"></i>
                                 </div>
                                 <div  className="flex flex-col justify-center items-center font-bold">
-                                <img src={user.iam == "male"? aman:awoman} width="90" className="rounded-full" />
+                                <img src={profile.iam == "male"? aman:awoman} width="90" className="rounded-full" />
                                 <p>You</p>
                                 </div>
                                 <div className="flex flex-col justify-center items-center">
@@ -338,7 +328,7 @@ function Reversematches({action}) {
                                     <i className="fi-sr-arrow-left text-2xl"></i>
                                 </div>
                                 <div className="flex flex-col justify-center items-center font-bold">
-                                <img src={user.iam == "male"? awoman:aman} width="90"  className="rounded-full" />
+                                <img src={profile.iam == "male"? awoman:aman} width="90"  className="rounded-full" />
                                 <p>Them</p>
                                 </div>
                             </div>

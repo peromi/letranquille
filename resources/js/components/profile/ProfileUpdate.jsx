@@ -41,6 +41,9 @@ const ProfileUpdate = () => {
     const addNewToken = (token) =>{
         dispatch(actions.addToken(token))
     }
+    const addNewSubscription = (sub) =>{
+        dispatch(actions.addSubscription(sub))
+    }
 
 
 
@@ -271,13 +274,14 @@ const ProfileUpdate = () => {
 
                 ls.set(
                     USERDB,
-                    { user: db.user, token: db.token, profile: response.data.profile, preference: db.preference},
+                    { user: db.user, token: db.token, profile: response.data.profile,subscription:db.subscription, preference: db.preference},
                     { encrypt: true })
 
                     addNewUser(db.user)
                     addNewProfile(response.data.profile)
                     addNewPreference(db.preference)
                     addNewToken(db.token)
+                    addNewSubscription(db.subscription)
 
                     
                     setLoading(false)
