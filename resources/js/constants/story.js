@@ -16,7 +16,7 @@ export const stories = [
     {
         image:first2,
         title:"Worth recommending",
-        message:"This is a site worth recommending … it is not easy… but you can find real love here too… I met my love… Sweetheart from Belgium and I’m from Nigeria can’t wait to be with him forever ❤️❤️🥰"
+        message:"We only lived one mile from each other, but without Letranquille, this love story would not have be possible."
     },
     {
         image:first3,
@@ -31,7 +31,7 @@ export const stories = [
     {
         image:first5,
         title:"You're the best I found my man on this site.",
-        message:"I've been on and off on this site for a while not but as God's timing is always different. I found my man on this site. Thanks to the Letranquille team. He's so sweet and funny(my king)"
+        message:"I literally gasped when I saw his picture, I can't tell you why. Just the magic of love, I guess"
     },
     {
         image:first6,
