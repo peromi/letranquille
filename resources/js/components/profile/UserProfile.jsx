@@ -129,7 +129,7 @@ function UserProfile({ profile, liked, reload }) {
                         </h2>
                         <div className="text-white flex items-center font-bold gap-x-3 ">
                             <i class="fi fi-sr-marker ml-2"></i>
-                            <h4 className="text-xs">
+                            <h4 className="text-[12px]">
                                 {profile.live_in}
                             </h4>
                             {/* <p className="text-sm">5 miles away</p> */}
@@ -142,11 +142,11 @@ function UserProfile({ profile, liked, reload }) {
                 >
                     <p className="font-bold text-[15px] capitalize">
                         Seeking: {profile.lookingfor} {preferences.age_min} -{" "}
-                        {preferences.age_max}
+                        {preferences.age_max}  
                     </p>
                     <i
-                        class="fa-solid fa-circle"
-                        style={{ fontSize: 8, color: "green" }}
+                        class={profile.status === "online"?"fa-solid fa-circle text-green-500":"fa-solid fa-circle"}
+                        style={{ fontSize: 8,  }}
                     ></i>
                 </div>
                 {/* BIO */}

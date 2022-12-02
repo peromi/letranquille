@@ -147,6 +147,21 @@ class RegisterController extends Controller
 
         if($user->save()){
 
+            $membership = new Membership();
+            $membership->user_id = $user->id;
+            $membership->address = "nil";
+            $membership->country = "nil";
+            $membership->state = 'nil';
+            $membership->city = 'nil';
+            $membership->zip = 'nil';
+            $membership->plan_type = "silver";
+            $membership->duration = $request->input('duration');
+            $membership->expiry = Carbon::now()->addDays(7);
+            $membership->credit = 0;
+
+             $membership->save();
+             
+
             $profile = new Profile();
             $profile->name = $request->name;
             $profile->iam = $request->iam;
