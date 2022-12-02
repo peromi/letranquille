@@ -12,18 +12,29 @@ import ls from "localstorage-slim";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { integerPropType } from "@mui/utils";
-import { style } from "@mui/system";
+ import { useSelector, useDispatch } from "react-redux";
 
 const DATABASE_KEY = "user-m9j234u94";
 const DBNAV = "nav";
 const USERDB = "dao";
 const subscribe = "subscriptionDb";
 function Membership() {
+
+
+    const dispatch = useDispatch()
+   
+  const profile = useSelector((state)=>state.user.profile)
+  const subscription = useSelector((state)=>state.user.subscription)
+  const token = useSelector((state)=>state.user.token) 
+  const user = useSelector((state)=>state.user.user) 
+  const addNewSubscription = (subscribe) =>{
+    dispatch(actions.addSubscription(subscribe))
+}
+
     const [rate, setRate] = React.useState('');
     const [convert, setConvert] = React.useState([]);
     const [value, setValue] = React.useState(1);
-    const [user, setUser] = React.useState({});
+    
     const [tab, setTab] = React.useState(0);
     const [process, setProcess] = React.useState(0);
     const [type, setType] = React.useState("");
@@ -45,7 +56,7 @@ function Membership() {
     const [discount, setDiscount] = React.useState(null);
 
     const handleCoupon = () => {
-        let db = ls.get(USERDB, { decrypt: true });
+
         axios
             .post(
                 "/api/get-coupon",
@@ -55,7 +66,7 @@ function Membership() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + db.token,
+                        Authorization: "Bearer " + token,
                     },
                 }
             )
@@ -73,7 +84,7 @@ function Membership() {
     };
 
     const _handleSignupMembership = () => {
-        let db = ls.get(USERDB, { decrypt: true });
+    
         axios
             .post(
                 "/api/membership",
@@ -89,17 +100,31 @@ function Membership() {
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: "Bearer " + db.token,
+                        Authorization: "Bearer " + token,
                     },
                 }
             )
-            .then((response) => {
-                console.log(response.data);
+            .then((res) => {
+                console.log(res.data);
                 //   setnote(response.data.notice)
-                ls.set(subscribe, response.data.subscription, {
-                    encrypt: true,
-                });
+              
+
+                if(res.status == 200){
+                    ls.set(
+                   USERDB,
+                   { user: res.data.user, token: res.data.token,subscription:res.data.subscription, profile: res.data.profile, preference: res.data.preference},
+                   { encrypt: true }
+               );
+
+               addNewUser(res.data.user)
+               addNewProfile(res.data.profile)
+               addNewPreference(res.data.preference)
+               addNewToken(res.data.token)
+               addNewSubscription(res.data.subscription)
+
+
                 toast.success(response.data.message);
+                    }
             })
             .catch((error) => {
                 console.log(error);
@@ -108,7 +133,7 @@ function Membership() {
 
     const loadCurrencyValue = () => {
         axios
-        .get("https://api.exchangerate.host/latest/?base=CAD", {
+        .get("https://api.exchangerate.host/latest/?base=USD", {
             headers: {
 
                 "Content-Type": "application/json",
@@ -126,11 +151,7 @@ function Membership() {
     };
 
     React.useEffect(() => {
-        let db = ls.get(USERDB, { decrypt: true });
-
-        if (db !== null) {
-            setUser(db.profile);
-        }
+       
 
         loadCurrencyValue();
     }, []);
@@ -263,7 +284,7 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-center items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}{" "}
+                                                { $}{" "}
                                                 {(17.5 *   rate[user.currency]).toLocaleString()}
                                             </h1>
                                             <span className="text-sm">
@@ -286,7 +307,7 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(17.5 * rate[user.currency]);
+                                            setAmount(17.5  );
                                             setCredit(3000);
                                             setDuration(7);
                                         }}
@@ -307,8 +328,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}
-                                                {(34.99 *   rate[user.currency]).toLocaleString()}
+                                                { $}
+                                                {(34.99 ).toLocaleString()}
                                             </h1>
                                             <span className="text-sm">
                                                 {user.currency}
@@ -329,7 +350,7 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(34.99 * rate[user.currency]);
+                                            setAmount(34.99  );
                                             setCredit(3000);
                                             setDuration(30);
                                         }}
@@ -350,8 +371,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}{" "}
-                                                {(23.33 * 3 *   rate[user.currency]).toLocaleString()}
+                                                { $}{" "}
+                                                {(23.33 * 3).toLocaleString()}
                                             </h1>
                                              <span className="text-sm">
                                                 {user.currency}
@@ -372,7 +393,7 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(23.33 * 3 * rate[user.currency]);
+                                            setAmount(23.33 * 3  );
                                             setCredit(3000);
                                             setDuration(90);
                                         }}
@@ -393,8 +414,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}{" "}
-                                                {(139.99 *   rate[user.currency]).toLocaleString()}
+                                                { $}{" "}
+                                                {(139.99).toLocaleString()}
                                             </h1>
                                             <span className="text-sm">
                                                 {user.currency}
@@ -415,7 +436,7 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(139.99 * rate[user.currency]);
+                                            setAmount(139.99  );
                                             setCredit(3000);
                                             setDuration(365);
                                         }}
@@ -447,8 +468,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}{" "}
-                                                {(20 *   rate[user.currency]).toLocaleString()}
+                                                { $}{" "}
+                                                {(20).toLocaleString()}
                                             </h1>
                                             <span className="text-sm">
                                                 {user.currency}
@@ -469,7 +490,7 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(20 * rate[user.currency]);
+                                            setAmount(20  );
                                             setCredit(3000);
                                             setDuration(7);
                                         }}
@@ -490,8 +511,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}{" "}
-                                                {(39.99 *  rate[user.currency]).toLocaleString()}
+                                                { $}{" "}
+                                                {(39.99).toLocaleString()}
                                             </h1>
                                             <span className="text-sm">
                                                 {user.currency}
@@ -512,7 +533,7 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(39.99 * rate[user.currency]);
+                                            setAmount(39.99  );
                                             setCredit(3000);
                                             setDuration(30);
                                         }}
@@ -533,8 +554,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}{" "}
-                                                {(79.98 *  rate[user.currency]).toLocaleString()}
+                                                { $}{" "}
+                                                {(79.98).toLocaleString()}
                                             </h1>
                                             <span className="text-sm">
                                                 {user.currency}
@@ -576,8 +597,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {user.currency_symbol}{" "}
-                                                {(149.99 *  rate[user.currency]).toLocaleString()}
+                                                { $}{" "}
+                                                {(149.99).toLocaleString()}
                                             </h1>
                                             <span className="text-sm">
                                                 {user.currency}
@@ -598,7 +619,7 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("gold");
-                                            setAmount(149.99 * rate[user.currency]);
+                                            setAmount(149.99  );
                                             setCredit(3000);
                                             setDuration(365);
                                         }}
@@ -632,7 +653,7 @@ function Membership() {
 
                                         <div className="flex flex-row justify-end items-center">
                                              <h1 className="text-2xl font-bold">
-                                             {user.currency_symbol} {(40.00*  rate[user.currency]).toLocaleString()}
+                                             { $} {(40.00).toLocaleString()}
                                         </h1><span className="text-sm">{user.currency}</span>
                                         </div>
 
@@ -673,7 +694,7 @@ function Membership() {
 
                                         <div className="flex flex-row justify-end items-center">
                                              <h1 className="text-2xl font-bold">
-                                             {user.currency_symbol} {(79.98*  rate[user.currency]).toLocaleString()}
+                                             { $} {(79.98).toLocaleString()}
                                         </h1><span className="text-md">{user.currency}</span>
                                         </div>
 
@@ -714,7 +735,7 @@ function Membership() {
 
                                         <div className="flex flex-row justify-end items-center">
                                              <h1 className="text-2xl font-bold">
-                                             {user.currency_symbol} {(159.97*  rate[user.currency]).toLocaleString()}
+                                             { $} {(159.97).toLocaleString()}
                                         </h1><span className="text-sm">{user.currency}</span>
                                         </div>
 
@@ -755,7 +776,7 @@ function Membership() {
 
                                         <div className="flex flex-row justify-end items-center">
                                              <h1 className="text-2xl font-bold">
-                                             {user.currency_symbol} {(299.98* rate[user.currency]).toLocaleString()}
+                                             { $} {(299.98 ).toLocaleString()}
                                         </h1><span className="text-sm">{user.currency}</span>
                                         </div>
 
@@ -1209,7 +1230,7 @@ function Membership() {
                                     }}
                                 >
                                     <p>{type}</p>
-                                    <p className="font-bold text-2xl">{user.currency_symbol}{new Intl.NumberFormat( {style:'currency', currency:user.currency}).format(amount)}</p>
+                                    <p className="font-bold text-2xl">{ $}{new Intl.NumberFormat( {style:'currency', currency:"USD"}).format(amount)}</p>
                                 </div>
                                 <div
                                     style={{
@@ -1232,7 +1253,7 @@ function Membership() {
                                     }}
                                 >
                                     <p>Total</p>
-                                    <p className="font-bold text-2xl">{user.currency_symbol}{new Intl.NumberFormat( {style:'currency', currency:user.currency,}).format(amount)}</p>
+                                    <p className="font-bold text-2xl">{ $}{new Intl.NumberFormat( {style:'currency', currency:"USD",}).format(amount)}</p>
                                 </div>
 
                                 {process == 1 && (
@@ -1305,7 +1326,7 @@ function Membership() {
                                                                     description:
                                                                         type,
                                                                     amount: {
-                                                                        value: (amount/rate[user.currency * rate['USD']]).toFixed(2),
+                                                                        value: (amount).toFixed(2),
                                                                     },
                                                                 },
                                                             ],

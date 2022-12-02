@@ -197,7 +197,7 @@ function Mymatches({action}) {
                 {/* <Match /> */}
 
                 {explores.length > 0 ? (
-                    <div className="gap-6 pt-2 flex flex-row flex-wrap md:justify-between justify-center">
+                    <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
                    
                         {explores.map((userprof, index) => (
                             <UserProfile
