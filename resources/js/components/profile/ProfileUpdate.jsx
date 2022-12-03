@@ -69,9 +69,9 @@ const ProfileUpdate = () => {
     const [seekingQuote, setSeekingQuote] = React.useState(profile.seeking_quote);
     const [datingFor, setDatingFor] = React.useState(profile.dating_for);
     const [gender, setGender] = React.useState(profile.gender);
-    const [liveInCountry, setLiveInCountry] = useState(profile.live_in.split(',')[0]);
-    const [liveInState, setLiveInState] = useState(profile.live_in.split(',')[1]);
-    const [liveInCity, setLiveInCity] = useState(profile.live_in.split(',')[2]);
+    const [liveInCountry, setLiveInCountry] = useState(profile.live_in === null?"any":profile.live_in.split(',')[0]);
+    const [liveInState, setLiveInState] = useState(profile.live_in === null?"any":profile.live_in.split(',')[1]);
+    const [liveInCity, setLiveInCity] = useState(profile.live_in === null?"any":profile.live_in.split(',')[2]);
 
     // states
     const [education, setEducation] = useState(profile.education);

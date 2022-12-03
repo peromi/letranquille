@@ -1,10 +1,11 @@
 import React from "react";
 import AuthContainer from "../containers/AuthContainer";
 import { Link, useNavigate } from "react-router-dom";
-import { TextField, Button } from "@material-ui/core";
 import { toast } from "react-toastify";
 import axios from "axios";
 import ls from "localstorage-slim";
+import { actions } from "../store/userSlice";
+import { useDispatch } from "react-redux";
 
 const DATABASE_KEY = "user-m9j234u94";
 const REG_STEPS = "stepper";
@@ -12,6 +13,23 @@ const REG_STEPS = "stepper";
 const USERPASS = "userpass";
 const USERDB = "dao";
 function Register() {
+    const dispatch = useDispatch();
+    const addNewUser = (user) => {
+        dispatch(actions.addUser(user));
+    };
+    const addNewPreference = (pref) => {
+        dispatch(actions.addPreferences(pref));
+    };
+    const addNewProfile = (prof) => {
+        dispatch(actions.addProfile(prof));
+    };
+    const addNewToken = (token) => {
+        dispatch(actions.addToken(token));
+    };
+    const addNewSubscription = (subscribe) => {
+        dispatch(actions.addSubscription(subscribe));
+    };
+
     const navigate = useNavigate();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -46,23 +64,58 @@ function Register() {
                     age,
                 })
                 .then((res) => {
-                    if (res.status == 200) {
+                    console.log(res.data);
+                    console.log(res.status);
+
+                    if (res.status === 200) {
+
+
+                        alert("Success!");
+
+                        let data = res.data;
                         ls.set(
                             USERDB,
                             {
-                                user: res.data.user,
-                                token: res.data.token,
-                                profile: res.data.profile,
-                                preference: res.data.preference,
+                                user: data.user,
+                                token: data.token,
+                                subscription: data.subscription,
+                                profile: data.profile,
+                                preference: data.preference,
                             },
                             { encrypt: true }
                         );
 
+                        addNewUser(data.user);
+                        addNewProfile(data.profile);
+                        addNewPreference(data.preference);
+                        addNewToken(data.token);
+                        addNewSubscription(data.subscription);
+                       
                         navigate("/profile-update", { replace: true });
+                    }else{
+                        alert(res.data.message)
                     }
+                    //     if(res.status === 200){
+                    //         ls.set(
+                    //        USERDB,
+                    //        { user: res.data.user, token: res.data.token,subscription:res.data.subscription, profile: res.data.profile, preference: res.data.preference},
+                    //        { encrypt: true }
+                    //    );
+
+                    //    addNewUser(res.data.user)
+                    //    addNewProfile(res.data.profile)
+                    //    addNewPreference(res.data.preference)
+                    //    addNewToken(res.data.token)
+                    //    addNewSubscription(res.data.subscription)
+                    //     // addUser(response.data.user.id, response.user.name)
+                    //     navigate("/profile-update", { replace: true });
+                    //    }
                 })
                 .catch((e) => {
-                    toast.error(e.response.data.message);
+                    console.log(e.response);
+                    // toast.error(e.response.data.message);
+
+                    alert(e);
                 });
         } else {
             toast.warning("Fields can't be empty.");
@@ -92,7 +145,7 @@ function Register() {
                         />
 
                         <div className="flex  md:flex-row lg:flex-row flex-col mt-[4px] mb-[14px] gap-x-4">
-                            <div  >
+                            <div>
                                 <p className="font-bold">I'm a {iam}</p>
                                 <div className="flex flex-row  p-2 ring-1 ring-slate-900/5 bg-zinc-50 gap-2">
                                     <div className="flex flex-row text-md font-bold text-md">
@@ -104,7 +157,7 @@ function Register() {
                                                 setIam("male");
                                             }}
                                         />{" "}
-                                        <label for="sex-male">Male</label>
+                                        <label for="sex-male">{" "}Male</label>
                                     </div>
                                     <div className="flex flex-row font-bold text-md">
                                         <input
@@ -115,11 +168,11 @@ function Register() {
                                                 setIam("female");
                                             }}
                                         />{" "}
-                                        <label for="sex-female">Female</label>
+                                        <label for="sex-female">{" "}Female</label>
                                     </div>
                                 </div>
                             </div>
-                            <div  >
+                            <div>
                                 <p className="font-bold">
                                     I'm looking for {looking}
                                 </p>
@@ -133,7 +186,7 @@ function Register() {
                                                 setLooking("male");
                                             }}
                                         />{" "}
-                                        <label for="look-male">Male</label>
+                                        <label for="look-male">{" "}Male</label>
                                     </div>
                                     <div className="flex flex-row text-md font-bold text-md">
                                         <input
@@ -144,12 +197,12 @@ function Register() {
                                                 setLooking("female");
                                             }}
                                         />{" "}
-                                        <label for="look-female">Female</label>
+                                        <label for="look-female">{" "}Female</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div  >
+                            <div>
                                 <p className="font-bold">Age</p>
 
                                 <select
@@ -186,6 +239,10 @@ function Register() {
                             className="ring-1 ring-slate-900/5 p-2 w-full outline-0 "
                         />
 
+
+<div className="text-md mt-2">
+By registering you agree to Le-tranquille <Link to="" className="text-red-600 font-bold">Terms & Conditions</Link> and <Link to="" className="text-red-600 font-bold">Privacy Policy</Link>
+</div>
                         <button
                             onClick={() => {
                                 handleRegister();

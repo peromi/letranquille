@@ -24,16 +24,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const DB = "user-m9j234u94"
 const USERDB = "dao"
 
-const dbs = ls.get(USERDB, {decrypt:true})
-
-const fetcher = (url) => axios.get(url,{
-
-    headers:{
-        'Accept':'application/json',
-        'Authorization':'Bearer '+dbs.token
-    }
-
-}).then((resp)=>resp.data)
+ 
 function ShowAll() {
     const dispatch = useDispatch()
  
@@ -47,11 +38,9 @@ function ShowAll() {
     const navigate = useNavigate()
     const [pageIndex, setPageIndex] = React.useState(0);
 
-    const { data } = useSWR(`/api/get-all-users?page=${pageIndex}`, fetcher);
+   
 
-    console.log(data)
-
-    const [seeking, setSeeking] = React.useState("");
+    const [seeking, setSeeking] = React.useState(profile.lookingfor);
     const [ageMin, setAgeMin] = React.useState("");
     const [ageMax, setAgeMax] = React.useState("");
     const [liveInCountry, setLiveInCountry] = React.useState("");
@@ -369,7 +358,7 @@ if(isLoading){
         )}
 </div>:<div>
      {!isLoading ?<div className="flex flex-col justify-center w-full items-center">
-            <h1 className="font-bold text-2xl mt-2">
+            <h1 className="font-bold text-2xl mt-2 tracking-tighter">
                 You do not have any match
             </h1>
             <p className="md:w-[30%]">
@@ -378,7 +367,7 @@ if(isLoading){
                 a message yet, "Like" them instead!
             </p>
             <img
-                src={user.iam == "male"? woman:man}
+                src={profile.iam == "male"? woman:man}
                 width="200"
                 className="rounded-full my-6"
             />

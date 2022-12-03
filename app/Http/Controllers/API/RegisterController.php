@@ -116,7 +116,7 @@ class RegisterController extends Controller
             $preferences = Preferences::where("user_id",$newuser->id)->first();
             $profile = Profile::where("user_id",$newuser->id)->first();
            
-              return json_encode(['user'=>$newuser, 'token' => $token, "profile"=>$profile, "preference" => $preferences]);
+              return json_encode(['user'=>$newuser, 'token' => $token,"subscription"=>$membership, "profile"=>$profile, "preference" => $preferences]);
 
  
              
@@ -155,7 +155,7 @@ class RegisterController extends Controller
             $membership->city = 'nil';
             $membership->zip = 'nil';
             $membership->plan_type = "silver";
-            $membership->duration = $request->input('duration');
+            $membership->duration = 7;
             $membership->expiry = Carbon::now()->addDays(7);
             $membership->credit = 0;
 
@@ -188,10 +188,12 @@ class RegisterController extends Controller
            
   
           
+
+          
             $preferences = Preferences::where("user_id",$newuser->id)->first();
             $profile = Profile::where("user_id",$newuser->id)->first();
            
-              return json_encode(['user'=>$newuser, 'token' => $token, "profile"=>$profile, "preference" => $preferences]);
+            return json_encode(['user'=>$newuser, 'token' => $token, "subscription" =>$membership, "profile"=>$profile, "preference" => $preferences]);
 
  
 

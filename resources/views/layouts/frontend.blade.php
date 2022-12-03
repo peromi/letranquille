@@ -23,7 +23,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
-    <script defer type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="3c341ec2-dbcb-4edd-a640-c5bb8dd39176";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+  <script src="//code.tidio.co/pobhvmnpeedkipkjry5ua9i5dkdjmxsd.js" async></script>
 </head>
 <body>
 
