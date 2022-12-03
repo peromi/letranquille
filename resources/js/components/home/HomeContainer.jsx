@@ -4,6 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 
 function HomeContainer({ children }) {
     const [showmenu, setShowmenu] = React.useState(false);
+    React.useEffect(() => {
+        const script = document.createElement('script');
+      
+        script.src = "//code.tidio.co/pobhvmnpeedkipkjry5ua9i5dkdjmxsd.js";
+        script.async = true;
+      
+        document.body.appendChild(script);
+      
+        return () => {
+          document.body.removeChild(script);
+        }
+      }, []);
     return (
         <div className="flex flex-col">
             <div className="fixed top-0 left-0 right-0 flex justify-between pr-2 pl-2 md:pl-[160px] md:pr-[160px] pb-2 pt-2 items-center bg-white ">

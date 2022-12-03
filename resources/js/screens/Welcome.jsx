@@ -18,8 +18,17 @@ function Welcome() {
 
     
     React.useEffect(() => {
- 
-    }, []);
+        const script = document.createElement('script');
+      
+        script.src = "//code.tidio.co/pobhvmnpeedkipkjry5ua9i5dkdjmxsd.js";
+        script.async = true;
+      
+        document.body.appendChild(script);
+      
+        return () => {
+          document.body.removeChild(script);
+        }
+      }, []);
     return (
         <div>
             <div className="relative">

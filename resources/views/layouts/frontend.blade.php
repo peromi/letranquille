@@ -23,7 +23,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
-  <script src="//code.tidio.co/pobhvmnpeedkipkjry5ua9i5dkdjmxsd.js" async></script>
+
 </head>
 <body>
 
