@@ -43,9 +43,9 @@ function ShowAll() {
     const [seeking, setSeeking] = React.useState(profile.lookingfor);
     const [ageMin, setAgeMin] = React.useState("");
     const [ageMax, setAgeMax] = React.useState("");
-    const [liveInCountry, setLiveInCountry] = React.useState("");
-    const [liveInState, setLiveInState] = React.useState("");
-    const [liveInCity, setLiveInCity] = React.useState("");
+    const [liveInCountry, setLiveInCountry] = React.useState("any");
+    const [liveInState, setLiveInState] = React.useState("any");
+    const [liveInCity, setLiveInCity] = React.useState("any");
     const [withIn, setWithIn] = React.useState("");
 
     const [isLoading, setIsLoading] = React.useState(true)
@@ -266,7 +266,9 @@ if(isLoading){
     </div>
     <div className='flex-1 w-full  font-bold'>
         <p className="text-white">City</p>
-        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInCity} onChange={(e)=>setLiveInCity(e.target.value)}>
+        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInCity} onChange={(e)=>{
+            console.log(e.target.value)
+            setLiveInCity(e.target.value)}}>
         <option>Any</option>
             {citysearch.map((c,index)=><option key={index} >{c.name}</option>)}
         </select>

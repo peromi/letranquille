@@ -14,7 +14,7 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $favorite = Favorite::where('favorites.user_id', auth()->user()->id)->join('profiles','profiles.user_id', '=', 'favorites.profile_id')->join('locations', 'locations.user_id', '=', 'favorites.profile_id')->join('avatars', 'avatars.user_id', '=', 'favorites.profile_id')->join('preference_ages', 'preference_ages.user_id', '=', 'favorites.profile_id')->get();
+        $favorite = Favorite::where('favorites.user_id', auth()->user()->id)->join('profiles','profiles.user_id', '=', 'favorites.profile_id')->get();
         return response(['favorite' => $favorite], 201);
     }
 
@@ -87,8 +87,13 @@ class FavoriteController extends Controller
      * @param  \App\Models\Favorite  $favorite
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Favorite $favorite)
+    public function destroy($id)
     {
-        //
+        $fav = Favorite::find($id);
+
+        $fav->delete();
+
+
+        return json_encode(['message' => "Removed Favorite"]);
     }
 }

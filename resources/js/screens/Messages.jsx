@@ -15,12 +15,17 @@ import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 import woman from "../assets/images/awoman.jpg";
 import lady from "../assets/images/lady.jpg";
+import {useSelector, useDispatch} from 'react-redux'
+import { actions } from '../store/userSlice'
 
 const DB = "user-m9j234u94";
 const USERDB = "dao";
 function Messages() {
     const navigate = useNavigate();
-    const { subscription } = React.useContext(SocketContext);
+    const profile = useSelector((state)=>state.user.profile)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
+
     const [tab, setTab] = React.useState(0);
     const [user, setUser] = React.useState(null);
 
@@ -31,12 +36,12 @@ function Messages() {
     let params = useParams();
 
     const receivedMessages = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+         
         axios
             .get(`/api/get-received-messages`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -59,12 +64,12 @@ function Messages() {
     };
 
     const sentMessages = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+       
         axios
             .get(`/api/get-sent-messages`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -87,12 +92,12 @@ function Messages() {
     };
 
     const favoriteMessages = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+         
         axios
             .get(`/api/get-favorite-messages`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -196,7 +201,7 @@ function Messages() {
                                     <div
                                         className="w-[34px] h-[34px] rounded-full"
                                         style={{
-                                            backgroundImage: `url('/storage/avatar/${m.first_cover}')`,
+                                            backgroundImage: `url('/storage/avatar/${m.first_photo}')`,
                                             backgroundSize: "cover",
                                             backgroundPosition: "center",
                                         }}
@@ -257,7 +262,7 @@ function Messages() {
                                         <div
                                             className="w-[34px] h-[34px] rounded-full"
                                             style={{
-                                                backgroundImage: `url('/storage/avatar/${m.first_cover}')`,
+                                                backgroundImage: `url('/storage/avatar/${m.first_photo}')`,
                                                 backgroundSize: "cover",
                                                 backgroundPosition: "center",
                                             }}

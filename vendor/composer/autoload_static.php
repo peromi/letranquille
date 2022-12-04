@@ -123,6 +123,7 @@ class ComposerStaticInita180bfb786dc75c62262a882b137ba9f
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
         array (
@@ -455,6 +456,10 @@ class ComposerStaticInita180bfb786dc75c62262a882b137ba9f
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'Omnipay\\PayPal\\' => 
         array (
             0 => __DIR__ . '/..' . '/omnipay/paypal/src',
@@ -716,6 +721,7 @@ class ComposerStaticInita180bfb786dc75c62262a882b137ba9f
         'App\\Http\\Controllers\\ProfessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfessionController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\ProfileViewController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileViewController.php',
+        'App\\Http\\Controllers\\PromoController' => __DIR__ . '/../..' . '/app/Http/Controllers/PromoController.php',
         'App\\Http\\Controllers\\ReligionController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReligionController.php',
         'App\\Http\\Controllers\\SexualOrientationController' => __DIR__ . '/../..' . '/app/Http/Controllers/SexualOrientationController.php',
         'App\\Http\\Controllers\\VideoCallController' => __DIR__ . '/../..' . '/app/Http/Controllers/VideoCallController.php',
@@ -4234,6 +4240,12 @@ class ComposerStaticInita180bfb786dc75c62262a882b137ba9f
         'Omnipay\\PayPal\\RestGateway' => __DIR__ . '/..' . '/omnipay/paypal/src/RestGateway.php',
         'Omnipay\\PayPal\\Support\\InstantUpdateApi\\BillingAgreement' => __DIR__ . '/..' . '/omnipay/paypal/src/Support/InstantUpdateApi/BillingAgreement.php',
         'Omnipay\\PayPal\\Support\\InstantUpdateApi\\ShippingOption' => __DIR__ . '/..' . '/omnipay/paypal/src/Support/InstantUpdateApi/ShippingOption.php',
+        'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
+        'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
+        'PHPMailer\\PHPMailer\\OAuthTokenProvider' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuthTokenProvider.php',
+        'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
+        'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
+        'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\ActualValueIsNotAnObjectException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/ActualValueIsNotAnObjectException.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',

@@ -737,9 +737,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Liked Option
     Route::get('/liked-profile', function () {
-        $user = User::where('users.id', auth()->user()->id)->join('profiles', 'profiles.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('religions', 'religions.user_id', '=', 'users.id')->join('hobbies', 'hobbies.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->join('galleries', 'galleries.user_id', '=', 'users.id')->first();
+        $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
 
-        $likes = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('likeds', 'likeds.user_id', '=', 'users.id')->where('likeds.user_id', $user->id)->join('locations', 'locations.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('preference_ages', 'preference_ages.user_id', '=', 'users.id')->with('gallery')->with('preferences')->get();
+        $likes = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('likeds', 'likeds.user_id', '=', 'users.id')->where('likeds.user_id', $user->id)->with('gallery')->with('preferences')->get();
         return json_encode(['likes' => $likes]);
     });
     // Delete likes
@@ -751,7 +751,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // Get people that liked me
     Route::get('/liked-me', function () {
-        $likes = Liked::where('profile_id', auth()->user()->id)->join('profiles', 'profiles.id', '=', 'likeds.user_id')->join('locations', 'locations.user_id', '=', 'likeds.user_id')->join('avatars', 'avatars.user_id', '=', 'likeds.user_id')->join('preference_ages', 'preference_ages.user_id', '=', 'likeds.user_id')->get();
+        $likes = Liked::where('profile_id', auth()->user()->id)->join('profiles', 'profiles.id', '=', 'likeds.user_id')->get();
 
         return json_encode(['likes' => $likes], 201);
     });
@@ -839,7 +839,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Fetch message that was not sent
     Route::get('/get-messages/{id}', function ($id) {
-        $recipient =   User::where('users.id', $id)->with('profile')->with('gallery')->first();
+        $recipient =   User::where('users.id', $id)->with('profile')->with('gallery')->with('subscription')->first();
 
         $messages = Message::where('recipient', auth()->user()->id)->where('sender', $id)->orWhere('sender', auth()->user()->id)->where('recipient', $id)->latest()->get();
         return json_encode(['messages' => $messages, 'recipient' => $recipient]);
@@ -847,17 +847,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('/get-sent-messages', function () {
-        $messages = Message::join('profiles', 'profiles.user_id', '=', 'messages.recipient')->join('avatars', 'avatars.user_id', '=', 'messages.recipient')->where('messages.sender', auth()->user()->id)->get();
+        $messages = Message::join('profiles', 'profiles.user_id', '=', 'messages.recipient')->where('messages.sender', auth()->user()->id)->get();
         return json_encode(['messages' => $messages]);
     });
 
     Route::get('/get-received-messages', function () {
-        $messages = Message::join('profiles', 'profiles.user_id', '=', 'messages.sender')->join('avatars', 'avatars.user_id', '=', 'messages.sender')->where('messages.recipient', auth()->user()->id)->get();
+        $messages = Message::join('profiles', 'profiles.user_id', '=', 'messages.sender')->where('messages.recipient', auth()->user()->id)->get();
         return json_encode(['messages' => $messages]);
     });
 
     Route::get('/get-favorite-messages', function () {
-        $messages = Message::join('profiles', 'profiles.user_id', '=', 'messages.sender')->join('avatars', 'avatars.user_id', '=', 'messages.sender')->where('messages.recipient', auth()->user()->id)->where('messages.by', "=", "favorite")->get();
+        $messages = Message::join('profiles', 'profiles.user_id', '=', 'messages.sender')->where('messages.recipient', auth()->user()->id)->where('messages.by', "=", "favorite")->get();
         return json_encode(['messages' => $messages]);
     });
     //Fetch message list from last message
@@ -888,14 +888,14 @@ Route::middleware('auth:sanctum')->group(function () {
         // $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('preference_ages', 'preference_ages.user_id', '=', 'users.id')->join('preference_drinks', 'preference_drinks.user_id', '=', 'users.id')->join('preference_smokes', 'preference_smokes.user_id', '=', 'users.id')->join('preference_food', 'preference_food.user_id', '=', 'users.id')->join('preference_bodytypes', 'preference_bodytypes.user_id', '=', 'users.id')->join('preference_religions', 'preference_religions.user_id', '=', 'users.id')->join('preference_desired_relationships', 'preference_desired_relationships.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('religions', 'religions.user_id', '=', 'users.id')->join('hobbies','hobbies.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->join('galleries', 'galleries.user_id', '=', 'users.id')->where('users.id','!=', auth()->user()->id)->get(['users.*', 'profiles.*', 'avatars.*', 'locations.*','preference_ages.*','preference_drinks.*', 'preference_smokes.*', 'preference_food.*', 'preference_bodytypes.*', 'preference_religions.*','preference_desired_relationships.*']);
         $preferences = Preferences::where("user_id", $user->id)->first();
        
-        if($request->country != "any" && $request->state != "any" && $request->city == "any"){
+        if($request->country != "Any" && $request->state != "Any" && $request->city == "undefined"){
             $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->country."%")->where('profiles.live_in',"LIKE", "%".$request->state."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
        
-        }else if($request->country != "any" && $request->state != "any" && $request->city != "any"){
+        }else if($request->country != "Any" && $request->state != "Any" && $request->city != "Any"){
             $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->country."%")->where('profiles.live_in',"LIKE", "%".$request->state."%")->where('profiles.live_in',"LIKE", "%".$request->city."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
        
-        }else if($request->country != 'any' && $request->state == 'any' && $request->city == 'any'){
-            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->country."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
+        }else if($request->country != 'Any' && $request->state == 'Any' && $request->city == 'undefined'){
+            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->input('country')."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
        
         }
         

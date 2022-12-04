@@ -54,8 +54,8 @@ function MainContainer(props) {
 
 //     },[user])
 
- document.getElementById("tidio-chat").style.display = "none"
- document.getElementById("tidio-chat-code").style.display = "none"
+//  document.getElementById("tidio-chat").style.display = "none"
+//  document.getElementById("tidio-chat-code").style.display = "none"
   return (
     <div >
 

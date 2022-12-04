@@ -53,7 +53,7 @@ class ProfileViewController extends Controller
         Notification::send($user, new MessageNotification($data));
 
             if($profile->save()){
-                return response(['message'=> "Profile Viewed."], 201);
+                return json_encode(['message'=> "Profile Viewed."]);
             }
         }
     }

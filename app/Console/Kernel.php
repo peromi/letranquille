@@ -17,11 +17,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-       
-            Artisan::call('config:clear');
-            Artisan::call('route:clear');
-            Artisan::call('view:clear');
-            Artisan::call('cache:clear');
+            $schedule->command('auth:clear-resets')->everyFifteenMinutes();
+            $schedule->command('config:clear')->hourly();
+            $schedule->command('route:clear')->hourly();
+            $schedule->command('view:clear')->hourly();
+            $schedule->command('cache:clear')->hourly();
     }
 
     /**

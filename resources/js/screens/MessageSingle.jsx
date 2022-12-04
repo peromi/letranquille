@@ -36,7 +36,7 @@ const MessageSingle = () => {
 
     const [isloading, setIsLoading] = React.useState(false)
     const [message, setMessage] = React.useState("");
-    const [recipient, setRecipient] = React.useState(null);
+    const [recipient, setRecipient] = React.useState("");
     const [resprofile, setResprofile] = React.useState('')
     const [file, setFile] = React.useState(null);
     const [type, setType] = React.useState("text");
@@ -55,7 +55,7 @@ const MessageSingle = () => {
                 },
             })
             .then((response) => {
-                console.log(response.data.recipient.profile)
+                console.log(response.data.recipient)
 
                 setMessages(response.data.messages);
                 setRecipient(response.data.recipient);
@@ -236,7 +236,7 @@ const MessageSingle = () => {
                             }}
                         ></div>
                     </div>
-
+<small> {recipient.email}</small>
                     <h1 className="font-bold text-xl">{resprofile.name}</h1>
                     <div className="flex md:flex-row flex-col justify-center items-center mr-1">
                         <h1 className="font-bold text-2xl">{resprofile.age}</h1>
@@ -245,6 +245,8 @@ const MessageSingle = () => {
                     <p className="md:flex hidden">
                         {resprofile.live_in}
                     </p>
+
+                    <p>Subscription {recipient.subscription == null ? "no sub":"theres is sub"}</p>
                 </div>
                 {/* message */}
                 <div className="md:w-[70%] w-full bg-white h-full relative">
@@ -255,7 +257,7 @@ const MessageSingle = () => {
                                     return (
                                         <div
                                             key={index}
-                                            className="flex flex-row  items-start mb-[12px]"
+                                            className="flex flex-row  items-start mb-[12px] relative"
                                         >
                                             <div
                                                 className="w-[34px] h-[34px] rounded-full m-2"
@@ -266,7 +268,7 @@ const MessageSingle = () => {
                                                         "center",
                                                 }}
                                             ></div>
-                                            <div className="mr-12 font-bold p-3 bg-white rounded-md justify-between flex flex-col gap-x-4">
+                                            <div className="mr-12 font-bold p-3 bg-white rounded-md justify-between flex flex-col gap-x-4 relative">
                                                 <span className="text-sm text-slate-500 ml-2">
                                                     {resprofile.name}:
                                                 </span>
@@ -293,7 +295,15 @@ const MessageSingle = () => {
                                                         ></source>
                                                     </video>
                                                 )}
+                                                 
+                                                 {subscription === null && <div className="absolute p-2 flex flex-col items-center top-0 left-0 right-0 bottom-0 bg-slate-200/75 backdrop-blur-sm">
+                                     
+                                                       <small>You can't read this message</small>
+                                                <Link to="/manage-subscription" className="bg-green-500 p-1  rounded-full m-2 text-sm">Upgrade Now</Link> 
+                                   
+                                            </div>}
                                             </div>
+                                           
                                            
                                         </div>
                                     );
@@ -327,6 +337,11 @@ const MessageSingle = () => {
                                                         ></source>
                                                     </video>
                                                 )}
+                                                 {recipient.subscription == null &&<div className="flex flex-col p-2">
+                                                       <small>{resprofile.name} can't read this message</small>
+                                                       <small>{resprofile.iam === "male" ? "He is ":"She is "}on free subscription</small>
+                                                      {subscription === null && <Link to="/manage-subscription" className="bg-green-500 p-2 px-12">Upgrade Now</Link>}
+                                                    </div>}
                                                 </div>
                                                 
                                             </div>
@@ -355,6 +370,10 @@ const MessageSingle = () => {
                                                         ></source>
                                                     </video>
                                                 )}
+                                                {recipient.subscription == null &&<div>
+                                                       <p>{resprofile.name} can't read this message</p>
+                                                      {subscription == null && <Link to="/manage-subscription">Upgrade Now</Link>}
+                                                    </div>}
                                             </div>
                                             <p>
                                                 {moment(m.created_at).fromNow()}
@@ -394,6 +413,10 @@ const MessageSingle = () => {
                                                         ></source>
                                                     </video>
                                                 )}
+                                                 {recipient.subscription == null &&<div>
+                                                       <p>{resprofile.name} can't read this message</p>
+                                                      {subscription == null && <Link to="/manage-subscription">Upgrade Now</Link>}
+                                                    </div>}
                                             </div>
                                             <p>
                                                 {moment(m.created_at).fromNow()}

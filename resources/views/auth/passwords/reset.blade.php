@@ -15,7 +15,7 @@
         @csrf
 
         <input type="hidden" name="token" value="{{ $token }}">
-        <input type="email" name="email" required placeholder="Your current password"
+        <input type="email" name="email" required placeholder="Your current email"
             class="ring-1 p-3 bg-zinc-50 w-full px-12 ring-slate-900/5 outline-0" />
 
         @error('email')
