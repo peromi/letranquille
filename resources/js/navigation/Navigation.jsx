@@ -17,6 +17,7 @@ const Navigation = ({ select }) => {
   const profile = useSelector((state)=>state.user.profile)
   const subscription = useSelector((state)=>state.user.subscription)
   const token = useSelector((state)=>state.user.token)
+  
   const navigate = useNavigate()
   
   const [showmenu, setShowmenu] = React.useState(false)
@@ -79,14 +80,15 @@ const Navigation = ({ select }) => {
           }
       }).then((response)=>{
        
+       if(response.status === 200){
         ls.remove(USERDB)
 
 
-        document.getElementById("tidio-chat").style.display = "block"
-        document.getElementById("tidio-chat-code").style.display = "block"
+        
 
           // toast.success(response.data.message);
           navigate("/", {replace:true});
+       }
 
       }).catch((err)=>{
        
