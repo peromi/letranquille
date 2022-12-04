@@ -18,14 +18,15 @@ function Welcome() {
 
     
     React.useEffect(() => {
-        document.getElementById("tidio-chat").style.display = "block"
-        document.getElementById("tidio-chat-code").style.display = "block"
+       
         const script = document.createElement('script');
       
         script.src = "//code.tidio.co/pobhvmnpeedkipkjry5ua9i5dkdjmxsd.js";
         script.async = true;
       
         document.body.appendChild(script);
+
+
       
         return () => {
           document.body.removeChild(script);

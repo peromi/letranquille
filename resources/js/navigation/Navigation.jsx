@@ -82,6 +82,9 @@ const Navigation = ({ select }) => {
         ls.remove(USERDB)
 
 
+        document.getElementById("tidio-chat").style.display = "block"
+        document.getElementById("tidio-chat-code").style.display = "block"
+
           // toast.success(response.data.message);
           navigate("/", {replace:true});
 
