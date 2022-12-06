@@ -21,6 +21,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { actions } from "../../store/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
 
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
@@ -453,8 +454,8 @@ function ProfilePanel() {
                     {/* avatar */}
                     <div className="w-[450px] h-full flex flex-col">
                    
-                   <div className="w-full  h-[80%]"  >
-                   {slideshow.trim() !== "" ?<img src={`${slideshow}`} width="100%" height="100%" />:<img src={`/storage/avatar/${profile.first_photo}`} width="100%" height="100%" />} 
+                   <div className="w-full flex flex-col  h-[300px] object-contain bg-zinc-200 overflow-hidden"  >
+                   {slideshow.trim() !== "" ?<img src={`${slideshow}`} className="object-contain" />:<img src={`/storage/avatar/${profile.first_photo}`} className="object-contain" />} 
                    </div>
                         {/* <img src={profile != null? ` /storage/avatar/${newavatar.first_cover}`:`${data.bg}`} className="w-[100%]" /> */}
                         {/* gallery */}
@@ -518,7 +519,7 @@ function ProfilePanel() {
 
                         {/* active online or offline */}
                         <div className="flex flex-row items-center">
-                            <p className="flex-1">Last active: {user.updated_at}</p>
+                            {params.id === undefined && <p className="flex-1">Last active: {moment(user.updated_at).fromNow()}</p>}
                             {params.id !== undefined && <div className="flex flex-row justify-center items-center gap-x-3">
                             <span className="mr-2">
                                 <button title={`Add ${name} to your favorite`}><i className="fi fi-sr-star text-3xl"></i></button>

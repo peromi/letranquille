@@ -13,6 +13,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../../store/userSlice";
+import { actions as actionpackage } from "../../store/subscriptionSlice";
 
 const DATABASE_KEY = "user-m9j234u94";
 const DBNAV = "nav";
@@ -25,10 +27,19 @@ function Membership() {
     const subscription = useSelector((state) => state.user.subscription);
     const token = useSelector((state) => state.user.token);
     const user = useSelector((state) => state.user.user);
+
+    const subscriptionPackage = useSelector(
+        (state) => state.subscriptionPackage.item
+    );
     const addNewSubscription = (subscribe) => {
         dispatch(actions.addSubscription(subscribe));
     };
 
+    const addNewPackage = (item) => {
+        dispatch(actionpackage.addPackage(item));
+    };
+
+    const [show, setShow] = React.useState(false)
     const [rate, setRate] = React.useState("");
     const [convert, setConvert] = React.useState([]);
     const [value, setValue] = React.useState(1);
@@ -299,9 +310,16 @@ function Membership() {
                                         onClick={() => {
                                             setProcess(1);
                                             setType("silver");
-                                            setAmount(17.50);
+                                            setAmount(17.5);
                                             setCredit(3000);
                                             setDuration(7);
+                                            addNewPackage({
+                                                package: "silver",
+                                                type: "Weekly",
+                                                amount: 17.5,
+                                                credit: 3000,
+                                                duration: 7,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full   font-bold"
                                     >
@@ -320,7 +338,7 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                 $34.99 
+                                                $34.99
                                             </h1>
                                             <span className="text-sm">
                                                 {"USD"}
@@ -342,6 +360,13 @@ function Membership() {
                                             setAmount(34.99);
                                             setCredit(3000);
                                             setDuration(30);
+                                            addNewPackage({
+                                                package: "silver",
+                                                type: "Monthly",
+                                                amount: 34.99,
+                                                credit: 3000,
+                                                duration: 30,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full  font-bold"
                                     >
@@ -360,7 +385,8 @@ function Membership() {
                                     <div className="flex my-4 items-end">
                                         <div className="flex flex-row justify-end items-center">
                                             <h1 className="text-2xl font-bold">
-                                                {"$"}{23.33 * 3}
+                                                {"$"}
+                                                {23.33 * 3}
                                             </h1>
                                             <span className="text-sm">
                                                 {"USD"}
@@ -382,6 +408,13 @@ function Membership() {
                                             setAmount(23.33 * 3);
                                             setCredit(3000);
                                             setDuration(90);
+                                            addNewPackage({
+                                                package: "silver",
+                                                type: "Monthly",
+                                                amount: 23.33 * 3,
+                                                credit: 3000,
+                                                duration: 90,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full  font-bold"
                                     >
@@ -422,6 +455,13 @@ function Membership() {
                                             setAmount(139.99);
                                             setCredit(3000);
                                             setDuration(365);
+                                            addNewPackage({
+                                                package: "silver",
+                                                type: "Yearly",
+                                                amount: 139.99,
+                                                credit: 3000,
+                                                duration: 365,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-slate-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
@@ -473,6 +513,14 @@ function Membership() {
                                             setAmount(20);
                                             setCredit(3000);
                                             setDuration(7);
+
+                                            addNewPackage({
+                                                package: "gold",
+                                                type: "Weekly",
+                                                amount: 20,
+                                                credit: 3000,
+                                                duration: 7,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full  font-bold"
                                     >
@@ -513,6 +561,13 @@ function Membership() {
                                             setAmount(39.99);
                                             setCredit(3000);
                                             setDuration(30);
+                                            addNewPackage({
+                                                package: "gold",
+                                                type: "Monthly",
+                                                amount: 39.99,
+                                                credit: 3000,
+                                                duration: 30,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
@@ -554,6 +609,14 @@ function Membership() {
                                             setAmount(79.98);
                                             setCredit(3000);
                                             setDuration(90);
+
+                                            addNewPackage({
+                                                package: "gold",
+                                                type: "Monthly",
+                                                amount: 79.98,
+                                                credit: 3000,
+                                                duration: 90,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
@@ -595,6 +658,14 @@ function Membership() {
                                             setAmount(149.99);
                                             setCredit(3000);
                                             setDuration(365);
+
+                                            addNewPackage({
+                                                package: "gold",
+                                                type: "Yearly",
+                                                amount: 149.99,
+                                                credit: 3000,
+                                                duration: 365,
+                                            });
                                         }}
                                         className="mt-2 w-full hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-amber-300 px-[34px] p-[6px] rounded-full font-bold"
                                     >
@@ -644,10 +715,18 @@ function Membership() {
                                     <button
                                         onClick={() => {
                                             setProcess(1);
-                                            setType("gold");
+                                            setType("platinum");
                                             setAmount(40.0);
                                             setCredit(3000);
                                             setDuration(7);
+
+                                            addNewPackage({
+                                                package: "platinum",
+                                                type: "Weekly",
+                                                amount: 40.0,
+                                                credit: 3000,
+                                                duration: 7,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-centerbg-purple-900  px-[34px] p-[6px] rounded-full  font-bold"
                                     >
@@ -683,10 +762,18 @@ function Membership() {
                                     <button
                                         onClick={() => {
                                             setProcess(1);
-                                            setType("gold");
+                                            setType("platinum");
                                             setAmount(79.98);
                                             setCredit(3000);
                                             setDuration(30);
+
+                                            addNewPackage({
+                                                package: "platinum",
+                                                type: "Monthly",
+                                                amount: 79.98,
+                                                credit: 3000,
+                                                duration: 30,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-purple-900  px-[34px] p-[6px] rounded-full font-bold"
                                     >
@@ -724,10 +811,18 @@ function Membership() {
                                     <button
                                         onClick={() => {
                                             setProcess(1);
-                                            setType("gold");
+                                            setType("platinum");
                                             setAmount(159.97);
                                             setCredit(3000);
                                             setDuration(90);
+
+                                            addNewPackage({
+                                                package: "platinum",
+                                                type: "Monthly",
+                                                amount: 159.97,
+                                                credit: 3000,
+                                                duration: 90,
+                                            });
                                         }}
                                         className="mt-2 hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-purple-900  px-[34px] p-[6px] rounded-full font-bold"
                                     >
@@ -765,10 +860,18 @@ function Membership() {
                                     <button
                                         onClick={() => {
                                             setProcess(1);
-                                            setType("gold");
+                                            setType("platinum");
                                             setAmount(299.98);
                                             setCredit(3000);
                                             setDuration(365);
+
+                                            addNewPackage({
+                                                package: "platinum",
+                                                type: "Yearly",
+                                                amount: 299.98,
+                                                credit: 3000,
+                                                duration: 365,
+                                            });
                                         }}
                                         className="mt-2 w-full hover:bg-red-600 hover:text-white flex justify-center items-center text-center bg-purple-900  px-[34px] p-[6px] rounded-full font-bold"
                                     >
@@ -1141,10 +1244,21 @@ function Membership() {
                                 >
                                     <img src={data.logo} width={60} />
                                     <div style={{ flex: 1 }}>
-                                        <h2>{type}</h2>
-                                        <p>{duration} subscription</p>
+                                        <h2 className="font-bold text-2xl tracking-tighter capitalize">
+                                            {subscriptionPackage.package}{" "}
+                                            package
+                                        </h2>
+                                        <p className="font-bold tracking-tighter text-xl">
+                                            {subscriptionPackage.type}{" "}
+                                            subscription
+                                        </p>
+                                        <p className="font-bold tracking-tighter">
+                                            {subscriptionPackage.duration} days
+                                        </p>
                                     </div>
-                                    <a href="">Change option</a>
+                                    <button onClick={() => setProcess(0)}>
+                                        Change option
+                                    </button>
                                 </div>
                                 {/* Coupon section */}
 
@@ -1200,9 +1314,13 @@ function Membership() {
                                         justifyContent: "space-between",
                                     }}
                                 >
-                                    <p>{type}</p>
+                                    <p className="font-bold tracking-tighter capitalize">
+                                        {subscriptionPackage.package}{" "}
+                                        {subscriptionPackage.type} package
+                                    </p>
                                     <p className="font-bold text-2xl">
-                                        {"$"}{amount}
+                                        {"$"}
+                                        {amount}
                                     </p>
                                 </div>
                                 <div
@@ -1227,7 +1345,8 @@ function Membership() {
                                 >
                                     <p>Total</p>
                                     <p className="font-bold text-2xl">
-                                    {"$"}{amount}
+                                        {"$"}
+                                        {amount}
                                     </p>
                                 </div>
 
@@ -1258,25 +1377,25 @@ function Membership() {
                                     </Button>
                                 )}
 
-                                {process == 2 && payoption !== "paypal" && (
-                                    <Button
-                                        onClick={() => {
-                                            // setProcess(3)
-                                            // _handleSignupMembership();
-                                            // card payment
-                                        }}
-                                        variant="contained"
-                                        color="primary"
-                                        style={{
-                                            flex: 1,
-                                            width: "100%",
-                                            marginTop: 65,
-                                            height: 48,
-                                        }}
-                                    >
-                                        Pay
-                                    </Button>
-                                )}
+                                {/* {process == 2 && payoption !== "paypal" && (
+                                    // <Button
+                                    //     onClick={() => {
+                                    //         // setProcess(3)
+                                    //         // _handleSignupMembership();
+                                    //         // card payment
+                                    //     }}
+                                    //     variant="contained"
+                                    //     color="primary"
+                                    //     style={{
+                                    //         flex: 1,
+                                    //         width: "100%",
+                                    //         marginTop: 65,
+                                    //         height: 48,
+                                    //     }}
+                                    // >
+                                    //     Pay
+                                    // </Button>
+                                )} */}
                                 {process == 2 && payoption === "paypal" && (
                                     <div
                                         style={{ height: 120, paddingTop: 21 }}
@@ -1320,6 +1439,10 @@ function Membership() {
                                                                     .given_name;
                                                             _handleSignupMembership();
 
+                                                            if(subscriptionPackage.package !== "platinum"){
+                                                                setShow(true)
+                                                            }
+
                                                             // alert(`Transaction completed by ${name} ${type}`);
                                                         });
                                                 }}
@@ -1332,6 +1455,55 @@ function Membership() {
                     </div>
                 </>
             )}
+
+            {/* popup alert message */}
+            {show && <div className="fixed flex flex-col justify-center items-center top-0 left-0 right-0 bottom-0 bg-slate-500/75 backdrop-blur-xs">
+                <div className="bg-white p-5 w-[35%] flex flex-col items-center overflow-y-auto">
+                    <h1 className="text-3xl font-bold tracking-tighter text-center ">
+                        Get more out of Le-Tranquille with these exclusive
+                        features
+                    </h1>
+                    <p className="mt-2 mb-3">
+                        For only <span className="font-bold text-red-500">$ 3.33</span> per month extra you can unlock these
+                        exclusive Platinum benefits
+                    </p>
+                    <div className="flex flex-row gap-x-4 my-2">
+                        <div className="flex-1 flex flex-col justify-start ">
+                        <div className="w-[90px] h-[90px] mb-3 flex flex-col self-center ring-8 ring-slate-600 rounded-full">
+                                <h1 className="text-6xl font-bold tracking-tighter self-center justify-center">
+                                   <i className="fi fi-rr-arrow-trend-up text-2xl"></i>
+                                </h1>
+                            </div>
+                            <h1>Rank Above Other Members</h1>
+                            <p className="mb-2">Appear at the top when compatible singles are searching</p>
+                            <p className="my-2"><i className="fi fi-rr-check rounded-full bg-red-500 text-white p-2 m-2"></i> Instantly Translate Messages</p>
+                            <p><i className="fi fi-rr-check rounded-full bg-red-500 text-white p-2 m-2"></i> Unlock Exclusive Search Features</p>
+
+                        </div>
+                        <div className="flex-1 flex flex-col justify-start ">
+                        <div className="w-[90px] h-[90px] flex flex-col mb-3  self-center   ring-8 ring-slate-600 rounded-full">
+                                <h1 className="text-6xl pt-3 text-red-500 font-bold tracking-tighter text-center">
+                                    x2
+                                </h1>
+                            </div>
+                            <h1>Double your profile space</h1>
+                            <p className="mb-2">Stand out from the crowd in search results with twice the real estate</p>
+                            <p  className="my-2"><i className="fi fi-rr-check rounded-full bg-red-500 text-white p-2 m-2"></i> Get Better Matches</p>
+                            <p className="mt-1"><i className="fi fi-rr-check rounded-full bg-red-500 text-white p-2 m-2"></i> Profile Highlighting</p>
+
+                        </div>
+                    </div>
+
+                    <button onClick={()=>{
+                        setProcess(1)
+                        setTab(2)
+                        addNewPackage({})
+                        setShow(false)
+                    }} className="bg-red-600 text-white p-2 px-12 mt-3">Yes - Upgrade to Platinum</button>
+                    <button onClick={()=>{addNewPackage({})
+                        setShow(false)}} className="bg-red-800 text-white p-2 px-12 mt-1">Cancel</button>
+                </div>
+            </div>}
         </div>
     );
 }

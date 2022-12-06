@@ -4,17 +4,19 @@ import {createSlice} from "@reduxjs/toolkit"
 const subscriptionSlice = createSlice({
     name: 'subscriptionPackage',
     initialState:{
-        package: {}
+        item: { 
+        }
     },
     reducers:{
         addPackage(state, action){
-            state.package = action.payload
+            state.item = action.payload
         },
         removePackage(state, action){
-            state.package = {}
+            state.item = { 
+            }
         },
         changePackage(state, action){
-            state.package = action.payload
+            state.item = action.payload
         }
     }
 })

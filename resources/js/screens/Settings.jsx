@@ -269,29 +269,29 @@ function Settings() {
                                 <ul className="flex gap-y-3 font-bold flex-col">
                                     <li className="flex justify-between items-center text-lg">
                                         <p>New Message</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>Liked Me</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>New Matches</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>Your Profile Interaction</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>
                                             Le-tranquille offers and promotions
                                         </p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>Goveamedia offers and promotions</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                 </ul>
                             </div>
@@ -302,23 +302,23 @@ function Settings() {
                                 <ul className="flex gap-y-3 font-bold flex-col">
                                     <li className="flex justify-between items-center text-lg">
                                         <p>New Message</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>Liked Me</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>Someone viewed my profile</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>Someone added me as a favorite</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                     <li className="flex justify-between items-center text-lg">
                                         <p>Potential Matches</p>
-                                        <Switch />
+                                        <Switch  initialValue={true} onChange={(e)=>{}} />
                                     </li>
                                 </ul>
                             </div>

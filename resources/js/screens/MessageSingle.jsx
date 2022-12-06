@@ -448,7 +448,7 @@ const MessageSingle = () => {
             </div>
 
             {/* message input */}
-            <div className="w-full bottom-0 left-0 right-0   pr-36 bg-white px-12 p-5 flex flex-row items-center fixed">
+            <div className="w-full bottom-0 left-0 right-0  bg-white px-12 p-5 flex flex-row items-center fixed">
                         <button
                             onClick={async () => {
                                 if(subscription !== null && subscription.type === 'platinum'){

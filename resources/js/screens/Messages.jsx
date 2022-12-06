@@ -17,6 +17,7 @@ import woman from "../assets/images/awoman.jpg";
 import lady from "../assets/images/lady.jpg";
 import {useSelector, useDispatch} from 'react-redux'
 import { actions } from '../store/userSlice'
+import moment from 'moment'
 
 const DB = "user-m9j234u94";
 const USERDB = "dao";
@@ -120,11 +121,7 @@ function Messages() {
     };
 
     React.useEffect(() => {
-        let db = ls.get(USERDB, { decrypt: true });
-        if (db != null) {
-            console.log(db.user.user);
-            setUser(db.user.user);
-        }
+       
         receivedMessages();
         sentMessages();
         favoriteMessages();
@@ -146,7 +143,7 @@ function Messages() {
 
     return (
         <MainContainer select="message">
-            <p>{subscription}</p>
+            
             <div className="bg-red-600 w-full px-12  flex gap-x-6">
                 <button
                     className={
@@ -206,13 +203,14 @@ function Messages() {
                                             backgroundPosition: "center",
                                         }}
                                     ></div>
-                                    <div className="mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4">
+                                    <div className={m.status === "sent"?"mr-12 font-bold p-3 bg-green-300 rounded-full justify-between flex flex-row gap-x-4":"mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4"}>
 
                                     <span className="text-sm text-slate-500 ml-2">{m.name}:</span>
                                         <p>{m.message}</p>
+                                        
 
                                     </div>
-                                    <p>4pm</p>
+                                    <p>{moment(m.created_at).fromNow()}</p>
                                 </Link></div>
                             ))}
                         </div>
@@ -236,7 +234,27 @@ function Messages() {
                 {tab === 1 && (
                     <div>
                         {favorite.length > 0 ? (
-                            <div></div>
+                            <div className="px-20 p-8">
+                            {favorite.map((m, index) => (
+                                <Link to={`/messages-single/${m.recipient}`} key={index} className="flex flex-row gap-x-2 items-center">
+                                    <div
+                                        className="w-[34px] h-[34px] rounded-full"
+                                        style={{
+                                            backgroundImage: `url('/storage/avatar/${m.first_photo}')`,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                        }}
+                                    ></div>
+                                    <div className="mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4">
+
+                                    <span className="text-sm text-slate-500 ml-2">{m.name}:</span>
+                                        <p>{m.message}</p>
+
+                                    </div>
+                                    <p>{moment(m.created_at).fromNow()}</p>
+                                </Link>
+                            ))}
+                        </div>
                         ) : (
                             <div className="flex flex-col justify-center w-full items-center">
                                 <h1 className="font-bold text-2xl mt-2">
@@ -273,7 +291,7 @@ function Messages() {
                                             <p>{m.message}</p>
 
                                         </div>
-                                        <p>4pm</p>
+                                        <p>{moment(m.created_at).fromNow()}</p>
                                     </Link>
                                 ))}
                             </div>
@@ -297,7 +315,27 @@ function Messages() {
                 {tab === 3 && (
                     <div>
                         {trashed.length > 0 ? (
-                            <div></div>
+                            <div className="px-20 p-8">
+                            {trashed.map((m, index) => (
+                                <Link key={index} className="flex flex-row gap-x-2 items-center">
+                                    <div
+                                        className="w-[34px] h-[34px] rounded-full"
+                                        style={{
+                                            backgroundImage: `url('/storage/avatar/${m.first_photo}')`,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                        }}
+                                    ></div>
+                                    <div className="mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4">
+
+                                    <span className="text-sm text-slate-500 ml-2">{m.name}:</span>
+                                        <p>{m.message}</p>
+
+                                    </div>
+                                    <p>{moment(m.created_at).fromNow()}</p>
+                                </Link>
+                            ))}
+                        </div>
                         ) : (
                             <div className="flex flex-col justify-center w-full items-center">
                                 <h1 className="font-bold text-2xl mt-2">

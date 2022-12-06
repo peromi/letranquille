@@ -8,6 +8,7 @@ import { SocketContext } from '../context/SocketContext'
 import "../../css/navigation.css"
 import {useSelector, useDispatch} from 'react-redux'
 import { actions } from '../store/userSlice'
+import { useQuery } from 'react-query'
 
  
 const USERDB = 'dao'
@@ -19,6 +20,17 @@ const Navigation = ({ select }) => {
   const token = useSelector((state)=>state.user.token)
   
   const navigate = useNavigate()
+
+  const query =useQuery("UnreadMessage", ()=>{
+    return axios.get("/api/unread-messages", {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':'Bearer ' + token
+      }
+    })
+  })
+
+  console.log(query.data)
   
   const [showmenu, setShowmenu] = React.useState(false)
   const [profileloc, setProfileloc] = React.useState('')

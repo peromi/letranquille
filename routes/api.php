@@ -842,7 +842,16 @@ Route::middleware('auth:sanctum')->group(function () {
         $recipient =   User::where('users.id', $id)->with('profile')->with('gallery')->with('subscription')->first();
 
         $messages = Message::where('recipient', auth()->user()->id)->where('sender', $id)->orWhere('sender', auth()->user()->id)->where('recipient', $id)->latest()->get();
-        return json_encode(['messages' => $messages, 'recipient' => $recipient]);
+        for ($i = 0; $i < count($messages); $i++) {
+            if($messages[$i]->recipient == auth()->user()->id){
+                $messages[$i]->status = 'read';
+                $messages[$i]->save();
+            }
+        }
+
+        $messages_updated = Message::where('recipient', auth()->user()->id)->where('sender', $id)->orWhere('sender', auth()->user()->id)->where('recipient', $id)->latest()->get();
+       
+        return json_encode(['messages' => $messages_updated, 'recipient' => $recipient]);
     });
 
 
@@ -859,6 +868,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get-favorite-messages', function () {
         $messages = Message::join('profiles', 'profiles.user_id', '=', 'messages.sender')->where('messages.recipient', auth()->user()->id)->where('messages.by', "=", "favorite")->get();
         return json_encode(['messages' => $messages]);
+    });
+
+    // Fetch all unread messages
+    Route::get('/unread-messages', function () {
+        $messages = Message::where('recipient', auth()->user()->id)->where('status', '=','sent')->get();
+        return json_encode(['unreadmessages' => count($messages)]);
     });
     //Fetch message list from last message
 
