@@ -15,6 +15,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../store/userSlice";
 import { actions as actionpackage } from "../../store/subscriptionSlice";
+import trend from "../../assets/images/trend.svg"
 
 const DATABASE_KEY = "user-m9j234u94";
 const DBNAV = "nav";
@@ -1464,15 +1465,14 @@ function Membership() {
                         features
                     </h1>
                     <p className="mt-2 mb-3">
-                        For only <span className="font-bold text-red-500">$ 3.33</span> per month extra you can unlock these
+                        For only <span className="font-bold text-red-500">$ {(40/12).toFixed(2)}</span> per month extra you can unlock these
                         exclusive Platinum benefits
                     </p>
                     <div className="flex flex-row gap-x-4 my-2">
                         <div className="flex-1 flex flex-col justify-start ">
                         <div className="w-[90px] h-[90px] mb-3 flex flex-col self-center ring-8 ring-slate-600 rounded-full">
-                                <h1 className="text-6xl font-bold tracking-tighter self-center justify-center">
-                                   <i className="fi fi-rr-arrow-trend-up text-2xl"></i>
-                                </h1>
+                                <img className="text-6xl font-bold tracking-tighter self-center m-6 justify-center" src={trend} />
+                                    
                             </div>
                             <h1>Rank Above Other Members</h1>
                             <p className="mb-2">Appear at the top when compatible singles are searching</p>
