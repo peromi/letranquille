@@ -375,7 +375,7 @@ function Welcome() {
             </div> */}
 
             <div className="pl-6 h-[58px] bg-red-600 flex justify-between items-center text-white">
-                <p>&copy;2022. All rights reserved</p>
+                <p>&copy;{new Date().getFullYear()}. All rights reserved</p>
 
                 <div className="flex justify-center items-center gap-x-[34px]">
                     <ul className="hidden md:flex md:gap-[12px] md:font-bold">
