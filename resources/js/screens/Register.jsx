@@ -240,8 +240,9 @@ function Register() {
                         />
 
 
-<div className="text-md mt-2">
-By registering you agree to Le-tranquille <Link to="" className="text-red-600 font-bold">Terms & Conditions</Link> and <Link to="" className="text-red-600 font-bold">Privacy Policy</Link>
+<div className="text-md mt-2 flex flex-row">
+ <input type="checkbox" checked className="mr-2" />
+<p>By registering you agree to Le-tranquille <Link to="/terms-of-use" className="text-red-600 font-bold">Terms & Conditions</Link> and <Link to="/privacy-policy" className="text-red-600 font-bold">Privacy Policy</Link></p>
 </div>
                         <button
                             onClick={() => {
