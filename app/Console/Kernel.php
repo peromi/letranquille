@@ -18,10 +18,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
             $schedule->command('auth:clear-resets')->everyFifteenMinutes();
-            $schedule->command('config:clear')->hourly();
-            $schedule->command('route:clear')->hourly();
-            $schedule->command('view:clear')->hourly();
-            $schedule->command('cache:clear')->hourly();
+            $schedule->command('config:cache')->hourly();
+            $schedule->command('route:cache')->hourly();
+            $schedule->command('view:cache')->hourly(); 
     }
 
     /**
