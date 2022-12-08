@@ -8,20 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="{{ asset('images/logo.png')}}" type="image/x-icon">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+   
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"  /> --}}
     
+
      <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/uicons-regular-rounded.css')}}">
-    <link rel="stylesheet" href="{{asset('css/uicons-bold-rounded.css')}}">
-    <link rel="stylesheet" href="{{asset('css/uicons-solid-rounded.css')}}">
-    <link rel="stylesheet" href="{{asset('css/uicons-brands.css')}}">
-    <link rel="stylesheet" href="{{asset('css/master.css')}}">
     {{-- <link rel="stylesheet" href="css/frontend.css">  --}}
-   
+    <link rel="stylesheet" href="{{asset('css/master.css')}}">
 
     <title>Le tranquille</title>
    
@@ -50,23 +43,28 @@
         
     </div>
 
+    <script src="{{ asset('js/app.js') }}"></script>
+    
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <script type="text/javascript" defer>
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
 }
 </script>
-<script>
-  // var conn = new WebSocket('ws://localhost:9090');
-  //   conn.onopen = function(e) {
-  //       console.log("Connection established!");
-  //   };
 
-  //     conn.onmessage = function(e) {
-  //         console.log(e.data);
-  //     };
-</script>
-<script defer type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <link rel="stylesheet" href="{{asset('css/uicons-regular-rounded.css')}}">
+    <link rel="stylesheet" href="{{asset('css/uicons-bold-rounded.css')}}">
+    <link rel="stylesheet" href="{{asset('css/uicons-solid-rounded.css')}}">
+    <link rel="stylesheet" href="{{asset('css/uicons-brands.css')}}">
+    
+
+
 </body>
 </html>
