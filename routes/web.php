@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', function () {
     // Artisan::call('migrate');
     // Artisan::call('migrate:fresh');
-    Artisan::call('storage:link');
-    Artisan::call('view:clear');
-    Artisan::call('config:clear');
-    Artisan::call('route:clear');
-    Artisan::call('view:clear');
+    // Artisan::call('storage:link');
+    // Artisan::call('view:clear');
+    // Artisan::call('config:clear');
+    // Artisan::call('route:clear');
+    // Artisan::call('view:clear');
     return view('welcome');
 });
 Route::get('/migrate', function () {

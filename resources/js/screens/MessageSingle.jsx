@@ -18,6 +18,11 @@ import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../components/loaders/LoadingPage";
 
+// svg import
+import videocall from "../assets/images/videocall.svg"
+import music from "../assets/images/music.svg"
+import call from "../assets/images/call.svg"
+
 const USERDB = "dao";
 const DB = "user-m9j234u94";
  
@@ -486,7 +491,7 @@ const MessageSingle = () => {
                                         type: offerDescription.type,
                                     };
     
-                                    console.log(offer);
+                                    // console.log(offer);
     
                                     ls.set("OFFER", offer);
                                      
@@ -534,34 +539,40 @@ const MessageSingle = () => {
                             }
                         }
                         }
+                        className="bg-zinc-200 w-[50px] h-[50px] rounded-full p-2"
                         >
-                            <i class="fi fi-rr-microphone text-2xl"></i>
+                            <img src={call} width={30} />
                         </button>
-
+                        <button className="bg-zinc-200 w-[50px] h-[50px] rounded-full p-2 mx-2"
+                        >
+                            <img src={videocall} width={30} />
+                        </button>
                         <textarea
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder={`Send message to ${resprofile.name}`}
                             className="flex-1 border-0 outline-0 p-3 m-3"
                         ></textarea>
-                        <button>
-                            <i class="fi fi-rr-video-camera"></i>
-                        </button>
+                      
                         <button
-                            className="mr-4"
+                         
                             onClick={() => setIsUpload(true)}
-                        >
+                        className="bg-zinc-200 w-[50px] h-[50px] rounded-full p-2 mx-2 flex flex-col justify-center items-center"
+                            >
+                    
                             <i class="fi fi-rr-clip text-2xl"></i>
                         </button>
                         <button
-                            className="m-3"
+                            
                             onClick={() => {
                                 if (message.trim().length > 0) {
                                     handleSendMessage();
                                     setMessage("");
                                 }
                             }}
-                        >
+                            className="bg-zinc-200 w-[50px] h-[50px] rounded-full p-2 mx-2  flex flex-col justify-center items-center"
+                            >
+                    
                             <i className="fi fi-rr-paper-plane text-2xl"></i>
                         </button>
                     </div>

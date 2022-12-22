@@ -59,8 +59,7 @@ function Mutualmatches({action}) {
  
         }).catch((error)=>{
 
-            console.log(error)
-            alert(error)
+            console.log(error) 
 
 
                 // ls.remove(USERDB)

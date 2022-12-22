@@ -4,18 +4,7 @@ import MainContainer from "../../containers/MainContainer";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { SocketContext } from "../../context/SocketContext";
 import ls from "localstorage-slim";
-import { data } from "../../constants";
-import {
-    Button,
-    Checkbox,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    TextField,
-    Grid,
-    Slider,
-    Paper,
-} from "@material-ui/core";
+ 
 import "animate.css";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -440,36 +429,39 @@ function ProfilePanel() {
 
     React.useEffect(() => {
         // loadScript()
+  
         loadProfile();
         loadUserProfile();
     }, [params]);
 
     return (
         <MainContainer>
-            <div className="px-40 pt-12 bg-white pb-32 border-t-[1px] font-bold">
+            <div className="px-40 pt-12 bg-white pb-32 border-t-[1px]">
 
-                <p className="p-3 shadow-md bg-yellow-400 mb-3 rounded-md">Think of your dating profile as your first impression: you don't want to blow it! There's no need for your whole life story - that can wait - simply focus on writing about what interests you and what you hope to find on Letranquille. It also helps to upload a really nice picture so your fellow Letranquille members know who they're talking to - make it recent, and show off your best side!</p>
+                {/* <p className="p-3 shadow-md bg-yellow-400 mb-3 rounded-md">Think of your dating profile as your first impression: you don't want to blow it! There's no need for your whole life story - that can wait - simply focus on writing about what interests you and what you hope to find on Letranquille. It also helps to upload a really nice picture so your fellow Letranquille members know who they're talking to - make it recent, and show off your best side!</p> */}
                 {/* first level */}
-                <div className="flex flex-row h-[400px]">
+                <div className="flex flex-row ">
                     {/* avatar */}
                     <div className="w-[450px] h-full flex flex-col">
                    
-                   <div className="w-full flex flex-col  h-[300px] object-contain bg-zinc-200 overflow-hidden"  >
-                   {slideshow.trim() !== "" ?<img src={`${slideshow}`} className="object-contain" />:<img src={`/storage/avatar/${profile.first_photo}`} className="object-contain" />} 
+                   <div className="w-full h-[380px] bg-no-repeat flex flex-shrink bg-zinc-200   justify-center items-center"  >
+                   {slideshow.trim() !== "" ?<img src={`${slideshow}`} className="max-h-[380px]"  />:<img src={`/storage/avatar/${profile.first_photo}`} className="max-h-[380px]" />} 
                    </div>
                         {/* <img src={profile != null? ` /storage/avatar/${newavatar.first_cover}`:`${data.bg}`} className="w-[100%]" /> */}
                         {/* gallery */}
                         <div className="flex flex-row gap-x-3 mt-1 flex-wrap">
-                        <img onClick={()=>{
-                                    setSlideshow("/storage/avatar/"+profile.first_photo)
-                                }}  src={`/storage/avatar/${profile.first_photo}`} className="w-[54px]" />
+                        <div className="w-[54px] h-[54px] overflow-hidden">
                         <img onClick={()=>{
                                     setSlideshow("/storage/avatar/"+profile.second_photo)
-                                }}  src={`/storage/avatar/${profile.second_photo}`} className="w-[54px]" />
+                                }}  src={`/storage/avatar/${profile.second_photo}`}   />
+                                </div>
+                         
                             {gallery.map((photo, index) => (
-                                <img onClick={()=>{
+                                <div className="w-[54px] h-[54px] overflow-hidden">
+                                    <img onClick={()=>{
                                     setSlideshow("/storage/gallery/"+photo.cover)
-                                }} key={index} src={`/storage/gallery/${photo.cover}`} className="w-[54px]" />
+                                }} key={index} src={`/storage/gallery/${photo.cover}`}  />
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -500,7 +492,7 @@ function ProfilePanel() {
 
                         {/* name */}
                         <div className="flex flex-row items-center justify-start">
-                            <h1 className="font-bold text-2xl tracking-tighter mr-4 uppercase">
+                            <h1 className="text-lg tracking-tighter mr-4 uppercase">
                                 {name}
                             </h1>
                             <span className="mx-3">
@@ -540,26 +532,26 @@ function ProfilePanel() {
 
                         <table width={"100%"} className="mt-2 flex-1">
                             <thead>
-                                <tr className="text-xl text-red-600  m-2 bg-white">
+                                <tr className="text-lg text-red-600  m-2 bg-white">
                                     <th>
-                                        <p className="flex-1 float-left pl-4 text-2xl">
+                                        <p className="flex-1 float-left pl-4 text-lg">
                                             Overview
                                         </p>
                                     </th>
 
                                     <th>
-                                        <p className="flex-1 float-left pl-6 text-2xl font-bold capitalize">
+                                        <p className="flex-1 float-left pl-6 text-lg  capitalize">
                                         {name}
                                         </p>
                                     </th>
                                     <th>
-                                        <p className="flex-1 float-left pl-4 text-2xl">
+                                        <p className="flex-1 float-left pl-4 text-lg">
                                            {iam === "male" ? "He's":"She's"} Looking For
                                         </p>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="font-bold">
+                            <tbody className=" ">
                                 <tr>
                                     <td className="bg-zinc-50 px-4">
                                         Education:
@@ -645,129 +637,129 @@ function ProfilePanel() {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="font-bold">
+                    <tbody className="">
                         <tr className="bg-[#f8f8f8]">
                             <td className="px-3">Gender:</td>
-                            <td className="bg-green-100 pl-4 font-bold">
+                            <td className="  pl-4  ">
                                 {iam}
                             </td>
                             <td></td>
-                            <td className="bg-green-200 ml-4 pl-4">{lookingfor}</td>
+                            <td className="  ml-4 pl-4">{lookingfor}</td>
                         </tr>
                         <tr>
                             <td className="px-3">Age:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-green-500">
+                            <td className=" ml-4 pl-4   ">
                                 {age}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-red-300">
+                            <td className=" ml-4 pl-4  ">
                                {preferences !== null ? preferences.age_min : "No answer"} - {preferences !== null ? preferences.age_max : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f8f8f8]">
                             <td className="px-3">Live in:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e5e5e5]">
+                            <td className=" ml-4 pl-4   bg-[#e5e5e5]">
                                 {liveInCity ?? "No answer"}, {liveInState ?? "No answer"}, {liveInCountry ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#EBEBEB]">
+                            <td className=" ml-4 pl-4   bg-[#EBEBEB]">
                                {preferences !== null ? preferences.live_in : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Relocate:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4   bg-[#f8f8f8]">
                                 {relocate ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4   bg-[#f5f5f5]">
                                 {preferences !== null ? preferences.relocate : "No answer"}
                             </td>
                         </tr>
 
                         {/* Appearance */}
                         <tr>
-                            <td className="text-xl font-bold text-red-500">Appearance</td>
+                            <td className="text-xl   text-red-500">Appearance</td>
                         </tr>
 
                         {/* other information */}
                         <tr className="bg-[#fffefe] ">
                             <td className="px-3">Hair color:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f0f0f0]">
+                            <td className=" ml-4 pl-4   bg-[#f0f0f0]">
                                {hairColor ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
+                            <td className=" ml-4 pl-4   bg-[#fffefe]">
                                 {preferences !== null ? preferences.hair_color : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebe9e9]">
                             <td className="px-3">Eye color:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4   bg-[#f8f8f8]">
                                {eyeColor ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4   bg-[#f5f5f5]">
                                {preferences !== null ? preferences.eye_color : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#d6d5d5]">
                             <td className="px-3">Height:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4   bg-[#fffdfd]">
                                 {height ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4   bg-[#fffdfd]">
                                 {preferences !== null ? preferences.height : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fffefe]">
                             <td className="px-3">Weight:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4   bg-[#f8f8f8]">
                                 {weight ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4   bg-[#f5f5f5]">
                                 {preferences !== null ? preferences.weight : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Body style:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
+                            <td className=" ml-4 pl-4   bg-[#ffffff]">
                                 {bodyStyle ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
+                            <td className=" ml-4 pl-4   bg-[#fffefe]">
                                 {preferences !== null ? preferences.body_style : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ffffff]">
                             <td className="px-3">Ethnicity:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4   bg-[#f8f8f8]">
                                 {ethnicity ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4  bg-[#f5f5f5]">
                                 {preferences !== null ? preferences.ethnicity : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Body art:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ebe8e8]">
+                            <td className=" ml-4 pl-4   bg-[#ebe8e8]">
                                {bodyArt ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f0efef]">
+                            <td className=" ml-4 pl-4   bg-[#f0efef]">
                                 {preferences !== null ? preferences.body_art : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Appearance:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4   bg-[#f8f8f8]">
                                 {appearance ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4   bg-[#fffdfd]">
                                 {preferences !== null ? preferences.appearance : "No answer"}
                             </td>
                         </tr>
@@ -782,132 +774,132 @@ function ProfilePanel() {
                         {/* other information */}
                         <tr className="bg-[#fffefe] ">
                             <td className="px-3">Drink:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f0f0f0]">
+                            <td className=" ml-4 pl-4   bg-[#f0f0f0]">
                                 {drink ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
+                            <td className=" ml-4 pl-4   bg-[#fffefe]">
                                 {preferences !== null ? preferences.drink : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebe9e9]">
                             <td className="px-3">Smoke:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4  bg-[#f8f8f8]">
                                 {smoke ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4  bg-[#f5f5f5]">
                                 {preferences !== null ? preferences.smoke : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#d6d5d5]">
                             <td className="px-3">Marital status:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4  bg-[#fffdfd]">
                                 {maritalStatus ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4   bg-[#fffdfd]">
                                 {preferences !== null ? preferences.marital_status : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fffefe]">
                             <td className="px-3">Have children:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4  bg-[#f8f8f8]">
                                 {haveChildren ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4  bg-[#f5f5f5]">
                                 {preferences !== null ? preferences.have_children : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Number of children:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
+                            <td className=" ml-4 pl-4  bg-[#ffffff]">
                                 {numberOfChildren ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
+                            <td className=" ml-4 pl-4  bg-[#fffefe]">
                                 {preferences !== null ? preferences.number_of_children : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ffffff]">
                             <td className="px-3">Oldest child:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4  bg-[#f8f8f8]">
                                 {oldestChild ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4  bg-[#f5f5f5]">
                                 {preferences !== null ? preferences.oldest_child : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Youngest child:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ebe8e8]">
+                            <td className=" ml-4 pl-4  bg-[#ebe8e8]">
                                 {youngest ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f0efef]">
+                            <td className=" ml-4 pl-4   bg-[#f0efef]">
                                 {preferences !== null ? preferences.youngest_child : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Want (more) children:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
+                            <td className=" ml-4 pl-4   bg-[#ffffff]">
                                 {wantMoreChildren ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e6e4e4]">
+                            <td className=" ml-4 pl-4   bg-[#e6e4e4]">
                                 {preferences !== null ? preferences.want_more_children : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Have pets:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4   bg-[#f8f8f8]">
                                 {havePets ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4   bg-[#fffdfd]">
                                {preferences !== null ? preferences.have_pets : "No answer"}
                             </td>
                         </tr>
 
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Occupation:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
+                            <td className=" ml-4 pl-4   bg-[#ffffff]">
                                 {occupation ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e6e4e4]">
+                            <td className=" ml-4 pl-4   bg-[#e6e4e4]">
                                 {preferences !== null ? preferences.occupation : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Employment status:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4   bg-[#f8f8f8]">
                                 {employmentStatus ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4   bg-[#fffdfd]">
                                 {preferences !== null ? preferences.employment_status : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#fcf9f9]">
                             <td className="px-3">Annual income:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ffffff]">
+                            <td className=" ml-4 pl-4   bg-[#ffffff]">
                                 {annualIncome ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e6e4e4]">
+                            <td className=" ml-4 pl-4  bg-[#e6e4e4]">
                                 {preferences !== null ? preferences.annual_income : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#ebeaea]">
                             <td className="px-3">Living situation:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4  bg-[#f8f8f8]">
                                 {livingSituation ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffdfd]">
+                            <td className=" ml-4 pl-4   bg-[#fffdfd]">
                                 {preferences !== null ? preferences.living_situation : "No answer"}
                             </td>
                         </tr>
@@ -921,91 +913,91 @@ function ProfilePanel() {
                         {/* other information */}
                         <tr className="bg-[#fffdfd]">
                             <td className="px-3">Nationality:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f3efefe3]">
+                            <td className=" ml-4 pl-4  bg-[#f3efefe3]">
                                 {nationality ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fffefe]">
+                            <td className=" ml-4 pl-4   bg-[#fffefe]">
                                 {preferences !== null ? preferences.nationality : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#dfd9d9]">
                             <td className="px-3">Education:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f8f8f8]">
+                            <td className=" ml-4 pl-4  bg-[#f8f8f8]">
                                 {education ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#fafafa]">
+                            <td className=" ml-4 pl-4   bg-[#fafafa]">
                                 {preferences !== null ? preferences.education : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f3f0f0]">
                             <td className="px-3">Languages spoken:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f3f1f1]">
+                            <td className=" ml-4 pl-4   bg-[#f3f1f1]">
                                 {languagesSpoken ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f1efef]">
+                            <td className=" ml-4 pl-4  bg-[#f1efef]">
                                 {preferences !== null ? preferences.languages_spoken : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#eceaea]">
                             <td className="px-3">English ability:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f1eeee]">
+                            <td className=" ml-4 pl-4 bg-[#f1eeee]">
                                 {englishAbility ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f7f5f5]">
+                            <td className=" ml-4 pl-4  bg-[#f7f5f5]">
                                 {preferences !== null ? preferences.english_ability : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f0efef]">
                             <td className="px-3">French ability:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f7f3f3]">
+                            <td className=" ml-4 pl-4  bg-[#f7f3f3]">
                                 {frenchAbility ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e7e6e6]">
+                            <td className=" ml-4 pl-4   bg-[#e7e6e6]">
                                 {preferences !== null ? preferences.french_ability : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f5f3f3]">
                             <td className="px-3">Religion:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e9e7e7]">
+                            <td className=" ml-4 pl-4   bg-[#e9e7e7]">
                                 {religion ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#ebe7e7]">
+                            <td className=" ml-4 pl-4  bg-[#ebe7e7]">
                                 {preferences !== null ? preferences.religion : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#e9e5e5]">
                             <td className="px-3">Religious values:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#faf5f5]">
+                            <td className=" ml-4 pl-4  bg-[#faf5f5]">
                                 {religiousValue ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e4e3e3]">
+                            <td className=" ml-4 pl-4  bg-[#e4e3e3]">
                                 {preferences !== null ? preferences.religious_values : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Polygamy:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#e2e0e0]">
+                            <td className=" ml-4 pl-4   bg-[#e2e0e0]">
                                 {polygamy ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f1f1]">
+                            <td className=" ml-4 pl-4   bg-[#f5f1f1]">
                                 {preferences !== null ? preferences.polygamy : "No answer"}
                             </td>
                         </tr>
                         <tr className="bg-[#f2f2f2]">
                             <td className="px-3">Star sign:</td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#dbdbdb]">
+                            <td className=" ml-4 pl-4   bg-[#dbdbdb]">
                                 {starSign ?? "No answer"}
                             </td>
                             <td></td>
-                            <td className=" ml-4 pl-4 font-bold bg-[#f5f5f5]">
+                            <td className=" ml-4 pl-4  bg-[#f5f5f5]">
                                 {preferences !== null ? preferences.star_sign : "No answer"}
                             </td>
                         </tr>
@@ -1024,7 +1016,7 @@ function ProfilePanel() {
                 {/* More about first */}
                 <div className="flex flex-row justify-between mt-8 font-bold">
                     <span>
-                        <h1 className="font-bold text-xl  text-red-600">
+                        <h1 className="  text-xl  text-red-600">
                             Favorite Movie:
                         </h1>
                         <p>{favoriteMovie ?? "No answer"}</p>
@@ -1078,6 +1070,7 @@ function ProfilePanel() {
                     questions.
                 </p>
             </div>
+           
         </MainContainer>
     );
 }

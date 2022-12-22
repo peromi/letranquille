@@ -144,7 +144,7 @@ function Messages() {
     return (
         <MainContainer select="message">
             
-            <div className="bg-red-600 w-full px-12  flex gap-x-6">
+            <div className="bg-red-600 w-full px-12  justify-between flex gap-x-20">
                 <button
                     className={
                         tab === 0

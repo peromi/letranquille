@@ -1,12 +1,4 @@
-@font-face {
-    font-family: "Dosis" ;
-    src: url("../fonts/Dosis-Regular.ttf");
-}
 
-@font-face {
-    font-family: "Libel" ;
-    src: url("../fonts/libel.otf");
-}
 @font-face {
     font-family: "FredokaOne" ;
     src: url("../fonts/FredokaOne.ttf");
@@ -24,44 +16,10 @@
     src: url("../fonts/Inter-ExtraBold.ttf");
 }
 
- 
-@font-face {
-    font-family: Montserrat;
-    
-    src: url("../fonts/Montserrat-Medium.ttf");
-    src: url("../fonts/Montserrat-Regular.ttf");
-}
-
-@font-face {
-    font-family: Roboto;
-    
-    src: url("../fonts/Roboto-Medium.ttf");
-    src: url("../fonts/Roboto-Regular.ttf");
-}
-
-@font-face {
-    font-family: Roboto-Bold;
-    src: url("../fonts/Roboto-Black.ttf");
-    src: url("../fonts/Roboto-Bold.ttf");
-}
-
-@font-face {
-    font-family: Montserrat-Bold;
-    src: url("../fonts/Montserrat-Bold.ttf");
-}
-
-@font-face {
-    font-family: Quicksand;
-    
-    src: url("../fonts/Quicksand-Medium.ttf");
-    src: url("../fonts/Quicksand-Regular.ttf");
-}
 @font-face {
     font-family: Mona;
     
-    src: url("../fonts/Mona-Sans-Black.woff");
-    src: url("../fonts/Mona-Sans-Bold.woff");
-    src: url("../fonts/Mona-Sans-Medium.woff");
+ 
     src: url("../fonts/Mona-Sans-Regular.woff");
 }
 @font-face {

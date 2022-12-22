@@ -60,6 +60,7 @@ import {
 
   import { Provider } from "react-redux";
 import store from "../store";
+import ViewProfile from "./profile/ViewProfile";
 
 
 const queryClient = new QueryClient()
@@ -111,7 +112,8 @@ function App() {
                     <Route path="/messages-single/:id" element={<MessageSingle />} />
                     <Route path="/profile" element={<ProfilePanel />} />
                     <Route path="/profile-update" element={<ProfileUpdate />} />
-                    <Route path="/profile/:id" element={<ProfilePanel />} />
+                    <Route path="/profile" element={<ProfilePanel />} />
+                    <Route path="/user-profile/:id" element={<ViewProfile />} />
                     <Route path="/notification" element={<Notification />} />
                     <Route path="/notification/:id" element={<Notification />} />
                     <Route path="/preference-settings" element={<PreferenceSettings />} />

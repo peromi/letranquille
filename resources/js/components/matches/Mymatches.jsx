@@ -26,7 +26,7 @@ function Mymatches({action}) {
  
 
     const [explores, setExplores] = React.useState([])
-    const [userlikes, setUserlikes] = React.useState([])
+    const [likes, setLikes] = React.useState("")
  
 
     const [links, setLinks] = React.useState([]);
@@ -49,7 +49,9 @@ function Mymatches({action}) {
                 'Authorization':'Bearer '+ token
             }
         }).then((response)=>{
+            console.log(response.data.user.likes);
             console.log(response.data.matches)
+            setLikes(response.data.user.likes)
             setExplores(response.data.matches["data"]);
             setLinks(response.data.matches["links"]);
             setFrompage(response.data.matches["from"]);
@@ -60,7 +62,7 @@ function Mymatches({action}) {
             setIsLoading(false)
         }).catch((error)=>{
 
-            console.log(error.response.data)
+            console.log(error)
             // alert(error)
 
 
@@ -202,7 +204,7 @@ function Mymatches({action}) {
                         {explores.map((userprof, index) => (
                             <UserProfile
                                 profile={userprof}
-                                liked={user.likes}
+                                liked={likes}
                                 key={index}
                                 reload={reload}
                             />

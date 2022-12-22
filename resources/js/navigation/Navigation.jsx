@@ -68,19 +68,22 @@ const Navigation = ({ select }) => {
 
  
 
-  // React.useEffect(()=>{
-  //   let id = setInterval(()=>{
-     
-  //     loadData()
-  //     // loadProfile()
-    
-  //   },10000)
-    
-  //   loadSubscriptions()
-  //   return ()=>{
-  //       clearInterval(id)
-  //   }
-  // }, [note])
+  const dispatch = useDispatch()
+    const addNewUser = (user) =>{
+        dispatch(actions.addUser(user))
+    }
+    const addNewPreference = (pref) =>{
+        dispatch(actions.addPreferences(pref))
+    }
+    const addNewProfile = (prof) =>{
+        dispatch(actions.addProfile(prof))
+    }
+    const addNewToken = (token) =>{
+        dispatch(actions.addToken(token))
+    }
+    const addNewSubscription = (subscribe) =>{
+        dispatch(actions.addSubscription(subscribe))
+    }
 
   const handleLogout = ()=>{
      
@@ -94,8 +97,13 @@ const Navigation = ({ select }) => {
        
        if(response.status === 200){
         ls.remove(USERDB)
+       
 
-
+        addNewUser(null)
+        addNewProfile(null)
+        addNewPreference(null)
+        addNewToken(null)
+        addNewSubscription(null)
         
 
           // toast.success(response.data.message);
@@ -105,26 +113,44 @@ const Navigation = ({ select }) => {
       }).catch((err)=>{
        
         ls.remove(USERDB)
-
-          toast.success(response.data.message);
-          navigate("/", {replace:true});
+ 
+        // window.location.href = "/"
+          
+        navigate("/", {replace:true});  
 
 
       })
   }
 
+  React.useEffect(()=>{
+    if(profile === null){
+      addNewUser(null)
+      addNewProfile(null)
+      addNewPreference(null)
+      addNewToken(null)
+      addNewSubscription(null)
+  
+      ls.remove(USERDB)
+ 
+  
+      
+      navigate("/", {replace:true});
+  
+    }
+  
+  },[])
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full tracking-tighter">
     <div className="hidden drop-shadow-4xl z-40  md:flex justify-between h-[65px] bg-white items-center px-[5%]">
      <div className="flex w-[350px]">
          <Link to="/show-all"><img src={data.longlogo} className="w-[120px]" /></Link>
-         {subscription === null && <Link to="/manage-subscription" className='flex gap-x-2 w-[180px] rounded-full text-white ml-6 font-bold p-1 justify-center items-center bg-red-600'>
+         {subscription === null && <Link to="/manage-subscription" className='flex gap-x-2 w-[180px] rounded-full text-white ml-6   p-1 justify-center items-center bg-red-600'>
           <img src={data.crown} className="w-[20px]" />
           <p className='text-sm'>Upgrade Membership</p>
         </Link>}
       </div>
 
-        <ul className="flex gap-x-6 font-bold">
+        <ul className="flex gap-x-6  ">
           <li>
             <Link to="/explore" className={select=="explore"?"text-red-600 flex gap-x-2 hover:text-red-600":"flex gap-x-2 hover:text-red-600"}>
               {select == 'explore' ? (
@@ -180,7 +206,7 @@ const Navigation = ({ select }) => {
               )}
               <p>Activities</p>{' '}
             </div>
-                <ul className='absolute flex flex-col gap-3 top-6 z-6 bg-white drop-shadow-xl p-3 w-[150px] left-0 right-0 text-center '>
+                <ul className='absolute z-50 flex flex-col gap-3 top-6 z-6 bg-white drop-shadow-xl p-3 w-[150px] left-0 right-0 text-center '>
                     <Link to="/likes" className='hover:text-red-700'>Likes</Link>
                     <Link to="/favorite" className='hover:text-red-700'>Favorite</Link>
                     <Link to="/profile-view" className='hover:text-red-700'>Profile Viewed</Link>
@@ -189,13 +215,20 @@ const Navigation = ({ select }) => {
           </li>
         </ul>
 
-      <div className=" flex justify-end items-center w-[350px]  gap-x-5 font-bold relative">
-        <div className="flex relative bg-zinc-100  pr-2 p-1 rounded-full">
+      <div className=" flex justify-end items-center w-[350px]  gap-x-5 tracking-tighter relative">
+        <div onClick={()=>{
+              if(showmenu == true){
+                  setShowmenu(false)
+              }else{
+                  setShowmenu(true)
+              }
+         
+          }} className="flex relative bg-zinc-100  pr-2 p-1 rounded-full cursor-pointer">
           {profile.first_photo === undefined ?<div className="w-[45px] h-[45px] bg-slate-900 rounded-full" />:<img src={`/storage/avatar/${profile.first_photo}`} className="w-[35px] h-[35px] rounded-full mr-4" />}
           <div className="capitalize mr-6 flex-1">
             <p className="-mb-2">{profile.name}</p>
             <span className="text-[12px] -mt-2">
-              {profile.live_in === null ? '...': profile.live_in.split(',')[0]} <a href="#" className='text-red-600'>Change</a>
+              {profile.live_in === null ? '...': profile.live_in.split(',')[0]}  
             </span>
           </div>
           <button onClick={()=>{

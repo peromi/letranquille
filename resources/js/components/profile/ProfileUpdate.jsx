@@ -431,12 +431,14 @@ const ProfileUpdate = () => {
     let galleryImage3 = document.getElementById("gallery3");
 
 
+    
+
     if (loading) {
         return <LoadingPage />;
     }
     return (
         <MainContainer>
-            <div className="px-40 pt-12 bg-white pb-32 border-t-[1px] font-bold">
+            <div className="px-40 pt-12 bg-white pb-32 border-t-[1px] ">
                 <h1 className="font-bold text-xl mb-2">Profile Update</h1>
                 {/* first level */}
                 <div className="flex flex-row ">

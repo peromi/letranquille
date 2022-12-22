@@ -106,7 +106,7 @@ function UserProfile({ profile, liked, reload }) {
     },[])
     return (
         <div
-            className=" ring-1 ring-slate-900/5 hover:ring-1 hover:ring-red-600 transition-all duration-500 ease hover:drop-shadow-2xl rounded-xl bg-white animate__animated animate__slideInUp"
+            className="tracking-tighter ring-1 ring-slate-900/5 hover:ring-1 hover:ring-red-600 transition-all duration-500 ease hover:drop-shadow-2xl rounded-xl bg-white animate__animated animate__slideInUp"
 
         >
             <div className="flex flex-col p-2">
@@ -118,7 +118,7 @@ function UserProfile({ profile, liked, reload }) {
 
                     <div className="absolute bottom-0 right-0 left-0 " style={{ background:'linear-gradient(to bottom,rgba(0,0,0,0), rgba(0,0,0,1)' }}>
 
-                        <h2 className="capitalize font-bold flex justify-between p-1 text-white">
+                        <h2 className="capitalize flex justify-between p-1 text-white">
                             {profile.name},{" "}
                             <span>
                                 {Math.abs(
@@ -127,7 +127,7 @@ function UserProfile({ profile, liked, reload }) {
                                 )}
                             </span>
                         </h2>
-                        <div className="text-white flex items-center font-bold gap-x-3 ">
+                        <div className="text-white flex items-center gap-x-3 ">
                             <i class="fi fi-sr-marker ml-2"></i>
                             <h4 className="text-[12px]">
                                 {profile.live_in}
@@ -140,7 +140,7 @@ function UserProfile({ profile, liked, reload }) {
                 <div
     className="flex justify-between items-center"
                 >
-                    <p className="font-bold text-[15px] capitalize">
+                    <p className=" text-[15px] capitalize">
                         Seeking: {profile.lookingfor} {preferences.age_min} -{" "}
                         {preferences.age_max}  
                     </p>
@@ -157,7 +157,7 @@ function UserProfile({ profile, liked, reload }) {
 <div style={{ height:1, width:'100%', background:"linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.2), rgba(0,0,0,0)" }}></div>
 
                 <div
-                    className="flex justify-between mt-2 font-bold"
+                    className="flex justify-between mt-2 "
                 >
                     <div
                         style={{
@@ -212,7 +212,7 @@ function UserProfile({ profile, liked, reload }) {
                     </div>
                     <div className="flex items-center px-3 ml-8 rounded-full ring-1 ring-slate-900/5 gap-x-2 bg-zinc-100 hover:bg-red-600 hover:text-white p-2">
                         
-                        <Link to={`/profile/${profile.user_id}`} className=""><small>Profile</small></Link>
+                        <Link to={`/user-profile/${profile.user_id}`} className=""><small>Profile</small></Link>
                     </div>
                 </div>
             </div>

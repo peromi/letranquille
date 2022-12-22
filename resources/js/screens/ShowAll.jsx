@@ -1,20 +1,16 @@
-import React from 'react'
-import ActivityProfile from '../components/activities/ActivityProfile';
-import {  data } from "../constants";
-import MainContainer from '../containers/MainContainer';
-import Navigation from '../navigation/Navigation';
+import React from 'react'  
+import MainContainer from '../containers/MainContainer'; 
 import ls from 'localstorage-slim'
 import axios from 'axios';
-import UserProfile from '../components/profile/UserProfile';
-import { forEach } from 'lodash';
-import {useNavigate} from 'react-router-dom'
-
+import UserProfile from '../components/profile/UserProfile'; 
+import { Link, useNavigate } from 'react-router-dom'
 import cities from '../assets/json/cities.json'
 import  country  from '../assets/json/country.json';
 import  states  from '../assets/json/states.json';
 import woman from "../assets/images/awoman.jpg";
 import lady from "../assets/images/lady.jpg";
 import man from "../assets/images/aman.png";
+
 
 import {SocketContext} from '../context/SocketContext'
 import LoadingPage from '../components/loaders/LoadingPage';
@@ -94,6 +90,8 @@ function ShowAll() {
 
         }).then((response)=>{
             console.log(response.data)
+
+           
 
             setExplores(response.data.allusers["data"]);
             setLinks(response.data.allusers["links"]);
@@ -187,20 +185,16 @@ const  reload = () => {
     loadData()
 }
 React.useEffect(()=>{
-    for(var i = 18; i < 100; i++) {
-        age.push(i)
-       }
-       let db = ls.get(USERDB, {decrypt:true})
-       if(db == null){
+   
+       
+       if(token === null){
            
-           navigate('/', {replace:true})
+          window.location.href = "/"
        }
 
-       if(explores.length > 0){
-
-       }else{
+      
         loadData()
-       }
+ 
 
 
     // let result = explores.filter((c)=>c.country)
@@ -213,9 +207,50 @@ if(isLoading){
    <MainContainer select="show-all">
 
 {/* <p>{user.name}</p> */}
+<div className="flex flex-row p-2 bg-red-900">
+                <div className="flex gap-x-4">
+                    <div className="bg-slate-400 rounded-full overflow-clip mr-2">
+                        {profile.first_photo !== null ? (
+                            <img
+                                src={`/storage/avatar/${profile.first_photo}`}
+                                width={120}
+                            />
+                        ) : (
+                            <img src={noimage} width={45} />
+                        )}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <p className="text-md text-white tracking-tighter">Hi {profile.name}</p>
+                        <Link to="/preference-settings" className="p-2 bg-black text-white">Next step: Complete your preferences</Link>
+                    </div>
+                </div>
+                <div className="flex-1 flex gap-x-20 flex-row justify-end items-center">
+                    <a className="  border-8 ring-yellow-500 rounded-full p-6 text-white ">
+                    <i className="fi fi-rr-user text-2xl"></i>
+                    <p className="text-xs">32%</p>
+                    </a>
+                    <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white  ">
+                    <i className="fi fi-rr-comment-alt text-2xl"></i>
+                    <p className="text-xs">34</p>
+                    </a>
+                    <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white  ">
+                    <i className="fi fi-rr-heart text-2xl"></i>
+                    <p className="text-xs text-center">9</p>
+                    </a>
+                    <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white  ">
+                    <i className="fi fi-rr-eye text-2xl"></i>
+                    <p className="text-xs text-center">29</p>
+                    </a>
+                    <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white font-black text-xl">
+                    <i className="fi fi-rr-star text-2xl"></i>
+                    <p className="text-xs text-center">0</p>
+                    </a>
+                     
+                </div>
+            </div>
 <div className='flex md:flex-row flex-col w-full bg-red-600 justify-around p-2 items-center gap-4'>
 
-    <div className='flex-1 w-full  font-bold'>
+    <div className='flex-1 w-full'>
         <p className="text-white">Seeking a</p>
         <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={seeking} onChange={(e)=>setSeeking(e.target.value)}>
             <option>any</option>
@@ -224,7 +259,7 @@ if(isLoading){
             <option>female</option>
         </select>
     </div>
-    <div className='flex-1 w-full font-bold'>
+    <div className='flex-1 w-full '>
         <p className="text-white">Age</p>
         <div className='flex md:flex-row flex-col gap-4'>
         <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white md:w-1/2 w-full' value={ageMin} onChange={(e)=>setAgeMin(e.target.value)}>
@@ -236,7 +271,7 @@ if(isLoading){
         </select>
         </div>
     </div>
-    <div className='flex-1 w-full  font-bold'>
+    <div className='flex-1 w-full  '>
         <p className="text-white">Country</p>
        <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={countrycode} onChange={(e)=>{
         let result = states.filter((s)=>s.country_code  == e.target.value)
@@ -250,7 +285,7 @@ if(isLoading){
             {country.map((c,index)=><option key={index}   value={c.code}>{c.name}</option>)}
         </select>
     </div>
-    <div className='flex-1 w-full   font-bold'>
+    <div className='flex-1 w-full   '>
         <p className="text-white">State/Province</p>
         <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={statecode} onChange={(e)=>{
             let result = cities.filter((c)=>c.state_code == e.target.value && c.country_code == countrycode)
@@ -264,7 +299,7 @@ if(isLoading){
             {statesearch.map((s, index)=><option key={index}   value={s.state_code} >{s.name}</option>)}
         </select>
     </div>
-    <div className='flex-1 w-full  font-bold'>
+    <div className='flex-1 w-full'>
         <p className="text-white">City</p>
         <select className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' value={liveInCity} onChange={(e)=>{
             console.log(e.target.value)
@@ -273,7 +308,7 @@ if(isLoading){
             {citysearch.map((c,index)=><option key={index} >{c.name}</option>)}
         </select>
     </div>
-    <div className='flex-1 w-full   font-bold'>
+    <div className='flex-1 w-full'>
         <p className="text-white">Within</p>
         <input className='ring-1 p-2 ring-slate-900/5 outline-0 bg-white w-full' type="text" placeholder='kms' />
     </div>
@@ -299,7 +334,7 @@ if(isLoading){
  
     
     </div>}
-{explores.length > 0 && <div className="flex flex-row justify-between items-center mb-4">
+{explores.length > 0 && <div className="flex flex-row justify-between tracking-tighter items-center mb-4">
                     <div>
                         {links.map((link) => {
                             if(link.label === "&laquo; Previous"){
@@ -307,8 +342,8 @@ if(isLoading){
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
-                                        ? " text-slate-300 font-bold mx-2"
-                                        : "font-bold mx-2"
+                                        ? " text-slate-300   mx-2"
+                                        : "  mx-2"
                                     }
                                 >
                                     Previous
@@ -318,8 +353,8 @@ if(isLoading){
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.url == null
-                                        ? "text-xl text-slate-300 font-bold mx-2"
-                                        : "font-bold mx-2"
+                                        ? "text-xl text-slate-300   mx-2"
+                                        : "  mx-2"
                                     }
                                 >
                                     Next
@@ -329,8 +364,8 @@ if(isLoading){
                                     onClick={() => paginate(link.url)}
                                     className={
                                         link.active
-                                            ? "text-xl text-red-600 font-bold mx-2"
-                                            : "font-bold mx-2"
+                                            ? "text-xl text-red-600  mx-2"
+                                            : " mx-2"
                                     }
                                 >
                                     {link.label}
@@ -339,7 +374,7 @@ if(isLoading){
 
                         })}
                     </div>
-                    <div className="flex flex-row justify-end items-center font-bold">
+                    <div className="flex flex-row justify-end items-center  ">
                         <p>from:{" "}{frompage}</p>
                         <p className="mx-2">-</p>
                         <p>{topage}</p>

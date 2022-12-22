@@ -8,16 +8,33 @@ import level3 from "../assets/images/level3.png";
 import logo from "../assets/images/logo.png";
 import chat from "../assets/images/chat.png";
 import ls from "localstorage-slim";
+import countrycurrency from "../assets/json/country-currancy.json";
+import timezone from "../assets/json/timezone.json";
+import {useSelector} from "react-redux"
 
 const REG_STEPS = "stepper";
 const USERDB = "dao";
 function Welcome() {
+    const user = useSelector((state)=>state.user.user);
     const navigate = useNavigate();
     const [showmenu, setShowmenu] = React.useState(false);
     let year = new Date().getFullYear();
 
     
     React.useEffect(() => {
+        let timez = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        let timecount = timez.split("/")[1];
+
+        let getcountry = timezone[timecount];
+
+        let fullcountry = countrycurrency.find(
+            (country) => country.name === getcountry
+        );
+
+
+       
+        ls.set("country", fullcountry.currency, {encrypt:true})
        
         const script = document.createElement('script');
       
@@ -31,6 +48,8 @@ function Welcome() {
         return () => {
           document.body.removeChild(script);
         }
+
+       
       }, []);
     return (
         <div>
@@ -46,7 +65,7 @@ function Welcome() {
                         />
                     </div>
 
-                    <ul className="hidden md:flex gap-6  text-white text-md font-bold">
+                    <ul className="hidden md:flex gap-6  text-white text-md ">
                         <li className="hover:text-yellow-200">
                             <Link to="/">Home</Link>
                         </li>
@@ -64,7 +83,7 @@ function Welcome() {
                         </li>
                     </ul>
 
-                    <div class="hidden text-md md:flex gap-4 text-white font-bold">
+                    <div class="hidden text-md md:flex gap-4 text-white ">
                         <Link className="hover:text-yellow-200" to="/register">
                             Sign Up
                         </Link>
@@ -89,7 +108,7 @@ function Welcome() {
                 {showmenu && (
                     <div className="flex flex-col fixed md:hidden left-0 right-0 top-0 bg-red-800 h-[100%] z-50">
                         <div className="mt-[80px] flex flex-col justify-start items-center flex-1 ">
-                            <ul className=" flex flex-col items-center gap-y-3 text-white text-2xl font-bold">
+                            <ul className=" flex flex-col items-center gap-y-3 text-white text-2xl  ">
                                 <Link to="/">Home</Link>
                                 <Link to="/about">About</Link>
                                 <Link to="/story">Story</Link>
@@ -97,7 +116,7 @@ function Welcome() {
                                 <Link to="/contact-us">Contact Us</Link>
                             </ul>
                             <div className="w-[34px] h-[3px] bg-white rounded-full my-6" />
-                            <ul className="flex flex-col items-center gap-y-3 text-white text-2xl font-bold">
+                            <ul className="flex flex-col items-center gap-y-3 text-white text-2xl  ">
                                 <Link to="/login">Login</Link>
                                 <Link to="/register">Sign Up</Link>
                             </ul>
@@ -109,7 +128,7 @@ function Welcome() {
                         <div class="text-white flex pt-20 flex-col ">
                             <div className="flex flex-col">
                                 <h1
-                                    className="md:text-6xl lg:text-5xl text-4xl font-['Inter-black'] tracking-tighter"
+                                    className="md:text-6xl lg:text-5xl text-4xl font-black tracking-tighter"
                                     style={{}}
                                 >
                                     Make the First move and find the love of
@@ -143,7 +162,7 @@ function Welcome() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="https://twitter.com/LeTranquille2" target="blank">
                                             <i class="fi fi-brands-twitter text-2xl"></i>
                                         </a>
                                     </li>
@@ -179,8 +198,8 @@ function Welcome() {
             <div class="pt-5 pb-5">
                 <div class="w-11/12 mx-auto md:grid md:grid-cols-2 flex flex-col-reverse items-center gap-4">
                     <div className="flex flex-col">
-                        <h1 className="text-4xl font-bold font-['Inter-black'] tracking-tighter">
-                            Find your <span className="text-red-600 font-['Inter-black'] font-bold">Match</span> Near you
+                        <h1 className="text-4xl font-black tracking-tighter">
+                            Find your <span className="text-red-600 font-black  ">Match</span> Near you
                         </h1>
                         <p>
                         Letranquille makes dating as easy as pie - use our secure dating site to start chatting to other singles near you, then move your new-found love into the real world.
@@ -213,8 +232,8 @@ function Welcome() {
                         <img src={chat} className="md:w-[400px]" />
                     </div>
                     <div className="flex flex-col">
-                        <h1 className="text-4xl font-bold text-right font-['Inter-black'] tracking-tighter">
-                            <span className="text-red-600 font-['Inter-black'] font-bold">Chat</span> with Matches
+                        <h1 className="text-4xl font-black text-right   tracking-tighter">
+                            <span className="text-red-600 font-black">Chat</span> with Matches
                         </h1>
                         <p className="text-justify">
                         Letranquille offers serious dating. This means that if you're one of the millions of singles out there, and you're looking for love and companionship, our dating site is the one for you! Other dating sites are bigger and flashier, but you're best served by a dating site that suits your needs. If you want a serious relationship or a life time partner, don't waste your time - sign up for Letranquille today
@@ -234,8 +253,8 @@ function Welcome() {
                 style={{ overflowX: "hidden" }}
             >
                 <div class="flex flex-col justify-center  ml-[24px]">
-                    <h1 className="text-4xl font-bold w-3/4 font-['Inter-black'] tracking-tighter">
-                        <span className="text-red-600 font-['Inter-black'] font-bold">Discover</span> the best
+                    <h1 className="text-4xl   w-3/4 font-black tracking-tighter">
+                        <span className="text-red-600 font-black">Discover</span> the best
                         Match According to your Passion and Hobbies
                     </h1>
                     <p>
