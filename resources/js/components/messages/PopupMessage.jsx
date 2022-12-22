@@ -4,7 +4,7 @@ const PopupMessage = ({user, profile, subscription, handler, liveInCountry, live
     const [chatheight, setChatheight] = React.useState(450)
     const [file, setFile] = React.useState("")
     const [type, setType] = React.useState("")
-    const [isUpload, setIsUpload] = React.useState(false)
+    const [isUpload, setIsUpload] = React.useState(false)   
   return (
     <>
     <div className="fixed right-[64px] flex flex-col duration-700 ease-in-out bottom-0 w-[350px]   bg-white drop-shadow-2xl" style={{height:chatheight}}>
