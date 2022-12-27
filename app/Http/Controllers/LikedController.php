@@ -53,8 +53,10 @@ class LikedController extends Controller
         Notification::send($user, new MessageNotification($data));
 
             if($likes->save()){
-                return response(['message'=> "Profile Liked."], 201);
+                return json_encode(['message'=> "Profile Liked."]);
             }
+        }else{
+            return json_encode(['message'=> "You have liked this profile already.", "likes"=>$check]);
         }
 
      }
@@ -104,7 +106,7 @@ class LikedController extends Controller
         //
 
         if($liked->delete()){
-            return response(['message'=>"Unliked profile"],201);
+            return json_encode(['message'=>"Unliked profile"],201);
         }
 
     }

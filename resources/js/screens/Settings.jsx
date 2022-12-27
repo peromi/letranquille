@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import Switch from "react-js-switch";
 import MainContainer from "../containers/MainContainer";
+import { actions } from "../store/userSlice";
 import {useSelector, useDispatch} from "react-redux"
+import axios from "axios";
 
 function Settings() {
     const dispatch = useDispatch()
@@ -10,7 +12,35 @@ function Settings() {
     const profile = useSelector((state)=>state.user.profile)
     const preference = useSelector((state)=>state.user.preference)
     const subscription = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
     const [tab, setTab] = React.useState(0);
+
+    const addUser = (user) =>{
+        dispatch(actions.addUser(user));
+    }
+
+    const [email, setEmail]= useState(user.email)
+    
+    
+    const handleEmailChange = () => {
+        if(email.trim().length > 0){
+            axios.post('/api/change-email', {
+                email
+            },
+            {
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer '+token },
+            }).then((res)=>{
+                console.log(res.data);
+                addUser(res.data.user)
+                alert("User email updated")
+            }).catch((err) => {
+                console.log(err);
+            })
+        }else{
+            alert("Email cannot be empty")
+        }
+       
+    }
     
     return (
         <MainContainer>
@@ -83,8 +113,10 @@ function Settings() {
                                 type="email"
                                 placeholder="Email Address"
                                 className="flex-1 bg-transparent"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
-                            <button className="bg-red-600 text-white hover:bg-red-800 px-6 p-2">
+                            <button onClick={handleEmailChange} className="bg-red-600 text-white hover:bg-red-800 px-6 p-2">
                                 Save
                             </button>
                         </div>

@@ -115,7 +115,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/user-profile/{id}', function ($id) {
-        $user = User::where('id',$id)->with('gallery')->first();
+        $user = User::where('id',$id)->with('gallery')->with('likes')->with('favorite')->with('blocklist')->first();
 
         $profile = Profile::where("user_id",$user->id)->first();
         $preferences = Preferences::where("user_id", $user->id)->first();
@@ -551,7 +551,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Notification::send($user, new MessageNotification($data));
 
             if ($profile->save()) {
-                return json_encode(['message' => "Profile Viewed."], 201);
+                return json_encode(['message' => "Profile Viewed."] );
             }
         }
     });
@@ -757,7 +757,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/liked-profile', function () {
         $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
 
-        $likes = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('likeds', 'likeds.user_id', '=', 'users.id')->where('likeds.user_id', $user->id)->with('gallery')->with('preferences')->get();
+        $likes = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('likeds', 'likeds.profile_id', '=', 'users.id')->where('likeds.user_id', $user->id)->with('gallery')->with('preferences')->get();
+        
+        // $likes = Liked::where('user_id', auth()->user()->id)->join('profiles', 'profiles.id', '=', 'likeds.profile_id')->get();
+
         return json_encode(['likes' => $likes]);
     });
     // Delete likes
@@ -769,9 +772,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // Get people that liked me
     Route::get('/liked-me', function () {
-        $likes = Liked::where('profile_id', auth()->user()->id)->join('profiles', 'profiles.id', '=', 'likeds.user_id')->get();
+        $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
 
-        return json_encode(['likes' => $likes], 201);
+        $likes = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('likeds', 'likeds.user_id', '=', 'users.id')->where('likeds.profile_id', $user->id)->with('gallery')->with('preferences')->get();
+        
+        return json_encode(['likes' => $likes]);
     });
     // Video call
     Route::apiResource('/video-call', VideoCallController::class);
@@ -938,6 +943,28 @@ Route::middleware('auth:sanctum')->group(function () {
         
        
         return json_encode(['allusers' => $allusers, 'user' => $user, "preference"=>$preferences]);
+    });
+
+    // Settings routes
+    Route::post('/change-email', [ActionController::class, 'changeEmail']);
+    Route::post('/change-password', [ActionController::class, 'changePassword']);
+
+    // profiles i viewed and viewed mine
+    Route::get("i-view-profile", function(){
+        $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
+
+        $views = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('profile_views', 'profile_views.profile_id', '=', 'users.id')->where('profile_views.user_id', $user->id)->with('gallery')->with('preferences')->get();
+        
+    
+      return json_encode(['views' => $views]);
+    });
+    Route::get("view-my-profile", function(){
+        $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
+
+        $views = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('profile_views', 'profile_views.user_id', '=', 'users.id')->where('profile_views.user_id', $user->id)->with('gallery')->with('preferences')->get();
+        
+    
+      return json_encode(['views' => $views]);
     });
 });
 

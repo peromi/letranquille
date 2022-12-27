@@ -106,7 +106,7 @@ function UserProfile({ profile, liked, reload }) {
     },[])
     return (
         <div
-            className="tracking-tighter ring-1 ring-slate-900/5 hover:ring-1 hover:ring-red-600 transition-all duration-500 ease hover:drop-shadow-2xl rounded-xl bg-white animate__animated animate__slideInUp"
+            className="tracking-tighter ring-1 ring-slate-900/5 hover:ring-1 hover:ring-red-600 hover:bg-red-500 hover:text-white duration-700 ease-in-out hover:drop-shadow-2xl rounded-xl bg-white animate__animated animate__slideInUp"
 
         >
             <div className="flex flex-col p-2">

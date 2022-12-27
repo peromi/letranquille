@@ -15,7 +15,7 @@ class FavoriteController extends Controller
     public function index()
     {
         $favorite = Favorite::where('favorites.user_id', auth()->user()->id)->join('profiles','profiles.user_id', '=', 'favorites.profile_id')->get();
-        return response(['favorite' => $favorite], 201);
+        return json_encode(['favorite' => $favorite], 201);
     }
 
     /**
@@ -42,7 +42,7 @@ class FavoriteController extends Controller
             $favorite->user_id = auth()->user()->id;
             $favorite->profile_id = $request->input('profile');
             if($favorite->save()){
-                return response(['message'=> "Added to favorites successfully."], 201);
+                return json_encode(['message'=> "Added to favorites successfully."]);
             }
         }
     }

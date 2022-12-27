@@ -986,6 +986,9 @@ video {
 .h-1\/2 {
   height: 50%;
 }
+.h-\[350px\] {
+  height: 350px;
+}
 .max-h-\[380px\] {
   max-height: 380px;
 }
@@ -2314,6 +2317,11 @@ body::-webkit-scrollbar-thumb{
   .hover\:bg-green-900:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(20 83 45 / var(--tw-bg-opacity));
+}
+  
+  .hover\:bg-red-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
   
   .hover\:text-red-600:hover {

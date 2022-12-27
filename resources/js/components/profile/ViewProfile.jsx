@@ -17,6 +17,8 @@ const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
 function ViewProfile() {
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
    
     const [showchat, setShowchat] = React.useState(false)
     const params = useParams();
@@ -25,6 +27,11 @@ function ViewProfile() {
     const uuser = useSelector((state)=>state.user.user)
     const subscription = useSelector((state)=>state.user.subscription)
     const token = useSelector((state)=>state.user.token)
+
+
+    const addUser = (user) =>{
+        dispatch(actions.addUser(user))
+    }
 
     console.log(uuser)
 
@@ -211,81 +218,97 @@ function ViewProfile() {
                 }
             )
             .then((response) => {
-                toast.success(response.data.message);
+                if(response.statusCode === 200) {
+                    toast.success(response.data.message);
+                }
             })
             .catch((error) => {
                 toast.error(error.response.data.message);
             });
     };
 
+
+    const handleLikeProfile = () => {
+        
+        axios
+            .post(
+                "/api/likes",
+                {
+                    profile: params.id,
+                },
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            )
+            .then((response) => {
+                console.log(response.data)
+                if(response.status == 200) {
+                    toast.success(response.data.message);
+                }
+            })
+            .catch((error) => {
+                console.log(error.response)
+                toast.error(error.response.data.message);
+            });
+    }
+    const handleFavoriteProfile = () => {
+        
+        axios
+            .post(
+                "/api/favorite",
+                {
+                    profile: params.id,
+                },
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            )
+            .then((response) => {
+                if(response.statusCode === 200) {
+                    toast.success(response.data.message);
+                }
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message);
+            });
+    }
+
+
+    const handleBandProfile = () => {
+        
+        axios
+            .post(
+                "/api/profile-view",
+                {
+                    profile: params.id,
+                },
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            )
+            .then((response) => {
+                if(response.statusCode === 200) {
+                    toast.success(response.data.message);
+                }
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message);
+            });
+    }
+    
+
+
     const loadUserProfile = () => {
-        if (params.id === undefined) {
-            setUser(uuser);
-            // setNewavatar(data.avatar);
-            setProfile(userprofile);
-
-            setPreferences(userpreferences);
-            // setReligion(data.religion);
-            // setLocation(data.location);
-            setGallery(uuser.gallery);
-            let prof = userprofile;
-           
-            setIam(prof.iam)
-            setLookingfor(prof.lookingfor)
-            setName(prof.name)
-            setBirthday(prof.birthday)
-            setAge(prof.age)
-            setBodyStyle(prof.bodytype)
-            setHeight(prof.height)
-            setSmoke(prof.life_style_smoke)
-            setDrink(prof.life_style_drink)
-            setEducation(prof.education)
-            setHaveChildren(prof.have_children)
-            setLoveQuote(prof.love_quote)
-            setMemberQuote(prof.member_quote )
-            setSeekingQuote(prof.seeking_quote)
-            setGender(prof.gender)
-            setDatingFor(prof.dating_for)
-            setRelocate(prof.relocate)
-            setHairColor(prof.hair_color)
-            setEyeColor(prof.eye_color)
-            setWeight(prof.weight)
-            setEthnicity(prof.ethnicity)
-            setBodyArt(prof.body_art)
-            setAppearance(prof.appearance)
-            setMaritalStatus(prof.marital_status)
-            setNumberOfChildren(prof.number_of_children)
-            setOldestChild(prof.oldest_child)
-            setYoungest(prof.youngest_child)
-            setWantMoreChildren(prof.want_more_children)
-            setHavePets(prof.have_pets)
-            setOccupation(prof.occupation)
-            setEmploymentStatus(prof.employment_status)
-            setAnnualIncome(prof.annual_income)
-            setLivingSituation(prof.living_situation)
-            setNationality(prof.nationality)
-            setLanguagesSpoken(prof.languages_spoken)
-            setEnglishAbility(prof.english_ability)
-            setFrenchAbility(prof.french_ability)
-            setReligiousValue(prof.religious_values)
-            setPolygamy(prof.polygamy)
-            setStarSign(prof.star_sign)
-            setFavoriteMovie(prof.favorite_movie)
-            setFavoriteMusic(prof.favorite_music)
-            setDressStyle(prof.dress_style)
-            setHumor(prof.humor)
-            setReligion(prof.religion)
-            setHobbiesAndInterest(prof.hobbies_interest)
-            setPersonality(prof.personality)
-
-
-            if(prof.live_in !== null){
-
-                setLiveInCountry(prof.live_in.split(',')[0])
-                setLiveInState(prof.live_in.split(',')[1])
-                setLiveInCity(prof.live_in.split(',')[2])
-            }
-        } else {
+        
            
             axios
                 .get("/api/user-profile/" + params.id, {
@@ -299,6 +322,8 @@ function ViewProfile() {
 
                     console.log("ANOTHER PROFILE",response.data);
                     setUser(data.user);
+
+                    addUser(data.user)
                     // setNewavatar(data.avatar);
                     setProfile(data.profile);
                     setPreferences(data.preference);
@@ -378,7 +403,7 @@ function ViewProfile() {
 
                     handleProfileView();
                 });
-        }
+      
     };
 
 
@@ -479,18 +504,18 @@ function ViewProfile() {
                             <p className=" bg-red-400 p-2 rounded-md self-auto font-bold text-white">{profile.love_quote ?? "No quote"}</p>
                             <div className="flex-1" />
                             
-                            {params.id !== undefined && <div className="flex flex-row"> 
-                            <button className="mr-3 w-[60px] h-[60px] rounded-full bg-black flex justify-center items-center" title={`Like ${name}`}>
+                         <div className="flex flex-row"> 
+                            <button onClick={()=>{
+                               handleLikeProfile()
+                            }} className="mr-3 w-[60px] h-[60px] rounded-full bg-black flex justify-center items-center" title={`Like ${name}`}>
                                 <i className="fi fi-sr-heart text-3xl text-white text-center mt-[2px]"></i>
                             </button>
                             <button onClick={()=>setShowchat(true)}  className="mr-6 w-[60px] h-[60px] rounded-full bg-black flex flex-col justify-center items-center"  title={`Send a message to ${name}`}>
                                 <i className=" fi fi-sr-comment text-2xl text-white  text-center"></i>
                             </button>
-                            </div>}
+                            </div> 
 
-                            {params.id === undefined &&  <Link to="/profile-update" className=" w-[60px] h-[60px] rounded-full bg-black flex flex-col justify-center items-center"  title="Update your profile">
-                                <i className=" fi fi-rr-edit text-2xl text-white  text-center"></i>
-                            </Link>}
+                           
                            
                          
                         </div>
@@ -517,10 +542,12 @@ function ViewProfile() {
 
                         {/* active online or offline */}
                         <div className="flex flex-row items-center">
-                            {params.id === undefined && <p className="flex-1">Last active: {moment(user.updated_at).fromNow()}</p>}
-                            {params.id !== undefined && <div className="flex flex-row justify-center items-center gap-x-3">
+                            <p className="flex-1">Last active: {moment(user.updated_at).fromNow()}</p> 
+                          <div className="flex flex-row justify-center items-center gap-x-3">
                             <span className="mr-2">
-                                <button title={`Add ${name} to your favorite`}><i className="fi fi-sr-star text-3xl"></i></button>
+                                <button onClick={()=>{
+                                    handleFavoriteProfile();
+                                }} title={`Add ${name} to your favorite`}><i className="fi fi-sr-star text-3xl"></i></button>
                             </span>
                             <span className="mr-2">
                                 <button title={`"Get to know more about ${name}"`}><h1 className="text-4xl font-bold">!</h1></button>
@@ -528,7 +555,7 @@ function ViewProfile() {
                             <span>
                             <button title={`Ban ${name}`}><i className="fi fi-rr-ban text-3xl"></i></button>
                             </span>
-                            </div>}
+                            </div> 
                         </div>
 
                         {/* divider */}

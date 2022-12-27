@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\Preferences;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ActionController extends Controller
@@ -61,5 +62,33 @@ class ActionController extends Controller
         
        
         return json_encode(['allusers' => $allusers, 'user' => $user, "preference"=>$preferences]);
+    }
+
+    public function changeEmail(Request $request){
+        $user = User::find(auth()->user()->id);
+
+        $user->email = $request->email;
+
+        $user->save();
+
+        return json_encode(["user"=>$user]);
+    }
+
+    public function changePassword(Request $request){
+        $this->validate($request, [
+            'password' => ['required', 'confirmed']
+        ]);
+
+        $user = User::find(auth()->user()->id);
+
+        if(password_verify($request->input('password'), $user->password)){
+
+            $user->password = Hash::make($request->input('password'));
+
+            $user->save();
+            return json_encode(['user'=>$user]);
+        }
+
+       
     }
 }

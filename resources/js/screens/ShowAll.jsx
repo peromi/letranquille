@@ -14,7 +14,7 @@ import man from "../assets/images/aman.png";
 
 import {SocketContext} from '../context/SocketContext'
 import LoadingPage from '../components/loaders/LoadingPage';
-import useSWR from "swr"
+ 
 import { useSelector, useDispatch } from 'react-redux';
 
 const DB = "user-m9j234u94"
@@ -22,14 +22,13 @@ const USERDB = "dao"
 
  
 function ShowAll() {
-    const dispatch = useDispatch()
+ 
  
     const preference = useSelector((state)=>state.user.preference)
     const profile = useSelector((state)=>state.user.profile)
     const token = useSelector((state)=>state.user.token)
      
-    
-    // const {data, error} = useSWR("/api/get-all-users", fetcher)
+ 
 
     const navigate = useNavigate()
     const [pageIndex, setPageIndex] = React.useState(0);

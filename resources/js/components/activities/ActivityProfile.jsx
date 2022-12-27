@@ -5,29 +5,28 @@ import { Link } from "react-router-dom"
 import "../../../css/activityprofile.scss"
 import ls from 'localstorage-slim'
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const USERDB = "dao"
 function ActivityProfile({profile}) {
+    const userpreferences = useSelector((state)=>state.user.preference)
+    const userprofile = useSelector((state)=>state.user.profile)
+    const uuser = useSelector((state)=>state.user.user)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
+
+
+    const addUser = (user) =>{
+        dispatch(actions.addUser(user))
+    }
     const [showgallery, setShowgallery] = React.useState(false)
     const [index, setIndex] = React.useState(0)
     const [gallery, setGallery] = React.useState([])
 
-    const loadGallery = () =>{
-
-        const db = ls.get(USERDB, { decrypt: true });
-        axios.get('/api/user-gallery/'+profile.id,{
-            headers:{
-                'Accept':'application/json',
-                'Authorization':'Bearer '+db.token
-            }
-        }).then((response)=>{
-            setGallery(response.data.gallery)
-        })
-
-    }
+    
     React.useEffect(()=>{
-        loadGallery()
+        // loadGallery()
     },[])
     return (
         <div style={{border:'1px solid #f4f4f4',breakInside:'avoid',width:450, padding:16, boxShadow:'0px 0px 12px #f4f4f4', borderRadius:12, marginBottom:12 }}>
@@ -44,15 +43,15 @@ function ActivityProfile({profile}) {
                     </div>
                     <div style={{ display:'flex', gap:18, marginBottom:34, marginTop:24 }}>
                        <i className="fi fi-sr-marker"></i>
-                        <p><strong>{profile.address.split(',')[0]}</strong>, {profile.address.split(',')[1].split(' ')[1]}, 5 miles Away</p>
+                        <p><strong> </strong>, , 5 miles Away</p>
 
                     </div>
-                    <p style={{ textTransform:'capitalize' }}>Seeking:<strong>{profile.lookingfor} {profile.min} - {profile.max}</strong></p>
+                    <p style={{ textTransform:'capitalize' }}>Seeking:<strong>{profile.lookingfor}  </strong></p>
                 </div>
             </div>
 
             <div className="buttonHolder">
-                <Link to={`/messages/${profile.id}`} className="message">
+                <Link to={`/messages/${profile.user_id}`} className="message">
                     <i className="fi fi-rr-paper-plane"></i>
                     <p>Message</p>
                 </Link>
@@ -90,7 +89,7 @@ function ActivityProfile({profile}) {
                            <div style={{ width:1, background:'linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,0))' }}></div>
                         </div>
                         <div className="thumbs" style={{ width:'60%',marginRight:21,borderRadius:12, display:'grid', gridTemplateColumns:'auto auto auto auto',  rowGap:36, alignContent:'start' }}>
-                            {gallery.map((avatar, i)=> <div onClick={()=>{
+                            {profile.gallery.map((avatar, i)=> <div onClick={()=>{
                                 setIndex(i)
                             }} style={{cursor: 'pointer', width:160, height:160,borderRadius:12,  background:`url(/storage/gallery/${avatar.cover})`,backgroundSize:'cover', backgroundPosition:'center',filter:i==index?'grayscale(0%)':'grayscale(100%)' }}></div>)}
                         </div>

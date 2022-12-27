@@ -231,8 +231,10 @@ const MessageSingle = () => {
                         <p>{recipient.country}, {recipient.state}</p>
                         <p>{recipient.age}</p> */}
 
-                    <div className="p-3 bg-white shadow-lg rounded-md border-2 border-red-500 self-center m-4">
-                        <div
+                    <div className="p-3 bg-white shadow-lg rounded-md border-2 cursor-pointer border-red-500 self-center m-4">
+                        <div onClick={()=>{
+                            navigate(`/user-profile/${resprofile.user_id}`)
+                        }}
                             className="md:w-[75px] md:h-[75px] bg-red-500 md:rounded-md w-[90px] h-[90px] rounded-full"
                             style={{
                                 backgroundImage: `url('/storage/avatar/${resprofile.first_photo}')`,
@@ -251,7 +253,7 @@ const MessageSingle = () => {
                         {resprofile.live_in}
                     </p>
 
-                    <p>Subscription {recipient.subscription == null ? "no sub":"theres is sub"}</p>
+                   
                 </div>
                 {/* message */}
                 <div className="md:w-[70%] w-full bg-white h-full relative">
@@ -286,7 +288,11 @@ const MessageSingle = () => {
                                                     ).fromNow()}
                                                 </p>
                                                    </div>
-
+                                                   {m.data_type === "image" && (
+                                                    <img 
+                                                        src={`/storage/messages/${m.data}`} width="40%"
+                                                   ></img>
+                                                )}
                                                 {m.data_type === "audio" && (
                                                     <audio controls
                                                         src={`/storage/messages/${m.data}`}
@@ -329,6 +335,11 @@ const MessageSingle = () => {
                                                     ).fromNow()}
                                                 </p>
                                                    </div>
+                                                   {m.data_type === "image" && (
+                                                    <img 
+                                                        src={`/storage/messages/${m.data}`} width="40%"
+                                                   ></img>
+                                                )}
                                                     {m.data_type === "audio" && (
                                                     <audio controls
                                                         src={`/storage/messages/${m.data}`}
@@ -362,6 +373,11 @@ const MessageSingle = () => {
                                         >
                                             <div className="mr-12 font-bold p-3 bg-white rounded-full justify-between flex flex-row gap-x-4">
                                                 <p>{m.message}</p>
+                                                {m.data_type === "image" && (
+                                                    <img 
+                                                        src={`/storage/messages/${m.data}`} width="40%"
+                                                   ></img>
+                                                )}
                                                 {m.data_type === "audio" && (
                                                     <audio
                                                         src={`/storage/messages/${m.data}`}
@@ -405,6 +421,11 @@ const MessageSingle = () => {
                                                     {resprofile.name}:
                                                 </span>
                                                 <p>{m.message}</p>
+                                                {m.data_type === "image" && (
+                                                    <img 
+                                                        src={`/storage/messages/${m.data}`} width="40%"
+                                                   ></img>
+                                                )}
                                                 {m.data_type === "audio" && (
                                                     <audio
                                                         src={`/storage/messages/${m.data}`}

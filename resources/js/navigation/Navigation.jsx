@@ -111,12 +111,12 @@ const Navigation = ({ select }) => {
        }
 
       }).catch((err)=>{
-       
+       console.log(err.response)
         ls.remove(USERDB)
  
-        // window.location.href = "/"
+        window.location.href = "/"
           
-        navigate("/", {replace:true});  
+        // navigate("/", {replace:true});  
 
 
       })
@@ -132,9 +132,9 @@ const Navigation = ({ select }) => {
   
       ls.remove(USERDB)
  
-  
+      window.location.href = "/"
       
-      navigate("/", {replace:true});
+      // navigate("/", {replace:true});
   
     }
   

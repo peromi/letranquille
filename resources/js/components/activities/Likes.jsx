@@ -7,21 +7,48 @@ import MainContainer from "../../containers/MainContainer";
 
 import woman from "../../assets/images/awoman.jpg";
 import lady from "../../assets/images/lady.jpg";
+import { useSelector } from "react-redux";
+import UserProfile from "../profile/UserProfile";
 
 const USERDB = 'dao'
 
 const Likes = () => {
+    const userpreferences = useSelector((state)=>state.user.preference)
+    const userprofile = useSelector((state)=>state.user.profile)
+    const uuser = useSelector((state)=>state.user.user)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token)
+
+
+    const addUser = (user) =>{
+        dispatch(actions.addUser(user))
+    }
     const [likes, setLikes] = React.useState([]);
+    const [mylikes, setMyLikes] = React.useState([]);
 
     const [tab, setTab] = React.useState(0)
 
+    const myLikes = () =>{
+        axios
+        .get("/api/liked-profile", {
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token,
+            },
+        })
+        .then((response) => {
+            console.log(response.data);
+            setMyLikes(response.data.likes);
+        });
+    }
+
     const loadData = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+       
         axios
             .get("/api/liked-me", {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {
@@ -31,6 +58,7 @@ const Likes = () => {
     };
 
     React.useEffect(() => {
+        myLikes()
         loadData();
     }, []);
     return (
@@ -40,21 +68,13 @@ const Likes = () => {
                 <button className={tab===1 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(1)}>My Likes</button>
                 <button className={tab===2 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(2)}>Mutual Likes</button>
             </div>
-            <div className="h-screen w-full">
+            <div className="h-screen w-full px-12">
                {tab === 0 && <div>
 
                 {likes.length > 0 ? (
-                    <div
-                        style={{
-                            columnCount: 4,
-                            justifyContent: "center",
-                            gap: 15,
-                            alignItems: "center",
-                            flexWrap: "wrap",
-                        }}
-                    >
+                    <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {likes.map((data) => (
-                            <ActivityProfile key={data.id} profile={data} />
+                             <UserProfile profile={data} liked={uuser.likes} reload={()=>{}} />
                         ))}
                     </div>
                 ) : (
@@ -94,20 +114,12 @@ const Likes = () => {
                 </div>}
 
 {/* Tab my likes */}
-{tab === 1 && <div>
+{tab === 1 && <div className="px-12">
 
-{likes.length > 0 ? (
-    <div
-        style={{
-            columnCount: 4,
-            justifyContent: "center",
-            gap: 15,
-            alignItems: "center",
-            flexWrap: "wrap",
-        }}
-    >
-        {likes.map((data) => (
-            <ActivityProfile key={data.id} profile={data} />
+{mylikes.length > 0 ? (
+    <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {mylikes.map((data) => (
+           <UserProfile profile={data} liked={uuser.likes} reload={()=>{}} />
         ))}
     </div>
 ) : (

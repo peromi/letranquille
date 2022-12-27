@@ -6,26 +6,46 @@ import axios from "axios";
 import MainContainer from "../../containers/MainContainer";
 import woman from "../../assets/images/awoman.jpg";
 import lady from "../../assets/images/lady.jpg";
+import { useSelector } from 'react-redux';
+import UserProfile from '../profile/UserProfile';
+
 
 const USERDB = 'dao'
 function ProfileView() {
+    const uuser = useSelector((state)=>state.user.user)
+    const token = useSelector((state)=>state.user.token)
     const [favorite, setFavorite] = React.useState([])
+    const [iviewprofile, setIviewprofile] = React.useState([])
+    const [viewmyprofile, setViewmyprofile] = React.useState([])
     const [tab, setTab] = React.useState(0)
 
     const loadData = () =>{
-        const db = ls.get(USERDB, {decrypt:true})
-        axios.get('/api/favorite',{
+       
+        axios.get('/api/i-view-profile',{
             headers:{
                 'Accept':'application/json',
-                'Authorization':'Bearer '+ db.token
+                'Authorization':'Bearer '+ token
             }
         }).then((response)=>{
             console.log(response.data)
-            setFavorite(response.data.favorite)
+            setIviewprofile(response.data.views)
+        })
+    }
+    const loadViewMyProfileData = () =>{
+       
+        axios.get('/api/view-my-profile',{
+            headers:{
+                'Accept':'application/json',
+                'Authorization':'Bearer '+ token
+            }
+        }).then((response)=>{
+            console.log(response.data)
+            setViewmyprofile(response.data.views)
         })
     }
 
     React.useEffect(()=>{
+        loadViewMyProfileData()
         loadData()
     },[])
   return (
@@ -35,21 +55,13 @@ function ProfileView() {
                 <button className={tab===1 ?"p-3 text-white font-bold border-b-4 border-white":"p-3 text-white font-bold border-b-4 border-transparent"} onClick={()=>setTab(1)}>Profiles I Viewed</button>
 
             </div>
-            <div className="h-screen w-full">
-               {tab === 0 && <div>
+            <div className="h-screen w-full p-5">
+               {tab === 0 && <div className='px-12'>
 
-                {favorite.length > 0 ? (
-                    <div
-                        style={{
-                            columnCount: 4,
-                            justifyContent: "center",
-                            gap: 15,
-                            alignItems: "center",
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        {favorite.map((data) => (
-                            <ActivityProfile key={data.id} profile={data} />
+                {viewmyprofile.length > 0 ? (
+                    <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        {viewmyprofile.map((data,i) => (
+                            <UserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
                         ))}
                     </div>
                 ) : (
@@ -78,29 +90,21 @@ function ProfileView() {
                 </div>}
 
 {/* Tab my likes */}
-{tab === 1 && <div>
+{tab === 1 && <div className='px-12  '>
 
-{favorite.length > 0 ? (
-    <div
-        style={{
-            columnCount: 4,
-            justifyContent: "center",
-            gap: 15,
-            alignItems: "center",
-            flexWrap: "wrap",
-        }}
-    >
-        {favorite.map((data) => (
-            <ActivityProfile key={data.id} profile={data} />
+{iviewprofile.length > 0 ? (
+   <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {iviewprofile.map((data,i) => (
+             <UserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
         ))}
     </div>
 ) : (
     <div className="flex flex-col justify-center w-full items-center">
         <h1 className="font-bold text-2xl mt-2">
-        You haven't added any favorites yet
+        You haven't viewed any profile yet
         </h1>
         <p className="md:w-[30%]">
-        Your Favorites list is a great way to keep track of members you are particularly interested in.
+        Your viewed list is a great way to keep track of members you are particularly interested in.
         </p>
         <img
             src={woman}

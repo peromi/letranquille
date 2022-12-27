@@ -47,7 +47,7 @@ class LoginController extends Controller
 
         $preferences = Preferences::where("user_id",$user->id)->first();
         $profile = Profile::where("user_id",$user->id)->first();
-        $newuser = User::where("id",$user->id)->with('gallery')->with('likes')->first();
+        $newuser = User::where("id",$user->id)->with('gallery')->with('likes')->with('favorite')->with('blocklist')->first();
         $subscription = Membership::where('user_id',$user->id)->first();
 
         $token = $user->createToken('token')->plainTextToken;
