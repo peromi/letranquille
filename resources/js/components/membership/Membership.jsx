@@ -739,7 +739,7 @@ function Membership() {
                                                     </h1>
                                                     <h1 className="text-2xl font-black">
                                                     {(
-                                                    79.99 *
+                                                    40.0 *
                                                     rate[currency.code]
                                                 ).toLocaleString("en-US", {
                                                     style: "currency",
@@ -829,7 +829,7 @@ function Membership() {
                                                     </h1>
                                                     <h1 className="text-2xl font-black">
                                                     {(
-                                                    79.99 *
+                                                    159.97/3 *
                                                     rate[currency.code]
                                                 ).toLocaleString("en-US", {
                                                     style: "currency",
@@ -843,7 +843,15 @@ function Membership() {
                                             </label>
                                         </div>
                                         <label htmlFor="onemonth">
-                                            <p>Billed in one payment of </p>
+                                            <p>Billed in one payment of  {(
+                                                    159.97*
+                                                    rate[currency.code]
+                                                ).toLocaleString("en-US", {
+                                                    style: "currency",
+                                                    currency:
+                                                       currency.code,
+                                                })}{" "}
+                                                {currency.symbol}</p>
 
                                             <div className="bg-blue-400 text-white p-2 w-full rounded-md cursor-pointer text-center">
                                                 Save 33%
@@ -879,7 +887,7 @@ function Membership() {
                                                     </h1>
                                                     <h1 className="text-2xl font-black">
                                                     {(
-                                                    79.99 *
+                                                   299.98/12 *
                                                     rate[currency.code]
                                                 ).toLocaleString("en-US", {
                                                     style: "currency",
@@ -893,7 +901,15 @@ function Membership() {
                                             </label>
                                         </div>
                                         <label htmlFor="year">
-                                            <p>Billed in one payment of</p>
+                                            <p>Billed in one payment of  {(
+                                                   299.98 *
+                                                    rate[currency.code]
+                                                ).toLocaleString("en-US", {
+                                                    style: "currency",
+                                                    currency:
+                                                       currency.code,
+                                                })}{" "}
+                                                {currency.symbol}</p>
                                             <div className="bg-black text-white p-2 w-full px-12 mt-2 rounded-md cursor-pointer text-center">
                                                 Save 67%
                                             </div>
