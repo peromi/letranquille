@@ -27,7 +27,13 @@ function UserProfile({ profile, liked, reload }) {
     const navigate = useNavigate();
 
     const {preferences} = profile
-    let check_liked = uuser.likes.find((user) => user.profile_id === profile.user_id);
+    let check_liked;
+    if(uuser !== null ){
+        check_liked = uuser.likes.find((user) => user.profile_id === profile.user_id) ;
+    }else{
+        check_liked = undefined
+    }
+    
 
     const [nation, setNation] = React.useState('');
 

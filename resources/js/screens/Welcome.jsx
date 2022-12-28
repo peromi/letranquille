@@ -10,18 +10,45 @@ import chat from "../assets/images/chat.png";
 import ls from "localstorage-slim";
 import countrycurrency from "../assets/json/country-currancy.json";
 import timezone from "../assets/json/timezone.json";
-import {useSelector} from "react-redux"
+import {useSelector, useDispatch} from "react-redux"
+import {actions} from "../store/userSlice"
 
 const REG_STEPS = "stepper";
 const USERDB = "dao";
 function Welcome() {
     const user = useSelector((state)=>state.user.user);
+
+
+    const dispatch = useDispatch()
+    const addNewUser = (user) =>{
+        dispatch(actions.addUser(user))
+    }
+    const addNewPreference = (pref) =>{
+        dispatch(actions.addPreferences(pref))
+    }
+    const addNewProfile = (prof) =>{
+        dispatch(actions.addProfile(prof))
+    }
+    const addNewToken = (token) =>{
+        dispatch(actions.addToken(token))
+    }
+    const addNewSubscription = (subscribe) =>{
+        dispatch(actions.addSubscription(subscribe))
+    }
+
     const navigate = useNavigate();
     const [showmenu, setShowmenu] = React.useState(false);
     let year = new Date().getFullYear();
 
     
     React.useEffect(() => {
+
+        addNewUser(null)
+        addNewProfile(null)
+        addNewPreference(null)
+        addNewToken(null)
+        addNewSubscription(null);
+
         let timez = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
         let timecount = timez.split("/")[1];
@@ -48,6 +75,10 @@ function Welcome() {
         return () => {
           document.body.removeChild(script);
         }
+
+
+        
+      
 
        
       }, []);
@@ -84,10 +115,10 @@ function Welcome() {
                     </ul>
 
                     <div class="hidden text-md md:flex gap-4 text-white ">
-                        <Link className="hover:text-yellow-200" to="/register">
+                        <Link className="hover:text-yellow-200" to="/new-register">
                             Sign Up
                         </Link>
-                        <Link className="hover:text-yellow-200" to="/login">
+                        <Link className="hover:text-yellow-200" to="/new-login">
                             Login
                         </Link>
                     </div>

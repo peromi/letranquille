@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useReducer, useContext } from 'react'
 import { data } from '../constants'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, redirect } from 'react-router-dom'
 import ls from 'localstorage-slim'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -99,24 +99,19 @@ const Navigation = ({ select }) => {
         ls.remove(USERDB)
        
 
-        addNewUser(null)
-        addNewProfile(null)
-        addNewPreference(null)
-        addNewToken(null)
-        addNewSubscription(null)
         
-
+        navigate("/", {replace:true});  
           // toast.success(response.data.message);
-          navigate("/", {replace:true});
+        
        }
 
       }).catch((err)=>{
        console.log(err.response)
         ls.remove(USERDB)
- 
-        window.location.href = "/"
+         
+        
           
-        // navigate("/", {replace:true});  
+        navigate("/", {replace:true});  
 
 
       })
@@ -124,17 +119,13 @@ const Navigation = ({ select }) => {
 
   React.useEffect(()=>{
     if(profile === null){
-      addNewUser(null)
-      addNewProfile(null)
-      addNewPreference(null)
-      addNewToken(null)
-      addNewSubscription(null)
+     
   
       ls.remove(USERDB)
- 
-      window.location.href = "/"
       
-      // navigate("/", {replace:true});
+      // window.location.href = "/"
+      
+       navigate("/", {replace:true});
   
     }
   

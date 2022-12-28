@@ -10,6 +10,7 @@ import  states  from '../assets/json/states.json';
 import woman from "../assets/images/awoman.jpg";
 import lady from "../assets/images/lady.jpg";
 import man from "../assets/images/aman.png";
+import noimage from "../assets/images/noimage.jpg";
 
 
 import {SocketContext} from '../context/SocketContext'
@@ -35,7 +36,7 @@ function ShowAll() {
 
    
 
-    const [seeking, setSeeking] = React.useState(profile.lookingfor);
+    const [seeking, setSeeking] = React.useState("");
     const [ageMin, setAgeMin] = React.useState("");
     const [ageMax, setAgeMax] = React.useState("");
     const [liveInCountry, setLiveInCountry] = React.useState("any");
@@ -196,9 +197,9 @@ const  reload = () => {
 React.useEffect(()=>{
    
        
-       if(token === null){
+       if(profile === null){
            
-          window.location.href = "/"
+          navigate("/",  {replace:true})
        }
 
       
@@ -212,6 +213,9 @@ React.useEffect(()=>{
 if(isLoading){
     return <LoadingPage />
 }
+if(profile === null){
+    return <div></div>
+}
   return (
    <MainContainer select="show-all">
 
@@ -219,17 +223,15 @@ if(isLoading){
 <div className="flex flex-row p-2 bg-red-900">
                 <div className="flex gap-x-4">
                     <div className="bg-slate-400 rounded-full overflow-clip mr-2">
-                        {profile.first_photo !== null ? (
-                            <img
-                                src={`/storage/avatar/${profile.first_photo}`}
-                                width={120}
-                            />
-                        ) : (
-                            <img src={noimage} width={45} />
-                        )}
+                       {profile !== null ? (
+                        <img
+                        src={`/storage/avatar/${profile.first_photo}`}
+                        width={120}
+                    />
+                       ):(<img src={noimage} width={45} />)}
                     </div>
                     <div className="flex flex-col gap-3">
-                        <p className="text-md text-white tracking-tighter">Hi {profile.name}</p>
+                        <p className="text-md text-white tracking-tighter">Hi {profile.name }</p>
                         <Link to="/preference-settings" className="p-2 bg-black text-white">Next step: Complete your preferences</Link>
                     </div>
                 </div>

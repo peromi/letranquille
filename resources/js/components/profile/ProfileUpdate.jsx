@@ -59,60 +59,60 @@ const ProfileUpdate = () => {
     const [gallery3, setGallery3] = useState("");
 
     // main section
-    const [iam, setIam] = useState(profile.iam);
-    const [lookingfor, setLookingfor] = useState(profile.lookingfor);
-    const [name, setName] = useState(profile.name);
-    const [birthday, setBirthday] = useState(profile.birthday);
+    const [iam, setIam] = useState("");
+    const [lookingfor, setLookingfor] = useState("");
+    const [name, setName] = useState("");
+    const [birthday, setBirthday] = useState("");
 
-    const [loveQuote, setLoveQuote] = React.useState(profile.love_quote);
-    const [memberQuote, setMemberQuote] = React.useState(profile.member_quote);
-    const [seekingQuote, setSeekingQuote] = React.useState(profile.seeking_quote);
-    const [datingFor, setDatingFor] = React.useState(profile.dating_for);
-    const [gender, setGender] = React.useState(profile.gender);
-    const [liveInCountry, setLiveInCountry] = useState(profile.live_in === null?"any":profile.live_in.split(',')[0]);
-    const [liveInState, setLiveInState] = useState(profile.live_in === null?"any":profile.live_in.split(',')[1]);
-    const [liveInCity, setLiveInCity] = useState(profile.live_in === null?"any":profile.live_in.split(',')[2]);
+    const [loveQuote, setLoveQuote] = React.useState("");
+    const [memberQuote, setMemberQuote] = React.useState("");
+    const [seekingQuote, setSeekingQuote] = React.useState("");
+    const [datingFor, setDatingFor] = React.useState("");
+    const [gender, setGender] = React.useState("");
+    const [liveInCountry, setLiveInCountry] = useState("any");
+    const [liveInState, setLiveInState] = useState("any");
+    const [liveInCity, setLiveInCity] = useState( "any" );
 
     // states
-    const [education, setEducation] = useState(profile.education);
-    const [haveChildren, setHaveChildren] = useState(profile.have_children);
-    const [age, setAge] = useState(profile.age);
+    const [education, setEducation] = useState("");
+    const [haveChildren, setHaveChildren] = useState("");
+    const [age, setAge] = useState("");
     const [liveIn, setLiveIn] = useState("No Answer");
-    const [relocate, setRelocate] = useState(profile.relocate);
-    const [hairColor, setHairColor] = useState(profile.hair_color);
-    const [eyeColor, setEyeColor] = useState(profile.eye_color);
-    const [weight, setWeight] = useState(profile.weight);
-    const [height, setHeight] = useState(profile.height);
-    const [smoke, setSmoke] = useState(profile.smoke);
-    const [drink, setDrink] = useState(profile.drink);
-    const [ethnicity, setEthnicity] = useState(profile.ethnicity);
-    const [bodyStyle, setBodyStyle] = useState(profile.bodytype);
-    const [bodyArt, setBodyArt] = useState(profile.body_art);
-    const [appearance, setAppearance] = useState(profile.appearance);
-    const [maritalStatus, setMaritalStatus] = useState(profile.marital_status);
-    const [numberOfChildren, setNumberOfChildren] = useState(profile.number_of_children);
-    const [oldestChild, setOldestChild] = useState(profile.oldest_child);
-    const [youngest, setYoungest] = useState(profile.youngest_child);
-    const [wantMoreChildren, setWantMoreChildren] = useState(profile.want_more_children);
-    const [havePets, setHavePets] = useState(profile.have_pets);
-    const [occupation, setOccupation] = useState(profile.occupation);
-    const [employmentStatus, setEmploymentStatus] = useState(profile.employment_status);
-    const [annualIncome, setAnnualIncome] = useState(profile.annual_income);
-    const [livingSituation, setLivingSituation] = useState(profile.living_situation);
-    const [nationality, setNationality] = useState(profile.nationality);
-    const [languagesSpoken, setLanguagesSpoken] = useState(profile.languages_spoken);
-    const [englishAbility, setEnglishAbility] = useState(profile.english_ability);
-    const [frenchAbility, setFrenchAbility] = useState(profile.french_ability);
-    const [religiousValue, setReligiousValue] = useState(profile.religious_value);
-    const [polygamy, setPolygamy] = useState(profile.polygamy);
-    const [starSign, setStarSign] = useState(profile.star_sign);
-    const [religion, setReligion] = useState(profile.religion);
-    const [favoriteMovie, setFavoriteMovie] = useState(profile.favorite_movie);
-    const [favoriteMusic, setFavoriteMusic] = useState(profile.favorite_music);
-    const [dressStyle, setDressStyle] = useState(profile.dress_style);
-    const [humor, setHumor] = useState(profile.humor);
-    const [hobbiesAndInterest, setHobbiesAndInterest] = useState(profile.hobbies_and_interest);
-    const [personality, setPersonality] = useState(profile.personality);
+    const [relocate, setRelocate] = useState("");
+    const [hairColor, setHairColor] = useState("");
+    const [eyeColor, setEyeColor] = useState("");
+    const [weight, setWeight] = useState("");
+    const [height, setHeight] = useState("");
+    const [smoke, setSmoke] = useState("");
+    const [drink, setDrink] = useState("");
+    const [ethnicity, setEthnicity] = useState("");
+    const [bodyStyle, setBodyStyle] = useState("");
+    const [bodyArt, setBodyArt] = useState("");
+    const [appearance, setAppearance] = useState("");
+    const [maritalStatus, setMaritalStatus] = useState("");
+    const [numberOfChildren, setNumberOfChildren] = useState("");
+    const [oldestChild, setOldestChild] = useState("");
+    const [youngest, setYoungest] = useState("");
+    const [wantMoreChildren, setWantMoreChildren] = useState("");
+    const [havePets, setHavePets] = useState("");
+    const [occupation, setOccupation] = useState("");
+    const [employmentStatus, setEmploymentStatus] = useState("");
+    const [annualIncome, setAnnualIncome] = useState("");
+    const [livingSituation, setLivingSituation] = useState("");
+    const [nationality, setNationality] = useState("");
+    const [languagesSpoken, setLanguagesSpoken] = useState("");
+    const [englishAbility, setEnglishAbility] = useState("");
+    const [frenchAbility, setFrenchAbility] = useState("");
+    const [religiousValue, setReligiousValue] = useState("");
+    const [polygamy, setPolygamy] = useState("");
+    const [starSign, setStarSign] = useState("");
+    const [religion, setReligion] = useState("");
+    const [favoriteMovie, setFavoriteMovie] = useState("");
+    const [favoriteMusic, setFavoriteMusic] = useState("");
+    const [dressStyle, setDressStyle] = useState( "" );
+    const [humor, setHumor] = useState("");
+    const [hobbiesAndInterest, setHobbiesAndInterest] = useState("");
+    const [personality, setPersonality] = useState("");
 
     
     // Avatar
@@ -431,6 +431,7 @@ const ProfileUpdate = () => {
     let galleryImage3 = document.getElementById("gallery3");
 
 
+    
     
 
     if (loading) {

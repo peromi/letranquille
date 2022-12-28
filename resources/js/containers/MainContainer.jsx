@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { SocketContext } from '../context/SocketContext';
 
-
+import {useSelector} from "react-redux"
 
 import 'animate.css'
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 
 
 function MainContainer(props) {
+    const token = useSelector((state)=>state.user.token) 
     const {open, setOpen, handleClose} = React.useContext(SocketContext)
 
 //     const [user, setUser] = React.useState('')
@@ -59,6 +60,11 @@ if(document.getElementById("tidio-chat") !== null){
     document.getElementById("tidio-chat").style.display = "none"
     document.getElementById("tidio-chat-code").style.display = "none"
 }
+
+if(token === null){
+    window.location.href = "/"
+}
+
   return (
     <div >
 
