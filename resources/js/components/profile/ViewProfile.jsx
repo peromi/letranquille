@@ -12,6 +12,7 @@ import { actions } from "../../store/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import PopupMessage from "../messages/PopupMessage";
+import {HiTranslate} from "react-icons/hi"
 
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
@@ -670,8 +671,10 @@ function ViewProfile() {
                     Member Overview
                 </h1>
                 <div className="flex flex-row">
-                    <p className="mr-">{memberQuote ?? "No answer"}</p>
-                    <button>Translate</button>
+                    <p className="mr-3">{memberQuote ?? "No answer"}</p>
+                    <button className="text-2xl">
+                        <HiTranslate  />
+                    </button>
                 </div>
 
                 {/* Seeking */}

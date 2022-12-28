@@ -606,7 +606,7 @@ function ProfilePanel() {
                 </h1>
                 <div className="flex flex-row">
                     <p className="mr-">{memberQuote ?? "No answer"}</p>
-                    <button>Translate</button>
+                    
                 </div>
 
                 {/* Seeking */}
