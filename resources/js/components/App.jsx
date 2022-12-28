@@ -49,6 +49,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import store from "../store";
 import ViewProfile from "./profile/ViewProfile";
+import ErrorPage from "../screens/ErrorPage";
 
 const queryClient = new QueryClient();
 
@@ -68,9 +69,11 @@ function App() {
         },
     });
     const router = createHashRouter([
+      
         {
             path: "/",
             element: <Welcome />,
+            
         },
         {
             path: "/about",
@@ -124,12 +127,13 @@ function App() {
         { path: "/privacy-policy", element: <PrivacyPolicy /> },
         { path: "/terms-of-use", element: <TermsOfUse /> },
         { path: "/search", element: <Search /> },
+        { path: "*", element: <ErrorPage /> },
     ]);
 
     return (
         <StrictMode>
             <MuiThemeProvider theme={theme}>
-                <RouterProvider router={router} />
+                <RouterProvider  router={router} />
             </MuiThemeProvider>
         </StrictMode>
     );
