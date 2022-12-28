@@ -8,6 +8,7 @@ import woman from "../../assets/images/awoman.jpg";
 import lady from "../../assets/images/lady.jpg";
 import { useSelector } from 'react-redux';
 import UserProfile from '../profile/UserProfile';
+import OtherUserProfile from '../profile/OtherUserProfile';
 
 
 const USERDB = 'dao'
@@ -61,7 +62,7 @@ function ProfileView() {
                 {viewmyprofile.length > 0 ? (
                     <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {viewmyprofile.map((data,i) => (
-                            <UserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
+                            <OtherUserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
                         ))}
                     </div>
                 ) : (
@@ -95,7 +96,7 @@ function ProfileView() {
 {iviewprofile.length > 0 ? (
    <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {iviewprofile.map((data,i) => (
-             <UserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
+             <OtherUserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
         ))}
     </div>
 ) : (

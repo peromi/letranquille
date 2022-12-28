@@ -70,6 +70,12 @@ function ShowAll() {
 
 
 
+    // total message, view, favorites, likes
+    const [totalmessage, settotalmessage] = React.useState("");
+    const [totalview, settotalview] = React.useState("");
+    const [totalfavorite, settotalfavorite] = React.useState("");
+    const [totallikes, settotallikes] = React.useState("");
+
       const age = []
 
        for(var i = 18; i < 100; i++) {
@@ -90,6 +96,10 @@ function ShowAll() {
         }).then((response)=>{
             console.log(response.data)
 
+            settotalmessage(response.data.message)
+            settotalfavorite(response.data.favorite)
+            settotallikes(response.data.like)
+            settotalview(response.data.profileView)
            
 
             setExplores(response.data.allusers["data"]);
@@ -230,19 +240,19 @@ if(isLoading){
                     </a>
                     <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white  ">
                     <i className="fi fi-rr-comment-alt text-2xl"></i>
-                    <p className="text-xs">34</p>
+                    <p className="text-xs">{totalmessage}</p>
                     </a>
                     <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white  ">
                     <i className="fi fi-rr-heart text-2xl"></i>
-                    <p className="text-xs text-center">9</p>
+                    <p className="text-xs text-center">{totallikes}</p>
                     </a>
                     <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white  ">
                     <i className="fi fi-rr-eye text-2xl"></i>
-                    <p className="text-xs text-center">29</p>
+                    <p className="text-xs text-center">{totalview}</p>
                     </a>
                     <a className=" relative border-8 ring-yellow-500 rounded-full p-6 text-white font-black text-xl">
                     <i className="fi fi-rr-star text-2xl"></i>
-                    <p className="text-xs text-center">0</p>
+                    <p className="text-xs text-center">{totalfavorite}</p>
                     </a>
                      
                 </div>

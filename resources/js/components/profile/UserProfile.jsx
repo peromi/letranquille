@@ -11,16 +11,23 @@ import { toast } from "react-toastify";
 import country from '../../assets/json/country.json'
 import states from '../../assets/json/states.json'
 import cities from '../../assets/json/cities.json'
+import { useSelector } from "react-redux";
+
 
 const DATABASE_KEY = "user-m9j234u94";
 const USERDB = "dao";
 
 function UserProfile({ profile, liked, reload }) {
+    const userpreferences = useSelector((state)=>state.user.preference)
+    const userprofile = useSelector((state)=>state.user.profile)
+    const uuser = useSelector((state)=>state.user.user)
+    const subscription = useSelector((state)=>state.user.subscription)
+    const token = useSelector((state)=>state.user.token) 
     const { likeprofile } = React.useContext(SocketContext);
     const navigate = useNavigate();
 
     const {preferences} = profile
-    let check_liked = liked.find((user) => user.profile_id === profile.id);
+    let check_liked = uuser.likes.find((user) => user.profile_id === profile.user_id);
 
     const [nation, setNation] = React.useState('');
 
@@ -39,7 +46,7 @@ function UserProfile({ profile, liked, reload }) {
     };
 
     const handleLiked = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+       
         axios.post("/api/likes",
                 {
                     profile: profile.id,
@@ -47,7 +54,7 @@ function UserProfile({ profile, liked, reload }) {
                 {
                     headers: {
                         'Accept': "application/json",
-                        'Authorization': "Bearer " + db.token,
+                        'Authorization': "Bearer " + token,
                     },
                 }
             )
@@ -61,11 +68,11 @@ function UserProfile({ profile, liked, reload }) {
     };
 
     const handleUnlike = () => {
-        const db = ls.get(USERDB, { decrypt: true });
+       
         axios.delete("/api/likes-delete/" + check_liked.id, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + db.token,
+                    Authorization: "Bearer " + token,
                 },
             })
             .then((response) => {

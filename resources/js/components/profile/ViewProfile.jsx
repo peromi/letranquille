@@ -28,12 +28,25 @@ function ViewProfile() {
     const subscription = useSelector((state)=>state.user.subscription)
     const token = useSelector((state)=>state.user.token)
 
+ 
+
+    let check_liked = Object.entries(uuser.likes).find((user)=>user.profile_id === params.id);
+
+   
+
+ 
+
+ 
+
 
     const addUser = (user) =>{
         dispatch(actions.addUser(user))
     }
 
-    console.log(uuser)
+  
+
+ 
+    
 
     // Slide show for profile images
     const [slideshow, setSlideshow] = React.useState("")
@@ -246,7 +259,9 @@ function ViewProfile() {
             .then((response) => {
                 console.log(response.data)
                 if(response.status == 200) {
+                    addUser(response.data.user)
                     toast.success(response.data.message);
+                    alert(response.data.message)
                 }
             })
             .catch((error) => {
@@ -270,12 +285,15 @@ function ViewProfile() {
                 }
             )
             .then((response) => {
-                if(response.statusCode === 200) {
+                if(response.status == 200) {
+                    addUser(response.data.user)
                     toast.success(response.data.message);
+                    alert(response.data.message)
                 }
             })
             .catch((error) => {
                 toast.error(error.response.data.message);
+                alert(error.response.data.message)
             });
     }
 
@@ -320,10 +338,13 @@ function ViewProfile() {
                 .then((response) => {
                     let data = response.data 
 
+               
                     console.log("ANOTHER PROFILE",response.data);
                     setUser(data.user);
 
-                    addUser(data.user)
+                   
+
+                    addUser(data.auth)
                     // setNewavatar(data.avatar);
                     setProfile(data.profile);
                     setPreferences(data.preference);
@@ -463,7 +484,14 @@ function ViewProfile() {
   
         loadProfile();
         loadUserProfile();
-    }, [params]);
+
+
+        Object.entries(uuser.likes).map((t, i) => {
+            console.log(t)
+        })
+     
+
+    }, []);
 
     return (
         <MainContainer>
@@ -471,6 +499,8 @@ function ViewProfile() {
 
                 {/* <p className="p-3 shadow-md bg-yellow-400 mb-3 rounded-md">Think of your dating profile as your first impression: you don't want to blow it! There's no need for your whole life story - that can wait - simply focus on writing about what interests you and what you hope to find on Letranquille. It also helps to upload a really nice picture so your fellow Letranquille members know who they're talking to - make it recent, and show off your best side!</p> */}
                 {/* first level */}
+                
+                
                 <div className="flex flex-col md:flex-row ">
                     {/* avatar */}
                     <div className="w-[450px] h-full flex flex-col">
@@ -508,7 +538,7 @@ function ViewProfile() {
                             <button onClick={()=>{
                                handleLikeProfile()
                             }} className="mr-3 w-[60px] h-[60px] rounded-full bg-black flex justify-center items-center" title={`Like ${name}`}>
-                                <i className="fi fi-sr-heart text-3xl text-white text-center mt-[2px]"></i>
+                                {check_liked !== undefined ?<i className="fi fi-sr-heart text-3xl text-red-500 text-center mt-[2px]"></i>:<i className="fi fi-sr-heart text-3xl text-white text-center mt-[2px]"></i>}
                             </button>
                             <button onClick={()=>setShowchat(true)}  className="mr-6 w-[60px] h-[60px] rounded-full bg-black flex flex-col justify-center items-center"  title={`Send a message to ${name}`}>
                                 <i className=" fi fi-sr-comment text-2xl text-white  text-center"></i>
@@ -547,7 +577,9 @@ function ViewProfile() {
                             <span className="mr-2">
                                 <button onClick={()=>{
                                     handleFavoriteProfile();
-                                }} title={`Add ${name} to your favorite`}><i className="fi fi-sr-star text-3xl"></i></button>
+                                }} title={`Add ${name} to your favorite`}>
+                                     <i className="fi fi-sr-star text-3xl"></i> 
+                                    </button>
                             </span>
                             <span className="mr-2">
                                 <button title={`"Get to know more about ${name}"`}><h1 className="text-4xl font-bold">!</h1></button>

@@ -968,6 +968,12 @@ video {
 .h-\[8px\] {
   height: 8px;
 }
+.h-\[350px\] {
+  height: 350px;
+}
+.h-\[200px\] {
+  height: 200px;
+}
 .h-\[380px\] {
   height: 380px;
 }
@@ -980,14 +986,8 @@ video {
 .h-\[1px\] {
   height: 1px;
 }
-.h-\[200px\] {
-  height: 200px;
-}
 .h-1\/2 {
   height: 50%;
-}
-.h-\[350px\] {
-  height: 350px;
 }
 .max-h-\[380px\] {
   max-height: 380px;

@@ -115,14 +115,15 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/user-profile/{id}', function ($id) {
-        $user = User::where('id',$id)->with('gallery')->with('likes')->with('favorite')->with('blocklist')->first();
+        $auth = User::where('id',auth()->user()->id)->with('gallery')->with('likes')->with('favorite')->with('blocklist')->with('preferences')->first();
+        $user = User::where('id',$id)->with('gallery')->with('likes')->with('favorite')->with('blocklist')->with('preferences')->first();
 
         $profile = Profile::where("user_id",$user->id)->first();
         $preferences = Preferences::where("user_id", $user->id)->first();
 
         $match_preference = Preferences::where("user_id", auth()->user()->id)->first();
 
-        return json_encode(['user' => $user,'profile'=>$profile, 'preference' => $preferences, "match_preference" => $match_preference]);
+        return json_encode(['user' => $user,'profile'=>$profile, 'auth'=>$auth, 'preference' => $preferences, "match_preference" => $match_preference]);
     });
 
     Route::get('/profile/{id}', [ProfileController::class, "show"]);
@@ -918,8 +919,12 @@ Route::middleware('auth:sanctum')->group(function () {
             $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $preferences->seekingfor)->where('users.status', "online")->where('profiles.age',">=", $preferences->age_min)->where('profiles.age',"<=", $preferences->age_max)->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
         }
         
+        $message = Message::where("recipient", auth()->user()->id)->where("status", "sent")->get();
+        $likes = Liked::where("profile_id", auth()->user()->id)->whereDay("created_at", Carbon::now())->get();
+        $favorite = Favorite::where("profile_id", auth()->user()->id)->whereDay("created_at", Carbon::now())->get();
+        $profileView = ProfileView::where("profile_id", auth()->user()->id)->whereDay("created_at", Carbon::now())->get();
        
-        return json_encode(['allusers' => $allusers, 'user' => $user, "preference"=>$preferences]);
+        return json_encode(['allusers' => $allusers, 'user' => $user, "preference"=>$preferences, "message"=>count($message), "favorite"=>count($favorite), "like"=>count($likes), "profileView"=>count($profileView)]);
     });
 
     Route::post('/search-users', function (Request $request) {
@@ -961,11 +966,31 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("view-my-profile", function(){
         $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
 
-        $views = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('profile_views', 'profile_views.user_id', '=', 'users.id')->where('profile_views.user_id', $user->id)->with('gallery')->with('preferences')->get();
+        $views = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('profile_views', 'profile_views.user_id', '=', 'users.id')->where('profile_views.profile_id', $user->id)->with('gallery')->with('preferences')->get();
         
     
       return json_encode(['views' => $views]);
     });
+
+    // favorite mine and their
+    Route::get("their-favorite", function(){
+        $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
+
+        $views = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('favorites', 'favorites.user_id', '=', 'users.id')->where('favorites.profile_id', $user->id)->with('gallery')->with('preferences')->get();
+        
+    
+      return json_encode(['views' => $views]);
+    });
+    Route::get("my-favorite", function(){
+        $user = User::where('users.id', auth()->user()->id)->with('gallery')->first();
+
+        $views = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('favorites', 'favorites.profile_id', '=', 'users.id')->where('favorites.user_id', $user->id)->with('gallery')->with('preferences')->get();
+        
+    
+      return json_encode(['views' => $views]);
+    });
+
+
 });
 
 

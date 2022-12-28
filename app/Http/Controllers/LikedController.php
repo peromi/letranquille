@@ -53,10 +53,12 @@ class LikedController extends Controller
         Notification::send($user, new MessageNotification($data));
 
             if($likes->save()){
-                return json_encode(['message'=> "Profile Liked."]);
+                $user = User::where("id",auth()->user()->id)->with('profile')->with('favorite')->with('likes')->with('preferences')->with('blocklist')->get();
+                return json_encode(['message'=> "Profile Liked.", 'user'=>$user]);
             }
         }else{
-            return json_encode(['message'=> "You have liked this profile already.", "likes"=>$check]);
+            $user = User::where("id",auth()->user()->id)->with('profile')->with('favorite')->with('likes')->with('preferences')->with('blocklist')->get();
+            return json_encode(['message'=> "You have liked this profile already.", "likes"=>$check, 'user'=>$user]);
         }
 
      }

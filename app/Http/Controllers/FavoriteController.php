@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Favorite;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
@@ -42,8 +43,12 @@ class FavoriteController extends Controller
             $favorite->user_id = auth()->user()->id;
             $favorite->profile_id = $request->input('profile');
             if($favorite->save()){
-                return json_encode(['message'=> "Added to favorites successfully."]);
+                $user = User::where('id', auth()->user()->id)->with('profile')->with('favorite')->with('likes')->with('preferences')->with('blocklist')->get();
+                return json_encode(['message'=> "Added to favorites successfully.", 'user'=>$user]);
             }
+        }else{
+            $user = User::where('id', auth()->user()->id)->with('profile')->with('favorite')->with('likes')->with('preferences')->with('blocklist')->get();
+            return json_encode(['message'=> "Already your favorite.", 'user'=>$user]);
         }
     }
 

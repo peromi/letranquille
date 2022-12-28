@@ -9,6 +9,7 @@ import woman from "../../assets/images/awoman.jpg";
 import lady from "../../assets/images/lady.jpg";
 import { useSelector } from "react-redux";
 import UserProfile from "../profile/UserProfile";
+import OtherUserProfile from "../profile/OtherUserProfile";
 
 const USERDB = 'dao'
 
@@ -118,8 +119,8 @@ const Likes = () => {
 
 {mylikes.length > 0 ? (
     <div className=" pt-2 grid grid-col-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {mylikes.map((data) => (
-           <UserProfile profile={data} liked={uuser.likes} reload={()=>{}} />
+        {mylikes.map((data, i) => (
+           <OtherUserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
         ))}
     </div>
 ) : (
@@ -170,8 +171,8 @@ const Likes = () => {
             flexWrap: "wrap",
         }}
     >
-        {likes.map((data) => (
-            <ActivityProfile key={data.id} profile={data} />
+        {likes.map((data, i) => (
+            <OtherUserProfile key={i} profile={data} liked={uuser.likes} reload={()=>{}} />
         ))}
     </div>
 ) : (
