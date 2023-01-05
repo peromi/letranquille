@@ -1402,7 +1402,7 @@ function Membership() {
            { showpayment && <PayPalScriptProvider
                 options={{
                     "client-id":
-                        "ATtzjhuIaE8LR7VOs2LhvaK4no7WtUxQ8P18QgJuuGvwKo7Dc7p-mh6gm10Nj8LYYke8MScZcx93wIC5",
+                        "AaFbP2eUJk8RX45nLfR9TUOy-Y0GSmD4LuX4EkOaKvhGR9wxjc8LH9QESTVSMZi_UQXJS_3pVig4fVKw",
                     currency: "USD",
                 }}
             >
