@@ -148,8 +148,8 @@ function Welcome() {
                             </ul>
                             <div className="w-[34px] h-[3px] bg-white rounded-full my-6" />
                             <ul className="flex flex-col items-center gap-y-3 text-white text-2xl  ">
-                                <Link to="/login">Login</Link>
-                                <Link to="/register">Sign Up</Link>
+                                <Link to="/new-login">Login</Link>
+                                <Link to="/new-register">Sign Up</Link>
                             </ul>
                         </div>
                     </div>

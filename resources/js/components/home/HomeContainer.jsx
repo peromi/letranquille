@@ -46,10 +46,10 @@ function HomeContainer({ children }) {
                 </ul>
 
                 <div className="md:gap-x-[24px] md:flex md:w-[183px] md:font-bold md:justify-end hidden md:block">
-                    <Link to="/register" className="hover:text-red-600">
+                    <Link to="/new-register" className="hover:text-red-600">
                         Sign Up
                     </Link>
-                    <Link to="/login" className="hover:text-red-600">
+                    <Link to="/new-login" className="hover:text-red-600">
                         Login
                     </Link>
                 </div>
@@ -78,8 +78,8 @@ function HomeContainer({ children }) {
                         </ul>
                         <div className="w-[34px] h-[3px]  bg-black rounded-full my-6" />
                         <ul className="flex flex-col items-center gap-y-3   text-2xl font-bold">
-                            <Link to="/login">Login</Link>
-                            <Link to="/register">Sign Up</Link>
+                            <Link to="/new-login">Login</Link>
+                            <Link to="/new-register">Sign Up</Link>
                         </ul>
                     </div>
                 </div>
