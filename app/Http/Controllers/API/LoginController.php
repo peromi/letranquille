@@ -33,8 +33,8 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
-
-        $user = User::where('email', $request->email)->first();
+        
+        $user = User::where('email', strtolower($request->email))->first();
 
         if(!$user || !password_verify($request->password, $user->password)){
             return response(["message"=>"Email or Password is incorrect."], 401);
