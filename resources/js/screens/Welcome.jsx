@@ -116,7 +116,7 @@ function Welcome() {
 
                     <div class="hidden text-md md:flex gap-4 text-white ">
                         <Link className="hover:text-yellow-200" to="/new-register">
-                            Sign Up
+                            Register
                         </Link>
                         <Link className="hover:text-yellow-200" to="/new-login">
                             Login
@@ -149,7 +149,7 @@ function Welcome() {
                             <div className="w-[34px] h-[3px] bg-white rounded-full my-6" />
                             <ul className="flex flex-col items-center gap-y-3 text-white text-2xl  ">
                                 <Link to="/new-login">Login</Link>
-                                <Link to="/new-register">Sign Up</Link>
+                                <Link to="/new-register">Register</Link>
                             </ul>
                         </div>
                     </div>
