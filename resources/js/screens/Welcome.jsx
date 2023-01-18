@@ -171,7 +171,7 @@ function Welcome() {
                                     <span>Le tranquille Dating.</span>
                                 </p>
                                 <Link
-                                    to="/register"
+                                    to="/new-register"
                                     className="hover:bg-white bg-yellow-300 mb-2 p-3 rounded-md mt-[45px] md:w-1/2 text-center text-black font-bold"
                                 >
                                     Start your Lovely Journey now{"  "}
@@ -236,7 +236,7 @@ function Welcome() {
                         Letranquille makes dating as easy as pie - use our secure dating site to start chatting to other singles near you, then move your new-found love into the real world.
                         </p>
                         <Link
-                            to="/register"
+                            to="/new-register"
                             className="font-bold bg-black text-center text-white p-2  hover:bg-red-600 mt-3 md:w-1/2 rounded-md"
                         >
                             Join Now
@@ -270,7 +270,7 @@ function Welcome() {
                         Letranquille offers serious dating. This means that if you're one of the millions of singles out there, and you're looking for love and companionship, our dating site is the one for you! Other dating sites are bigger and flashier, but you're best served by a dating site that suits your needs. If you want a serious relationship or a life time partner, don't waste your time - sign up for Letranquille today
                         </p>
                         <Link
-                            to="/register"
+                            to="/new-register"
                             className="font-bold bg-black text-center text-white p-2  hover:bg-red-600 mt-3 md:w-1/2 rounded-md"
                         >
                             Join Now
