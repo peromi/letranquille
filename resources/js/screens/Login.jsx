@@ -138,7 +138,7 @@ function Login() {
                             }}>Login</Button>
  <div class="flex justify-center items-center font-bold mt-2 gap-x-2">
                                 <p>Don't have an Account?</p>
-                                <Link to="/register" className="md:text-xl text-md text-red-500">Sign Up</Link>
+                                <Link to="/new-register" className="md:text-xl text-md text-red-500">Sign Up</Link>
                             </div>
                             {/* <div class="divider mt-3">
                     <p>Or</p>

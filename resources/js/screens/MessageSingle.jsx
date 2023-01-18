@@ -475,7 +475,7 @@ const MessageSingle = () => {
 
             {/* message input */}
             <div className="w-full bottom-0 left-0 right-0  bg-white px-12 p-5 flex flex-row items-center fixed">
-                        <button
+                        {/* <button
                             onClick={async () => {
                                 if(subscription !== null && subscription.type === 'platinum'){
                                 pc = new RTCPeerConnection(server)
@@ -567,7 +567,7 @@ const MessageSingle = () => {
                         <button className="bg-zinc-200 w-[50px] h-[50px] rounded-full p-2 mx-2"
                         >
                             <img src={videocall} width={30} />
-                        </button>
+                        </button> */}
                         <textarea
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}

@@ -334,7 +334,7 @@ function Register() {
                     </Button> */}
                         <div class="flex justify-center items-center font-bold mt-2   gap-x-2">
                             <p>I'm already a member</p>
-                            <Link to="/login" className="text-2xl text-red-500">
+                            <Link to="/new-login" className="text-2xl text-red-500">
                                 Login
                             </Link>
                         </div>
