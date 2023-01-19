@@ -89,7 +89,7 @@ const CouponRegistration =() => {
 
                <div className="flex flex-row mt-2">
                <div> 
-                    <p className="font-bold">Enter Promo Coupon Code</p>
+                    <p className="font-bold">Have Coupon?</p>
                     <input required type="text" placeholder="Coupon Code" value={coupon} onChange={(e)=>setCoupon(e.target.value)} className="bg-zinc-50 ring-1 ring-slate-900/5 p-2 w-full outline-0 " />
                     <p className="font-bold">Your Name</p>
                     <input required type="text" placeholder="Your Name" value={name} onChange={(e)=>setName(e.target.value)} className="bg-zinc-50 ring-1 ring-slate-900/5 p-2 w-full outline-0 " />
@@ -243,7 +243,7 @@ const CouponRegistration =() => {
                     </Button> */}
                     <div class="flex justify-center items-center font-bold mt-2   gap-x-2">
                         <p>I'm already a member</p>
-                        <Link to="/login" className="text-2xl text-red-500">
+                        <Link to="/new-login" className="text-2xl text-red-500">
                             Login
                         </Link>
                     </div>
