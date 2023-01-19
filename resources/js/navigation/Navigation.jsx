@@ -267,9 +267,9 @@ const Navigation = ({ select }) => {
         </button>
        <img src={data.longlogo} className="w-[120px]" />
        {/* <i class="fi fi-rr-bell text-2xl"></i> */}
-       {/* {profile.first_photo === null ? <div />:<img src={`/storage/avatar/${profile.first_photo}`} className="w-[40px] h-[40px] rounded-full mr-4" onClick={()=>{
+       {profile.first_photo === null ? <div />:<img src={`/storage/avatar/${profile.first_photo}`} className="w-[40px] h-[40px] rounded-full mr-4" onClick={()=>{
         setProfilemenu(!profilemenu)
-       }} />} */}
+       }} />}
     </div>
 
 {/* mobile menu */}
