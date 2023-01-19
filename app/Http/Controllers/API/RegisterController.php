@@ -32,7 +32,8 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function forgot(Request $request){
+    public function forgot(Request $request)
+    {
         $this->validate($request, [
             'email' => 'required|email'
         ]);
@@ -41,18 +42,19 @@ class RegisterController extends Controller
 
         if ($checkIfEmailAlreadyExists !== null) {
             $token = $checkIfEmailAlreadyExists->createToken('token')->plainTextToken;
-            $index = DB::table('password_resets')->insert(['email' => $checkIfEmailAlreadyExists->email, 'token'=>$token]);
+            $index = DB::table('password_resets')->insert(['email' => $checkIfEmailAlreadyExists->email, 'token' => $token]);
 
-            if($index != null){
+            if ($index != null) {
                 return json_encode(['message' => "Reset password link sent successfully."]);
             }
         }
-     }
+    }
 
 
-     public function promo(Request $request){
+    public function promo(Request $request)
+    {
         $this->validate($request, [
-            'coupon' => 'required',
+
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'name' => 'required',
             'iam' => 'required',
@@ -60,32 +62,38 @@ class RegisterController extends Controller
             'age' => 'required',
             'password' => ['required', 'string', 'min:8'],
         ]);
-        $checkCode = Promo::where('coupon', $request->input('coupon'))->first();
-
-        if($checkCode != null){
 
 
-            $user = new User();
+        if($request->input('coupon') != null) {
+
+            $checkCode = Promo::where('coupon', $request->input('coupon'))->first();
+        }
+
+
+
+
+        $user = new User();
         $user->email = $request->email;
         $user->status = "online";
         $user->password = Hash::make($request->password);
 
-        if($user->save()){
+        if ($user->save()) {
 
-            $membership = new Membership();
-            $membership->user_id = $user->id;
-            $membership->address = "nil";
-            $membership->country = "nil";
-            $membership->state = 'nil';
-            $membership->city = 'nil';
-            $membership->zip = 'nil';
-            $membership->plan_type = "silver";
-            $membership->duration = $request->input('duration');
-            $membership->expiry = Carbon::now()->addDays($checkCode->days);
-            $membership->credit = 0;
+            if ($checkCode != null) {
+                $membership = new Membership();
+                $membership->user_id = $user->id;
+                $membership->address = "nil";
+                $membership->country = "nil";
+                $membership->state = 'nil';
+                $membership->city = 'nil';
+                $membership->zip = 'nil';
+                $membership->plan_type = "silver";
+                $membership->duration = $request->input('duration');
+                $membership->expiry = Carbon::now()->addDays($checkCode->days);
+                $membership->credit = 0;
 
-             $membership->save();
-             
+                $membership->save();
+            }
 
             $profile = new Profile();
             $profile->name = $request->name;
@@ -110,24 +118,15 @@ class RegisterController extends Controller
 
             $token = $newuser->createToken('token')->plainTextToken;
 
-           
-  
-          
-            $preferences = Preferences::where("user_id",$newuser->id)->first();
-            $profile = Profile::where("user_id",$newuser->id)->first();
-           
-              return json_encode(['user'=>$newuser, 'token' => $token,"subscription"=>$membership, "profile"=>$profile, "preference" => $preferences]);
 
- 
-             
-       
-    }else{
-        return json_encode(['message'=>"Wrong coupon code"]);
+
+
+            $preferences = Preferences::where("user_id", $newuser->id)->first();
+            $profile = Profile::where("user_id", $newuser->id)->first();
+
+            return json_encode(['user' => $newuser, 'token' => $token, "subscription" => $checkCode != null ? $membership : null, "profile" => $profile, "preference" => $preferences]);
+        }
     }
-
-}
-
-     }
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -145,22 +144,22 @@ class RegisterController extends Controller
         $user->status = "online";
         $user->password = Hash::make($request->password);
 
-        if($user->save()){
+        if ($user->save()) {
 
-            $membership = new Membership();
-            $membership->user_id = $user->id;
-            $membership->address = "nil";
-            $membership->country = "nil";
-            $membership->state = 'nil';
-            $membership->city = 'nil';
-            $membership->zip = 'nil';
-            $membership->plan_type = "silver";
-            $membership->duration = 7;
-            $membership->expiry = Carbon::now()->addDays(7);
-            $membership->credit = 0;
+            // $membership = new Membership();
+            // $membership->user_id = $user->id;
+            // $membership->address = "nil";
+            // $membership->country = "nil";
+            // $membership->state = 'nil';
+            // $membership->city = 'nil';
+            // $membership->zip = 'nil';
+            // $membership->plan_type = "silver";
+            // $membership->duration = 7;
+            // $membership->expiry = Carbon::now()->addDays(7);
+            // $membership->credit = 0;
 
-             $membership->save();
-             
+            //  $membership->save();
+
 
             $profile = new Profile();
             $profile->name = $request->name;
@@ -185,19 +184,16 @@ class RegisterController extends Controller
 
             $token = $newuser->createToken('token')->plainTextToken;
 
-           
-  
-          
 
-          
-            $preferences = Preferences::where("user_id",$newuser->id)->first();
-            $profile = Profile::where("user_id",$newuser->id)->first();
-           
-            return json_encode(['user'=>$newuser, 'token' => $token, "subscription" =>$membership, "profile"=>$profile, "preference" => $preferences]);
 
- 
 
-        } 
+
+
+            $preferences = Preferences::where("user_id", $newuser->id)->first();
+            $profile = Profile::where("user_id", $newuser->id)->first();
+
+            return json_encode(['user' => $newuser, 'token' => $token, "subscription" => null, "profile" => $profile, "preference" => $preferences]);
+        }
     }
 
     /**
