@@ -251,7 +251,7 @@ const CouponRegistration =() => {
                 </div>
 
                 <div className="hidden  md:flex flex-col flex-1 ml-12">
-                    <h1 className="font-['Inter-extrabold']  text-5xl mb-2" style={{letterSpacing:-3}}>You Are Moments Away From Meeting Singles Like These!</h1>
+                    <h1 className="font-['Inter-extrabold']  text-4xl mb-2" style={{letterSpacing:-3}}>You Are Moments Away From Meeting Singles Like These!</h1>
                    <div className="flex flex-row flex-wrap">
                    {[1,2,3,4,5,6,7,8].map((item, index)=><div style={{backgroundImage:`url(../images/avatar/avatar${item}.jpg)`,backgroundSize:'cover', width:180, height:180}} />)}
                    </div>
