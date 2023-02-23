@@ -8,6 +8,7 @@ use App\Models\Preferences;
 use App\Models\Profile;
 use App\Models\Promo;
 use App\Models\User;
+use App\Notifications\NewDBRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -145,6 +146,17 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
 
         if ($user->save()) {
+
+            $data = array();
+            $data['id'] = $user->id;
+            $data['email'] = $user->email;
+            $data['message'] = "A user with email ".$user->email." just registered";
+            // new NewDBRegistration($data);
+            // Notification::send($user, new MessageNotification($data));
+            // send notification
+            
+
+         
 
             // $membership = new Membership();
             // $membership->user_id = $user->id;

@@ -568,10 +568,10 @@ Route::middleware('auth:sanctum')->group(function () {
         $profile = Profile::where("user_id", $user->id)->first();
         $preference = Preferences::where("user_id", $user->id)->first();
         if($preference == null){
-            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(250);
+            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(15);
         
         }else{
-            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(250);
+            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(15);
         
         }
         // $matches = Profile::where('iam', $user->profile->lookingfor)->where('bodytype', $user->preferenceBodytype->type)->whereYear('birthday', ">=", $user->preferenceAge->min)->whereYear("birthday", "<=", $user->preferenceAge->max)->latest()->paginate(50);
@@ -586,11 +586,11 @@ Route::middleware('auth:sanctum')->group(function () {
         $preference = Preferences::where("user_id", $user->id)->first();
 
         if($preference == null){
-            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(250);
+            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(15);
         
         }else{
 
-            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $preference->seekingfor)->orWhere('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(250);
+            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $preference->seekingfor)->orWhere('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(15);
         }
         // $matches = Profile::where('iam', $user->profile->lookingfor)->where('bodytype', $user->preferenceBodytype->type)->whereYear('birthday', ">=", $user->preferenceAge->min)->whereYear("birthday", "<=", $user->preferenceAge->max)->latest()->paginate(50);
         $subscription = Membership::where("user_id", $user->id)->first();
@@ -603,11 +603,11 @@ Route::middleware('auth:sanctum')->group(function () {
         $profile = Profile::where("user_id", $user->id)->first();
         $preference = Preferences::where("user_id", $user->id)->first();
         if($preference == null){
-            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(250);
+            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->where('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(15);
         
         }else{
 
-            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->orWhere('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(250);
+            $matches = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $profile->lookingfor)->orWhere('profiles.favorite_movie', "LIKE", "%".$profile->favorite_movie."%"  )->where('profiles.favorite_music', "LIKE", "%".$profile->favorite_music."%"  )->where('profiles.hobbies_interest', "LIKE", "%".$profile->hobbies_interest."%"  )->with('gallery')->with('preferences')->with('likes')->inRandomOrder()->paginate(15);
         }
          // $matches = Profile::where('iam', $user->profile->lookingfor)->where('bodytype', $user->preferenceBodytype->type)->whereYear('birthday', ">=", $user->preferenceAge->min)->whereYear("birthday", "<=", $user->preferenceAge->max)->latest()->paginate(50);
         $subscription = Membership::where("user_id", $user->id)->first();
@@ -739,7 +739,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->join('preference_ages', 'preference_ages.user_id', '=', 'users.id')->join('preference_drinks', 'preference_drinks.user_id', '=', 'users.id')->join('preference_smokes', 'preference_smokes.user_id', '=', 'users.id')->join('preference_food', 'preference_food.user_id', '=', 'users.id')->join('preference_bodytypes', 'preference_bodytypes.user_id', '=', 'users.id')->join('preference_religions', 'preference_religions.user_id', '=', 'users.id')->join('preference_desired_relationships', 'preference_desired_relationships.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('religions', 'religions.user_id', '=', 'users.id')->join('hobbies','hobbies.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->join('galleries', 'galleries.user_id', '=', 'users.id')->where('users.id','!=', auth()->user()->id)->get(['users.*', 'profiles.*', 'avatars.*', 'locations.*','preference_ages.*','preference_drinks.*', 'preference_smokes.*', 'preference_food.*', 'preference_bodytypes.*', 'preference_religions.*','preference_desired_relationships.*']);
         $preferences = Preferences::where("user_id", auth()->user()->id)->first();
        
-        $explore = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $preferences->seekingfor)->where('profiles.age',">=", $preferences->age_min)->where('profiles.age',"<=", $preferences->age_max)->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
+        $explore = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $preferences->seekingfor)->where('profiles.age',">=", $preferences->age_min)->where('profiles.age',"<=", $preferences->age_max)->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(15); 
         return json_encode(['explores' => $explore, 'user' => $user]);
     });
 
@@ -748,7 +748,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         $user = User::where('users.id', auth()->user()->id)->join('profiles', 'profiles.user_id', '=', 'users.id')->join('preference_ages', 'preference_ages.user_id', '=', 'users.id')->join('preference_drinks', 'preference_drinks.user_id', '=', 'users.id')->join('preference_smokes', 'preference_smokes.user_id', '=', 'users.id')->join('preference_food', 'preference_food.user_id', '=', 'users.id')->join('preference_bodytypes', 'preference_bodytypes.user_id', '=', 'users.id')->join('preference_religions', 'preference_religions.user_id', '=', 'users.id')->join('preference_desired_relationships', 'preference_desired_relationships.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'users.id')->join('religions', 'religions.user_id', '=', 'users.id')->join('hobbies', 'hobbies.user_id', '=', 'users.id')->join('professions', 'professions.user_id', '=', 'users.id')->join('locations', 'locations.user_id', '=', 'users.id')->with('gallery')->with('likes')->first(['users.*', 'profiles.*', 'avatars.*', 'locations.*', 'preference_ages.*', 'preference_drinks.*', 'preference_smokes.*', 'preference_food.*', 'preference_bodytypes.*', 'preference_religions.*', 'preference_desired_relationships.*']);
 
-        $explore = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->input('lookingfor'))->where('profiles.age', ">=", $request->input('age_min'))->where('profiles.age', "<=", $request->input('age_max'))->where('profiles.live_in',"LIKE", "%".$request->input('from')."%")->with('preferences')->with('gallery')->with('likes')->inRandomOrder()->paginate(250);
+        $explore = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->input('lookingfor'))->where('profiles.age', ">=", $request->input('age_min'))->where('profiles.age', "<=", $request->input('age_max'))->where('profiles.live_in',"LIKE", "%".$request->input('from')."%")->with('preferences')->with('gallery')->with('likes')->inRandomOrder()->paginate(15);
 
 
         return json_encode(['explores' => $explore, 'user' => $user]);
@@ -914,9 +914,9 @@ Route::middleware('auth:sanctum')->group(function () {
         $preferences = Preferences::where("user_id", $user->id)->first();
        
         if($preferences == null){
-            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $user->lookingfor)->where('users.status', "online")->where('profiles.age',">=", $preferences->age_min)->where('profiles.age',"<=", $preferences->age_max)->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
+            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $user->lookingfor)->where('users.status', "online")->where('profiles.age',">=", $preferences->age_min)->where('profiles.age',"<=", $preferences->age_max)->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(15); 
         }else{
-            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $preferences->seekingfor)->where('users.status', "online")->where('profiles.age',">=", $preferences->age_min)->where('profiles.age',"<=", $preferences->age_max)->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
+            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $preferences->seekingfor)->where('users.status', "online")->where('profiles.age',">=", $preferences->age_min)->where('profiles.age',"<=", $preferences->age_max)->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(15); 
         }
         
         $message = Message::where("recipient", auth()->user()->id)->where("status", "sent")->get();
@@ -934,13 +934,13 @@ Route::middleware('auth:sanctum')->group(function () {
         $preferences = Preferences::where("user_id", $user->id)->first();
        
         if($request->country != "Any" && $request->state != "Any" && $request->city == "undefined"){
-            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->country."%")->where('profiles.live_in',"LIKE", "%".$request->state."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
+            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->country."%")->where('profiles.live_in',"LIKE", "%".$request->state."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(15); 
        
         }else if($request->country != "Any" && $request->state != "Any" && $request->city != "Any"){
-            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->country."%")->where('profiles.live_in',"LIKE", "%".$request->state."%")->where('profiles.live_in',"LIKE", "%".$request->city."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
+            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->country."%")->where('profiles.live_in',"LIKE", "%".$request->state."%")->where('profiles.live_in',"LIKE", "%".$request->city."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(15); 
        
         }else if($request->country != 'Any' && $request->state == 'Any' && $request->city == 'undefined'){
-            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->input('country')."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(250); 
+            $allusers = User::join('profiles', 'profiles.user_id', '=', 'users.id')->where('profiles.iam', $request->seeking)->where('profiles.age',">=", $request->age_min)->where('profiles.age',"<=", $request->age_max)->where('profiles.live_in',"LIKE", "%".$request->input('country')."%")->with('gallery')->with('likes')->with('preferences')->inRandomOrder()->paginate(15); 
        
         }
         
@@ -1029,8 +1029,8 @@ Route::get("/test", function () {
 
 Route::get('/get-all-test', function () {
 
-    $allusers = User::where('id',"!=",7435)->with('religion')->with('profession')->with('avatar')->with('profile')->with('gallery')->with('hobbies')->with('sexOrientation')->with('preferenceAge')->with('preferenceRelationship')->with('preferenceDrink')->with('preferenceFood')->with('preferenceSmoke')->with('preferenceReligion')->with('preferenceBodytype')->with('location')->paginate(250);
-    // $allusers = User::join('profiles', 'profiles.user_id','=', 'users.id')->where('profiles.iam', 'female')->join('locations', 'locations.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('preference_ages', 'preference_ages.user_id', '=', 'users.id')->with('gallery')->paginate(250)->shuffle();
+    $allusers = User::where('id',"!=",7435)->with('religion')->with('profession')->with('avatar')->with('profile')->with('gallery')->with('hobbies')->with('sexOrientation')->with('preferenceAge')->with('preferenceRelationship')->with('preferenceDrink')->with('preferenceFood')->with('preferenceSmoke')->with('preferenceReligion')->with('preferenceBodytype')->with('location')->paginate(15);
+    // $allusers = User::join('profiles', 'profiles.user_id','=', 'users.id')->where('profiles.iam', 'female')->join('locations', 'locations.user_id', '=', 'users.id')->join('avatars', 'avatars.user_id', '=', 'users.id')->join('preference_ages', 'preference_ages.user_id', '=', 'users.id')->with('gallery')->paginate(15)->shuffle();
     // $user = Profile::join('users', 'users.id', '=', 'profiles.user_id')->join('avatars', 'avatars.user_id', '=', 'profiles.user_id')->join('sexual_orientations', 'sexual_orientations.user_id', '=', 'profiles.user_id')->join('professions', 'professions.user_id', '=', 'profiles.user_id')->join('locations', 'locations.user_id', '=', 'profiles.user_id')->with('religion')->with('gallery')->with('hobbies')->with('preferenceAge')->with('preferenceSmoke')->with('preferenceDrink')->with('preferenceFood')->with('preferenceRelationship')->with('preferenceReligion')->with('preferenceBodytype')->where('users.id', auth()->user()->id)->first();
 
     $preferences = Preferences::where("user_id", auth()->user()->id)->first();

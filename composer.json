@@ -18,7 +18,9 @@
         "omnipay/paypal": "^3.0",
         "phpmailer/phpmailer": "^6.6",
         "psr/simple-cache": "^2.0",
-        "pusher/pusher-php-server": "^7.0"
+        "pusher/pusher-php-server": "^7.0",
+        "symfony/http-client": "^6.0",
+        "symfony/mailgun-mailer": "^6.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
