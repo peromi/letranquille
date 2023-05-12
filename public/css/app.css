@@ -1897,6 +1897,9 @@ video {
 .font-\[\'FredokaOne\'\] {
   font-family: 'FredokaOne';
 }
+.font-sans {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;

@@ -3,11 +3,13 @@
 use App\Events\MessageNotification;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\PromoController;
+use App\Mail\WelcomeMail;
 use App\Models\Avatar;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -123,6 +125,39 @@ Route::get("/delete-none-existing-users", function(){
 
 
 Route::resource('/promo-api', PromoController::class);
+
+Route::get('/test', function(){
+ Mail::to("fnwanna@gmail.com")->send(new WelcomeMail());
+ Mail::to("peteralagoa@gmail.com")->send(new WelcomeMail());
+ 
+
+  
+
+// $curl = curl_init();
+
+// curl_setopt_array($curl, array(
+//     CURLOPT_URL => 'https://send.api.mailtrap.io/api/send',
+//     CURLOPT_RETURNTRANSFER => true,
+//     CURLOPT_ENCODING => '',
+//     CURLOPT_MAXREDIRS => 10,
+//     CURLOPT_TIMEOUT => 0,
+//     CURLOPT_FOLLOWLOCATION => true,
+//     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//     CURLOPT_CUSTOMREQUEST => 'POST',
+//     CURLOPT_POSTFIELDS =>'{"from":{"email":"mailtrap@le-tranquille.com","name":"Mailtrap Test"},"to":[{"email":"info@le-tranquille.com"}],"subject":"You are awesome!","text":"Congrats for sending test email with Mailtrap!","category":"Integration Test"}',
+//     CURLOPT_HTTPHEADER => array(
+//         'Authorization: Bearer 09a37720ec818ed5ba258ff1d18a73d3',
+//         'Content-Type: application/json'
+//     ),
+// ));
+
+// $response = curl_exec($curl);
+
+// curl_close($curl);
+// echo $response;
+    // return view('test');
+    return "send email";
+});
 
 
 
