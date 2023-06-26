@@ -33,11 +33,12 @@
     
    
     <div id="root">
-        <div style="background:url({{asset('images/loveback.jpg')}}); background-size:cover; background-position:center; position:fixed; top:0; left:0; right:0; bottom:0">
+        {{-- <div style="background:url({{asset('images/loveback.jpg')}}); background-size:cover; background-position:center; position:fixed; top:0; left:0; right:0; bottom:0"> --}}
+        <div class="bg-rose-500" style=" background-size:cover; background-position:center; position:fixed; top:0; left:0; right:0; bottom:0">
             <div style="background:rgba(160, 12, 12, 0.6)" class="flex flex-col fixed left-0 top-0 right-0 bottom-0 justify-center items-center font-bold">
-                <img class="md:w-[120px] animate__animated animate__pulse animate__infinite	infinite animate__fast" style="filter: brightness(0) invert(1)" src="{{asset('/images/logo.png')}}" />
+                {{-- <img class="md:w-[120px] animate__animated animate__pulse animate__infinite	infinite animate__fast" style="filter: brightness(0) invert(1)" src="{{asset('/images/logo.png')}}" /> --}}
                 <h1 class="text-2xl md:text-4xl font-black tracking-tighter text-white animate__animated animate__pulse animate__infinite	infinite">Le-Tranquille.</h1>
-                <p class="text-yellow-400 tracking-tighter">Loading please wait...</p>
+                <p class="text-white tracking-tighter mt-4 mb-2">Loading please wait...</p>
    
 
    <div class="sk-chase">

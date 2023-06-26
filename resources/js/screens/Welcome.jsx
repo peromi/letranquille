@@ -5,48 +5,59 @@ import { data } from "../constants";
 import level1 from "../assets/images/level1.png";
 import level2 from "../assets/images/level2.png";
 import level3 from "../assets/images/level3.png";
+import bgg from "../assets/images/01.png";
+import b1 from "../assets/images/01b.png";
+import b2 from "../assets/images/02.png";
+import b3 from "../assets/images/03.png"; 
+import coo from "../assets/images/coo.jpg"; 
 import logo from "../assets/images/logo.png";
 import chat from "../assets/images/chat.png";
 import ls from "localstorage-slim";
 import countrycurrency from "../assets/json/country-currancy.json";
 import timezone from "../assets/json/timezone.json";
-import {useSelector, useDispatch} from "react-redux"
-import {actions} from "../store/userSlice"
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../store/userSlice";
+
+
+
+
+
+ 
+
 
 const REG_STEPS = "stepper";
 const USERDB = "dao";
 function Welcome() {
-    const user = useSelector((state)=>state.user.user);
+    const user = useSelector((state) => state.user.user);
 
-
-    const dispatch = useDispatch()
-    const addNewUser = (user) =>{
-        dispatch(actions.addUser(user))
-    }
-    const addNewPreference = (pref) =>{
-        dispatch(actions.addPreferences(pref))
-    }
-    const addNewProfile = (prof) =>{
-        dispatch(actions.addProfile(prof))
-    }
-    const addNewToken = (token) =>{
-        dispatch(actions.addToken(token))
-    }
-    const addNewSubscription = (subscribe) =>{
-        dispatch(actions.addSubscription(subscribe))
-    }
+    const dispatch = useDispatch();
+    const addNewUser = (user) => {
+        dispatch(actions.addUser(user));
+    };
+    const addNewPreference = (pref) => {
+        dispatch(actions.addPreferences(pref));
+    };
+    const addNewProfile = (prof) => {
+        dispatch(actions.addProfile(prof));
+    };
+    const addNewToken = (token) => {
+        dispatch(actions.addToken(token));
+    };
+    const addNewSubscription = (subscribe) => {
+        dispatch(actions.addSubscription(subscribe));
+    };
 
     const navigate = useNavigate();
     const [showmenu, setShowmenu] = React.useState(false);
     let year = new Date().getFullYear();
 
-    
-    React.useEffect(() => {
+    var slides = []
 
-        addNewUser(null)
-        addNewProfile(null)
-        addNewPreference(null)
-        addNewToken(null)
+    React.useEffect(() => {
+        addNewUser(null);
+        addNewProfile(null);
+        addNewPreference(null);
+        addNewToken(null);
         addNewSubscription(null);
 
         let timez = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -59,40 +70,34 @@ function Welcome() {
             (country) => country.name === getcountry
         );
 
-
-       
-        ls.set("country", fullcountry.currency, {encrypt:true})
-       
-        const script = document.createElement('script');
-      
-        script.src = "//code.tidio.co/pobhvmnpeedkipkjry5ua9i5dkdjmxsd.js";
-        script.async = true;
-      
-        document.body.appendChild(script);
-
-
-      
-        return () => {
-          document.body.removeChild(script);
+        for(let i=1;i<50;i++) {
+            slides.push(i)
         }
 
+        ls.set("country", fullcountry.currency, { encrypt: true });
 
-        
-      
+        const script = document.createElement("script");
 
-       
-      }, []);
+        script.src = "//code.tidio.co/pobhvmnpeedkipkjry5ua9i5dkdjmxsd.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
     return (
         <div>
             <div className="relative">
                 <div
-                    className="flex justify-between bg-red-800 h-[68px] fixed items-center right-0 left-0 px-3 "
+                    className="flex justify-around item-center  bg-rose-600  h-[85px]  px-3 pt-8"
                     style={{ zIndex: 9999999 }}
                 >
-                    <div className="w-[120px]">
+                    <div  >
                         <img
                             src={data.longlogo}
-                            style={{ filter: "brightness(0) invert(1)" }}
+                            style={{ filter: "brightness(0) invert(1)" }} width={120}
                         />
                     </div>
 
@@ -115,7 +120,10 @@ function Welcome() {
                     </ul>
 
                     <div class="hidden text-md md:flex gap-4 text-white ">
-                        <Link className="hover:text-yellow-200" to="/new-register">
+                        <Link
+                            className="hover:text-yellow-200"
+                            to="/new-register"
+                        >
                             Register
                         </Link>
                         <Link className="hover:text-yellow-200" to="/new-login">
@@ -137,7 +145,7 @@ function Welcome() {
                 </div>
                 {/* Mobile navigation */}
                 {showmenu && (
-                    <div className="flex flex-col fixed md:hidden left-0 right-0 top-0 bg-red-800 h-[100%] z-50">
+                    <div className="flex flex-col fixed md:hidden left-0 right-0 top-0 bg-[#29292B] h-[100%] z-50">
                         <div className="mt-[80px] flex flex-col justify-start items-center flex-1 ">
                             <ul className=" flex flex-col items-center gap-y-3 text-white text-2xl  ">
                                 <Link to="/">Home</Link>
@@ -154,79 +162,106 @@ function Welcome() {
                         </div>
                     </div>
                 )}
-                <div class="pt-[80px] md:pt-[45px] bg-red-800 px-3 pb-3  h-[600px] overflow-hidden ">
-                    <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
-                        <div class="text-white flex pt-20 flex-col ">
-                            <div className="flex flex-col">
-                                <h1
-                                    className="md:text-6xl lg:text-5xl text-4xl font-black tracking-tighter"
-                                    style={{}}
-                                >
-                                    Make the First move and find the love of
-                                    your life
-                                </h1>
-                                <p className="  text-xl mt-2 md:w-3/4 ">
-                                    Start meeting new People with matching
-                                    personalities around you with{" "}
-                                    <span>Le tranquille Dating.</span>
-                                </p>
-                                <Link
-                                    to="/new-register"
-                                    className="hover:bg-white bg-yellow-300 mb-2 p-3 rounded-md mt-[45px] md:w-1/2 text-center text-black font-bold"
-                                >
-                                    Start your Lovely Journey now{"  "}
-                                    <span class="fi-rr-user-add ml-2"></span>
-                                </Link>
-                            </div>
-
-                            <div>
-                                <p>Follow us on</p>
-                                <ul className="flex gap-4">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fi fi-brands-instagram text-2xl"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fi fi-brands-facebook text-2xl"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com/LeTranquille2" target="blank">
-                                            <i class="fi fi-brands-twitter text-2xl"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="pt-[80px] md:pt-[45px]  px-3 pb-3   bg-rose-600 flex flex-row overflow-hidden justify-center items-center">
+                    <div class="text-white flex pt-20 flex-col max-w-[600px] md:w-full">
+                        <div className="flex flex-col">
+                            <h1
+                                className="md:text-6xl lg:text-5xl text-4xl font-black tracking-tighter"
+                                style={{}}
+                            >
+                                Make the First move and find the love of your
+                                life
+                            </h1>
+                            <p className="  text-xl mt-2 md:w-3/4 ">
+                                Start meeting new People with matching
+                                personalities around you with{" "}
+                                <span>Le tranquille Dating.</span>
+                            </p>
+                            <Link
+                                to="/new-register"
+                                className="hover:bg-white bg-yellow-300 mb-2 p-3 rounded-md mt-[45px] md:w-1/2 text-center text-black font-bold"
+                            >
+                                Sign Up
+                                <span class="fi-rr-user-add ml-2"></span>
+                            </Link>
                         </div>
 
-                        <ul className="md:grid grid-cols-3 gap-3 hidden rotate-12">
-                            {[1, 2, 3, 4, 5, 6, 7,8].map(
-                                (p, index) => (
-                                    <li
-                                        key={index}
-                                        className="ring-1 bg-white p-2 rounded-md"
+                        <div>
+                            <p>Follow us on</p>
+                            <ul className="flex gap-4">
+                                <li>
+                                    <a href="#">
+                                        <i class="fi fi-brands-instagram text-2xl"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fi fi-brands-facebook text-2xl"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://twitter.com/LeTranquille2"
+                                        target="blank"
                                     >
-                                        <img
-                                            src={`./images/avatar/${p}.jpg`}
-                                            alt=""
-                                        />
-                                        <div class="flex justify-center items-center gap-6 p-3 text-red-800 font-bold">
-                                            <span class=" fi-rr-cross-small"></span>
-                                            <span class=" fi-rr-heart"></span>
+                                        <i class="fi fi-brands-twitter text-2xl"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-                                            <span class="fi-rr-check"></span>
-                                        </div>
-                                    </li>
-                                )
-                            )}
-                        </ul>
+                    <div className="hidden md:flex">
+                        <img src={bgg} alt="" width={"90%"} />
                     </div>
                 </div>
             </div>
+            {/* How it works */}
+            <div className="p-20 flex flex-col justify-center items-center h-[600px]">
+                <h1
+                    className="md:text-6xl lg:text-5xl text-4xl font-black tracking-tighter"
+                    style={{}}
+                >
+                    How it works
+                </h1>
+
+                <div className="flex md:flex-row flex-col   items-center  space-x-4 justify-center ">
+                    <div className="max-w-[400px] flex flex-col items-center">
+                        <h1 className=" text-6xl font-black tracking-tighter md:text-8xl ">
+                            01
+                        </h1>
+                        <img src={b1} alt="" width={" "}   />
+                        <h3 className="font-black tracking-tighter text-2xl">
+                        Create A Profile
+                        </h3>
+                        <p className="text-center">Continua actualize ailers through robu and sertively concepze standards compliant commerce after technica sound.</p>
+                    </div>
+                    <div className="max-w-[400px] flex flex-col items-center">
+                        <h1 className=" text-6xl font-black tracking-tighter md:text-8xl">
+                            02
+                        </h1>
+                        <img src={b2} alt="" width={" "}   />
+                        <h3 className="font-black tracking-tighter text-2xl">Find Matches</h3>
+                        <p className="text-center">Continua actualize ailers through robu and sertively concepze standards compliant commerce after technica sound.</p>
+                    </div>
+                    <div className="max-w-[400px] flex flex-col items-center text-center">
+                        <h1 className=" text-6xl font-black tracking-tighter md:text-8xl">
+                            03
+                        </h1>
+                        <img src={b3} alt="" width={" "}   />
+                        <h3 className="font-black tracking-tighter text-2xl">Start Dating</h3>
+                        <p className="text-center">Continua actualize ailers through robu and sertively concepze standards compliant commerce after technica sound.</p>
+                    </div>
+                </div>
+            </div>
+            {/* love story */}
+
+           <div className="h-[400px] bg-red-400">
+                    {/* <img src={ } style={{objectFit:'contain', height:250, width:200}} />     */}
+                     
+           </div>
             {/* Matching */}
-            <div class="pt-5 pb-5">
+            {/* <div class="pt-5 pb-5">
                 <div class="w-11/12 mx-auto md:grid md:grid-cols-2 flex flex-col-reverse items-center gap-4">
                     <div className="flex flex-col">
                         <h1 className="text-4xl font-black tracking-tighter">
@@ -279,57 +314,7 @@ function Welcome() {
                 </div>
             </div>
             {/* Discovery */}
-            <div
-                class="bg-white grid md:grid-cols-2 gap-x-6 grid-cols-1 mt-5 mb-0 justify-center "
-                style={{ overflowX: "hidden" }}
-            >
-                <div class="flex flex-col justify-center  ml-[24px]">
-                    <h1 className="text-4xl   w-3/4 font-black tracking-tighter">
-                        <span className="text-red-600 font-black">Discover</span> the best
-                        Match According to your Passion and Hobbies
-                    </h1>
-                    <p>
-                    Simply signing up with Letranquille... is easy - register with your email at the top of this page, answer our personality questions and start building your very own dating profile... simple!
-                    </p>
-                </div>
 
-                <div className="relative md:h-[368px]   mt-4 md:mt-0">
-                    <ul className="flex flex-wrap space-y-3 space-x-3  items-end justify-end md:absolute right-[-54px] bottom-0">
-                        {[
-                            "Gaming",
-                            "Cooking",
-                            "Fitness",
-                            "Tv shows and Movies",
-                            "Painting & Drawing",
-                            "Hiking",
-                            "Vegan",
-                            "Dancing",
-                            "Climbing",
-                            "K-Pop",
-                            "Road Trips",
-                            "Volunteering",
-                            "Shopping",
-                            "Food",
-                            "Music",
-                            "Photography",
-                            "Comedy",
-                            "Athlete",
-                            "Sushi",
-                            "Yoga",
-                            "Hollywood",
-                            "Marvel Movies",
-                            "Netflix & Chill",
-                        ].map((item, index) => (
-                            <li
-                                key={index}
-                                className="ring-1 ring-red-600 rounded-full px-2 text-center pt-2 pb-2"
-                            >
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
             {/* Success stories */}
             {/* <div class="">
                 <h1>Success Stories</h1>

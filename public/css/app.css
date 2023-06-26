@@ -575,9 +575,6 @@ video {
 .top-\[45px\] {
   top: 45px;
 }
-.right-\[-54px\] {
-  right: -54px;
-}
 .right-\[64px\] {
   right: 64px;
 }
@@ -784,12 +781,6 @@ video {
 .mb-\[65px\] {
   margin-bottom: 65px;
 }
-.mb-0 {
-  margin-bottom: 0px;
-}
-.ml-\[24px\] {
-  margin-left: 24px;
-}
 .ml-\[12px\] {
   margin-left: 12px;
 }
@@ -798,6 +789,9 @@ video {
 }
 .mb-32 {
   margin-bottom: 8rem;
+}
+.mb-0 {
+  margin-bottom: 0px;
 }
 .mt-8 {
   margin-top: 2rem;
@@ -923,9 +917,6 @@ video {
 .h-\[24px\] {
   height: 24px;
 }
-.h-\[68px\] {
-  height: 68px;
-}
 .h-\[100\%\] {
   height: 100%;
 }
@@ -934,6 +925,9 @@ video {
 }
 .h-\[600px\] {
   height: 600px;
+}
+.h-\[400px\] {
+  height: 400px;
 }
 .h-5 {
   height: 1.25rem;
@@ -1069,9 +1063,6 @@ video {
 .w-11\/12 {
   width: 91.666667%;
 }
-.w-3\/4 {
-  width: 75%;
-}
 .w-auto {
   width: auto;
 }
@@ -1123,6 +1114,12 @@ video {
 .w-\[60px\] {
   width: 60px;
 }
+.max-w-\[600px\] {
+  max-width: 600px;
+}
+.max-w-\[400px\] {
+  max-width: 400px;
+}
 .max-w-xl {
   max-width: 36rem;
 }
@@ -1138,10 +1135,6 @@ video {
 .border-collapse {
   border-collapse: collapse;
 }
-.rotate-12 {
-  --tw-rotate: 12deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
 .rotate-45 {
   --tw-rotate: 45deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1154,9 +1147,6 @@ video {
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
@@ -1172,9 +1162,6 @@ video {
 }
 .items-start {
   align-items: flex-start;
-}
-.items-end {
-  align-items: flex-end;
 }
 .items-center {
   align-items: center;
@@ -1251,15 +1238,10 @@ video {
 .gap-y-2 {
   row-gap: 0.5rem;
 }
-.space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
-.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
-  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .divide-red-600 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
@@ -1534,9 +1516,21 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
+.bg-rose-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(225 29 72 / var(--tw-bg-opacity));
+}
+.bg-\[\#29292B\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(41 41 43 / var(--tw-bg-opacity));
+}
 .bg-yellow-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
+}
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 .bg-slate-300 {
   --tw-bg-opacity: 1;
@@ -1545,6 +1539,10 @@ video {
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+.bg-rose-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 63 94 / var(--tw-bg-opacity));
 }
 .bg-red-300 {
   --tw-bg-opacity: 1;
@@ -1606,10 +1604,6 @@ video {
 }
 .bg-slate-500\/75 {
   background-color: rgb(100 116 139 / 0.75);
-}
-.bg-red-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 .bg-slate-100 {
   --tw-bg-opacity: 1;
@@ -1686,6 +1680,9 @@ video {
 .p-6 {
   padding: 1.5rem;
 }
+.p-20 {
+  padding: 5rem;
+}
 .p-\[6px\] {
   padding: 6px;
 }
@@ -1730,10 +1727,6 @@ video {
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
-}
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 .py-1 {
   padding-top: 0.25rem;
@@ -1783,6 +1776,10 @@ video {
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
 .px-\[120px\] {
   padding-left: 120px;
   padding-right: 120px;
@@ -1831,6 +1828,9 @@ video {
 .pt-4 {
   padding-top: 1rem;
 }
+.pt-8 {
+  padding-top: 2rem;
+}
 .pt-\[80px\] {
   padding-top: 80px;
 }
@@ -1846,17 +1846,11 @@ video {
 .pb-5 {
   padding-bottom: 1.25rem;
 }
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
 .pb-16 {
   padding-bottom: 4rem;
 }
 .pl-2 {
   padding-left: 0.5rem;
-}
-.pt-8 {
-  padding-top: 2rem;
 }
 .pb-24 {
   padding-bottom: 6rem;
@@ -1869,6 +1863,9 @@ video {
 }
 .pb-48 {
   padding-bottom: 12rem;
+}
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 .pr-1 {
   padding-right: 0.25rem;
@@ -1948,12 +1945,12 @@ video {
   font-size: 3rem;
   line-height: 1;
 }
-.text-\[24px\] {
-  font-size: 24px;
-}
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
+}
+.text-\[24px\] {
+  font-size: 24px;
 }
 .text-\[34px\] {
   font-size: 34px;
@@ -2056,10 +2053,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
-.text-yellow-400 {
-  --tw-text-opacity: 1;
-  color: rgb(250 204 21 / var(--tw-text-opacity));
-}
 .text-amber-400 {
   --tw-text-opacity: 1;
   color: rgb(251 191 36 / var(--tw-text-opacity));
@@ -2128,10 +2121,6 @@ video {
 .ring-yellow-500 {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(234 179 8 / var(--tw-ring-opacity));
-}
-.ring-red-600 {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(220 38 38 / var(--tw-ring-opacity));
 }
 .ring-slate-600 {
   --tw-ring-opacity: 1;
@@ -2456,14 +2445,6 @@ body::-webkit-scrollbar-thumb{
   
   @media (min-width: 768px) {
 
-  .md\:absolute {
-    position: absolute;
-  }
-
-  .md\:mt-0 {
-    margin-top: 0px;
-  }
-
   .md\:block {
     display: block;
   }
@@ -2482,10 +2463,6 @@ body::-webkit-scrollbar-thumb{
 
   .md\:h-\[75px\] {
     height: 75px;
-  }
-
-  .md\:h-\[368px\] {
-    height: 368px;
   }
 
   .md\:h-\[154px\] {
@@ -2703,6 +2680,11 @@ body::-webkit-scrollbar-thumb{
 
   .md\:text-6xl {
     font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .md\:text-8xl {
+    font-size: 6rem;
     line-height: 1;
   }
 

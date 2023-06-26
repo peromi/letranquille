@@ -120,13 +120,16 @@ Route::post('/user-import', [ActionController::class, 'fileImport']);
 
 Route::get("/delete-none-existing-users", function(){
 
-    $avatars = Avatar::all();
+    $profiles = Profile::all();
 
-    foreach ( $avatars as $avatar ){
-        if(Storage::exists("/public/avatar/".$avatar->first_cover)){
+     
 
+    foreach ( $profiles as $profile ){
+        if(Storage::exists("/public/avatar/".$profile->first_photo)){
+           echo $profile->first_cover;
         }else{
-            User::find($avatar->user_id)->delete();
+            User::find($profile->user_id)->delete();
+            echo "Delete profile";
         }
     }
 
